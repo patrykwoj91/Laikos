@@ -1,0 +1,9 @@
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Laikos.exe
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Laikos.pdb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\obj\x86\Debug\Laikos.exe
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\obj\x86\Debug\Laikos.pdb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\grass.xnb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap.xnb

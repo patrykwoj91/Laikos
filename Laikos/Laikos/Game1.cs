@@ -17,12 +17,15 @@ namespace Laikos
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
+        GraphicsDevice device;
         SpriteBatch spriteBatch;
-
+     
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            Components.Add(new Terrain(this));
         }
 
         /// <summary>
@@ -44,10 +47,8 @@ namespace Laikos
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            device = graphics.GraphicsDevice;
         }
 
         /// <summary>
@@ -81,9 +82,7 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
 
             base.Draw(gameTime);
         }
