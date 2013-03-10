@@ -37,7 +37,7 @@ namespace Laikos
             terrain = new Terrain(this);
 
             Components.Add(camera);
-            Components.Add(terrain);
+           // Components.Add(terrain);
         }
 
         /// <summary>

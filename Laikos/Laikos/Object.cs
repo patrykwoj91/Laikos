@@ -3,47 +3,61 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SkinnedModel;
 
 namespace Laikos
 {
     class Object
     {
-        public Model Model;
-        KeyboardState oldState;
-        public Vector3 Position = Vector3.Zero; //pozycja obiektu
-        public Vector3 Velocity = Vector3.Zero;//predkosc obiektu
-        public Vector3 VelocityAdd = Vector3.Zero;
-        public float RotationAngle { get; set; } //obrot w okolo osi z (jak juz zmieni sie kamera)
+        AnimationPlayer animationPlayer;
+        Model model;
 
+        public Vector3 Position = Vector3.Zero; //position
+        public float RotationAngle { get; set; } //facingdirection
+
+         private Matrix GetWorldMatrix()
+         {
+             return
+                 Matrix.CreateScale(1) *
+                 Matrix.CreateRotationX(MathHelper.ToRadians(180)) *
+                 Matrix.CreateRotationY(RotationAngle) *
+                 Matrix.CreateRotationY(MathHelper.ToRadians(0)) *
+                 Matrix.CreateTranslation(Position);
+         }
 
         public void LoadContent(ContentManager content)
         {
-            Model = content.Load<Model>("carrot");
-            Position = Vector3.Zero;
-            Velocity = Vector3.Zero;
-            VelocityAdd = Vector3.Zero;
-            RotationAngle = 0;
+            model = content.Load<Model>("dude");
+
+            // Look up our custom skinning information.
+            SkinningData skinningData = model.Tag as SkinningData;
+
+            if (skinningData == null)
+                throw new InvalidOperationException
+                    ("This model does not contain a SkinningData tag.");
+
+            // Create an animation player, and start decoding an animation clip.
+            animationPlayer = new AnimationPlayer(skinningData);
+
+            AnimationClip clip = skinningData.AnimationClips["Take 001"];
+            animationPlayer.StartClip(clip);
         }
 
         public void Draw(Matrix view, Matrix projection)
         {
-            Matrix[] transforms = new Matrix[Model.Bones.Count];
-            Model.CopyAbsoluteBoneTransformsTo(transforms);
+            Matrix[] bones = animationPlayer.GetSkinTransforms();
 
-            // Draw the model. A model can have multiple meshes, so loop.
-            foreach (ModelMesh mesh in Model.Meshes)
+            // Render the skinned mesh.
+            foreach (ModelMesh mesh in model.Meshes)
             {
-                // This is where the mesh orientation is set, as well 
-                // as our camera and projection.
-                foreach (BasicEffect effect in mesh.Effects)
-                {
-                    effect.EnableDefaultLighting();
-                    effect.World = transforms[mesh.ParentBone.Index]
-                        * Matrix.CreateRotationY(RotationAngle)
-                        * Matrix.CreateTranslation(Position);
+                foreach (SkinnedEffect effect in mesh.Effects)
+                {       
+                    effect.SetBoneTransforms(bones);
                     effect.View = view;
                     effect.Projection = projection;
+                    effect.EnableDefaultLighting();
                 }
+
                 // Draw the mesh, using the effects set above.
                 mesh.Draw();
             }
@@ -51,54 +65,34 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-             HandleInput();
 
-             VelocityAdd.X = (float)Math.Sin(RotationAngle);
-             VelocityAdd.Z = (float)Math.Cos(RotationAngle);
+             animationPlayer.Update(gameTime.ElapsedGameTime, true, GetWorldMatrix());
 
-             Velocity += VelocityAdd * 0.1f;
+             SkinningData skinningData = model.Tag as SkinningData;
 
-             Position += Velocity; //dodaje velocity
-             Velocity *= 0.95f; //velocity zmniejsz
-             if (Velocity.LengthSquared() < 0.01f)
-                Velocity = Vector3.Zero;
+             HandleInput(skinningData);
+            
         }
 
-        private void HandleInput()
+        private void HandleInput(SkinningData skinningData)
         {
-            KeyboardState newState = Keyboard.GetState();
-            //velocity on right click
-            if (newState.IsKeyDown(Keys.L))
-                RotationAngle -= 0.01f;
-            if (newState.IsKeyDown(Keys.J))
-                RotationAngle += 0.01f;
+            KeyboardState currentKeyboardState = Keyboard.GetState();
 
-            // if I'm not pressing forwards then no velocity
-            if (newState.IsKeyDown(Keys.I))
+            if (currentKeyboardState.IsKeyDown(Keys.D1))
             {
+                AnimationClip clip = skinningData.AnimationClips["greet"];
+                animationPlayer.StartClip(clip);
             }
-            else if (newState.IsKeyDown(Keys.K))
+            else if (currentKeyboardState.IsKeyDown(Keys.D2))
             {
-                VelocityAdd *= -1;
+                AnimationClip clip = skinningData.AnimationClips["stand"];
+                animationPlayer.StartClip(clip);
             }
-            else
+            else if (currentKeyboardState.IsKeyDown(Keys.D3))
             {
-                VelocityAdd = Vector3.Zero;
+                AnimationClip clip = skinningData.AnimationClips["jump"];
+                animationPlayer.StartClip(clip);
             }
-
-            oldState = newState;
-
-            // Check to see whether the Spacebar is down.
-            //    if (newState.IsKeyDown(Keys.Space))
-            //   {
-            // Key has just been pressed.
-            //   }
-            // Otherwise, check to see whether it was down before.
-            // (and therefore just released)
-            //   else if (oldState.IsKeyDown(Keys.Space))
-            //{
-            // Key has just been released.
-            //}
         }
     }
 
