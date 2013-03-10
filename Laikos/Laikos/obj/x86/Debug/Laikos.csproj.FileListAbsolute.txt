@@ -9,9 +9,6 @@ C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap.xnb
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap1.xnb
 D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb
-D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\grass.xnb
-D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap.xnb
-D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap1.xnb
 D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Laikos.exe
 D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Laikos.pdb
 D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\obj\x86\Debug\ResolveAssemblyReference.cache
@@ -63,3 +60,10 @@ C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\rock.xnb
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\sand.xnb
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\snow.xnb
+D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\grass.xnb
+D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap.xnb
+D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap1.xnb
+D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap2.xnb
+D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\rock.xnb
+D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\sand.xnb
+D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\snow.xnb
