@@ -18,20 +18,24 @@ namespace Laikos
         //Variables created to store information about camera//
         //***************************************************//
 
+        //View and projection matrix
         public Matrix viewMatrix { get; set; }
         public Matrix projectionMatrix { get; set; }
 
+        //Basic camera settings
         private float viewAngle;
         private float aspectRatio;
         private float nearPlane;
         private float farPlane;
 
+        //Camera settings used to move 
         private Vector3 cameraPosition;
         private float leftRightRot;
         private float upDownRot;
 
+        //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
-        const float moveSpeed = 30.0f;
+        const float moveSpeed = 60.0f;
 
         GraphicsDevice device;
         //*************************************************//
@@ -42,17 +46,18 @@ namespace Laikos
 
         }
 
+        //Here we initialize all our variables
         public override void Initialize()
         {
             device = Game.GraphicsDevice;
             viewAngle = MathHelper.PiOver4;
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
-            farPlane = 1000.0f;
-            cameraPosition = new Vector3(0, 200, 0);
-            leftRightRot = MathHelper.PiOver2;
-            upDownRot =  - MathHelper.Pi / 3.0f;
-            SetUpCamera();
+            farPlane = 800.0f;
+            cameraPosition = new Vector3(0, -200, 0);
+            leftRightRot = MathHelper.ToRadians(0.0f);
+            upDownRot =  MathHelper.PiOver4;
+            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
             base.Initialize();
         }
 
@@ -63,13 +68,7 @@ namespace Laikos
             base.Update(gameTime);
         }
 
-        //Setting up view and projection matrix for camera
-        private void SetUpCamera()
-        {
-            viewMatrix = Matrix.CreateLookAt(cameraPosition, Vector3.Zero, Vector3.Forward);
-            projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
-        }
-
+        //Updating viewMatrix so camera can move
         private void UpdateViewMatrix()
         {
             Matrix cameraRotation = Matrix.CreateRotationX(upDownRot) * Matrix.CreateRotationY(leftRightRot);
@@ -78,25 +77,26 @@ namespace Laikos
             Vector3 cameraRotatedTarget = Vector3.Transform(cameraOriginalTarget, cameraRotation);
             Vector3 cameraFinalTarget = cameraPosition + cameraRotatedTarget;
 
-            viewMatrix = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, Vector3.Up);
+            viewMatrix = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, Vector3.Forward);
         }
 
+        //Handling input from mouse and keyboard to move camera
         private void HandleInput(float amount)
         {
             Vector3 moveVector = new Vector3(0, 0, 0);
-            KeyboardState keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
-                moveVector += new Vector3(0, 1, -1);
-            if (keyState.IsKeyDown(Keys.Down) || keyState.IsKeyDown(Keys.S))
-                moveVector += new Vector3(0, -1, 1);
-            if (keyState.IsKeyDown(Keys.Right) || keyState.IsKeyDown(Keys.D))
-                moveVector += new Vector3(1, 0, 0);
-            if (keyState.IsKeyDown(Keys.Left) || keyState.IsKeyDown(Keys.A))
+            if (Mouse.GetState().X > 1360.0f)
                 moveVector += new Vector3(-1, 0, 0);
+            if (Mouse.GetState().X < 5.0f)
+                moveVector += new Vector3(1, 0, 0);
+            if (Mouse.GetState().Y >760.0f)
+                moveVector += new Vector3(0, 1, 1);
+            if (Mouse.GetState().Y < 5.0f)
+                moveVector += new Vector3(0, -1, -1);
+            
             AddToCameraPosition(moveVector * amount);
         }
 
-
+        //Adding vector created before to current camera position
         private void AddToCameraPosition(Vector3 vectorToAdd)
         {
             Matrix cameraRotation = Matrix.CreateRotationX(upDownRot) * Matrix.CreateRotationY(leftRightRot);
