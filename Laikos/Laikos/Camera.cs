@@ -36,8 +36,10 @@ namespace Laikos
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 60.0f;
+        private float zoomSpeed = 30.0f;
 
         GraphicsDevice device;
+        MouseState oldMouseState;
         //*************************************************//
 
         public Camera(Game game)
@@ -50,13 +52,14 @@ namespace Laikos
         public override void Initialize()
         {
             device = Game.GraphicsDevice;
+            oldMouseState = Mouse.GetState();
             viewAngle = MathHelper.PiOver4;
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(0, -400, 0);
+            cameraPosition = new Vector3(0, -200, 0);
             leftRightRot = MathHelper.ToRadians(0.0f);
-            upDownRot =  MathHelper.PiOver4;
+            upDownRot =  MathHelper.ToRadians(60.0f);
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
             base.Initialize();
         }
@@ -84,14 +87,23 @@ namespace Laikos
         private void HandleInput(float amount)
         {
             Vector3 moveVector = new Vector3(0, 0, 0);
+
+            MouseState currentMouseState = Mouse.GetState();
+            if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
+                moveVector += new Vector3(0, 0, zoomSpeed);
+            if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
+                moveVector += new Vector3(0, 0, -zoomSpeed);
+            oldMouseState = currentMouseState;
+                
+
             if (Mouse.GetState().X > 1360.0f)
-                moveVector += new Vector3(-1, 0, 0);
+                moveVector += new Vector3(-3, 0, 0);
             if (Mouse.GetState().X < 5.0f)
-                moveVector += new Vector3(1, 0, 0);
+                moveVector += new Vector3(3, 0, 0);
             if (Mouse.GetState().Y >760.0f)
-                moveVector += new Vector3(0, 1, 1);
+                moveVector += new Vector3(0, 2, 1);
             if (Mouse.GetState().Y < 5.0f)
-                moveVector += new Vector3(0, -1, -1);
+                moveVector += new Vector3(0, -2, -1);
             
             AddToCameraPosition(moveVector * amount);
         }
