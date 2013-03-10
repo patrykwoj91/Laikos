@@ -21,3 +21,6 @@ D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\obj\x86\Debug\Laik
 D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura.xnb
 D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\carrot.xnb
 D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura.xnb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\carrot.xnb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb

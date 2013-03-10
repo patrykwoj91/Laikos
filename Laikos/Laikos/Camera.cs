@@ -54,7 +54,7 @@ namespace Laikos
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(0, -200, 0);
+            cameraPosition = new Vector3(0, -400, 0);
             leftRightRot = MathHelper.ToRadians(0.0f);
             upDownRot =  MathHelper.PiOver4;
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
