@@ -1,3 +1,4 @@
 Content\effects.xnb
 Content\grass.xnb
 Content\heightmap.xnb
+Content\heightmap1.xnb

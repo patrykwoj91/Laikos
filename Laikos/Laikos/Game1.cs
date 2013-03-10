@@ -19,13 +19,24 @@ namespace Laikos
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
-     
+        Effect effect;
+        Camera camera;
+        Terrain terrain;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            Components.Add(new Terrain(this));
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.IsFullScreen = true;
+
+            camera = new Camera(this);
+            terrain = new Terrain(this);
+
+            Components.Add(camera);
+            Components.Add(terrain);
         }
 
         /// <summary>
@@ -36,8 +47,7 @@ namespace Laikos
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -49,6 +59,7 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             device = graphics.GraphicsDevice;
+            effect = Content.Load<Effect>("effects");
         }
 
         /// <summary>
@@ -83,6 +94,10 @@ namespace Laikos
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+
+            effect.Parameters["xView"].SetValue(camera.viewMatrix);
+            effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
+            effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
 
             base.Draw(gameTime);
         }

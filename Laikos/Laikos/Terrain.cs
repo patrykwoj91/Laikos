@@ -39,7 +39,7 @@ namespace Laikos
         //These variables describes parameters of terrain
         private float[,] heightData;
         private int terrainWidth;
-        private int terrainHeight;
+        private int terrainHeight; 
 
         //These variables are needed to create triangles in terrain
         private VertexPositionNormalTexture[] vertices;
@@ -52,7 +52,6 @@ namespace Laikos
         //Effects and direct link to graphics card
         private GraphicsDevice device;
         private Effect effect;
-        private Camera camera;
 
         //Textures will be loaded later to correctly render terrain
         private Texture2D grassTexture;
@@ -67,7 +66,6 @@ namespace Laikos
         public override void Initialize()
         {
             device = Game.GraphicsDevice;
-            camera = new Camera();
             base.Initialize();
         }
 
@@ -75,26 +73,15 @@ namespace Laikos
         {
             //Loading textures and effects from content
             effect = Game.Content.Load<Effect>("effects");
-            heightMap = Game.Content.Load<Texture2D>("heightmap");
+            heightMap = Game.Content.Load<Texture2D>("heightmap1");
             grassTexture = Game.Content.Load<Texture2D>("grass");
 
             //All preparations to draw terrain are loaded here
-            camera.SetUpCamera(device);
             LoadHeightData();
             SetUpVertices();
             SetUpIndices();
             CalculateNormals();
             CopyToBuffer();
-        }
-
-        protected override void UnloadContent()
-        {
-
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -107,9 +94,6 @@ namespace Laikos
 
             effect.CurrentTechnique = effect.Techniques["Textured"];
             effect.Parameters["xTexture"].SetValue(grassTexture);
-            effect.Parameters["xView"].SetValue(camera.viewMatrix);
-            effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
-            effect.Parameters["xWorld"].SetValue(SetWorldMatrix());
 
             Vector3 lightDirection = new Vector3(-0.5f, -1.0f, -0.5f);
             lightDirection.Normalize();
@@ -233,7 +217,7 @@ namespace Laikos
         }
 
         //Moving terrain to the center of the world (0, 0, 0)
-        private Matrix SetWorldMatrix()
+        public Matrix SetWorldMatrix()
         {
             Matrix worldMatrix = Matrix.CreateTranslation(-terrainWidth / 2.0f, 0, terrainHeight / 2.0f);
             return worldMatrix;

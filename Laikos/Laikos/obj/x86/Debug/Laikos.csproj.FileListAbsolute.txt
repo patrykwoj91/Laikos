@@ -7,3 +7,4 @@ C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\obj\
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\grass.xnb
 C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap.xnb
+C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap1.xnb

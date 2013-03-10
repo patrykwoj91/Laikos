@@ -28,6 +28,15 @@
       <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap.xnb</Output>
       <Time>2013-03-09T12:18:17.0506863+01:00</Time>
     </Item>
+    <Item>
+      <Source>heightmap1.jpg</Source>
+      <Name>heightmap1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap1.xnb</Output>
+      <Time>2013-03-10T13:59:41.2844425+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
