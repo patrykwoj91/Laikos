@@ -12,7 +12,7 @@ namespace Laikos
         AnimationPlayer animationPlayer;
         Model model;
 
-        public Vector3 Position = Vector3.Zero; //position
+        public Vector3 Position = new Vector3(0, 50, -150); //position
         public float RotationAngle { get; set; } //facingdirection
 
          private Matrix GetWorldMatrix()
@@ -28,10 +28,9 @@ namespace Laikos
         public void LoadContent(ContentManager content)
         {
             model = content.Load<Model>("dude");
-
             // Look up our custom skinning information.
             SkinningData skinningData = model.Tag as SkinningData;
-
+            
             if (skinningData == null)
                 throw new InvalidOperationException
                     ("This model does not contain a SkinningData tag.");
@@ -43,7 +42,7 @@ namespace Laikos
             animationPlayer.StartClip(clip);
         }
 
-        public void Draw(Matrix view, Matrix projection)
+        public void Draw(Matrix view, Matrix projection, Matrix world)
         {
             Matrix[] bones = animationPlayer.GetSkinTransforms();
 
@@ -51,7 +50,7 @@ namespace Laikos
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (SkinnedEffect effect in mesh.Effects)
-                {       
+                {
                     effect.SetBoneTransforms(bones);
                     effect.View = view;
                     effect.Projection = projection;
