@@ -7,8 +7,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2013-03-10T15:05:57.1705927+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb</Output>
+      <Time>2013-03-10T20:32:15.2274822+01:00</Time>
     </Item>
     <Item>
       <Source>grass.dds</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\grass.xnb</Output>
-      <Time>2013-03-10T15:05:57.1945941+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\grass.xnb</Output>
+      <Time>2013-03-10T20:29:13.1040653+01:00</Time>
     </Item>
     <Item>
       <Source>heightmap.bmp</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap.xnb</Output>
-      <Time>2013-03-10T15:05:57.1965942+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\heightmap.xnb</Output>
+      <Time>2013-03-10T20:29:13.1410675+01:00</Time>
     </Item>
     <Item>
       <Source>heightmap1.jpg</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\heightmap1.xnb</Output>
-      <Time>2013-03-10T15:05:57.1985943+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\heightmap1.xnb</Output>
+      <Time>2013-03-10T20:29:13.1430676+01:00</Time>
     </Item>
     <Item>
       <Source>marchtextura.png</Source>
@@ -43,8 +43,44 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura.xnb</Output>
-      <Time>2010-01-30T23:03:02+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\marchtextura.xnb</Output>
+      <Time>2013-03-10T20:29:13.1840699+01:00</Time>
+    </Item>
+    <Item>
+      <Source>head.tga</Source>
+      <Name>head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\head.xnb</Output>
+      <Time>2013-03-10T20:29:13.1380673+01:00</Time>
+    </Item>
+    <Item>
+      <Source>jacket.tga</Source>
+      <Name>jacket</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\jacket.xnb</Output>
+      <Time>2013-03-10T20:29:13.1800697+01:00</Time>
+    </Item>
+    <Item>
+      <Source>pants.tga</Source>
+      <Name>pants</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\pants.xnb</Output>
+      <Time>2013-03-10T20:29:13.2230722+01:00</Time>
+    </Item>
+    <Item>
+      <Source>upBodyC.tga</Source>
+      <Name>upBodyC</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\upBodyC.xnb</Output>
+      <Time>2013-03-10T20:29:13.2570741+01:00</Time>
     </Item>
     <Item>
       <Source>carrot.fbx</Source>
@@ -52,20 +88,37 @@
       <Importer>FbxImporter</Importer>
       <Processor>SkinnedModelProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\carrot.xnb</Output>
-      <Time>2010-01-30T23:03:02+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\carrot.xnb</Output>
+      <Time>2013-03-10T20:29:13.0150603+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\carrot_0.xml</Key>
-        <Value>2013-03-10T18:44:14.2477027+01:00</Value>
+        <Value>2013-03-10T20:30:05.7000737+01:00</Value>
       </Dependency>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>dude.fbx</Source>
+      <Name>dude</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>SkinnedModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\dude.xnb</Output>
+      <Time>2013-03-10T20:29:13.0850643+01:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\dude_0.xml</Key>
+        <Value>2013-03-10T20:30:08.7082457+01:00</Value>
+      </Dependency>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\head_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\jacket_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\pants_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\upBodyC_0.xnb</Request>
     </Item>
     <Item>
       <Source>carrot.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\carrot_0.xml</Output>
-      <Time>2010-01-30T23:03:02+01:00</Time>
+      <Time>2013-03-10T20:29:13.0150603+01:00</Time>
     </Item>
     <Item>
       <Source>marchtextura.png</Source>
@@ -80,51 +133,15 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb</Output>
-      <Time>2010-01-30T23:03:02+01:00</Time>
-    </Item>
-    <Item>
-      <Source>head.tga</Source>
-      <Name>head</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\head.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
-    </Item>
-    <Item>
-      <Source>jacket.tga</Source>
-      <Name>jacket</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\jacket.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
-    </Item>
-    <Item>
-      <Source>pants.tga</Source>
-      <Name>pants</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\pants.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
-    </Item>
-    <Item>
-      <Source>upBodyC.tga</Source>
-      <Name>upBodyC</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\upBodyC.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb</Output>
+      <Time>2013-03-10T20:29:13.1840699+01:00</Time>
     </Item>
     <Item>
       <Source>dude.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\dude_0.xml</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
+      <Time>2013-03-10T20:29:13.0850643+01:00</Time>
     </Item>
     <Item>
       <Source>head.tga</Source>
@@ -139,8 +156,8 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\head_0.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\head_0.xnb</Output>
+      <Time>2013-03-10T20:29:13.1380673+01:00</Time>
     </Item>
     <Item>
       <Source>jacket.tga</Source>
@@ -155,8 +172,8 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\jacket_0.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\jacket_0.xnb</Output>
+      <Time>2013-03-10T20:29:13.1800697+01:00</Time>
     </Item>
     <Item>
       <Source>pants.tga</Source>
@@ -171,8 +188,8 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\pants_0.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\pants_0.xnb</Output>
+      <Time>2013-03-10T20:29:13.2230722+01:00</Time>
     </Item>
     <Item>
       <Source>upBodyC.tga</Source>
@@ -187,25 +204,44 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\upBodyC_0.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\upBodyC_0.xnb</Output>
+      <Time>2013-03-10T20:29:13.2570741+01:00</Time>
     </Item>
     <Item>
-      <Source>dude.fbx</Source>
-      <Name>dude</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>SkinnedModelProcessor</Processor>
+      <Source>heightmap2.jpg</Source>
+      <Name>heightmap2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\dude.xnb</Output>
-      <Time>2010-09-15T17:11:00+02:00</Time>
-      <Dependency>
-        <Key>obj\x86\Debug\dude_0.xml</Key>
-        <Value>2013-03-10T19:00:22.2740706+01:00</Value>
-      </Dependency>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\head_0.xnb</Request>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\jacket_0.xnb</Request>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\pants_0.xnb</Request>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\upBodyC_0.xnb</Request>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\heightmap2.xnb</Output>
+      <Time>2013-03-10T20:30:57.0680117+01:00</Time>
+    </Item>
+    <Item>
+      <Source>rock.dds</Source>
+      <Name>rock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\rock.xnb</Output>
+      <Time>2013-03-10T20:32:54.0847047+01:00</Time>
+    </Item>
+    <Item>
+      <Source>sand.dds</Source>
+      <Name>sand</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\sand.xnb</Output>
+      <Time>2013-03-10T20:32:54.0767043+01:00</Time>
+    </Item>
+    <Item>
+      <Source>snow.dds</Source>
+      <Name>snow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\snow.xnb</Output>
+      <Time>2013-03-10T20:32:54.0807045+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -213,15 +249,15 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\LaikosContent\</RootDirectory>
-      <LoggerRootDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\LaikosContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\LaikosContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\LaikosContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
-        <Key>D:\Documents\Visual Studio 2010\Projects\Laikos\SkinnedModelPipeline\bin\x86\Debug\SkinnedModelPipeline.dll</Key>
-        <Value>2013-03-10T18:44:13.1036373+01:00</Value>
+        <Key>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\SkinnedModelPipeline\bin\x86\Debug\SkinnedModelPipeline.dll</Key>
+        <Value>2013-03-10T20:30:04.1729863+01:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
@@ -249,7 +285,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2013-02-26T14:25:15.1258857+01:00</Value>
+        <Value>2013-02-26T20:35:00.8355287+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
