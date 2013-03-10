@@ -94,10 +94,8 @@ namespace Laikos
 
         public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-
             RasterizerState rs = new RasterizerState();
-            //rs.CullMode = CullMode.None;
+            rs.CullMode = CullMode.None;
             device.RasterizerState = rs;
 
             effect.CurrentTechnique = effect.Techniques["MultiTextured"];
