@@ -128,7 +128,7 @@
       <Time>2013-03-10T22:16:43.2109017+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\carrot_0.xml</Key>
-        <Value>2013-03-10T22:47:57.6991163+01:00</Value>
+        <Value>2013-03-11T00:19:28.0501464+01:00</Value>
       </Dependency>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb</Request>
     </Item>
@@ -142,7 +142,7 @@
       <Time>2013-03-10T22:16:43.2819057+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\dude_0.xml</Key>
-        <Value>2013-03-10T22:48:00.9113+01:00</Value>
+        <Value>2013-03-11T00:19:31.0823198+01:00</Value>
       </Dependency>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\head_0.xnb</Request>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\jacket_0.xnb</Request>
@@ -257,7 +257,7 @@
     <Assemblies>
       <Assembly>
         <Key>D:\Documents\Visual Studio 2010\Projects\Laikos\SkinnedModelPipeline\bin\x86\Debug\SkinnedModelPipeline.dll</Key>
-        <Value>2013-03-10T22:47:55.6169972+01:00</Value>
+        <Value>2013-03-11T00:19:26.5680616+01:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>

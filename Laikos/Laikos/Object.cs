@@ -12,7 +12,7 @@ namespace Laikos
         AnimationPlayer animationPlayer;
         Model model;
 
-        public Vector3 Position = new Vector3(0, 50, -150); //position
+        public Vector3 Position = new Vector3(300, 0, -300); //position
         public float RotationAngle { get; set; } //facingdirection
 
          private Matrix GetWorldMatrix()
