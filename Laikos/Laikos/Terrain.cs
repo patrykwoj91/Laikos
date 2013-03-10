@@ -79,11 +79,11 @@ namespace Laikos
         {
             //Loading textures and effects from content
             effect = Game.Content.Load<Effect>("effects");
-            heightMap = Game.Content.Load<Texture2D>("heightmap2");
-            grassTexture = Game.Content.Load<Texture2D>("grass");
-            sandTexture = Game.Content.Load<Texture2D>("sand");
-            snowTexture = Game.Content.Load<Texture2D>("snow");
-            rockTexture = Game.Content.Load<Texture2D>("rock");
+            heightMap = Game.Content.Load<Texture2D>("Textures/Terrain/Heightmaps/heightmap2");
+            grassTexture = Game.Content.Load<Texture2D>("Textures/Terrain/Textures/grass");
+            sandTexture = Game.Content.Load<Texture2D>("Textures/Terrain/Textures/sand");
+            snowTexture = Game.Content.Load<Texture2D>("Textures/Terrain/Textures/snow");
+            rockTexture = Game.Content.Load<Texture2D>("Textures/Terrain/Textures/rock");
             //All preparations to draw terrain are loaded here
             LoadHeightData();
             SetUpVertices();

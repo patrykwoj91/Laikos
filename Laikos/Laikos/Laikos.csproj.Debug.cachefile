@@ -1,7 +1,4 @@
 Content\effects.xnb
-Content\grass.xnb
-Content\heightmap.xnb
-Content\heightmap1.xnb
 Content\marchtextura.xnb
 Content\head.xnb
 Content\jacket.xnb
@@ -14,8 +11,10 @@ Content\head_0.xnb
 Content\jacket_0.xnb
 Content\pants_0.xnb
 Content\upBodyC_0.xnb
-Content\heightmap2.xnb
-Content\rock.xnb
-Content\sand.xnb
-Content\snow.xnb
-Content\rock1.xnb
+Content\Textures\Terrain\Textures\grass.xnb
+Content\Textures\Terrain\Heightmaps\heightmap.xnb
+Content\Textures\Terrain\Heightmaps\heightmap1.xnb
+Content\Textures\Terrain\Heightmaps\heightmap2.xnb
+Content\Textures\Terrain\Textures\rock.xnb
+Content\Textures\Terrain\Textures\sand.xnb
+Content\Textures\Terrain\Textures\snow.xnb

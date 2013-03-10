@@ -47,21 +47,21 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="grass.dds">
+    <Compile Include="Textures\Terrain\Textures\grass.dds">
       <Name>grass</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="heightmap.bmp">
+    <Compile Include="Textures\Terrain\Heightmaps\heightmap.bmp">
       <Name>heightmap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="heightmap1.jpg">
+    <Compile Include="Textures\Terrain\Heightmaps\heightmap1.jpg">
       <Name>heightmap1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -84,7 +84,6 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="test_dude\" />
-    <Folder Include="Textures\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SkinnedModelPipeline\SkinnedModelPipeline.csproj">
@@ -122,24 +121,24 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="heightmap2.jpg">
+    <Compile Include="Textures\Terrain\Heightmaps\heightmap2.jpg">
       <Name>heightmap2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="rock.dds">
+    <Compile Include="Textures\Terrain\Textures\rock.dds">
       <Name>rock</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sand.dds">
+    <Compile Include="Textures\Terrain\Textures\sand.dds">
       <Name>sand</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="snow.dds">
+    <Compile Include="Textures\Terrain\Textures\snow.dds">
       <Name>snow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
