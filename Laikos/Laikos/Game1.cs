@@ -22,6 +22,7 @@ namespace Laikos
         Effect effect;
         Camera camera;
         Terrain terrain;
+        Object obj;
 
         public Game1()
         {
@@ -48,6 +49,7 @@ namespace Laikos
         protected override void Initialize()
         {
             this.IsMouseVisible = true;
+            obj = new Object();
             base.Initialize();
         }
 
@@ -60,6 +62,7 @@ namespace Laikos
             spriteBatch = new SpriteBatch(GraphicsDevice);
             device = graphics.GraphicsDevice;
             effect = Content.Load<Effect>("effects");
+            obj.LoadContent(Content);
         }
 
         /// <summary>
@@ -83,7 +86,7 @@ namespace Laikos
                 this.Exit();
 
             // TODO: Add your update logic here
-
+            obj.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -98,7 +101,7 @@ namespace Laikos
             effect.Parameters["xView"].SetValue(camera.viewMatrix);
             effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
             effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
-
+            obj.Draw(camera.viewMatrix, camera.projectionMatrix);
             base.Draw(gameTime);
         }
     }
