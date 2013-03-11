@@ -11,6 +11,33 @@
       <Time>2013-03-10T20:32:15.2274822+01:00</Time>
     </Item>
     <Item>
+      <Source>Textures\Terrain\Textures\grass.dds</Source>
+      <Name>Textures\Terrain\Textures\grass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\grass.xnb</Output>
+      <Time>2013-03-10T20:29:13.1040653+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Terrain\Heightmaps\heightmap.bmp</Source>
+      <Name>Textures\Terrain\Heightmaps\heightmap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap.xnb</Output>
+      <Time>2013-03-10T20:29:13.1410675+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Terrain\Heightmaps\heightmap1.jpg</Source>
+      <Name>Textures\Terrain\Heightmaps\heightmap1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap1.xnb</Output>
+      <Time>2013-03-10T20:29:13.1430676+01:00</Time>
+    </Item>
+    <Item>
       <Source>marchtextura.png</Source>
       <Name>marchtextura</Name>
       <Importer>TextureImporter</Importer>
@@ -56,6 +83,42 @@
       <Time>2013-03-10T20:29:13.2570741+01:00</Time>
     </Item>
     <Item>
+      <Source>Textures\Terrain\Heightmaps\heightmap2.jpg</Source>
+      <Name>Textures\Terrain\Heightmaps\heightmap2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap2.xnb</Output>
+      <Time>2013-03-10T20:30:57.0680117+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Terrain\Textures\rock.dds</Source>
+      <Name>Textures\Terrain\Textures\rock</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\rock.xnb</Output>
+      <Time>2013-03-10T20:32:54.0847047+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Terrain\Textures\sand.dds</Source>
+      <Name>Textures\Terrain\Textures\sand</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\sand.xnb</Output>
+      <Time>2013-03-10T20:32:54.0767043+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Textures\Terrain\Textures\snow.dds</Source>
+      <Name>Textures\Terrain\Textures\snow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\snow.xnb</Output>
+      <Time>2013-03-10T20:32:54.0807045+01:00</Time>
+    </Item>
+    <Item>
       <Source>carrot.fbx</Source>
       <Name>carrot</Name>
       <Importer>FbxImporter</Importer>
@@ -65,7 +128,7 @@
       <Time>2013-03-10T20:29:13.0150603+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\carrot_0.xml</Key>
-        <Value>2013-03-10T20:30:05.7000737+01:00</Value>
+        <Value>2013-03-11T11:19:27.0386461+01:00</Value>
       </Dependency>
       <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\marchtextura_0.xnb</Request>
     </Item>
@@ -79,7 +142,7 @@
       <Time>2013-03-10T20:29:13.0850643+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\dude_0.xml</Key>
-        <Value>2013-03-10T20:30:08.7082457+01:00</Value>
+        <Value>2013-03-11T11:19:29.9548129+01:00</Value>
       </Dependency>
       <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\head_0.xnb</Request>
       <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\jacket_0.xnb</Request>
@@ -179,69 +242,6 @@
       <Options>None</Options>
       <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\upBodyC_0.xnb</Output>
       <Time>2013-03-10T20:29:13.2570741+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Terrain\Textures\grass.dds</Source>
-      <Name>Textures\Terrain\Textures\grass</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\grass.xnb</Output>
-      <Time>2013-03-10T20:29:13.1040653+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Terrain\Heightmaps\heightmap.bmp</Source>
-      <Name>Textures\Terrain\Heightmaps\heightmap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap.xnb</Output>
-      <Time>2013-03-10T20:29:13.1410675+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Terrain\Heightmaps\heightmap1.jpg</Source>
-      <Name>Textures\Terrain\Heightmaps\heightmap1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap1.xnb</Output>
-      <Time>2013-03-10T20:29:13.1430676+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Terrain\Heightmaps\heightmap2.jpg</Source>
-      <Name>Textures\Terrain\Heightmaps\heightmap2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Heightmaps\heightmap2.xnb</Output>
-      <Time>2013-03-10T20:30:57.0680117+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Terrain\Textures\rock.dds</Source>
-      <Name>Textures\Terrain\Textures\rock</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\rock.xnb</Output>
-      <Time>2013-03-10T20:32:54.0847047+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Terrain\Textures\sand.dds</Source>
-      <Name>Textures\Terrain\Textures\sand</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\sand.xnb</Output>
-      <Time>2013-03-10T20:32:54.0767043+01:00</Time>
-    </Item>
-    <Item>
-      <Source>Textures\Terrain\Textures\snow.dds</Source>
-      <Name>Textures\Terrain\Textures\snow</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Textures\Terrain\Textures\snow.xnb</Output>
-      <Time>2013-03-10T20:32:54.0807045+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
