@@ -64,7 +64,7 @@ namespace Laikos
             
             //adds soldier_model and ask renderer to render it
             //caly ten kod bedzie potem w klasie specjalistycznej danego obiektu 
-            Model soldier_model = Content.Load<Model>("dude");
+            Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
             soldier = new ModelRenderer(soldier_model);
             soldier.Position = new Vector3(300,0,-300);//Move it to the centre
             soldier.Rotation = new Vector3(MathHelper.ToRadians(180), 0, MathHelper.ToRadians(0));

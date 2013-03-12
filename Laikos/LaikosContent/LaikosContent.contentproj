@@ -47,44 +47,27 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Terrain\Textures\grass.dds">
+    <Compile Include="Models\Terrain\Textures\grass.dds">
       <Name>grass</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Terrain\Heightmaps\heightmap.bmp">
+    <Compile Include="Models\Terrain\Heightmaps\heightmap.bmp">
       <Name>heightmap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Terrain\Heightmaps\heightmap1.jpg">
+    <Compile Include="Models\Terrain\Heightmaps\heightmap1.jpg">
       <Name>heightmap1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="marchtextura.png">
-      <Name>marchtextura</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="carrot.fbx">
-      <Name>carrot</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>SkinnedModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="test_dude\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\SkinnedModelPipeline\SkinnedModelPipeline.csproj">
       <Project>{4636C7E1-B845-4B83-B96D-64A11B8A4515}</Project>
@@ -92,53 +75,53 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dude.fbx">
+    <Compile Include="Models\Test_model\dude.fbx">
       <Name>dude</Name>
       <Importer>FbxImporter</Importer>
       <Processor>SkinnedModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="head.tga">
+    <Compile Include="Models\Test_model\head.tga">
       <Name>head</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="jacket.tga">
+    <Compile Include="Models\Test_model\jacket.tga">
       <Name>jacket</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="pants.tga">
+    <Compile Include="Models\Test_model\pants.tga">
       <Name>pants</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="upBodyC.tga">
+    <Compile Include="Models\Test_model\upBodyC.tga">
       <Name>upBodyC</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Terrain\Heightmaps\heightmap2.jpg">
+    <Compile Include="Models\Terrain\Heightmaps\heightmap2.jpg">
       <Name>heightmap2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Textures\Terrain\Textures\rock.dds">
+    <Compile Include="Models\Terrain\Textures\rock.dds">
       <Name>rock</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Terrain\Textures\sand.dds">
+    <Compile Include="Models\Terrain\Textures\sand.dds">
       <Name>sand</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Textures\Terrain\Textures\snow.dds">
+    <Compile Include="Models\Terrain\Textures\snow.dds">
       <Name>snow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
