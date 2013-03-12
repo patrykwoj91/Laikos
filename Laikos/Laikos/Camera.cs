@@ -36,8 +36,9 @@ namespace Laikos
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 60.0f;
-        private float zoomSpeed = 30.0f;
+        private float zoomSpeed = 130.0f;
 
+        //Variable links to hardware
         GraphicsDevice device;
         MouseState oldMouseState;
         //*************************************************//
@@ -48,26 +49,29 @@ namespace Laikos
 
         }
 
-        //Here we initialize all our variables
+        //Here we initialize all variables
         public override void Initialize()
         {
+            //Initializing hardware variables
             device = Game.GraphicsDevice;
             oldMouseState = Mouse.GetState();
+            //Initializing camera initial parameters
             viewAngle = MathHelper.PiOver4;
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(0, -200, 0);
+            cameraPosition = new Vector3(0, -200, 60);
             leftRightRot = MathHelper.ToRadians(0.0f);
-            upDownRot =  MathHelper.ToRadians(60.0f);
+            upDownRot = MathHelper.ToRadians(60.0f);
+            //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
             base.Initialize();
         }
 
         public override void Update(GameTime gameTime)
         {
-            float timeDifferene = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
-            HandleInput(timeDifferene);
+            float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
+            HandleInput(timeDifference);
             base.Update(gameTime);
         }
 
@@ -89,23 +93,34 @@ namespace Laikos
             Vector3 moveVector = new Vector3(0, 0, 0);
 
             MouseState currentMouseState = Mouse.GetState();
-            if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
-                moveVector += new Vector3(0, 0, zoomSpeed);
-            if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
-                moveVector += new Vector3(0, 0, -zoomSpeed);
-            oldMouseState = currentMouseState;
-                
-
-            if (Mouse.GetState().X > 1360.0f)
+            //if (cameraPosition.Z > 50 && cameraPosition.Z < 200)
+            {
+                //Simple zoom in
+                if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
+                    moveVector += new Vector3(0, 0, 2);
+                //Simple zoom out
+                if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
+                    moveVector += new Vector3(0, 0, -2);
+                oldMouseState = currentMouseState;
+                while (zoomSpeed > 0)
+                {
+                    AddToCameraPosition(moveVector * amount);
+                    zoomSpeed -= 1;
+                }
+                zoomSpeed = 130;
+            }
+            //Moving camera if mouse is near edge of screen
+            if (Mouse.GetState().X > 1360.0f) //right
                 moveVector += new Vector3(-3, 0, 0);
-            if (Mouse.GetState().X < 5.0f)
+            if (Mouse.GetState().X < 5.0f)    //left
                 moveVector += new Vector3(3, 0, 0);
-            if (Mouse.GetState().Y >760.0f)
+            if (Mouse.GetState().Y >760.0f)   //down
                 moveVector += new Vector3(0, 2, 1);
-            if (Mouse.GetState().Y < 5.0f)
+            if (Mouse.GetState().Y < 5.0f)    //up
                 moveVector += new Vector3(0, -2, -1);
             
-            AddToCameraPosition(moveVector * amount);
+            //add created earlier vector to camera position
+                AddToCameraPosition(moveVector * amount);
         }
 
         //Adding vector created before to current camera position
@@ -116,6 +131,5 @@ namespace Laikos
             cameraPosition += moveSpeed * rotatedVector;
             UpdateViewMatrix();
         }
-
     }
 }

@@ -95,21 +95,24 @@ namespace Laikos
         public override void Draw(GameTime gameTime)
         {
             RasterizerState rs = new RasterizerState();
-            rs.CullMode = CullMode.None;
+            //rs.CullMode = CullMode.None;
             device.RasterizerState = rs;
 
+            //Setting technique for multitexturing and setting textures
             effect.CurrentTechnique = effect.Techniques["MultiTextured"];
             effect.Parameters["xTexture0"].SetValue(sandTexture);
             effect.Parameters["xTexture1"].SetValue(grassTexture);
             effect.Parameters["xTexture2"].SetValue(rockTexture);
             effect.Parameters["xTexture3"].SetValue(snowTexture);
 
+            //Setting basic light for terrain
             Vector3 lightDirection = new Vector3(-0.5f, -1.0f, -0.5f);
             lightDirection.Normalize();
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
             effect.Parameters["xAmbient"].SetValue(0.8f);
             effect.Parameters["xEnableLighting"].SetValue(true);
 
+            //Drawing terrain
             foreach (EffectPass pass in effect.CurrentTechnique.Passes)
             {
                 pass.Apply();
@@ -133,18 +136,26 @@ namespace Laikos
             terrainWidth = heightMap.Width;
             terrainHeight = heightMap.Height;
 
+            //Getting data about colors in heightmap file
             Color[] heightMapColors = new Color[terrainWidth * terrainHeight];
             heightMap.GetData(heightMapColors);
-
+            
+            //Initializing heightData array
             heightData = new float[terrainWidth, terrainHeight];
+
+            //In this loop we are going to fill heightData 
+            //with numbers based on color of heightmap file
             for (int x = 0; x < terrainWidth; x++)
                 for (int y = 0; y < terrainHeight; y++)
                 {
+                    //Loading data based on red color 0 - white 255 -black
                     heightData[x, y] = heightMapColors[x + y * terrainWidth].R;
+                    //Setting data about maximum and minimum point in map
                     if (heightData[x, y] < minimumHeight) minimumHeight = heightData[x, y];
                     if (heightData[x, y] > maximumHeight) maximumHeight = heightData[x, y];
                 }
 
+            //In this loop we are going to make sure that every point in map is < 30
             for (int x = 0; x < terrainWidth; x++)
                 for (int y = 0; y < terrainHeight; y++)
                     heightData[x, y] = (heightData[x, y] - minimumHeight) / (maximumHeight - minimumHeight) * 30.0f;
@@ -156,19 +167,23 @@ namespace Laikos
         private void SetUpVertices()
         {
             vertices = new VertexMultiTextured[terrainWidth * terrainHeight];
+
             for (int x = 0; x < terrainWidth; x++)
             {
                 for (int y = 0; y < terrainHeight; y++)
                 {
+                    //Setting position and texturecoordinates of each vertex
                     vertices[x + y * terrainWidth].Position = new Vector3(x, -heightData[x, y], -y);
                     vertices[x + y * terrainWidth].TextureCoordinate.X = (float)x / 80.0f;
                     vertices[x + y * terrainWidth].TextureCoordinate.Y = (float)y / 80.0f;
 
+                    //Setting weights for each texture
                     vertices[x + y * terrainWidth].TexWeights.X = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 0) / 8.0f, 0, 1);
                     vertices[x + y * terrainWidth].TexWeights.Y = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 12) / 6.0f, 0, 1);
                     vertices[x + y * terrainWidth].TexWeights.Z = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 20) / 6.0f, 0, 1);
                     vertices[x + y * terrainWidth].TexWeights.W = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 30) / 6.0f, 0, 1);
 
+                    //Normalization of weights: makeing sure that in every vertex total weight of texture sums up to 1
                     float total = vertices[x + y * terrainWidth].TexWeights.X;
                     total += vertices[x + y * terrainWidth].TexWeights.Y;
                     total += vertices[x + y * terrainWidth].TexWeights.Z;
