@@ -36,17 +36,20 @@ namespace Laikos
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 60.0f;
-        private float zoomSpeed = 130.0f;
+        private float zoomSpeed = 5.0f;
+        float backBufferHeight;
+        float backBufferWidth;
 
         //Variable links to hardware
         GraphicsDevice device;
         MouseState oldMouseState;
         //*************************************************//
 
-        public Camera(Game game)
+        public Camera(Game game, GraphicsDeviceManager graphics)
             : base(game)
         {
-
+            backBufferHeight = graphics.PreferredBackBufferHeight;
+            backBufferWidth = graphics.PreferredBackBufferWidth;
         }
 
         //Here we initialize all variables
@@ -60,7 +63,7 @@ namespace Laikos
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(0, -200, 60);
+            cameraPosition = new Vector3(0, -50, 60);
             leftRightRot = MathHelper.ToRadians(0.0f);
             upDownRot = MathHelper.ToRadians(60.0f);
             //Initializing projection matrix
@@ -97,24 +100,19 @@ namespace Laikos
             {
                 //Simple zoom in
                 if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
-                    moveVector += new Vector3(0, 0, 2);
+                    moveVector += new Vector3(0, 0, -zoomSpeed);
                 //Simple zoom out
                 if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
-                    moveVector += new Vector3(0, 0, -2);
+                    moveVector += new Vector3(0, 0, zoomSpeed);
                 oldMouseState = currentMouseState;
-                while (zoomSpeed > 0)
-                {
-                    AddToCameraPosition(moveVector * amount);
-                    zoomSpeed -= 1;
-                }
-                zoomSpeed = 130;
+
             }
             //Moving camera if mouse is near edge of screen
-            if (Mouse.GetState().X > 1360.0f) //right
+            if (Mouse.GetState().X > backBufferWidth - 5.0f) //right
                 moveVector += new Vector3(-3, 0, 0);
             if (Mouse.GetState().X < 5.0f)    //left
                 moveVector += new Vector3(3, 0, 0);
-            if (Mouse.GetState().Y >760.0f)   //down
+            if (Mouse.GetState().Y > backBufferHeight - 5.0f)   //down
                 moveVector += new Vector3(0, 2, 1);
             if (Mouse.GetState().Y < 5.0f)    //up
                 moveVector += new Vector3(0, -2, -1);
