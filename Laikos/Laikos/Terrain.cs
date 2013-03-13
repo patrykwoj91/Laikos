@@ -106,7 +106,7 @@ namespace Laikos
             effect.Parameters["xTexture3"].SetValue(snowTexture);
 
             //Setting basic light for terrain
-            Vector3 lightDirection = new Vector3(-0.5f, -1.0f, -0.5f);
+            Vector3 lightDirection = new Vector3(-0.5f, 1.0f, -0.5f);
             lightDirection.Normalize();
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
             effect.Parameters["xAmbient"].SetValue(0.8f);
@@ -270,7 +270,7 @@ namespace Laikos
         //Moving terrain to the center of the world (0, 0, 0)
         public Matrix SetWorldMatrix()
         {
-            Matrix worldMatrix = Matrix.CreateTranslation(-terrainWidth / 2.0f, 0, terrainHeight / 2.0f);
+            Matrix worldMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(180)) * Matrix.CreateTranslation(0, 0, terrainHeight / 2.0f);
             return worldMatrix;
         }
 

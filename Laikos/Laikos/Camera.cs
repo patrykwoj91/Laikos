@@ -65,9 +65,9 @@ namespace Laikos
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(0, -50, 60);
+            cameraPosition = new Vector3(0, 50, 60);
             leftRightRot = MathHelper.ToRadians(0.0f);
-            upDownRot = MathHelper.ToRadians(60.0f);
+            upDownRot = MathHelper.ToRadians(-45.0f);
             //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
             base.Initialize();
@@ -112,13 +112,13 @@ namespace Laikos
             }
             //Moving camera if mouse is near edge of screen
             if (Mouse.GetState().X > backBufferWidth - 5.0f) //right
-                moveVector += new Vector3(-3, 0, 0);
-            if (Mouse.GetState().X < 5.0f)    //left
                 moveVector += new Vector3(3, 0, 0);
+            if (Mouse.GetState().X < 5.0f)    //left
+                moveVector += new Vector3(-3, 0, 0);
             if (Mouse.GetState().Y > backBufferHeight - 5.0f)   //down
-                moveVector += new Vector3(0, 2, 1);
+                moveVector += new Vector3(0, -2, 2);
             if (Mouse.GetState().Y < 5.0f)    //up
-                moveVector += new Vector3(0, -2, -1);
+                moveVector += new Vector3(0, 2, -2);
             
             //add created earlier vector to camera position
                 AddToCameraPosition(moveVector * amount);
@@ -136,10 +136,10 @@ namespace Laikos
         private void CheckCameraCollision()
         {
             float terrainHeight = terrain.GetExactHeightAt(cameraPosition.X, cameraPosition.Z);
-            if (-cameraPosition.Y < terrainHeight + zoomSpeed)
+            if (cameraPosition.Y < terrainHeight + zoomSpeed)
             {
                 Vector3 newPos = cameraPosition;
-                newPos.Y = -(terrainHeight + zoomSpeed);
+                newPos.Y = (terrainHeight + zoomSpeed);
                 cameraPosition = newPos;
             }
         }
