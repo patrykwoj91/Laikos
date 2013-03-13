@@ -36,13 +36,14 @@ namespace Laikos
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 60.0f;
-        private float zoomSpeed = 5.0f;
+        private float zoomSpeed = 30.0f;
         float backBufferHeight;
         float backBufferWidth;
 
         //Variable links to hardware
         GraphicsDevice device;
         MouseState oldMouseState;
+        Terrain terrain;
         //*************************************************//
 
         public Camera(Game game, GraphicsDeviceManager graphics)
@@ -50,6 +51,7 @@ namespace Laikos
         {
             backBufferHeight = graphics.PreferredBackBufferHeight;
             backBufferWidth = graphics.PreferredBackBufferWidth;
+            terrain = new Terrain(game);
         }
 
         //Here we initialize all variables
@@ -75,6 +77,7 @@ namespace Laikos
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
             HandleInput(timeDifference);
+            CheckCameraCollision();
             base.Update(gameTime);
         }
 
@@ -128,6 +131,17 @@ namespace Laikos
             Vector3 rotatedVector = Vector3.Transform(vectorToAdd, cameraRotation);
             cameraPosition += moveSpeed * rotatedVector;
             UpdateViewMatrix();
+        }
+
+        private void CheckCameraCollision()
+        {
+            float terrainHeight = terrain.GetExactHeightAt(cameraPosition.X, cameraPosition.Z);
+            if (-cameraPosition.Y < terrainHeight + zoomSpeed)
+            {
+                Vector3 newPos = cameraPosition;
+                newPos.Y = -(terrainHeight + zoomSpeed);
+                cameraPosition = newPos;
+            }
         }
     }
 }

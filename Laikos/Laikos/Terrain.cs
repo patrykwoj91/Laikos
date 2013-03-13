@@ -274,5 +274,45 @@ namespace Laikos
             return worldMatrix;
         }
 
+        public float GetExactHeightAt(float xCoord, float zCoord)
+        {
+            bool invalid = xCoord < 0;
+            invalid |= zCoord < 0;
+            invalid |= xCoord > terrainWidth;
+            invalid |= zCoord > terrainHeight;
+            if (invalid)
+                return 10;
+
+            int xLower = (int)xCoord;
+            int xHigher = xLower + 1;
+            float xRelative = (xCoord - xLower) / ((float)xHigher - (float)xLower);
+
+            int zLower = (int)zCoord;
+            int zHigher = zLower + 1;
+            float zRelative = (zCoord - zLower) / ((float)zHigher - (float)zLower);
+
+            float heightLxLz = heightData[xLower, zLower];
+            float heightLxHz = heightData[xLower, zHigher];
+            float heightHxLz = heightData[xHigher, zLower];
+            float heightHxHz = heightData[xHigher, zHigher];
+
+            bool pointAboveLowerTriangle = (xRelative + zRelative < 1);
+
+            float finalHeight;
+            if (pointAboveLowerTriangle)
+            {
+                finalHeight = heightLxLz;
+                finalHeight += zRelative * (heightLxHz - heightLxLz);
+                finalHeight += xRelative * (heightHxLz - heightLxLz);
+            }
+            else
+            {
+                finalHeight = heightHxHz;
+                finalHeight += (1.0f - zRelative) * (heightHxLz - heightHxHz);
+                finalHeight += (1.0f - xRelative) * (heightLxHz - heightHxHz);
+            }
+
+            return finalHeight;
+        }
     }
 }
