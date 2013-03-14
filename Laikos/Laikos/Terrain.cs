@@ -270,7 +270,7 @@ namespace Laikos
         //Moving terrain to the center of the world (0, 0, 0)
         public Matrix SetWorldMatrix()
         {
-            Matrix worldMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(180)) * Matrix.CreateTranslation(0, 0, terrainHeight / 2.0f);
+            Matrix worldMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(180)) * Matrix.CreateTranslation(terrainWidth / 2.0f, 0, terrainHeight / 2.0f);
             return worldMatrix;
         }
 
