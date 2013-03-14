@@ -36,13 +36,14 @@ namespace Laikos
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 60.0f;
-        private float zoomSpeed = 5.0f;
+        private float zoomSpeed = 30.0f;
         float backBufferHeight;
         float backBufferWidth;
 
         //Variable links to hardware
         GraphicsDevice device;
         MouseState oldMouseState;
+        Terrain terrain;
         //*************************************************//
 
         public Camera(Game game, GraphicsDeviceManager graphics)
@@ -50,6 +51,7 @@ namespace Laikos
         {
             backBufferHeight = graphics.PreferredBackBufferHeight;
             backBufferWidth = graphics.PreferredBackBufferWidth;
+            terrain = new Terrain(game);
         }
 
         //Here we initialize all variables
@@ -63,9 +65,9 @@ namespace Laikos
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(0, -50, 60);
+            cameraPosition = new Vector3(0, 50, 60);
             leftRightRot = MathHelper.ToRadians(0.0f);
-            upDownRot = MathHelper.ToRadians(60.0f);
+            upDownRot = MathHelper.ToRadians(-45.0f);
             //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
             base.Initialize();
@@ -75,6 +77,7 @@ namespace Laikos
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
             HandleInput(timeDifference);
+            CheckCameraCollision();
             base.Update(gameTime);
         }
 
@@ -109,13 +112,13 @@ namespace Laikos
             }
             //Moving camera if mouse is near edge of screen
             if (Mouse.GetState().X > backBufferWidth - 5.0f) //right
-                moveVector += new Vector3(-3, 0, 0);
-            if (Mouse.GetState().X < 5.0f)    //left
                 moveVector += new Vector3(3, 0, 0);
+            if (Mouse.GetState().X < 5.0f)    //left
+                moveVector += new Vector3(-3, 0, 0);
             if (Mouse.GetState().Y > backBufferHeight - 5.0f)   //down
-                moveVector += new Vector3(0, 2, 1);
+                moveVector += new Vector3(0, -2, 2);
             if (Mouse.GetState().Y < 5.0f)    //up
-                moveVector += new Vector3(0, -2, -1);
+                moveVector += new Vector3(0, 2, -2);
             
             //add created earlier vector to camera position
                 AddToCameraPosition(moveVector * amount);
@@ -128,6 +131,17 @@ namespace Laikos
             Vector3 rotatedVector = Vector3.Transform(vectorToAdd, cameraRotation);
             cameraPosition += moveSpeed * rotatedVector;
             UpdateViewMatrix();
+        }
+
+        private void CheckCameraCollision()
+        {
+            float terrainHeight = terrain.GetExactHeightAt(cameraPosition.X, cameraPosition.Z);
+            if (cameraPosition.Y < terrainHeight + zoomSpeed)
+            {
+                Vector3 newPos = cameraPosition;
+                newPos.Y = (terrainHeight + zoomSpeed);
+                cameraPosition = newPos;
+            }
         }
     }
 }

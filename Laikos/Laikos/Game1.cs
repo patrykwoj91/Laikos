@@ -29,7 +29,7 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1360;
+            graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = true;
 
@@ -64,9 +64,10 @@ namespace Laikos
             
             //adds soldier_model and ask renderer to render it
             //caly ten kod bedzie potem w klasie specjalistycznej danego obiektu 
-            Model soldier_model = Content.Load<Model>("dude");
+            Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
             soldier = new ModelRenderer(soldier_model);
-            soldier.Position = new Vector3(300,0,-300);//Move it to the centre
+            soldier.Scale = 0.05f;
+            soldier.Position = new Vector3(0,-20,0);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
             soldier.Rotation = new Vector3(MathHelper.ToRadians(180), 0, MathHelper.ToRadians(0));
             soldier.PlayAnimation("Take 001");//Play the default swimming animation
             //--------------------------------------------------------------------//
