@@ -67,8 +67,8 @@ namespace Laikos
             Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
             soldier = new ModelRenderer(soldier_model);
             soldier.Scale = 0.05f;
-            soldier.Position = new Vector3(0,-20,0);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
-            soldier.Rotation = new Vector3(MathHelper.ToRadians(180), 0, MathHelper.ToRadians(0));
+            soldier.Position = new Vector3(0,7,33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
+            soldier.Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
             soldier.PlayAnimation("Take 001");//Play the default swimming animation
             //--------------------------------------------------------------------//
         }
