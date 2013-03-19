@@ -19,7 +19,7 @@ namespace Laikos
         public float Scale = 1.0f; //Current scale
         SpriteFont font;
         SpriteBatch batch;
-        public ModelRenderer(Model currentModelInput, Terrain t, SpriteBatch batch, ContentManager content)
+        public ModelRenderer(Model currentModelInput, Terrain t)
         {
             currentModel = currentModelInput;
             // Look up our custom skinning information.
@@ -30,8 +30,6 @@ namespace Laikos
             // Create an animation player, and start decoding an animation clip.
             animationPlayer = new AnimationPlayer(skinningData);
             terrain = t;
-            font = content.Load<SpriteFont>("Verdana");
-            this.batch = batch;
         }
         public void Update(GameTime gameTime)
         {

@@ -111,7 +111,7 @@ namespace Laikos
             effect.Parameters["xTexture3"].SetValue(snowTexture);
 
             //Setting basic light for terrain
-            Vector3 lightDirection = new Vector3(-0.5f, 1.0f, -0.5f);
+            Vector3 lightDirection = new Vector3(0.5f, 1.0f, -1.0f);
             lightDirection.Normalize();
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
             effect.Parameters["xAmbient"].SetValue(0.8f);
