@@ -22,16 +22,17 @@ namespace Laikos
         Effect effect;
         Camera camera;
         Terrain terrain;
-        ModelRenderer soldier;
+        GameObject soldier;
+        
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 640;
+            graphics.PreferredBackBufferHeight = 480;
+            graphics.IsFullScreen = false;
 
             camera = new Camera(this, graphics);
             terrain = new Terrain(this);
@@ -63,14 +64,11 @@ namespace Laikos
             effect = Content.Load<Effect>("effects");
             
             //adds soldier_model and ask renderer to render it
-            //caly ten kod bedzie potem w klasie specjalistycznej danego obiektu 
+
+            //to sie bedzie dzialo w GameComponencie ObjectManager ktory jeszcze nie jest napisany
             Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
-            soldier = new ModelRenderer(soldier_model, terrain);
-            soldier.Scale = 0.05f;
-            soldier.Position = new Vector3(0,0,0);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
-            soldier.Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
-            soldier.PlayAnimation("Take 001");//Play the default swimming animation
-            //--------------------------------------------------------------------//
+            soldier = new GameObject(soldier_model);
+            
         }
 
         /// <summary>

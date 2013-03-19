@@ -76,7 +76,7 @@ namespace SkinnedModelPipeline
             // Chain to the base ModelProcessor class so it can convert the model data.
             ModelContent model = base.Process(input, context);
 
-            // Store our custom animation data in the Tag property of the model.
+            // Store our custom animation data in the Tag propert)y of the model.
             model.Tag = new SkinningData(animationClips, bindPose,
                                          inverseBindPose, skeletonHierarchy);
 

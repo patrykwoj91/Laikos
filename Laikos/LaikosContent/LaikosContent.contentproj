@@ -67,18 +67,17 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\SkinnedModelPipeline\SkinnedModelPipeline.csproj">
-      <Project>{4636C7E1-B845-4B83-B96D-64A11B8A4515}</Project>
-      <Name>SkinnedModelPipeline</Name>
+    <ProjectReference Include="..\..\AnimationProcessor\AnimationPipeline.csproj">
+      <Project>{6401ECED-B836-4A18-B85F-94B4577A1589}</Project>
+      <Name>AnimationPipeline</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Test_model\dude.fbx">
       <Name>dude</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>SkinnedModelProcessor</Processor>
+      <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
