@@ -14,7 +14,7 @@ namespace Laikos
 {
 
     //This structure that holds data about position, color and normal for each vertex.
-    public struct VertexMultiTextured
+    public struct VertexMultiTextured : IVertexType
     {
         public Vector3 Position;
         public Vector3 Normal;
@@ -30,6 +30,11 @@ namespace Laikos
             new VertexElement(sizeof(float) * 6, VertexElementFormat.Vector4, VertexElementUsage.TextureCoordinate, 0),
             new VertexElement(sizeof(float) * 10, VertexElementFormat.Vector4, VertexElementUsage.TextureCoordinate, 1)
         );
+
+        VertexDeclaration IVertexType.VertexDeclaration
+        {
+            get { return VertexDeclaration; }
+        }
     }
 
     class Terrain : DrawableGameComponent
@@ -158,7 +163,7 @@ namespace Laikos
             //In this loop we are going to make sure that every point in map is < 30
             for (int x = 0; x < terrainWidth; x++)
                 for (int y = 0; y < terrainHeight; y++)
-                    heightData[x, y] = (heightData[x, y] - minimumHeight) / (maximumHeight - minimumHeight) * 30.0f;
+                    heightData[x, y] = (heightData[x, y] - minimumHeight) / (maximumHeight - minimumHeight) * 60.0f;
         }
 
         //Setting up position and texture coordinates of our vertices in triangles.
@@ -173,15 +178,15 @@ namespace Laikos
                 for (int y = 0; y < terrainHeight; y++)
                 {
                     //Setting position and texturecoordinates of each vertex
-                    vertices[x + y * terrainWidth].Position = new Vector3(x, -heightData[x, y], -y);
+                    vertices[x + y * terrainWidth].Position = new Vector3(x, heightData[x, y], -y);
                     vertices[x + y * terrainWidth].TextureCoordinate.X = (float)x / 80.0f;
                     vertices[x + y * terrainWidth].TextureCoordinate.Y = (float)y / 80.0f;
 
                     //Setting weights for each texture
-                    vertices[x + y * terrainWidth].TexWeights.X = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 0) / 8.0f, 0, 1);
-                    vertices[x + y * terrainWidth].TexWeights.Y = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 12) / 6.0f, 0, 1);
-                    vertices[x + y * terrainWidth].TexWeights.Z = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 20) / 6.0f, 0, 1);
-                    vertices[x + y * terrainWidth].TexWeights.W = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 30) / 6.0f, 0, 1);
+                    vertices[x + y * terrainWidth].TexWeights.X = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 0) / 14.0f, 0, 1);
+                    vertices[x + y * terrainWidth].TexWeights.Y = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 22) / 10.0f, 0, 1);
+                    vertices[x + y * terrainWidth].TexWeights.Z = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 40) / 10.0f, 0, 1);
+                    vertices[x + y * terrainWidth].TexWeights.W = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 56) / 10.0f, 0, 1);
 
                     //Normalization of weights: makeing sure that in every vertex total weight of texture sums up to 1
                     float total = vertices[x + y * terrainWidth].TexWeights.X;
@@ -260,20 +265,21 @@ namespace Laikos
         private void CopyToBuffer()
         {
             //Allocate piece of memory on graphics card, so we can store there all of our vertices
-            vertexBuffer = new VertexBuffer(device, VertexMultiTextured.VertexDeclaration, vertices.Length, BufferUsage.WriteOnly);
+            vertexBuffer = new VertexBuffer(device, typeof(VertexMultiTextured), vertices.Length, BufferUsage.WriteOnly);
             vertexBuffer.SetData(vertices);
             //Here we are going to do the same thing with indices
             indexBuffer = new IndexBuffer(device, typeof(int), indices.Length, BufferUsage.WriteOnly);
             indexBuffer.SetData(indices);
         }
 
-        //Moving terrain to the center of the world (0, 0, 0)
+        //Moving terrain to the center of the world (0, 0, 0) and rotating it
         public Matrix SetWorldMatrix()
         {
-            Matrix worldMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(180)) * Matrix.CreateTranslation(terrainWidth / 2.0f, 0, terrainHeight / 2.0f);
+            Matrix worldMatrix = Matrix.CreateScale(1,1,-1);
             return worldMatrix;
         }
 
+        //Getting exact height at given point (x and z) returns y - height.
         public float GetExactHeightAt(float xCoord, float zCoord)
         {
             bool invalid = xCoord < 0;

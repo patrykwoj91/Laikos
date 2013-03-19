@@ -36,7 +36,7 @@ namespace Laikos
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 60.0f;
-        private float zoomSpeed = 30.0f;
+        private float zoomSpeed = 5.0f;
         float backBufferHeight;
         float backBufferWidth;
 
@@ -65,9 +65,9 @@ namespace Laikos
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(0, 50, 60);
+            cameraPosition = new Vector3(30, 150, 60);
             leftRightRot = MathHelper.ToRadians(0.0f);
-            upDownRot = MathHelper.ToRadians(-45.0f);
+            upDownRot = MathHelper.ToRadians(-45);
             //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
             base.Initialize();
@@ -80,6 +80,7 @@ namespace Laikos
             CheckCameraCollision();
             base.Update(gameTime);
         }
+
 
         //Updating viewMatrix so camera can move
         private void UpdateViewMatrix()
