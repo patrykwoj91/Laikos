@@ -7,13 +7,13 @@ using Animation;
 
 namespace Laikos
 {
-    class ObjectManager : DrawableGameComponent
+    class UnitManager : DrawableGameComponent
     {
         public List<GameObject> ObjectList;
         //dictionary z obiektami 
         //dictionary z modelami <- model z obiektem polaczony kluczem
 
-        public ObjectManager(Game game)
+        public UnitManager(Game game)
             : base(game)
         {
 
