@@ -65,10 +65,10 @@ namespace Laikos
             //adds soldier_model and ask renderer to render it
             //caly ten kod bedzie potem w klasie specjalistycznej danego obiektu 
             Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
-            soldier = new ModelRenderer(soldier_model);
+            soldier = new ModelRenderer(soldier_model, terrain, spriteBatch, Content);
             soldier.Scale = 0.05f;
-            soldier.Position = new Vector3(0,7,33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
-            soldier.Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
+            soldier.Position = new Vector3(0,0,0);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
+            soldier.Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
             soldier.PlayAnimation("Take 001");//Play the default swimming animation
             //--------------------------------------------------------------------//
         }
@@ -109,6 +109,7 @@ namespace Laikos
             effect.Parameters["xView"].SetValue(camera.viewMatrix);
             effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
             effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
+            
             soldier.Draw(camera);
             base.Draw(gameTime);
 

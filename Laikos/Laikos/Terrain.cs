@@ -14,7 +14,7 @@ namespace Laikos
 {
 
     //This structure that holds data about position, color and normal for each vertex.
-    public struct VertexMultiTextured
+    public struct VertexMultiTextured : IVertexType
     {
         public Vector3 Position;
         public Vector3 Normal;
@@ -30,6 +30,11 @@ namespace Laikos
             new VertexElement(sizeof(float) * 6, VertexElementFormat.Vector4, VertexElementUsage.TextureCoordinate, 0),
             new VertexElement(sizeof(float) * 10, VertexElementFormat.Vector4, VertexElementUsage.TextureCoordinate, 1)
         );
+
+        VertexDeclaration IVertexType.VertexDeclaration
+        {
+            get { return VertexDeclaration; }
+        }
     }
 
     class Terrain : DrawableGameComponent
@@ -173,7 +178,7 @@ namespace Laikos
                 for (int y = 0; y < terrainHeight; y++)
                 {
                     //Setting position and texturecoordinates of each vertex
-                    vertices[x + y * terrainWidth].Position = new Vector3(x, -heightData[x, y], -y);
+                    vertices[x + y * terrainWidth].Position = new Vector3(x, heightData[x, y], -y);
                     vertices[x + y * terrainWidth].TextureCoordinate.X = (float)x / 80.0f;
                     vertices[x + y * terrainWidth].TextureCoordinate.Y = (float)y / 80.0f;
 
@@ -260,7 +265,7 @@ namespace Laikos
         private void CopyToBuffer()
         {
             //Allocate piece of memory on graphics card, so we can store there all of our vertices
-            vertexBuffer = new VertexBuffer(device, VertexMultiTextured.VertexDeclaration, vertices.Length, BufferUsage.WriteOnly);
+            vertexBuffer = new VertexBuffer(device, typeof(VertexMultiTextured), vertices.Length, BufferUsage.WriteOnly);
             vertexBuffer.SetData(vertices);
             //Here we are going to do the same thing with indices
             indexBuffer = new IndexBuffer(device, typeof(int), indices.Length, BufferUsage.WriteOnly);
@@ -270,7 +275,7 @@ namespace Laikos
         //Moving terrain to the center of the world (0, 0, 0) and rotating it
         public Matrix SetWorldMatrix()
         {
-            Matrix worldMatrix = Matrix.CreateRotationZ(MathHelper.ToRadians(180)) * Matrix.CreateTranslation(terrainWidth / 2.0f, 0, terrainHeight / 2.0f);
+            Matrix worldMatrix = Matrix.CreateScale(1,1,-1);
             return worldMatrix;
         }
 
