@@ -45,8 +45,8 @@ namespace Laikos
 
         //These variables describes parameters of terrain
         private float[,] heightData;
-        private int terrainWidth;
-        private int terrainHeight;
+        public int terrainWidth { get; set; }
+        public int terrainHeight { get; set; }
 
         //These variables are needed to create triangles in terrain
         private VertexMultiTextured[] vertices;
@@ -84,7 +84,7 @@ namespace Laikos
         {
             //Loading textures and effects from content
             effect = Game.Content.Load<Effect>("effects");
-            heightMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap2");
+            heightMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap");
             grassTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/grass");
             sandTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/sand");
             snowTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/snow");
@@ -99,9 +99,9 @@ namespace Laikos
 
         public override void Draw(GameTime gameTime)
         {
-            RasterizerState rs = new RasterizerState();
+            //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
-            device.RasterizerState = rs;
+            //device.RasterizerState = rs;
 
             //Setting technique for multitexturing and setting textures
             effect.CurrentTechnique = effect.Techniques["MultiTextured"];
@@ -111,10 +111,10 @@ namespace Laikos
             effect.Parameters["xTexture3"].SetValue(snowTexture);
 
             //Setting basic light for terrain
-            Vector3 lightDirection = new Vector3(0.5f, 1.0f, -1.0f);
+            Vector3 lightDirection = new Vector3(-0.5f, -1.0f, -0.5f);
             lightDirection.Normalize();
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            effect.Parameters["xAmbient"].SetValue(0.8f);
+            effect.Parameters["xAmbient"].SetValue(1.0f);
             effect.Parameters["xEnableLighting"].SetValue(true);
 
             //Drawing terrain
@@ -140,7 +140,7 @@ namespace Laikos
 
             terrainWidth = heightMap.Width;
             terrainHeight = heightMap.Height;
-
+            Console.WriteLine(terrainWidth.ToString() + " " + terrainHeight.ToString());
             //Getting data about colors in heightmap file
             Color[] heightMapColors = new Color[terrainWidth * terrainHeight];
             heightMap.GetData(heightMapColors);
@@ -178,9 +178,10 @@ namespace Laikos
                 for (int y = 0; y < terrainHeight; y++)
                 {
                     //Setting position and texturecoordinates of each vertex
-                    vertices[x + y * terrainWidth].Position = new Vector3(x, heightData[x, y], -y);
+                    vertices[x + y * terrainWidth].Position = new Vector3(x, heightData[x, y], y);
                     vertices[x + y * terrainWidth].TextureCoordinate.X = (float)x / 80.0f;
                     vertices[x + y * terrainWidth].TextureCoordinate.Y = (float)y / 80.0f;
+
 
                     //Setting weights for each texture
                     vertices[x + y * terrainWidth].TexWeights.X = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 0) / 14.0f, 0, 1);

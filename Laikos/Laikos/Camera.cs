@@ -46,12 +46,12 @@ namespace Laikos
         Terrain terrain;
         //*************************************************//
 
-        public Camera(Game game, GraphicsDeviceManager graphics)
+        public Camera(Game game, GraphicsDeviceManager graphics, Terrain terrain)
             : base(game)
         {
             backBufferHeight = graphics.PreferredBackBufferHeight;
             backBufferWidth = graphics.PreferredBackBufferWidth;
-            terrain = new Terrain(game);
+            this.terrain = terrain;
         }
 
         //Here we initialize all variables
@@ -65,7 +65,7 @@ namespace Laikos
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 800.0f;
-            cameraPosition = new Vector3(30, 150, 60);
+            cameraPosition = new Vector3(100, 150, 127);
             leftRightRot = MathHelper.ToRadians(0.0f);
             upDownRot = MathHelper.ToRadians(-45);
             //Initializing projection matrix
@@ -77,7 +77,10 @@ namespace Laikos
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
             HandleInput(timeDifference);
-            CheckCameraCollision();
+            if (cameraPosition.X < terrain.terrainWidth -1 && cameraPosition.Z < terrain.terrainHeight - 1)
+            {
+                CheckCameraCollision();
+            }
             base.Update(gameTime);
         }
 
@@ -137,6 +140,7 @@ namespace Laikos
         private void CheckCameraCollision()
         {
             float terrainHeight = terrain.GetExactHeightAt(cameraPosition.X, cameraPosition.Z);
+            //Console.WriteLine("X: "+cameraPosition.X.ToString()+" Z: "+cameraPosition.Z.ToString()+" H: "+terrainHeight.ToString());
             if (cameraPosition.Y < terrainHeight + zoomSpeed)
             {
                 Vector3 newPos = cameraPosition;

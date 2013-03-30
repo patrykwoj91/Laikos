@@ -34,8 +34,8 @@ namespace Laikos
             graphics.PreferredBackBufferHeight = 480;
             graphics.IsFullScreen = false;
 
-            camera = new Camera(this, graphics);
             terrain = new Terrain(this);
+            camera = new Camera(this, graphics, terrain);
 
             Components.Add(camera);
             Components.Add(terrain);
@@ -67,7 +67,7 @@ namespace Laikos
 
             //to sie bedzie dzialo w GameComponencie ObjectManager ktory jeszcze nie jest napisany
             Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
-            soldier = new GameObject(soldier_model);
+            soldier = new GameObject(soldier_model, terrain);
             
         }
 
@@ -106,7 +106,7 @@ namespace Laikos
 
             effect.Parameters["xView"].SetValue(camera.viewMatrix);
             effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
-            effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
+            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
             
             soldier.Draw(camera);
             base.Draw(gameTime);

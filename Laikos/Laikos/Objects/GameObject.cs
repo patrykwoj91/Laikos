@@ -11,14 +11,17 @@ namespace Laikos
 {
     class GameObject : Object
     {
+        Terrain terrain;
         //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
 
-        public GameObject(Model currentModelInput)
+        public GameObject(Model currentModelInput, Terrain terrain)
             :base(currentModelInput)
         {
             //tu ustawiamy rozne cuda
-            Position = new Vector3(0, 7, 33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
+            Position = new Vector3(0, 50, 33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
+            Scale = 0.05f;
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
+            this.terrain = terrain;
             PlayAnimation("Take 001");//Play the default swimming animation
         }
 
@@ -43,6 +46,9 @@ namespace Laikos
             //    AnimationClip clip = animationData.AnimationClips["jump"];
             //    animationPlayer.StartClip(clip);
             //}
+            AddGravity();
+            HandleInput();
+            CheckCollisionWithTerrain();
 
             base.Update(gameTime);
         }
@@ -53,5 +59,44 @@ namespace Laikos
             base.Draw(camera);
         }
 
+        private void AddGravity()
+        {
+            Position.Y -= 0.1f;
+        }
+
+        private void CheckCollisionWithTerrain()
+        {
+            float terrainHeight = terrain.GetExactHeightAt(Position.X, Position.Z);
+            float x = 0.1f;
+            
+            if (Position.Y < terrainHeight + x)
+            {
+                Vector3 newPos = Position;
+                newPos.Y = (terrainHeight + x);
+                Position = newPos;
+            }
+        }
+
+        private void HandleInput()
+        {
+            KeyboardState currentKeyboardState = Keyboard.GetState();
+
+            if (currentKeyboardState.IsKeyDown(Keys.W))
+            {
+                Position.Z += 0.1f;
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.S))
+            {
+                Position.Z -= 0.1f;
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.A))
+            {
+                Position.X -= 0.1f;
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.D))
+            {
+                Position.X += 0.1f;
+            }
+        }
     }
 }
