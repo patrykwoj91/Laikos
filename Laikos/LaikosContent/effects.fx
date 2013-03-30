@@ -22,7 +22,7 @@ sampler TextureSampler = sampler_state
     texture = <xTexture>;
     magfilter = LINEAR;
     minfilter = LINEAR;
-    mipfilter=LINEAR;
+    mipfilter = LINEAR;
     AddressU = mirror;
     AddressV = mirror;
 };
@@ -33,7 +33,7 @@ sampler TextureSampler0 = sampler_state
     texture = <xTexture0> ;
     magfilter = LINEAR;
     minfilter = LINEAR;
-    mipfilter=LINEAR;
+    mipfilter = LINEAR;
     AddressU = wrap;
     AddressV = wrap;
 };
@@ -44,7 +44,7 @@ sampler TextureSampler1 = sampler_state
     texture = <xTexture1>;
     magfilter = LINEAR;
     minfilter = LINEAR;
-    mipfilter=LINEAR;
+    mipfilter = LINEAR;
     AddressU = wrap;
     AddressV = wrap;
 };
@@ -66,7 +66,7 @@ sampler TextureSampler3 = sampler_state
     texture = <xTexture3>;
     magfilter = LINEAR;
     minfilter = LINEAR;
-    mipfilter=LINEAR;
+    mipfilter = LINEAR;
     AddressU = mirror;
     AddressV = mirror;
 };

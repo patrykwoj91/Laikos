@@ -106,7 +106,7 @@ namespace Laikos
 
             effect.Parameters["xView"].SetValue(camera.viewMatrix);
             effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
-            effect.Parameters["xWorld"].SetValue(Matrix.Identity);
+            effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
             
             soldier.Draw(camera);
             base.Draw(gameTime);

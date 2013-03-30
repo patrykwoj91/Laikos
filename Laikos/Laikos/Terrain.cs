@@ -84,7 +84,7 @@ namespace Laikos
         {
             //Loading textures and effects from content
             effect = Game.Content.Load<Effect>("effects");
-            heightMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap");
+            heightMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap2");
             grassTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/grass");
             sandTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/sand");
             snowTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/snow");
@@ -111,10 +111,10 @@ namespace Laikos
             effect.Parameters["xTexture3"].SetValue(snowTexture);
 
             //Setting basic light for terrain
-            Vector3 lightDirection = new Vector3(-0.5f, -1.0f, -0.5f);
+            Vector3 lightDirection = new Vector3(1.0f, -1.0f, -1.0f);
             lightDirection.Normalize();
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            effect.Parameters["xAmbient"].SetValue(1.0f);
+            effect.Parameters["xAmbient"].SetValue(0.1f);
             effect.Parameters["xEnableLighting"].SetValue(true);
 
             //Drawing terrain
@@ -140,7 +140,6 @@ namespace Laikos
 
             terrainWidth = heightMap.Width;
             terrainHeight = heightMap.Height;
-            Console.WriteLine(terrainWidth.ToString() + " " + terrainHeight.ToString());
             //Getting data about colors in heightmap file
             Color[] heightMapColors = new Color[terrainWidth * terrainHeight];
             heightMap.GetData(heightMapColors);
@@ -160,7 +159,7 @@ namespace Laikos
                     if (heightData[x, y] > maximumHeight) maximumHeight = heightData[x, y];
                 }
 
-            //In this loop we are going to make sure that every point in map is < 30
+            //In this loop we are going to make sure that every point in map is < 60
             for (int x = 0; x < terrainWidth; x++)
                 for (int y = 0; y < terrainHeight; y++)
                     heightData[x, y] = (heightData[x, y] - minimumHeight) / (maximumHeight - minimumHeight) * 60.0f;
@@ -241,14 +240,14 @@ namespace Laikos
                 vertices[i].Normal = Vector3.Zero;
 
             //Calculating all normal for each triangle
-            for (int i = 0; i < vertices.Length; i++)
+            for (int i = 0; i < indices.Length / 3; i++)
             {
                 int index1 = indices[i * 3];
                 int index2 = indices[i * 3 + 1];
                 int index3 = indices[i * 3 + 2];
 
-                Vector3 side1 = vertices[index1].Position - vertices[index3].Position;
-                Vector3 side2 = vertices[index1].Position - vertices[index2].Position;
+                Vector3 side1 = vertices[index2].Position - vertices[index1].Position;
+                Vector3 side2 = vertices[index1].Position - vertices[index3].Position;
                 Vector3 normal = Vector3.Cross(side1, side2);
 
                 //Filling up vertices array with calculated normals
@@ -276,7 +275,7 @@ namespace Laikos
         //Moving terrain to the center of the world (0, 0, 0) and rotating it
         public Matrix SetWorldMatrix()
         {
-            Matrix worldMatrix = Matrix.CreateScale(1,1,-1);
+            Matrix worldMatrix = Matrix.Identity;
             return worldMatrix;
         }
 
