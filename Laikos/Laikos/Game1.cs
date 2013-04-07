@@ -29,17 +29,18 @@ namespace Laikos
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            device = graphics.GraphicsDevice;
+            
+
             Content.RootDirectory = "Content";
 
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
 
             terrain = new Terrain(this);
-            camera = new Camera(this, graphics, terrain);
-            units = new UnitManager(this, terrain, camera);
-            decorations = new DecorationManager(this, terrain, camera);
+            camera = new Camera(this, graphics);
+            units = new UnitManager(this);
+            decorations = new DecorationManager(this);
 
             Components.Add(camera);
             Components.Add(terrain);
@@ -66,6 +67,8 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            device = graphics.GraphicsDevice;
+
             effect = Content.Load<Effect>("effects");
             
         }
@@ -97,10 +100,10 @@ namespace Laikos
             {
                 MouseState mouse = Mouse.GetState();
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                Ray shorterRay = Collisions.LinearSearch(clippedRay, terrain);
-                Vector3 pointerPosCol = Collisions.BinarySearch(shorterRay, terrain);
+                Ray shorterRay = Collisions.LinearSearch(clippedRay);
+                Vector3 pointerPosCol = Collisions.BinarySearch(shorterRay);
                 Console.WriteLine(pointerPosCol.ToString());
             }
 
@@ -108,7 +111,7 @@ namespace Laikos
             {
                 MouseState mouse = Mouse.GetState();
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
              //   bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
              //   if (collision == false)
@@ -127,8 +130,8 @@ namespace Laikos
         {
             GraphicsDevice.Clear(Color.Black);
 
-            effect.Parameters["xView"].SetValue(camera.viewMatrix);
-            effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
+            effect.Parameters["xView"].SetValue(Camera.viewMatrix);
+            effect.Parameters["xProjection"].SetValue(Camera.projectionMatrix);
             effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
           
             base.Draw(gameTime);

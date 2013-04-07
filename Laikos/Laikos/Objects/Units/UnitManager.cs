@@ -12,14 +12,10 @@ namespace Laikos
     {
         public List<GameUnit> UnitList;
         public Dictionary<String,Model> ModelList;
-        public Terrain terrain;
-        public Camera camera;
 
-        public UnitManager(Game game, Terrain terrain, Camera camera)
+        public UnitManager(Game game)
             : base(game)
         {
-            this.camera = camera;
-            this.terrain = terrain;
             UnitList = new List<GameUnit>();
             ModelList = new Dictionary<String, Model>();
         }
@@ -36,7 +32,7 @@ namespace Laikos
             String path = "Models/Test_model/dude";
             
             ModelList.Add("dude",Game.Content.Load<Model>(path));
-            UnitList.Add(new GameUnit(ModelList["dude"], terrain));
+            UnitList.Add(new GameUnit(ModelList["dude"]));
             UnitList[0].animationPlayer.RegisteredEvents["Fire"].Add("FireFrame", new AnimationPlayer.EventCallback(GameUnit.Fire));
             
             
@@ -55,7 +51,7 @@ namespace Laikos
         {
             foreach (GameUnit unit in UnitList)
             {
-                unit.Draw(camera);
+                unit.Draw();
             }
         }
        

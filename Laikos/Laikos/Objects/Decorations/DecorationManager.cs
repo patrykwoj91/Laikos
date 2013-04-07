@@ -12,14 +12,10 @@ namespace Laikos
     {
         public List<Decoration> DecorationList;
         public Dictionary<String, Model> ModelList;
-        public Terrain terrain;
-        public Camera camera;
 
-        public DecorationManager(Game game, Terrain terrain, Camera camera)
+        public DecorationManager(Game game)
             : base(game)
         {
-            this.camera = camera;
-            this.terrain = terrain;
             ModelList = new Dictionary<String, Model>();
             DecorationList = new List<Decoration>();
         }
@@ -34,7 +30,7 @@ namespace Laikos
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
             String path = "Models/Decorations/Ruins1/Ruins";
             ModelList.Add("ruin1", Game.Content.Load<Model>(path));
-            DecorationList.Add(new Decoration(ModelList["ruin1"], terrain));
+            DecorationList.Add(new Decoration(ModelList["ruin1"]));
         }
 
         public override void Update(GameTime gameTime)
@@ -51,7 +47,7 @@ namespace Laikos
         {
             foreach (Decoration decoration in DecorationList)
             {
-                decoration.Draw(camera);
+                decoration.Draw();
             }
         }
 

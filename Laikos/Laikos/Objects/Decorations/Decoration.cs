@@ -13,8 +13,6 @@ namespace Laikos
             public float Scale = 1.0f; //Current scale
             public Model currentModel; //Model reference
 
-            Terrain terrain;
-
             private Matrix GetWorldMatrix()
             {
                 return
@@ -29,26 +27,25 @@ namespace Laikos
             {
             }
 
-            public Decoration(Model currentModelInput, Terrain terrain)
+            public Decoration(Model currentModelInput)
             {
                 currentModel = currentModelInput;
                 Position = new Vector3(30, 50, 150);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
                 Scale = 0.1f;
                 Rotation = new Vector3(MathHelper.ToRadians(-90), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
-                this.terrain = terrain;
             }
             public virtual void Update(GameTime gameTime)
             {
-                AddGravity();
-                CheckCollisionWithTerrain();
+                Collisions.AddGravity(ref Position);
+                Collisions.CheckWithTerrain(ref Position, 0.5f);
             }
-            public virtual void Draw(Camera camera)
+            public virtual void Draw()
             {
                 //Ask camera for matrix.
-                Matrix view = camera.viewMatrix;
+                Matrix view = Camera.viewMatrix;
 
                 //Ask for 3D projection for this model
-                Matrix projection = camera.projectionMatrix;
+                Matrix projection = Camera.projectionMatrix;
 
                 // Render the skinned mesh.
                 foreach (ModelMesh mesh in currentModel.Meshes)
@@ -64,25 +61,6 @@ namespace Laikos
                     mesh.Draw();
                 }
             }
-            private void AddGravity()
-            {
-                Position.Y -= 0.1f;
-            }
-
-            private void CheckCollisionWithTerrain()
-            {
-                float terrainHeight = terrain.GetExactHeightAt(Position.X, Position.Z);
-                float x = 0.1f;
-            
-                if (Position.Y < terrainHeight + x)
-                {
-                    Vector3 newPos = Position;
-                    newPos.Y = (terrainHeight + x);
-                    Position = newPos;
-                }
-            }
-
-
     }
     
 }
