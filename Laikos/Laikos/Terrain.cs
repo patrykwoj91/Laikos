@@ -38,8 +38,12 @@ namespace Laikos
         private float[,] terrainHeightData;
         private float[,] undergroundHeightData;
         public float[,] currentHeightData { get; set; }
-        public int terrainWidth { get; set; }
-        public int terrainHeight { get; set; }
+        private int terrainWidth;
+        private int terrainHeight;
+        private int undergroundWidth;
+        private int undergroundHeight;
+        public int currentHeight { get; set; }
+        public int currentWidth { get; set; }
         private bool currentTerrain;
 
         //These variables are needed to create triangles in terrain
