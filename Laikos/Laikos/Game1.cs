@@ -22,8 +22,9 @@ namespace Laikos
         Effect effect;
         Camera camera;
         Terrain terrain;
-        GameObject soldier;
-        Model soldier_model;
+        UnitManager units;
+        DecorationManager decorations;
+        
 
         public Game1()
         {
@@ -31,16 +32,19 @@ namespace Laikos
             device = graphics.GraphicsDevice;
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = true;
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics, terrain);
-            
+            units = new UnitManager(this, terrain, camera);
+            decorations = new DecorationManager(this, terrain, camera);
 
             Components.Add(camera);
             Components.Add(terrain);
+            Components.Add(units);
+            Components.Add(decorations);
         }
 
         /// <summary>
@@ -62,14 +66,8 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
             effect = Content.Load<Effect>("effects");
-            //adds soldier_model and ask renderer to render it
-
-            //to sie bedzie dzialo w GameComponencie ObjectManager ktory jeszcze nie jest napisany
-            soldier_model = Content.Load<Model>("Models/Test_model/dude");
             
-            soldier = new GameObject(soldier_model, terrain);
         }
 
         /// <summary>
@@ -93,7 +91,6 @@ namespace Laikos
                 this.Exit();
 
             // TODO: Add your update logic here
-            soldier.Update(gameTime);
             KeyboardState kb = Keyboard.GetState();
         
             if (kb.IsKeyDown(Keys.K))
@@ -113,7 +110,7 @@ namespace Laikos
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                bool collision = Collisions.RayModelCollision(clippedRay, soldier_model, soldier.GetWorldMatrix());
+                bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
                 if (collision == false)
                     Console.WriteLine("Brak kolizji");
                 else
@@ -133,8 +130,7 @@ namespace Laikos
             effect.Parameters["xView"].SetValue(camera.viewMatrix);
             effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
             effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
-            
-            soldier.Draw(camera);
+          
             base.Draw(gameTime);
 
             
