@@ -23,19 +23,21 @@ namespace Laikos
         Camera camera;
         Terrain terrain;
         GameObject soldier;
-        
+        Model soldier_model;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            device = graphics.GraphicsDevice;
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 640;
-            graphics.PreferredBackBufferHeight = 480;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.IsFullScreen = true;
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics, terrain);
+            
 
             Components.Add(camera);
             Components.Add(terrain);
@@ -60,15 +62,14 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            device = graphics.GraphicsDevice;
-            effect = Content.Load<Effect>("effects");
             
+            effect = Content.Load<Effect>("effects");
             //adds soldier_model and ask renderer to render it
 
             //to sie bedzie dzialo w GameComponencie ObjectManager ktory jeszcze nie jest napisany
-            Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
-            soldier = new GameObject(soldier_model, terrain);
+            soldier_model = Content.Load<Model>("Models/Test_model/dude");
             
+            soldier = new GameObject(soldier_model, terrain);
         }
 
         /// <summary>
@@ -93,6 +94,31 @@ namespace Laikos
 
             // TODO: Add your update logic here
             soldier.Update(gameTime);
+            KeyboardState kb = Keyboard.GetState();
+        
+            if (kb.IsKeyDown(Keys.K))
+            {
+                MouseState mouse = Mouse.GetState();
+                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+                Ray shorterRay = Collisions.LinearSearch(clippedRay, terrain);
+                Vector3 pointerPosCol = Collisions.BinarySearch(shorterRay, terrain);
+                Console.WriteLine(pointerPosCol.ToString());
+            }
+
+            if (kb.IsKeyDown(Keys.L))
+            {
+                MouseState mouse = Mouse.GetState();
+                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+                bool collision = Collisions.RayModelCollision(clippedRay, soldier_model, soldier.GetWorldMatrix());
+                if (collision == false)
+                    Console.WriteLine("Brak kolizji");
+                else
+                    Console.WriteLine("Kolizja");
+            }
             base.Update(gameTime);
         }
 

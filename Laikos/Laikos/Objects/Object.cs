@@ -16,7 +16,7 @@ namespace Laikos
         public AnimationClip clip; //Contains the animation clip currently playing
         public Model currentModel; //Model reference
 
-        private Matrix GetWorldMatrix()
+        public Matrix GetWorldMatrix()
         {
             return
                 Matrix.CreateScale(Scale) *

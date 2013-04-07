@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Laikos
 {
-
     //This structure that holds data about position, color and normal for each vertex.
     public struct VertexMultiTextured : IVertexType
     {
@@ -71,7 +62,7 @@ namespace Laikos
         public Terrain(Game game)
             : base(game)
         {
-
+            
         }
 
         public override void Initialize()
@@ -153,7 +144,7 @@ namespace Laikos
                 for (int y = 0; y < terrainHeight; y++)
                 {
                     //Loading data based on red color 0 - white 255 -black
-                    heightData[x, y] = heightMapColors[x + y * terrainWidth].R;
+                    heightData[x, y] = heightMapColors[x + y * terrainWidth].R / 15.0f;
                     //Setting data about maximum and minimum point in map
                     if (heightData[x, y] < minimumHeight) minimumHeight = heightData[x, y];
                     if (heightData[x, y] > maximumHeight) maximumHeight = heightData[x, y];
@@ -297,6 +288,7 @@ namespace Laikos
             int zHigher = zLower + 1;
             float zRelative = (zCoord - zLower) / ((float)zHigher - (float)zLower);
 
+            
             float heightLxLz = heightData[xLower, zLower];
             float heightLxHz = heightData[xLower, zHigher];
             float heightHxLz = heightData[xHigher, zLower];
