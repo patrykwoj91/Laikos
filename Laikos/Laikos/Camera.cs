@@ -12,8 +12,8 @@ namespace Laikos
         //***************************************************//
 
         //View and projection matrix
-        public Matrix viewMatrix { get; set; }
-        public Matrix projectionMatrix { get; set; }
+        public static Matrix viewMatrix;
+        public static Matrix projectionMatrix;
 
         //Basic camera settings
         private float viewAngle;
@@ -37,7 +37,6 @@ namespace Laikos
         //Variable links to hardware
         GraphicsDevice device;
         MouseState oldMouseState;
-        Terrain terrain;
 
         //Variables to control fly-by camera
         float bezTime = 1.0f;
@@ -47,14 +46,12 @@ namespace Laikos
 
         //*************************************************//
 
-        public Camera(Game game, GraphicsDeviceManager graphics, Terrain terrain)
+        public Camera(Game game, GraphicsDeviceManager graphics)
             : base(game)
         {
             //Resolution of the game used to move camera with mouse
             backBufferHeight = graphics.PreferredBackBufferHeight;
             backBufferWidth = graphics.PreferredBackBufferWidth;
-            //Initialization of terrain for camera collisions
-            this.terrain = terrain;
         }
 
         //Here we initialize all variables
@@ -83,9 +80,9 @@ namespace Laikos
             HandleInput(timeDifference);
             UpdateBezier();
             //Checking for collision with terrain if camera is within range of our terrain
-            if (cameraPosition.X < terrain.terrainWidth -1 && cameraPosition.Z < terrain.terrainHeight - 1)
+            if (cameraPosition.X < Terrain.currentWidth -1 && cameraPosition.Z < Terrain.currentHeight - 1)
             {
-                Collisions.CheckWithTerrain(ref cameraPosition, zoom, terrain);
+                Collisions.CheckWithTerrain(ref cameraPosition, zoom);
             }
             base.Update(gameTime);
         }

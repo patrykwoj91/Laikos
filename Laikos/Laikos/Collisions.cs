@@ -11,10 +11,10 @@ namespace Laikos
         //currentPosition - it's position of camera or model
         //distance - describe distance between model or camera and terrain
         //terrain - variable to terrain, so we can check exact height at given point(x,z)
-        public static void CheckWithTerrain(ref Vector3 currentPosition, float distance, Terrain terrain)
+        public static void CheckWithTerrain(ref Vector3 currentPosition, float distance)
         {
             //Returns exact height(y) at given point(x,z) of terrain.
-            float terrainHeight = terrain.GetExactHeightAt(currentPosition.X, currentPosition.Z, terrain.currentHeightData);
+            float terrainHeight = Terrain.GetExactHeightAt(currentPosition.X, currentPosition.Z);
 
             //If position of model or camera i smaller than terrain height + max distance then we slightly move it up
             if (currentPosition.Y < terrainHeight + distance)
@@ -110,10 +110,10 @@ namespace Laikos
             return collision;
         }
 
-        public static Vector3 BinarySearch(Ray ray, Terrain terrain)
+        public static Vector3 BinarySearch(Ray ray)
         {
             float accuracy = 0.01f;
-            float heightAtStartingPoint = terrain.GetExactHeightAt(ray.Position.X, ray.Position.Z, terrain.currentHeightData);
+            float heightAtStartingPoint = Terrain.GetExactHeightAt(ray.Position.X, ray.Position.Z);
             float currentError = ray.Position.Y - heightAtStartingPoint;
             int counter = 0;
 
@@ -121,7 +121,7 @@ namespace Laikos
             {
                 ray.Direction /= 2.0f;
                 Vector3 nextPoint = ray.Position + ray.Direction;
-                float heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z, terrain.currentHeightData);
+                float heightAtNextPoint = Terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z);
                 if (nextPoint.Y < heightAtNextPoint)
                 {
                     ray.Position = nextPoint;
@@ -133,29 +133,29 @@ namespace Laikos
             return ray.Position;
         }
 
-        public static Ray LinearSearch(Ray ray, Terrain terrain)
+        public static Ray LinearSearch(Ray ray)
         {
             ray.Direction /= 300.0f;
 
             Vector3 nextPoint = ray.Position + ray.Direction;
-            float heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z, terrain.currentHeightData);
+            float heightAtNextPoint = Terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z);
             while (heightAtNextPoint < nextPoint.Y)
             {
                 ray.Position = nextPoint;
 
                 nextPoint = ray.Position + ray.Direction;
-                heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z, terrain.currentHeightData);
+                heightAtNextPoint = Terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z);
             }
             return ray;
         }
 
-        public static Ray GetPointerRay(Vector2 pointerPosition, GraphicsDevice device, Camera camera)
+        public static Ray GetPointerRay(Vector2 pointerPosition, GraphicsDevice device)
         {
             Vector3 nearScreenPoint = new Vector3(pointerPosition.X, pointerPosition.Y, 0);
             Vector3 farScreenPoint = new Vector3(pointerPosition.X, pointerPosition.Y, 1);
 
-            Vector3 near3DWorldPoint = device.Viewport.Unproject(nearScreenPoint, camera.projectionMatrix, camera.viewMatrix, Matrix.Identity);
-            Vector3 far3DWorldPoint = device.Viewport.Unproject(farScreenPoint, camera.projectionMatrix, camera.viewMatrix, Matrix.Identity);
+            Vector3 near3DWorldPoint = device.Viewport.Unproject(nearScreenPoint, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
+            Vector3 far3DWorldPoint = device.Viewport.Unproject(farScreenPoint, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
 
             Vector3 pointerRayDirection = far3DWorldPoint - near3DWorldPoint;
             pointerRayDirection.Normalize();

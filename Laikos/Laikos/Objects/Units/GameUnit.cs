@@ -11,17 +11,15 @@ namespace Laikos
 {
     class GameUnit : Unit
     {
-        Terrain terrain;
         //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
 
-        public GameUnit(Model currentModelInput, Terrain terrain)
+        public GameUnit(Model currentModelInput)
             :base(currentModelInput)
         {
             //tu ustawiamy rozne cuda
             Position = new Vector3(0, 50, 33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
             Scale = 0.05f;
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
-            this.terrain = terrain;
             PlayAnimation("Take 001");//Play the default animation temporary
         }
 
@@ -48,33 +46,15 @@ namespace Laikos
             //}
             Collisions.AddGravity(ref Position);
             HandleInput();
-            Collisions.CheckWithTerrain(ref Position, 0.5f, terrain);
+            Collisions.CheckWithTerrain(ref Position, 0.5f);
 
             base.Update(gameTime);
         }
 
-        public override void Draw(Camera camera)
+        public override void Draw()
         {
             
-            base.Draw(camera);
-        }
-
-        private void AddGravity()
-        {
-            Position.Y -= 0.1f;
-        }
-
-        private void CheckCollisionWithTerrain()
-        {
-            float terrainHeight = terrain.GetExactHeightAt(Position.X, Position.Z);
-            float x = 0.1f;
-            
-            if (Position.Y < terrainHeight + x)
-            {
-                Vector3 newPos = Position;
-                newPos.Y = (terrainHeight + x);
-                Position = newPos;
-            }
+            base.Draw();
         }
 
         private void HandleInput()

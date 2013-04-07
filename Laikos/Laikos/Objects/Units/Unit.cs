@@ -46,15 +46,15 @@ namespace Laikos
             if ((clip != null))
             animationPlayer.Update(gameTime.ElapsedGameTime, true, GetWorldMatrix());
         }
-        public virtual void Draw(Camera camera)
+        public virtual void Draw()
         {
             Matrix[] bones = animationPlayer.GetSkinTransforms();
 
             //Ask camera for matrix.
-            Matrix view = camera.viewMatrix;
+            Matrix view = Camera.viewMatrix;
 
             //Ask for 3D projection for this model
-            Matrix projection = camera.projectionMatrix;
+            Matrix projection = Camera.projectionMatrix;
 
             // Render the skinned mesh.
             foreach (ModelMesh mesh in currentModel.Meshes)

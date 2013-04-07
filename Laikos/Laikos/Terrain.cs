@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Laikos
 {
@@ -37,22 +38,26 @@ namespace Laikos
         //These variables describes parameters of terrain
         private float[,] terrainHeightData;
         private float[,] undergroundHeightData;
-        public float[,] currentHeightData { get; set; }
+        private static float[,] currentHeightData;
         private int terrainWidth;
         private int terrainHeight;
         private int undergroundWidth;
         private int undergroundHeight;
-        public int currentHeight { get; set; }
-        public int currentWidth { get; set; }
+        public static int currentHeight;
+        public static int currentWidth;
         private bool currentTerrain;
 
         //These variables are needed to create triangles in terrain
-        private VertexMultiTextured[] vertices;
-        private int[] indices;
+        private VertexMultiTextured[] terrainVertices;
+        private int[] terrainIndices;
+        private VertexMultiTextured[] undergroundVertices;
+        private int[] undergroundIndices;
 
         //Buffers used to store terrain in memory of graphics card
-        private VertexBuffer vertexBuffer;
-        private IndexBuffer indexBuffer;
+        private VertexBuffer terrainVertexBuffer;
+        private IndexBuffer terrainIndexBuffer;
+        private VertexBuffer undergroundVertexBuffer;
+        private IndexBuffer undergroundIndexBuffer;
 
         //Effects and direct link to graphics card
         private GraphicsDevice device;
@@ -82,6 +87,12 @@ namespace Laikos
 
         public override void Update(GameTime gameTime)
         {
+            KeyboardState kb = Keyboard.GetState();
+
+            if (kb.IsKeyDown(Keys.Q))
+            {
+                currentTerrain = !currentTerrain;
+            }
             base.Update(gameTime);
         }
 
@@ -96,18 +107,31 @@ namespace Laikos
             snowTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/snow");
             rockTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/rock");
             //All preparations to draw terrain are loaded here
-            LoadHeightData(terrainMap, ref terrainHeightData);
-            LoadHeightData(undergroundMap, ref undergroundHeightData);
+            LoadHeightData(undergroundMap, ref undergroundHeightData, ref undergroundWidth, ref undergroundHeight);
+            currentHeightData = new float[undergroundWidth, undergroundHeight];
+            currentHeight = undergroundHeight;
+            currentWidth = undergroundWidth;
+            SetUpVertices(undergroundHeightData, ref undergroundVertices);
+            SetUpIndices(ref undergroundIndices);
+            CalculateNormals(ref undergroundVertices, undergroundIndices);
+            CopyToBuffer(ref undergroundVertexBuffer, ref undergroundIndexBuffer, undergroundVertices, undergroundIndices);
+            //All preparations to draw underground are loaded here
+            LoadHeightData(terrainMap, ref terrainHeightData, ref terrainWidth, ref terrainHeight);
             currentHeightData = new float[terrainWidth, terrainHeight];
-            SetUpVertices(terrainHeightData);
-            SetUpIndices();
-            CalculateNormals();
-            CopyToBuffer();
+            currentHeight = terrainHeight;
+            currentWidth = terrainWidth;
+            SetUpVertices(terrainHeightData, ref terrainVertices);
+            SetUpIndices(ref terrainIndices);
+            CalculateNormals(ref terrainVertices, terrainIndices);
+            CopyToBuffer(ref terrainVertexBuffer, ref terrainIndexBuffer, terrainVertices, terrainIndices);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            DrawTerrain();
+            if (currentTerrain)
+                DrawTerrain();
+            else
+                DrawUnderground();
             base.Draw(gameTime);
         }
 
@@ -118,7 +142,9 @@ namespace Laikos
             for (int i = 0; i < terrainWidth; i++)
                 for (int j = 0; j < terrainHeight; j++)
                     currentHeightData[i, j] = terrainHeightData[i, j];
-            
+
+            currentWidth = terrainWidth;
+            currentHeight = terrainHeight;
 
             //Setting technique for multitexturing and setting textures
             effect.CurrentTechnique = effect.Techniques["MultiTextured"];
@@ -139,36 +165,73 @@ namespace Laikos
             {
                 pass.Apply();
 
-                device.Indices = indexBuffer;
-                device.SetVertexBuffer(vertexBuffer);
-                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertices.Length, 0, indices.Length / 3);
+                device.Indices = terrainIndexBuffer;
+                device.SetVertexBuffer(terrainVertexBuffer);
+                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, terrainVertices.Length, 0, terrainIndices.Length / 3);
+
+            }
+        }
+
+        private void DrawUnderground()
+        {
+            currentHeightData = new float[undergroundWidth, undergroundHeight];
+
+            for (int i = 0; i < undergroundWidth; i++)
+                for (int j = 0; j < undergroundHeight; j++)
+                    currentHeightData[i, j] = undergroundHeightData[i, j];
+
+            currentWidth = undergroundWidth;
+            currentHeight = undergroundHeight;
+
+            //Setting technique for multitexturing and setting textures
+            effect.CurrentTechnique = effect.Techniques["MultiTextured"];
+            effect.Parameters["xTexture0"].SetValue(sandTexture);
+            effect.Parameters["xTexture1"].SetValue(sandTexture);
+            effect.Parameters["xTexture2"].SetValue(sandTexture);
+            effect.Parameters["xTexture3"].SetValue(sandTexture);
+
+            //Setting basic light for terrain
+            Vector3 lightDirection = new Vector3(1.0f, -1.0f, -1.0f);
+            lightDirection.Normalize();
+            effect.Parameters["xLightDirection"].SetValue(lightDirection);
+            effect.Parameters["xAmbient"].SetValue(0.1f);
+            effect.Parameters["xEnableLighting"].SetValue(true);
+
+            //Drawing terrain
+            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+
+                device.Indices = undergroundIndexBuffer;
+                device.SetVertexBuffer(undergroundVertexBuffer);
+                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, undergroundVertices.Length, 0, undergroundIndices.Length / 3);
 
             }
         }
 
         //Loading data from bitmap file about height in our map.
-        private void LoadHeightData(Texture2D heightMap, ref float[,] heightData)
+        private void LoadHeightData(Texture2D heightMap, ref float[,] heightData, ref int Width, ref int Height)
         {
 
             float minimumHeight = float.MaxValue;
             float maximumHeight = float.MinValue;
 
-            terrainWidth = heightMap.Width;
-            terrainHeight = heightMap.Height;
+            Width = heightMap.Width;
+            Height = heightMap.Height;
             //Getting data about colors in heightmap file
-            Color[] heightMapColors = new Color[terrainWidth * terrainHeight];
+            Color[] heightMapColors = new Color[Width * Height];
             heightMap.GetData(heightMapColors);
             
             //Initializing heightData array
-            heightData = new float[terrainWidth, terrainHeight];
+            heightData = new float[Width, Height];
 
             //In this loop we are going to fill heightData 
             //with numbers based on color of heightmap file
-            for (int x = 0; x < terrainWidth; x++)
-                for (int y = 0; y < terrainHeight; y++)
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
                 {
                     //Loading data based on red color 0 - white 255 -black
-                    heightData[x, y] = heightMapColors[x + y * terrainWidth].R / 15.0f;
+                    heightData[x, y] = heightMapColors[x + y * Width].R / 15.0f;
                     //Setting data about maximum and minimum point in map
                     if (heightData[x, y] < minimumHeight) minimumHeight = heightData[x, y];
                     if (heightData[x, y] > maximumHeight) maximumHeight = heightData[x, y];
@@ -183,55 +246,55 @@ namespace Laikos
         //Setting up position and texture coordinates of our vertices in triangles.
         //We are not connecting them yet, they are just points.
         //Connection between them will be made in SetUpIndices() function
-        private void SetUpVertices(float [,] heightData)
+        private void SetUpVertices(float [,] heightData, ref VertexMultiTextured[] vertices)
         {
-            vertices = new VertexMultiTextured[terrainWidth * terrainHeight];
+            vertices = new VertexMultiTextured[currentWidth * currentHeight];
 
-            for (int x = 0; x < terrainWidth; x++)
+            for (int x = 0; x < currentWidth; x++)
             {
-                for (int y = 0; y < terrainHeight; y++)
+                for (int y = 0; y < currentHeight; y++)
                 {
                     //Setting position and texturecoordinates of each vertex
-                    vertices[x + y * terrainWidth].Position = new Vector3(x, heightData[x, y], y);
-                    vertices[x + y * terrainWidth].TextureCoordinate.X = (float)x / 80.0f;
-                    vertices[x + y * terrainWidth].TextureCoordinate.Y = (float)y / 80.0f;
+                    vertices[x + y * currentWidth].Position = new Vector3(x, heightData[x, y], y);
+                    vertices[x + y * currentWidth].TextureCoordinate.X = (float)x / 80.0f;
+                    vertices[x + y * currentWidth].TextureCoordinate.Y = (float)y / 80.0f;
 
 
                     //Setting weights for each texture
-                    vertices[x + y * terrainWidth].TexWeights.X = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 0) / 14.0f, 0, 1);
-                    vertices[x + y * terrainWidth].TexWeights.Y = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 22) / 10.0f, 0, 1);
-                    vertices[x + y * terrainWidth].TexWeights.Z = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 40) / 10.0f, 0, 1);
-                    vertices[x + y * terrainWidth].TexWeights.W = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 56) / 10.0f, 0, 1);
+                    vertices[x + y * currentWidth].TexWeights.X = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 0) / 14.0f, 0, 1);
+                    vertices[x + y * currentWidth].TexWeights.Y = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 22) / 10.0f, 0, 1);
+                    vertices[x + y * currentWidth].TexWeights.Z = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 40) / 10.0f, 0, 1);
+                    vertices[x + y * currentWidth].TexWeights.W = MathHelper.Clamp(1.0f - Math.Abs(heightData[x, y] - 56) / 10.0f, 0, 1);
 
                     //Normalization of weights: makeing sure that in every vertex total weight of texture sums up to 1
                     float total = vertices[x + y * terrainWidth].TexWeights.X;
-                    total += vertices[x + y * terrainWidth].TexWeights.Y;
-                    total += vertices[x + y * terrainWidth].TexWeights.Z;
-                    total += vertices[x + y * terrainWidth].TexWeights.W;
+                    total += vertices[x + y * currentWidth].TexWeights.Y;
+                    total += vertices[x + y * currentWidth].TexWeights.Z;
+                    total += vertices[x + y * currentWidth].TexWeights.W;
 
-                    vertices[x + y * terrainWidth].TexWeights.X /= total;
-                    vertices[x + y * terrainWidth].TexWeights.Y /= total;
-                    vertices[x + y * terrainWidth].TexWeights.Z /= total;
-                    vertices[x + y * terrainWidth].TexWeights.W /= total;
+                    vertices[x + y * currentWidth].TexWeights.X /= total;
+                    vertices[x + y * currentWidth].TexWeights.Y /= total;
+                    vertices[x + y * currentWidth].TexWeights.Z /= total;
+                    vertices[x + y * currentWidth].TexWeights.W /= total;
                 }
             }
         }
 
         //We are going to connect vertices with each other in this function
         //to create triangles. It's optimization to not duplicate some of the vertices
-        private void SetUpIndices()
+        private void SetUpIndices(ref int[] indices)
         {
-            indices = new int[(terrainWidth - 1) * (terrainHeight - 1) * 6];
+            indices = new int[(currentWidth - 1) * (currentHeight - 1) * 6];
             int counter = 0;
-            for (int y = 0; y < terrainHeight - 1; y++)
+            for (int y = 0; y < currentHeight - 1; y++)
             {
-                for (int x = 0; x < terrainWidth - 1; x++)
+                for (int x = 0; x < currentWidth - 1; x++)
                 {
                     //Calculating indices
-                    int lowerLeft = x + y * terrainWidth;
-                    int lowerRight = (x + 1) + y * terrainWidth;
-                    int topLeft = x + (y + 1) * terrainWidth;
-                    int topRight = (x + 1) + (y + 1) * terrainWidth;
+                    int lowerLeft = x + y * currentWidth;
+                    int lowerRight = (x + 1) + y * currentWidth;
+                    int topLeft = x + (y + 1) * currentWidth;
+                    int topRight = (x + 1) + (y + 1) * currentWidth;
 
                     //Filling up indices array with calculated indices
                     //for bottom sided triangles
@@ -248,7 +311,7 @@ namespace Laikos
         }
 
         //This method calculate and fills up our vertices with normalized normals
-        private void CalculateNormals()
+        private void CalculateNormals(ref VertexMultiTextured[] vertices, int[] indices)
         {
             //Set all normals to 0
             for (int i = 0; i < vertices.Length; i++)
@@ -277,7 +340,7 @@ namespace Laikos
         }
 
         //We are going to fill our vertex and index buffer
-        private void CopyToBuffer()
+        private void CopyToBuffer(ref VertexBuffer vertexBuffer, ref IndexBuffer indexBuffer, VertexMultiTextured[] vertices, int[] indices)
         {
             //Allocate piece of memory on graphics card, so we can store there all of our vertices
             vertexBuffer = new VertexBuffer(device, typeof(VertexMultiTextured), vertices.Length, BufferUsage.WriteOnly);
@@ -295,12 +358,12 @@ namespace Laikos
         }
 
         //Getting exact height at given point (x and z) returns y - height.
-        public float GetExactHeightAt(float xCoord, float zCoord, float [,] heightData)
+        public static float GetExactHeightAt(float xCoord, float zCoord)
         {
             bool invalid = xCoord < 0;
             invalid |= zCoord < 0;
-            invalid |= xCoord > terrainWidth;
-            invalid |= zCoord > terrainHeight;
+            invalid |= xCoord > currentWidth;
+            invalid |= zCoord > currentHeight;
             if (invalid)
                 return 10;
 
@@ -313,10 +376,10 @@ namespace Laikos
             float zRelative = (zCoord - zLower) / ((float)zHigher - (float)zLower);
 
             
-            float heightLxLz = heightData[xLower, zLower];
-            float heightLxHz = heightData[xLower, zHigher];
-            float heightHxLz = heightData[xHigher, zLower];
-            float heightHxHz = heightData[xHigher, zHigher];
+            float heightLxLz = currentHeightData[xLower, zLower];
+            float heightLxHz = currentHeightData[xLower, zHigher];
+            float heightHxLz = currentHeightData[xHigher, zLower];
+            float heightHxHz = currentHeightData[xHigher, zHigher];
 
             bool pointAboveLowerTriangle = (xRelative + zRelative < 1);
 
