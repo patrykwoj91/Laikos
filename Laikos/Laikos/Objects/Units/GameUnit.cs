@@ -11,8 +11,6 @@ namespace Laikos
 {
     class GameUnit : Unit
     {
-        public AnimationClip clip; //Contains the animation clip currently playing
-
         //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
 
         public GameUnit(Model currentModelInput)

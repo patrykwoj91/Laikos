@@ -155,15 +155,15 @@
       <Time>2013-04-07T18:45:45.1328219+02:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Test_model\dude_0.xml</Key>
-        <Value>2013-04-07T23:14:32.1061843+02:00</Value>
+        <Value>2013-04-07T23:34:24.0522872+02:00</Value>
       </Dependency>
       <Dependency>
         <Key>Models\Test_model\dude_Anims.xml</Key>
-        <Value>2013-04-07T23:24:35.6608155+02:00</Value>
+        <Value>2013-04-07T23:25:48.8204671+02:00</Value>
       </Dependency>
       <Dependency>
         <Key>obj\x86\Debug\Models\Test_model\dude_Anims_0.xml</Key>
-        <Value>2013-04-07T23:24:36.2095739+02:00</Value>
+        <Value>2013-04-07T23:34:24.0735375+02:00</Value>
       </Dependency>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head_0.xnb</Request>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket_0.xnb</Request>
@@ -180,7 +180,7 @@
       <Time>2013-04-07T18:45:44.9865696+02:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Decorations\Ruins1\Ruins_0.xml</Key>
-        <Value>2013-04-07T23:14:34.0937148+02:00</Value>
+        <Value>2013-04-07T23:34:26.0510679+02:00</Value>
       </Dependency>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\DiffuseMap_0.xnb</Request>
     </Item>
@@ -194,7 +194,7 @@
       <Time>2013-04-07T18:45:45.0678209+02:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Terrain\dome_0.xml</Key>
-        <Value>2013-04-07T23:14:34.6962241+02:00</Value>
+        <Value>2013-04-07T23:34:26.582326+02:00</Value>
       </Dependency>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\cloudMap_0.xnb</Request>
     </Item>
@@ -205,7 +205,7 @@
       <Processor>PassThroughProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\dude_Anims.xnb</Output>
-      <Time>2013-04-07T23:24:35.6608155+02:00</Time>
+      <Time>2013-04-07T23:25:48.8204671+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\dude.fbx</Source>
@@ -219,7 +219,7 @@
       <Importer>XmlImporter</Importer>
       <Options>IntermediateFile</Options>
       <Output>obj\x86\Debug\Models\Test_model\dude_Anims_0.xml</Output>
-      <Time>2013-04-07T23:24:35.6608155+02:00</Time>
+      <Time>2013-04-07T23:25:48.8204671+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\head.tga</Source>
@@ -369,7 +369,7 @@
       </Assembly>
       <Assembly>
         <Key>D:\Documents\Visual Studio 2010\Projects\Laikos\AnimationProcessor\bin\Debug\AnimationProcessor.dll</Key>
-        <Value>2013-04-07T23:14:28.024104+02:00</Value>
+        <Value>2013-04-07T23:34:19.8626922+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
