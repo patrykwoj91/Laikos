@@ -35,9 +35,12 @@ namespace Laikos
         //****************************************************************//
 
         //These variables describes parameters of terrain
-        private float[,] heightData;
+        private float[,] terrainHeightData;
+        private float[,] undergroundHeightData;
+        public float[,] currentHeightData { get; set; }
         public int terrainWidth { get; set; }
         public int terrainHeight { get; set; }
+        private bool currentTerrain;
 
         //These variables are needed to create triangles in terrain
         private VertexMultiTextured[] vertices;
@@ -56,7 +59,8 @@ namespace Laikos
         private Texture2D rockTexture;
         private Texture2D sandTexture;
         private Texture2D snowTexture;
-        private Texture2D heightMap;
+        private Texture2D terrainMap;
+        private Texture2D undergroundMap;
         //***************************************************************//
 
         public Terrain(Game game)
@@ -67,22 +71,31 @@ namespace Laikos
 
         public override void Initialize()
         {
+            currentTerrain = true;
             device = Game.GraphicsDevice;
             base.Initialize();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
         }
 
         protected override void LoadContent()
         {
             //Loading textures and effects from content
             effect = Game.Content.Load<Effect>("effects");
-            heightMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap2");
+            terrainMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap2");
+            undergroundMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap1");
             grassTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/grass");
             sandTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/sand");
             snowTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/snow");
             rockTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/rock");
             //All preparations to draw terrain are loaded here
-            LoadHeightData();
-            SetUpVertices();
+            LoadHeightData(terrainMap, ref terrainHeightData);
+            LoadHeightData(undergroundMap, ref undergroundHeightData);
+            currentHeightData = new float[terrainWidth, terrainHeight];
+            SetUpVertices(terrainHeightData);
             SetUpIndices();
             CalculateNormals();
             CopyToBuffer();
@@ -90,9 +103,18 @@ namespace Laikos
 
         public override void Draw(GameTime gameTime)
         {
-            //RasterizerState rs = new RasterizerState();
-            //rs.CullMode = CullMode.None;
-            //device.RasterizerState = rs;
+            DrawTerrain();
+            base.Draw(gameTime);
+        }
+
+        private void DrawTerrain()
+        {
+            currentHeightData = new float[terrainWidth, terrainHeight];
+
+            for (int i = 0; i < terrainWidth; i++)
+                for (int j = 0; j < terrainHeight; j++)
+                    currentHeightData[i, j] = terrainHeightData[i, j];
+            
 
             //Setting technique for multitexturing and setting textures
             effect.CurrentTechnique = effect.Techniques["MultiTextured"];
@@ -118,12 +140,10 @@ namespace Laikos
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertices.Length, 0, indices.Length / 3);
 
             }
-
-            base.Draw(gameTime);
         }
 
         //Loading data from bitmap file about height in our map.
-        private void LoadHeightData()
+        private void LoadHeightData(Texture2D heightMap, ref float[,] heightData)
         {
 
             float minimumHeight = float.MaxValue;
@@ -159,7 +179,7 @@ namespace Laikos
         //Setting up position and texture coordinates of our vertices in triangles.
         //We are not connecting them yet, they are just points.
         //Connection between them will be made in SetUpIndices() function
-        private void SetUpVertices()
+        private void SetUpVertices(float [,] heightData)
         {
             vertices = new VertexMultiTextured[terrainWidth * terrainHeight];
 
@@ -263,7 +283,7 @@ namespace Laikos
             indexBuffer.SetData(indices);
         }
 
-        //Moving terrain to the center of the world (0, 0, 0) and rotating it
+        //Moving terrain to the center of the world (0, 0, 0)
         public Matrix SetWorldMatrix()
         {
             Matrix worldMatrix = Matrix.Identity;
@@ -271,7 +291,7 @@ namespace Laikos
         }
 
         //Getting exact height at given point (x and z) returns y - height.
-        public float GetExactHeightAt(float xCoord, float zCoord)
+        public float GetExactHeightAt(float xCoord, float zCoord, float [,] heightData)
         {
             bool invalid = xCoord < 0;
             invalid |= zCoord < 0;

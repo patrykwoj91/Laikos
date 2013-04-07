@@ -28,12 +28,13 @@ namespace Laikos
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            device = graphics.GraphicsDevice;
+            
+
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.IsFullScreen = false;
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics, terrain);
@@ -62,7 +63,8 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            device = graphics.GraphicsDevice;
+
             effect = Content.Load<Effect>("effects");
             //adds soldier_model and ask renderer to render it
 

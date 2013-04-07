@@ -14,7 +14,7 @@ namespace Laikos
         public static void CheckWithTerrain(ref Vector3 currentPosition, float distance, Terrain terrain)
         {
             //Returns exact height(y) at given point(x,z) of terrain.
-            float terrainHeight = terrain.GetExactHeightAt(currentPosition.X, currentPosition.Z);
+            float terrainHeight = terrain.GetExactHeightAt(currentPosition.X, currentPosition.Z, terrain.currentHeightData);
 
             //If position of model or camera i smaller than terrain height + max distance then we slightly move it up
             if (currentPosition.Y < terrainHeight + distance)
@@ -113,7 +113,7 @@ namespace Laikos
         public static Vector3 BinarySearch(Ray ray, Terrain terrain)
         {
             float accuracy = 0.01f;
-            float heightAtStartingPoint = terrain.GetExactHeightAt(ray.Position.X, ray.Position.Z);
+            float heightAtStartingPoint = terrain.GetExactHeightAt(ray.Position.X, ray.Position.Z, terrain.currentHeightData);
             float currentError = ray.Position.Y - heightAtStartingPoint;
             int counter = 0;
 
@@ -121,7 +121,7 @@ namespace Laikos
             {
                 ray.Direction /= 2.0f;
                 Vector3 nextPoint = ray.Position + ray.Direction;
-                float heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z);
+                float heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z, terrain.currentHeightData);
                 if (nextPoint.Y < heightAtNextPoint)
                 {
                     ray.Position = nextPoint;
@@ -138,13 +138,13 @@ namespace Laikos
             ray.Direction /= 300.0f;
 
             Vector3 nextPoint = ray.Position + ray.Direction;
-            float heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z);
+            float heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z, terrain.currentHeightData);
             while (heightAtNextPoint < nextPoint.Y)
             {
                 ray.Position = nextPoint;
 
                 nextPoint = ray.Position + ray.Direction;
-                heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z);
+                heightAtNextPoint = terrain.GetExactHeightAt(nextPoint.X, nextPoint.Z, terrain.currentHeightData);
             }
             return ray;
         }
