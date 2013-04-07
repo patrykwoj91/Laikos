@@ -9,12 +9,12 @@ using Animation;
 
 namespace Laikos
 {
-    class GameObject : Object
+    class GameUnit : Unit
     {
         Terrain terrain;
         //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
 
-        public GameObject(Model currentModelInput, Terrain terrain)
+        public GameUnit(Model currentModelInput, Terrain terrain)
             :base(currentModelInput)
         {
             //tu ustawiamy rozne cuda
@@ -22,7 +22,7 @@ namespace Laikos
             Scale = 0.05f;
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
             this.terrain = terrain;
-            PlayAnimation("Take 001");//Play the default swimming animation
+            PlayAnimation("Take 001");//Play the default animation temporary
         }
 
         public override void Update(GameTime gameTime)
@@ -55,8 +55,26 @@ namespace Laikos
 
         public override void Draw(Camera camera)
         {
-            //a to zostawiamy na razie puste
+            
             base.Draw(camera);
+        }
+
+        private void AddGravity()
+        {
+            Position.Y -= 0.1f;
+        }
+
+        private void CheckCollisionWithTerrain()
+        {
+            float terrainHeight = terrain.GetExactHeightAt(Position.X, Position.Z);
+            float x = 0.1f;
+            
+            if (Position.Y < terrainHeight + x)
+            {
+                Vector3 newPos = Position;
+                newPos.Y = (terrainHeight + x);
+                Position = newPos;
+            }
         }
 
         private void HandleInput()

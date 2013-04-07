@@ -6,7 +6,7 @@ using Animation;
 
 namespace Laikos
 {
-    class Object
+    class Unit
     {
         public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
         public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
@@ -26,11 +26,11 @@ namespace Laikos
                 Matrix.CreateTranslation(Position);
         }
 
-        public Object()
+        public Unit()
         {
         }
 
-        public Object(Model currentModelInput)
+        public Unit(Model currentModelInput)
         {
             currentModel = currentModelInput;
             // Look up our custom skinning information.
