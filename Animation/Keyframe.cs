@@ -5,26 +5,41 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Animation
 {
-    public class Keyframe //klasa opisuje animacje (transformacje kosci i czas) danej klatki.
+    public class Keyframe
     {
-        [ContentSerializer]
-        public int Bone { get; private set; } // index animowanej kosci
-        [ContentSerializer]
-        public TimeSpan Time { get; private set; } //offset czasu od poczatku animacji do tego momentu
-        [ContentSerializer]
-        public Matrix Transform { get; private set; } //transformacja kosci 
-
+        /// <summary>
+        /// Constructs a new keyframe object.
+        /// </summary>
         public Keyframe(int bone, TimeSpan time, Matrix transform)
         {
             Bone = bone;
             Time = time;
             Transform = transform;
         }
-
-        private Keyframe() //destruktor do deserializacji 
+        /// <summary>
+        /// Private constructor for use by the XNB deserializer.
+        /// </summary>
+        private Keyframe()
         {
         }
+        /// <summary>
+        /// Gets the index of the target bone that is animated by this keyframe.
+        /// </summary>
+        [ContentSerializer]
+        public int Bone { get; private set; }
 
 
+        /// <summary>
+        /// Gets the time offset from the start of the animation to this keyframe.
+        /// </summary>
+        [ContentSerializer]
+        public TimeSpan Time { get; private set; }
+
+
+        /// <summary>
+        /// Gets the bone transform for this keyframe.
+        /// </summary>
+        [ContentSerializer]
+        public Matrix Transform { get; private set; }
     }
 }

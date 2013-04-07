@@ -8,7 +8,7 @@
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2013-03-13T12:14:09.2917601+01:00</Time>
+      <Time>2013-04-07T18:45:45.2615739+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\grass.dds</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\grass.xnb</Output>
-      <Time>2013-03-13T12:14:08.9641596+01:00</Time>
+      <Time>2013-04-07T18:45:45.0278203+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Heightmaps\heightmap.bmp</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap.xnb</Output>
-      <Time>2013-03-13T12:14:08.9173595+01:00</Time>
+      <Time>2013-04-07T18:45:45.01032+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Heightmaps\heightmap1.jpg</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap1.xnb</Output>
-      <Time>2013-03-13T12:14:08.9173595+01:00</Time>
+      <Time>2013-04-07T18:45:45.01157+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\head.tga</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head.xnb</Output>
-      <Time>2013-03-13T12:14:09.1825599+01:00</Time>
+      <Time>2013-04-07T18:45:45.1640724+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\jacket.tga</Source>
@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket.xnb</Output>
-      <Time>2013-03-13T12:14:09.22936+01:00</Time>
+      <Time>2013-04-07T18:45:45.1990729+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\pants.tga</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants.xnb</Output>
-      <Time>2013-03-13T12:14:09.2605601+01:00</Time>
+      <Time>2013-04-07T18:45:45.2303234+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\upBodyC.tga</Source>
@@ -71,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC.xnb</Output>
-      <Time>2013-03-13T12:14:09.2917601+01:00</Time>
+      <Time>2013-04-07T18:45:45.2603238+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Heightmaps\heightmap2.jpg</Source>
@@ -80,7 +80,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap2.xnb</Output>
-      <Time>2013-03-13T12:14:08.9329595+01:00</Time>
+      <Time>2013-04-07T18:45:45.01282+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\rock.dds</Source>
@@ -89,7 +89,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\rock.xnb</Output>
-      <Time>2013-03-13T12:14:08.9953596+01:00</Time>
+      <Time>2013-04-07T18:45:45.0428205+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\sand.dds</Source>
@@ -98,7 +98,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\sand.xnb</Output>
-      <Time>2013-03-13T12:14:09.0265597+01:00</Time>
+      <Time>2013-04-07T18:45:45.0578207+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\snow.dds</Source>
@@ -107,7 +107,43 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\snow.xnb</Output>
-      <Time>2013-03-13T12:14:09.0421597+01:00</Time>
+      <Time>2013-04-07T18:45:45.0665709+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Terrain\cloudMap.jpg</Source>
+      <Name>Models\Terrain\cloudMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\cloudMap.xnb</Output>
+      <Time>2013-04-07T18:45:45.0665709+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\DiffuseMap.tga</Source>
+      <Name>Models\Decorations\Ruins1\DiffuseMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\DiffuseMap.xnb</Output>
+      <Time>2013-04-07T18:45:44.9565692+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\NormalMap.tga</Source>
+      <Name>Models\Decorations\Ruins1\NormalMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\NormalMap.xnb</Output>
+      <Time>2013-04-07T18:45:44.9853196+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\SpecMap.tga</Source>
+      <Name>Models\Decorations\Ruins1\SpecMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\SpecMap.xnb</Output>
+      <Time>2013-04-07T18:45:45.00907+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\dude.fbx</Source>
@@ -116,10 +152,18 @@
       <Processor>AnimationProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\dude.xnb</Output>
-      <Time>2013-03-13T12:14:09.1357599+01:00</Time>
+      <Time>2013-04-07T18:45:45.1328219+02:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Test_model\dude_0.xml</Key>
-        <Value>2013-03-18T21:02:02.4693501+01:00</Value>
+        <Value>2013-04-07T23:14:32.1061843+02:00</Value>
+      </Dependency>
+      <Dependency>
+        <Key>Models\Test_model\dude_Anims.xml</Key>
+        <Value>2013-04-07T23:24:35.6608155+02:00</Value>
+      </Dependency>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Test_model\dude_Anims_0.xml</Key>
+        <Value>2013-04-07T23:24:36.2095739+02:00</Value>
       </Dependency>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head_0.xnb</Request>
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket_0.xnb</Request>
@@ -127,11 +171,55 @@
       <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC_0.xnb</Request>
     </Item>
     <Item>
+      <Source>Models\Decorations\Ruins1\Ruins.FBX</Source>
+      <Name>Models\Decorations\Ruins1\Ruins</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\Ruins.xnb</Output>
+      <Time>2013-04-07T18:45:44.9865696+02:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Decorations\Ruins1\Ruins_0.xml</Key>
+        <Value>2013-04-07T23:14:34.0937148+02:00</Value>
+      </Dependency>
+      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\DiffuseMap_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\Terrain\dome.x</Source>
+      <Name>Models\Terrain\dome</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\dome.xnb</Output>
+      <Time>2013-04-07T18:45:45.0678209+02:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Terrain\dome_0.xml</Key>
+        <Value>2013-04-07T23:14:34.6962241+02:00</Value>
+      </Dependency>
+      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\cloudMap_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\Test_model\dude_Anims.xml</Source>
+      <Name>Models\Test_model\dude_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\dude_Anims.xnb</Output>
+      <Time>2013-04-07T23:24:35.6608155+02:00</Time>
+    </Item>
+    <Item>
       <Source>Models\Test_model\dude.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Test_model\dude_0.xml</Output>
-      <Time>2013-03-13T12:14:09.1357599+01:00</Time>
+      <Time>2013-04-07T18:45:45.1328219+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Test_model\dude_Anims.xml</Source>
+      <Importer>XmlImporter</Importer>
+      <Options>IntermediateFile</Options>
+      <Output>obj\x86\Debug\Models\Test_model\dude_Anims_0.xml</Output>
+      <Time>2013-04-07T23:24:35.6608155+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\head.tga</Source>
@@ -147,7 +235,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.1825599+01:00</Time>
+      <Time>2013-04-07T18:45:45.1640724+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\jacket.tga</Source>
@@ -163,7 +251,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.22936+01:00</Time>
+      <Time>2013-04-07T18:45:45.1990729+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\pants.tga</Source>
@@ -179,7 +267,7 @@
       </Parameters>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.2605601+01:00</Time>
+      <Time>2013-04-07T18:45:45.2303234+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\upBodyC.tga</Source>
@@ -195,7 +283,53 @@
       </Parameters>
       <Options>None</Options>
       <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.2917601+01:00</Time>
+      <Time>2013-04-07T18:45:45.2603238+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\Ruins.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Decorations\Ruins1\Ruins_0.xml</Output>
+      <Time>2013-04-07T18:45:44.9865696+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\DiffuseMap.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\DiffuseMap_0.xnb</Output>
+      <Time>2013-04-07T18:45:44.9565692+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Terrain\dome.x</Source>
+      <Importer>XImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Terrain\dome_0.xml</Output>
+      <Time>2013-04-07T18:45:45.0678209+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Terrain\cloudMap.jpg</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\cloudMap_0.xnb</Output>
+      <Time>2013-04-07T18:45:45.0665709+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -235,11 +369,11 @@
       </Assembly>
       <Assembly>
         <Key>D:\Documents\Visual Studio 2010\Projects\Laikos\AnimationProcessor\bin\Debug\AnimationProcessor.dll</Key>
-        <Value>2013-03-18T21:01:58.9045131+01:00</Value>
+        <Value>2013-04-07T23:14:28.024104+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2013-02-26T14:25:15.1258857+01:00</Value>
+        <Value>2013-03-12T20:02:00.7312084+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

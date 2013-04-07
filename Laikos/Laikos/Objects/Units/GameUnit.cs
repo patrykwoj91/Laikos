@@ -12,6 +12,8 @@ namespace Laikos
     class GameUnit : Unit
     {
         Terrain terrain;
+        public AnimationClip clip; //Contains the animation clip currently playing
+
         //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
 
         public GameUnit(Model currentModelInput, Terrain terrain)
@@ -22,7 +24,14 @@ namespace Laikos
             Scale = 0.05f;
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
             this.terrain = terrain;
-            PlayAnimation("Take 001");//Play the default animation temporary
+
+            PlayAnimation("Idle");//Play the default animation temporary
+            
+        }
+
+        public static void Fire(string EventName)
+        {
+            Console.WriteLine("Firing");
         }
 
         public override void Update(GameTime gameTime)
@@ -59,24 +68,6 @@ namespace Laikos
             base.Draw(camera);
         }
 
-        private void AddGravity()
-        {
-            Position.Y -= 0.1f;
-        }
-
-        private void CheckCollisionWithTerrain()
-        {
-            float terrainHeight = terrain.GetExactHeightAt(Position.X, Position.Z);
-            float x = 0.1f;
-            
-            if (Position.Y < terrainHeight + x)
-            {
-                Vector3 newPos = Position;
-                newPos.Y = (terrainHeight + x);
-                Position = newPos;
-            }
-        }
-
         private void HandleInput()
         {
             KeyboardState currentKeyboardState = Keyboard.GetState();
@@ -96,6 +87,16 @@ namespace Laikos
             if (currentKeyboardState.IsKeyDown(Keys.D))
             {
                 Position.X += 0.1f;
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.D1))
+            {
+                if (animationPlayer.CurrentClip.Name != "Idle")
+                    PlayAnimation("Idle"); ;
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.D2))
+            {
+                if (animationPlayer.CurrentClip.Name != "Fire")
+                    PlayAnimation("Fire"); ;
             }
         }
     }

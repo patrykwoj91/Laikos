@@ -32,8 +32,8 @@ namespace Laikos
             device = graphics.GraphicsDevice;
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             graphics.IsFullScreen = true;
 
             terrain = new Terrain(this);
@@ -110,11 +110,11 @@ namespace Laikos
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
-                if (collision == false)
-                    Console.WriteLine("Brak kolizji");
-                else
-                    Console.WriteLine("Kolizja");
+             //   bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
+             //   if (collision == false)
+              //      Console.WriteLine("Brak kolizji");
+              //  else
+              //      Console.WriteLine("Kolizja");
             }
             base.Update(gameTime);
         }

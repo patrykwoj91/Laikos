@@ -40,6 +40,7 @@ namespace Laikos
                     ("This model does not contain a SkinningData tag.");
             // Create an animation player, and start decoding an animation clip.
             animationPlayer = new AnimationPlayer(animationData);
+
         }
         public virtual void Update(GameTime gameTime)
         {
@@ -73,6 +74,7 @@ namespace Laikos
         
         public void PlayAnimation(String Animation)
         {
+
             clip = animationData.AnimationClips[Animation];
             if (clip != animationPlayer.CurrentClip)
                 animationPlayer.StartClip(clip);
