@@ -9,20 +9,25 @@ using Animation;
 
 namespace Laikos
 {
-    class GameObject : Object
+    class GameUnit : Unit
     {
-        Terrain terrain;
         //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
 
-        public GameObject(Model currentModelInput, Terrain terrain)
+        public GameUnit(Model currentModelInput)
             :base(currentModelInput)
         {
             //tu ustawiamy rozne cuda
             Position = new Vector3(0, 50, 33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
             Scale = 0.05f;
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
-            this.terrain = terrain;
-            PlayAnimation("Take 001");//Play the default swimming animation
+
+            PlayAnimation("Idle");//Play the default animation temporary
+            
+        }
+
+        public static void Fire(string EventName)
+        {
+            Console.WriteLine("Firing");
         }
 
         public override void Update(GameTime gameTime)
@@ -48,15 +53,15 @@ namespace Laikos
             //}
             Collisions.AddGravity(ref Position);
             HandleInput();
-            Collisions.CheckWithTerrain(ref Position, 0.5f, terrain);
+            Collisions.CheckWithTerrain(ref Position, 0.5f);
 
             base.Update(gameTime);
         }
 
-        public override void Draw(Camera camera)
+        public override void Draw()
         {
-            //a to zostawiamy na razie puste
-            base.Draw(camera);
+            
+            base.Draw();
         }
 
         private void HandleInput()
@@ -78,6 +83,16 @@ namespace Laikos
             if (currentKeyboardState.IsKeyDown(Keys.D))
             {
                 Position.X += 0.1f;
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.D1))
+            {
+                if (animationPlayer.CurrentClip.Name != "Idle")
+                    PlayAnimation("Idle"); ;
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.D2))
+            {
+                if (animationPlayer.CurrentClip.Name != "Fire")
+                    PlayAnimation("Fire"); ;
             }
         }
     }

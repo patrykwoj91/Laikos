@@ -22,27 +22,29 @@ namespace Laikos
         Effect effect;
         Camera camera;
         Terrain terrain;
-        Underground underground;
-        GameObject soldier;
-        Model soldier_model;
+        UnitManager units;
+        DecorationManager decorations;
+        
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 640;
-            graphics.PreferredBackBufferHeight = 480;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = false;
 
             terrain = new Terrain(this);
-            camera = new Camera(this, graphics, terrain);
-            underground = new Underground(this, camera);
-
-            Components.Add(camera);
-            Components.Add(underground);
-            //Components.Add(terrain);
+            camera = new Camera(this, graphics);
+            units = new UnitManager(this);
+            decorations = new DecorationManager(this);
             
+            Components.Add(camera);
+            Components.Add(terrain);
+            Components.Add(units);
+            Components.Add(decorations);
         }
 
         /// <summary>
@@ -65,13 +67,9 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             device = graphics.GraphicsDevice;
-            effect = Content.Load<Effect>("effects");
-            //adds soldier_model and ask renderer to render it
 
-            //to sie bedzie dzialo w GameComponencie ObjectManager ktory jeszcze nie jest napisany
-            soldier_model = Content.Load<Model>("Models/Test_model/dude");
+            effect = Content.Load<Effect>("effects");
             
-            soldier = new GameObject(soldier_model, terrain);
         }
 
         /// <summary>
@@ -95,16 +93,40 @@ namespace Laikos
                 this.Exit();
 
             // TODO: Add your update logic here
-            soldier.Update(gameTime);
             KeyboardState kb = Keyboard.GetState();
+        
             if (kb.IsKeyDown(Keys.K))
             {
                 MouseState mouse = Mouse.GetState();
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
-                Vector3 pointerPosCol = Collisions.BinarySearch(pointerRay, terrain);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+                Ray shorterRay = Collisions.LinearSearch(clippedRay);
+                Vector3 pointerPosCol = Collisions.BinarySearch(shorterRay);
                 Console.WriteLine(pointerPosCol.ToString());
             }
+
+            if (kb.IsKeyDown(Keys.J))
+            {
+                Collisions.DetailedCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
+                                                  decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
+                Console.WriteLine();
+            }
+
+            if (kb.IsKeyDown(Keys.L))
+            {
+                MouseState mouse = Mouse.GetState();
+                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+                bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix());
+                if (collision == false)
+                    Console.WriteLine("Brak kolizji");
+                else
+                    Console.WriteLine("Kolizja");
+            }
+
+            
             base.Update(gameTime);
         }
 
@@ -116,11 +138,10 @@ namespace Laikos
         {
             GraphicsDevice.Clear(Color.Black);
 
-            effect.Parameters["xView"].SetValue(camera.viewMatrix);
-            effect.Parameters["xProjection"].SetValue(camera.projectionMatrix);
+            effect.Parameters["xView"].SetValue(Camera.viewMatrix);
+            effect.Parameters["xProjection"].SetValue(Camera.projectionMatrix);
             effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
-            
-            soldier.Draw(camera);
+          
             base.Draw(gameTime);
 
             

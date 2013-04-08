@@ -6,7 +6,7 @@ using Animation;
 
 namespace Laikos
 {
-    class Object
+    class Unit
     {
         public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
         public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
@@ -26,11 +26,11 @@ namespace Laikos
                 Matrix.CreateTranslation(Position);
         }
 
-        public Object()
+        public Unit()
         {
         }
 
-        public Object(Model currentModelInput)
+        public Unit(Model currentModelInput)
         {
             currentModel = currentModelInput;
             // Look up our custom skinning information.
@@ -40,21 +40,22 @@ namespace Laikos
                     ("This model does not contain a SkinningData tag.");
             // Create an animation player, and start decoding an animation clip.
             animationPlayer = new AnimationPlayer(animationData);
+
         }
         public virtual void Update(GameTime gameTime)
         {
             if ((clip != null))
             animationPlayer.Update(gameTime.ElapsedGameTime, true, GetWorldMatrix());
         }
-        public virtual void Draw(Camera camera)
+        public virtual void Draw()
         {
             Matrix[] bones = animationPlayer.GetSkinTransforms();
 
             //Ask camera for matrix.
-            Matrix view = camera.viewMatrix;
+            Matrix view = Camera.viewMatrix;
 
             //Ask for 3D projection for this model
-            Matrix projection = camera.projectionMatrix;
+            Matrix projection = Camera.projectionMatrix;
 
             // Render the skinned mesh.
             foreach (ModelMesh mesh in currentModel.Meshes)
@@ -73,6 +74,7 @@ namespace Laikos
         
         public void PlayAnimation(String Animation)
         {
+
             clip = animationData.AnimationClips[Animation];
             if (clip != animationPlayer.CurrentClip)
                 animationPlayer.StartClip(clip);
