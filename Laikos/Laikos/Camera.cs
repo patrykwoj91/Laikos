@@ -30,7 +30,6 @@ namespace Laikos
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
         const float moveSpeed = 60.0f;
-        private float zoomSpeed = 5.0f;
         float backBufferHeight;
         float backBufferWidth;
 
@@ -65,7 +64,7 @@ namespace Laikos
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
             farPlane = 200.0f;
-            zoom = 5.0f;
+            zoom = 10.0f;
             cameraPosition = new Vector3(30, 80, 100);
             leftRightRot = MathHelper.ToRadians(0.0f);
             upDownRot = MathHelper.ToRadians(-45);
@@ -112,11 +111,11 @@ namespace Laikos
                 //Simple zoom in
                 if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
                     if (bezTime > 1.0f)
-                        InitBezier(cameraPosition, cameraPosition - new Vector3(0, 20, 20));
+                        InitBezier(cameraPosition, cameraPosition - new Vector3(0, zoom, zoom));
                 //Simple zoom out
                 if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
                     if (bezTime > 1.0f)
-                        InitBezier(cameraPosition, cameraPosition - new Vector3(0, -20, -20));
+                        InitBezier(cameraPosition, cameraPosition - new Vector3(0, -zoom, -zoom));
 
                 oldMouseState = currentMouseState;
 
@@ -159,7 +158,7 @@ namespace Laikos
 
         private void UpdateBezier()
         {
-            bezTime += 0.01f;
+            bezTime += 0.05f;
             if (bezTime > 1.0f)
                 return;
 

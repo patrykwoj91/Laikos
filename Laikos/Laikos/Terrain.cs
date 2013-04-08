@@ -186,15 +186,15 @@ namespace Laikos
             //Setting technique for multitexturing and setting textures
             effect.CurrentTechnique = effect.Techniques["MultiTextured"];
             effect.Parameters["xTexture0"].SetValue(sandTexture);
-            effect.Parameters["xTexture1"].SetValue(sandTexture);
-            effect.Parameters["xTexture2"].SetValue(sandTexture);
-            effect.Parameters["xTexture3"].SetValue(sandTexture);
+            effect.Parameters["xTexture1"].SetValue(rockTexture);
+            effect.Parameters["xTexture2"].SetValue(rockTexture);
+            effect.Parameters["xTexture3"].SetValue(rockTexture);
 
             //Setting basic light for terrain
             Vector3 lightDirection = new Vector3(1.0f, -1.0f, -1.0f);
             lightDirection.Normalize();
             effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            effect.Parameters["xAmbient"].SetValue(0.1f);
+            effect.Parameters["xAmbient"].SetValue(-0.3f);
             effect.Parameters["xEnableLighting"].SetValue(true);
 
             //Drawing terrain

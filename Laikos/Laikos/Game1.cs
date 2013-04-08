@@ -125,6 +125,8 @@ namespace Laikos
                 else
                     Console.WriteLine("Kolizja");
             }
+
+            
             base.Update(gameTime);
         }
 
