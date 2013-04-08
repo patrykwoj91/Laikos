@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Laikos
 {
@@ -32,6 +24,7 @@ namespace Laikos
         private Vector3 cameraPosition;
         private float leftRightRot;
         private float upDownRot;
+        private float zoom;
 
         //Constant variables that describe camera parameters
         const float rotationSpeed = 0.3f;
@@ -44,13 +37,16 @@ namespace Laikos
         GraphicsDevice device;
         MouseState oldMouseState;
         Terrain terrain;
+
         //*************************************************//
 
         public Camera(Game game, GraphicsDeviceManager graphics, Terrain terrain)
             : base(game)
         {
+            //Resolution of the game used to move camera with mouse
             backBufferHeight = graphics.PreferredBackBufferHeight;
             backBufferWidth = graphics.PreferredBackBufferWidth;
+            //Initialization of terrain for camera collisions
             this.terrain = terrain;
         }
 
@@ -64,8 +60,9 @@ namespace Laikos
             viewAngle = MathHelper.PiOver4;
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
-            farPlane = 800.0f;
-            cameraPosition = new Vector3(100, 150, 127);
+            farPlane = 200.0f;
+            zoom = 5.0f;
+            cameraPosition = new Vector3(30, 80, 100);
             leftRightRot = MathHelper.ToRadians(0.0f);
             upDownRot = MathHelper.ToRadians(-45);
             //Initializing projection matrix
@@ -77,9 +74,10 @@ namespace Laikos
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
             HandleInput(timeDifference);
+            //Checking for collision with terrain if camera is within range of our terrain
             if (cameraPosition.X < terrain.terrainWidth -1 && cameraPosition.Z < terrain.terrainHeight - 1)
             {
-                CheckCameraCollision();
+                Collisions.CheckWithTerrain(ref cameraPosition, zoom, terrain);
             }
             base.Update(gameTime);
         }

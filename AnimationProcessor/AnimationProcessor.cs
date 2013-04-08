@@ -196,11 +196,40 @@ namespace AnimationProcessor
             //umozliwiamy konwersje 
             ModelContent model = base.Process(input, context);
 
+            List<Vector3> vertices = new List<Vector3>();
+            vertices = AddVerticesToList(input, vertices);
+
+            BoundingSphere boundingSphere = BoundingSphere.CreateFromPoints(vertices);
             //zapisz w tagu
 
-            model.Tag = new AnimationData(animationClips, bindPose, inverseBindPose, skeletonHierarchy);
+            model.Tag = new AnimationData(animationClips, bindPose, inverseBindPose, skeletonHierarchy, boundingSphere);
 
             return model;
+        }
+
+        private List<Vector3> AddVerticesToList(NodeContent node, List<Vector3> vertList)
+        {
+            MeshContent mesh = node as MeshContent;
+
+            if (mesh != null)
+            {
+                Matrix absTransform = mesh.AbsoluteTransform;
+
+                foreach (GeometryContent geo in mesh.Geometry)
+                {
+                    foreach (int index in geo.Indices)
+                    {
+                        Vector3 vertex = geo.Vertices.Positions[index];
+                        Vector3 transVertex = Vector3.Transform(vertex, absTransform);
+                        vertList.Add(transVertex);
+                    }
+                }
+            }
+
+            foreach (NodeContent child in node.Children)
+                vertList = AddVerticesToList(child, vertList);
+
+            return vertList;
         }
     }
 }

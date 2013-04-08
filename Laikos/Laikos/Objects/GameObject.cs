@@ -46,9 +46,9 @@ namespace Laikos
             //    AnimationClip clip = animationData.AnimationClips["jump"];
             //    animationPlayer.StartClip(clip);
             //}
-            AddGravity();
+            Collisions.AddGravity(ref Position);
             HandleInput();
-            CheckCollisionWithTerrain();
+            Collisions.CheckWithTerrain(ref Position, 0.5f, terrain);
 
             base.Update(gameTime);
         }
@@ -57,24 +57,6 @@ namespace Laikos
         {
             //a to zostawiamy na razie puste
             base.Draw(camera);
-        }
-
-        private void AddGravity()
-        {
-            Position.Y -= 0.1f;
-        }
-
-        private void CheckCollisionWithTerrain()
-        {
-            float terrainHeight = terrain.GetExactHeightAt(Position.X, Position.Z);
-            float x = 0.1f;
-            
-            if (Position.Y < terrainHeight + x)
-            {
-                Vector3 newPos = Position;
-                newPos.Y = (terrainHeight + x);
-                Position = newPos;
-            }
         }
 
         private void HandleInput()

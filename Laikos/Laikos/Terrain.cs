@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Laikos
 {
-
     //This structure that holds data about position, color and normal for each vertex.
     public struct VertexMultiTextured : IVertexType
     {
@@ -44,28 +35,28 @@ namespace Laikos
         //****************************************************************//
 
         //These variables describes parameters of terrain
-        private float[,] heightData;
+        protected float[,] heightData;
         public int terrainWidth { get; set; }
         public int terrainHeight { get; set; }
 
         //These variables are needed to create triangles in terrain
-        private VertexMultiTextured[] vertices;
-        private int[] indices;
+        protected VertexMultiTextured[] vertices;
+        protected int[] indices;
 
         //Buffers used to store terrain in memory of graphics card
-        private VertexBuffer vertexBuffer;
-        private IndexBuffer indexBuffer;
+        protected VertexBuffer vertexBuffer;
+        protected IndexBuffer indexBuffer;
 
         //Effects and direct link to graphics card
-        private GraphicsDevice device;
-        private Effect effect;
+        protected GraphicsDevice device;
+        protected Effect effect;
 
         //Textures will be loaded later to correctly render terrain
         private Texture2D grassTexture;
         private Texture2D rockTexture;
-        private Texture2D sandTexture;
+        protected Texture2D sandTexture;
         private Texture2D snowTexture;
-        private Texture2D heightMap;
+        protected Texture2D heightMap;
         //***************************************************************//
 
         public Terrain(Game game)
@@ -84,7 +75,7 @@ namespace Laikos
         {
             //Loading textures and effects from content
             effect = Game.Content.Load<Effect>("effects");
-            heightMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap2");
+            heightMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap");
             grassTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/grass");
             sandTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/sand");
             snowTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/snow");
@@ -132,7 +123,7 @@ namespace Laikos
         }
 
         //Loading data from bitmap file about height in our map.
-        private void LoadHeightData()
+        protected void LoadHeightData()
         {
 
             float minimumHeight = float.MaxValue;
@@ -153,7 +144,7 @@ namespace Laikos
                 for (int y = 0; y < terrainHeight; y++)
                 {
                     //Loading data based on red color 0 - white 255 -black
-                    heightData[x, y] = heightMapColors[x + y * terrainWidth].R;
+                    heightData[x, y] = heightMapColors[x + y * terrainWidth].R / 15.0f;
                     //Setting data about maximum and minimum point in map
                     if (heightData[x, y] < minimumHeight) minimumHeight = heightData[x, y];
                     if (heightData[x, y] > maximumHeight) maximumHeight = heightData[x, y];
@@ -168,7 +159,7 @@ namespace Laikos
         //Setting up position and texture coordinates of our vertices in triangles.
         //We are not connecting them yet, they are just points.
         //Connection between them will be made in SetUpIndices() function
-        private void SetUpVertices()
+        protected void SetUpVertices()
         {
             vertices = new VertexMultiTextured[terrainWidth * terrainHeight];
 
@@ -204,7 +195,7 @@ namespace Laikos
 
         //We are going to connect vertices with each other in this function
         //to create triangles. It's optimization to not duplicate some of the vertices
-        private void SetUpIndices()
+        protected void SetUpIndices()
         {
             indices = new int[(terrainWidth - 1) * (terrainHeight - 1) * 6];
             int counter = 0;
@@ -233,7 +224,7 @@ namespace Laikos
         }
 
         //This method calculate and fills up our vertices with normalized normals
-        private void CalculateNormals()
+        protected void CalculateNormals()
         {
             //Set all normals to 0
             for (int i = 0; i < vertices.Length; i++)
@@ -262,7 +253,7 @@ namespace Laikos
         }
 
         //We are going to fill our vertex and index buffer
-        private void CopyToBuffer()
+        protected void CopyToBuffer()
         {
             //Allocate piece of memory on graphics card, so we can store there all of our vertices
             vertexBuffer = new VertexBuffer(device, typeof(VertexMultiTextured), vertices.Length, BufferUsage.WriteOnly);
@@ -275,7 +266,7 @@ namespace Laikos
         //Moving terrain to the center of the world (0, 0, 0) and rotating it
         public Matrix SetWorldMatrix()
         {
-            Matrix worldMatrix = Matrix.Identity;
+            Matrix worldMatrix = Matrix.CreateTranslation(50, 0, 0);
             return worldMatrix;
         }
 
@@ -297,6 +288,7 @@ namespace Laikos
             int zHigher = zLower + 1;
             float zRelative = (zCoord - zLower) / ((float)zHigher - (float)zLower);
 
+            
             float heightLxLz = heightData[xLower, zLower];
             float heightLxHz = heightData[xLower, zHigher];
             float heightHxLz = heightData[xHigher, zLower];

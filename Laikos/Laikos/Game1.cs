@@ -22,8 +22,9 @@ namespace Laikos
         Effect effect;
         Camera camera;
         Terrain terrain;
+        Underground underground;
         GameObject soldier;
-        
+        Model soldier_model;
 
         public Game1()
         {
@@ -36,9 +37,12 @@ namespace Laikos
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics, terrain);
+            underground = new Underground(this, camera);
 
             Components.Add(camera);
-            Components.Add(terrain);
+            Components.Add(underground);
+            //Components.Add(terrain);
+            
         }
 
         /// <summary>
@@ -62,13 +66,12 @@ namespace Laikos
             spriteBatch = new SpriteBatch(GraphicsDevice);
             device = graphics.GraphicsDevice;
             effect = Content.Load<Effect>("effects");
-            
             //adds soldier_model and ask renderer to render it
 
             //to sie bedzie dzialo w GameComponencie ObjectManager ktory jeszcze nie jest napisany
-            Model soldier_model = Content.Load<Model>("Models/Test_model/dude");
-            soldier = new GameObject(soldier_model, terrain);
+            soldier_model = Content.Load<Model>("Models/Test_model/dude");
             
+            soldier = new GameObject(soldier_model, terrain);
         }
 
         /// <summary>
@@ -93,6 +96,15 @@ namespace Laikos
 
             // TODO: Add your update logic here
             soldier.Update(gameTime);
+            KeyboardState kb = Keyboard.GetState();
+            if (kb.IsKeyDown(Keys.K))
+            {
+                MouseState mouse = Mouse.GetState();
+                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device, camera);
+                Vector3 pointerPosCol = Collisions.BinarySearch(pointerRay, terrain);
+                Console.WriteLine(pointerPosCol.ToString());
+            }
             base.Update(gameTime);
         }
 

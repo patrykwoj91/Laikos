@@ -15,13 +15,16 @@ namespace Animation
         public List<Matrix> InverseBindPose { get; private set; } //macierze transformacji vertexow do bone space
         [ContentSerializer]
         public List<int> SkeletonHierarchy { get; private set; } //dla kazdej kosci index kosci rodzica (hierarchia szkieletu)
+        [ContentSerializer]
+        public BoundingSphere BoundingSphere { get; private set; }
         
-        public AnimationData(Dictionary <string, AnimationClip> animationClips, List<Matrix> bindPose, List<Matrix> inverseBindPose, List<int> skeletonHierarchy)
+        public AnimationData(Dictionary <string, AnimationClip> animationClips, List<Matrix> bindPose, List<Matrix> inverseBindPose, List<int> skeletonHierarchy, BoundingSphere boundingSphere)
         {
             AnimationClips = animationClips;
             BindPose = bindPose;
             InverseBindPose = inverseBindPose;
             SkeletonHierarchy = skeletonHierarchy;
+            BoundingSphere = boundingSphere;
         }
 
         private AnimationData()
