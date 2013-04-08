@@ -12,13 +12,13 @@ namespace Animation
         /// </summary>
         public AnimationData(Dictionary<string, AnimationClip> animationClips,
                             List<Matrix> bindPose, List<Matrix> inverseBindPose,
-                            List<int> skeletonHierarchy, BoundingSphere boundingSphere)
+                            List<int> skeletonHierarchy, BoundingBox boundingBox)
         {
             AnimationClips = animationClips;
             BindPose = bindPose;
             InverseBindPose = inverseBindPose;
             SkeletonHierarchy = skeletonHierarchy;
-            BoundingSphere = boundingSphere;
+            BoundingBox = boundingBox;
         }
 
 
@@ -64,6 +64,6 @@ namespace Animation
         /// Contains Bounding sphere for collision detection
         /// </summary>
         [ContentSerializer]
-        public BoundingSphere BoundingSphere { get; private set; }
+        public BoundingBox BoundingBox { get; private set; }
     }
 }

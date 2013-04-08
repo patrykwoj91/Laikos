@@ -26,21 +26,21 @@ namespace Laikos
         }
 
         //This method is performing basic collision detection between two models
-        //Whole model is surrounded by BoundingSphere stored in model.Tag info
+        //Whole model is surrounded by BoundingBox stored in model.Tag info
        public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
         {
-            //Retrieving data about BoundingSphere from model.Tag for first model
+            //Retrieving data about BoundingBox from model.Tag for first model
             AnimationData animationData1 = model1.Tag as AnimationData;
-            BoundingSphere originalSphere1 = animationData1.BoundingSphere;
-            BoundingSphere sphere1 = XNAUtils.TransformBoundingSphere(originalSphere1, world1);
+            BoundingBox originalBox1 = animationData1.BoundingBox;
+            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
 
             //Doing the same thing for second model
             AnimationData animationData2 = model2.Tag as AnimationData;
-            BoundingSphere originalSphere2 = animationData2.BoundingSphere;
-            BoundingSphere sphere2 = XNAUtils.TransformBoundingSphere(originalSphere2, world2);
+            BoundingBox originalBox2 = animationData2.BoundingBox;
+            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
 
-            //Checking if global bounding sphere(surronds whole model) intersects another sphere
-            bool collision = sphere1.Intersects(sphere2);
+            //Checking if global bounding Box(surronds whole model) intersects another Box
+            bool collision = Box1.Intersects(Box2);
             return collision;
         }
 
@@ -53,38 +53,40 @@ namespace Laikos
             if (!GeneralCollisionCheck(model1, world1, model2, world2))
                 return false;
 
-            //Here we are creating BoundingSphere for each mesh for model1
+            //Here we are creating BoundingBox for each mesh for model1
             Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
             model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
-            BoundingSphere[] model1Spheres = new BoundingSphere[model1.Meshes.Count];
+            BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
             for (int i = 0; i < model1.Meshes.Count; i++)
             {
                 ModelMesh mesh = model1.Meshes[i];
                 BoundingSphere origSphere = mesh.BoundingSphere;
+                BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
                 Matrix trans = model1Transforms[mesh.ParentBone.Index] * world1;
-                BoundingSphere transSphere = XNAUtils.TransformBoundingSphere(origSphere, trans);
-                model1Spheres[i] = transSphere;
+                BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
+                model1Boxs[i] = transBox;
             }
 
             //and here for second model
             Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
             model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
-            BoundingSphere[] model2Spheres = new BoundingSphere[model2.Meshes.Count];
+            BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
             for (int i = 0; i < model2.Meshes.Count; i++)
             {
                 ModelMesh mesh = model2.Meshes[i];
                 BoundingSphere origSphere = mesh.BoundingSphere;
+                BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
                 Matrix trans = model2Transforms[mesh.ParentBone.Index] * world2;
-                BoundingSphere transSphere = XNAUtils.TransformBoundingSphere(origSphere, trans);
-                model2Spheres[i] = transSphere;
+                BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
+                model2Boxs[i] = transBox;
             }
 
             bool collision = false;
 
-            //Check if any of created before spheres intersects with another sphere
-            for (int i = 0; i < model1Spheres.Length; i++)
-                for (int j = 0; j < model2Spheres.Length; j++)
-                    if (model1Spheres[i].Intersects(model2Spheres[j]))
+            //Check if any of created before Boxs intersects with another Box
+            for (int i = 0; i < model1Boxs.Length; i++)
+                for (int j = 0; j < model2Boxs.Length; j++)
+                    if (model1Boxs[i].Intersects(model2Boxs[j]))
                         return true;
 
             return collision;
@@ -96,14 +98,15 @@ namespace Laikos
             currentPosition.Y -= 0.3f;
         }
 
+        //Collision between pointer and model to select it
         public static bool RayModelCollision(Ray ray, Model model, Matrix world)
         {
             bool collision = false;
             AnimationData animationData = model.Tag as AnimationData;
-            BoundingSphere originalSphere = animationData.BoundingSphere;
-            BoundingSphere sphere = XNAUtils.TransformBoundingSphere(originalSphere, world);
+            BoundingBox originalBox = animationData.BoundingBox;
+            BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
             Console.WriteLine(ray.Position.ToString() + " " + ray.Direction.ToString());
-            float? intersection = sphere.Intersects(ray);
+            float? intersection = Box.Intersects(ray);
             if (intersection <= ray.Direction.Length())
                 return true;
 

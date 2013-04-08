@@ -68,11 +68,11 @@ namespace AnimationProcessor
             List<Vector3> vertices = new List<Vector3>();
             vertices = AddVerticesToList(input, vertices);
 
-            BoundingSphere boundingSphere = BoundingSphere.CreateFromPoints(vertices);
+            BoundingBox boundingBox = BoundingBox.CreateFromPoints(vertices);
 
             // Store our custom animation data in the Tag property of the model.
             model.Tag = new AnimationData(animationClips, bindPose,
-                                         inverseBindPose, skeletonHierarchy, boundingSphere);
+                                         inverseBindPose, skeletonHierarchy, boundingBox);
 
             return model;
         }
