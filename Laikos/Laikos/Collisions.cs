@@ -92,6 +92,73 @@ namespace Laikos
             return collision;
         }
 
+       //This method is performing basic collision detection between two models
+       //Whole model is surrounded by BoundingBox stored in model.Tag info
+       public static bool GeneralDecorationCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+       {
+           //Retrieving data about BoundingBox from model.Tag for first model
+           AnimationData animationData1 = model1.Tag as AnimationData;
+           BoundingBox originalBox1 = animationData1.BoundingBox;
+           BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
+           Console.WriteLine(Box1.ToString());
+           //Doing the same thing for second model
+           BoundingBox originalBox2 = (BoundingBox)model2.Tag;
+           BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
+           Console.WriteLine(Box2.ToString());
+           //Checking if global bounding Box(surronds whole model) intersects another Box
+           bool collision = Box1.Intersects(Box2);
+           return collision;
+       }
+
+       //This method performs much more detailed collision check.
+       //It checks if there is collision for each mesh of model
+       public static bool DetailedDecorationCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+       {
+           //first we check if there is general collision between two models
+           //If method returns false we dont have to perform detailed check
+           if (!GeneralDecorationCollisionCheck(model1, world1, model2, world2))
+               return false;
+
+           //Here we are creating BoundingBox for each mesh for model1
+           Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
+           model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
+           BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
+           for (int i = 0; i < model1.Meshes.Count; i++)
+           {
+               ModelMesh mesh = model1.Meshes[i];
+               BoundingSphere origSphere = mesh.BoundingSphere;
+               BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
+               Matrix trans = model1Transforms[mesh.ParentBone.Index] * world1;
+               BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
+               model1Boxs[i] = transBox;
+           }
+
+           //and here for second model
+           Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
+           model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
+           BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
+           Console.WriteLine(model2.Meshes.Count);
+           for (int i = 0; i < model2.Meshes.Count; i++)
+           {
+               ModelMesh mesh = model2.Meshes[i];
+               BoundingSphere origSphere = mesh.BoundingSphere;
+               BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
+               Matrix trans = model2Transforms[mesh.ParentBone.Index] * world2;
+               BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
+               model2Boxs[i] = transBox;
+           }
+
+           bool collision = false;
+
+           //Check if any of created before Boxs intersects with another Box
+           for (int i = 0; i < model1Boxs.Length; i++)
+               for (int j = 0; j < model2Boxs.Length; j++)
+                   if (model1Boxs[i].Intersects(model2Boxs[j]))
+                       return true;
+
+           return collision;
+       }
+
         //Simple method to add gravity to every model
         public static void AddGravity(ref Vector3 currentPosition)
         {
@@ -106,6 +173,19 @@ namespace Laikos
             BoundingBox originalBox = animationData.BoundingBox;
             BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
             Console.WriteLine(ray.Position.ToString() + " " + ray.Direction.ToString());
+            float? intersection = Box.Intersects(ray);
+            if (intersection <= ray.Direction.Length())
+                return true;
+
+            return collision;
+        }
+
+        public static bool RayDecorationCollision(Ray ray, Model model, Matrix world)
+        {
+            bool collision = false;
+            BoundingBox originalBox = (BoundingBox)model.Tag;
+            BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
+
             float? intersection = Box.Intersects(ray);
             if (intersection <= ray.Direction.Length())
                 return true;
