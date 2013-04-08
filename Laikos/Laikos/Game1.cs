@@ -29,7 +29,6 @@ namespace Laikos
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            
 
             Content.RootDirectory = "Content";
 
@@ -41,7 +40,7 @@ namespace Laikos
             camera = new Camera(this, graphics);
             units = new UnitManager(this);
             decorations = new DecorationManager(this);
-
+            
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(units);

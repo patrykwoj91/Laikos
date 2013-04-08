@@ -243,6 +243,70 @@
       <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\cloudMap_0.xnb</Output>
       <Time>2013-04-03T16:52:54.221313+02:00</Time>
     </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\DiffuseMap.tga</Source>
+      <Name>Models\Decorations\Ruins1\DiffuseMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\DiffuseMap.xnb</Output>
+      <Time>2013-04-07T18:29:53.2520232+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\NormalMap.tga</Source>
+      <Name>Models\Decorations\Ruins1\NormalMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\NormalMap.xnb</Output>
+      <Time>2013-04-07T18:29:53.2820232+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\SpecMap.tga</Source>
+      <Name>Models\Decorations\Ruins1\SpecMap</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\SpecMap.xnb</Output>
+      <Time>2013-04-07T18:29:53.3120233+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\Ruins.FBX</Source>
+      <Name>Models\Decorations\Ruins1\Ruins</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\Ruins.xnb</Output>
+      <Time>2013-04-07T18:29:53.2820232+02:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\Decorations\Ruins1\Ruins_0.xml</Key>
+        <Value>2013-04-07T18:43:22.8357097+02:00</Value>
+      </Dependency>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\DiffuseMap_0.xnb</Request>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\Ruins.FBX</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\Decorations\Ruins1\Ruins_0.xml</Output>
+      <Time>2013-04-07T18:29:53.2820232+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\Decorations\Ruins1\DiffuseMap.tga</Source>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor" Type="Framework:Color">FFFF00FF</Data>
+        <Data Key="ColorKeyEnabled" Type="bool">true</Data>
+        <Data Key="TextureFormat" Type="Processors:TextureProcessorOutputFormat">DxtCompressed</Data>
+        <Data Key="GenerateMipmaps" Type="bool">true</Data>
+        <Data Key="ResizeToPowerOfTwo" Type="bool">false</Data>
+        <Data Key="PremultiplyAlpha" Type="bool">true</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Decorations\Ruins1\DiffuseMap_0.xnb</Output>
+      <Time>2013-04-07T18:29:53.2520232+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
