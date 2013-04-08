@@ -112,11 +112,11 @@ namespace Laikos
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
-                if (collision == false)
-                    Console.WriteLine("Brak kolizji");
-                else
-                    Console.WriteLine("Kolizja");
+             //   bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
+             //   if (collision == false)
+              //      Console.WriteLine("Brak kolizji");
+              //  else
+              //      Console.WriteLine("Kolizja");
             }
             base.Update(gameTime);
         }

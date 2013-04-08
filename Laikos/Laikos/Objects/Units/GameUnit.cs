@@ -20,7 +20,14 @@ namespace Laikos
             Position = new Vector3(0, 50, 33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
             Scale = 0.05f;
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
-            PlayAnimation("Take 001");//Play the default animation temporary
+
+            PlayAnimation("Idle");//Play the default animation temporary
+            
+        }
+
+        public static void Fire(string EventName)
+        {
+            Console.WriteLine("Firing");
         }
 
         public override void Update(GameTime gameTime)
@@ -76,6 +83,16 @@ namespace Laikos
             if (currentKeyboardState.IsKeyDown(Keys.D))
             {
                 Position.X += 0.1f;
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.D1))
+            {
+                if (animationPlayer.CurrentClip.Name != "Idle")
+                    PlayAnimation("Idle"); ;
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.D2))
+            {
+                if (animationPlayer.CurrentClip.Name != "Fire")
+                    PlayAnimation("Fire"); ;
             }
         }
     }

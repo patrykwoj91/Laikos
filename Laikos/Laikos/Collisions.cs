@@ -27,26 +27,26 @@ namespace Laikos
 
         //This method is performing basic collision detection between two models
         //Whole model is surrounded by BoundingSphere stored in model.Tag info
-        public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+       /* public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
         {
             //Retrieving data about BoundingSphere from model.Tag for first model
             AnimationData animationData1 = model1.Tag as AnimationData;
             BoundingSphere originalSphere1 = animationData1.BoundingSphere;
-            BoundingSphere sphere1 = XNAUtils.TransformBoundingSphere(originalSphere1, world1);
+           // BoundingSphere sphere1 = XNAUtils.TransformBoundingSphere(originalSphere1, world1);
 
             //Doing the same thing for second model
             AnimationData animationData2 = model2.Tag as AnimationData;
             BoundingSphere originalSphere2 = animationData2.BoundingSphere;
-            BoundingSphere sphere2 = XNAUtils.TransformBoundingSphere(originalSphere2, world2);
+          //  BoundingSphere sphere2 = XNAUtils.TransformBoundingSphere(originalSphere2, world2);
 
             //Checking if global bounding sphere(surronds whole model) intersects another sphere
             bool collision = sphere1.Intersects(sphere2);
             return collision;
-        }
+        }*/
 
         //This method performs much more detailed collision check.
         //It checks if there is collision for each mesh of model
-        public static bool DetailedCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+      /*  public static bool DetailedCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
         {
             //first we check if there is general collision between two models
             //If method returns false we dont have to perform detailed check
@@ -88,7 +88,7 @@ namespace Laikos
                         return true;
 
             return collision;
-        }
+        }*/
 
         //Simple method to add gravity to every model
         public static void AddGravity(ref Vector3 currentPosition)
@@ -96,11 +96,11 @@ namespace Laikos
             currentPosition.Y -= 0.3f;
         }
 
-        public static bool RayModelCollision(Ray ray, Model model, Matrix world)
+      /*  public static bool RayModelCollision(Ray ray, Model model, Matrix world)
         {
             bool collision = false;
             AnimationData animationData = model.Tag as AnimationData;
-            BoundingSphere originalSphere = animationData.BoundingSphere;
+           // BoundingSphere originalSphere = animationData.BoundingSphere;
             BoundingSphere sphere = XNAUtils.TransformBoundingSphere(originalSphere, world);
             Console.WriteLine(ray.Position.ToString() + " " + ray.Direction.ToString());
             float? intersection = sphere.Intersects(ray);
@@ -108,7 +108,7 @@ namespace Laikos
                 return true;
 
             return collision;
-        }
+        }*/
 
         public static Vector3 BinarySearch(Ray ray)
         {

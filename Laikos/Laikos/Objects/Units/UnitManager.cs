@@ -33,6 +33,7 @@ namespace Laikos
             
             ModelList.Add("dude",Game.Content.Load<Model>(path));
             UnitList.Add(new GameUnit(ModelList["dude"]));
+            UnitList[0].animationPlayer.RegisteredEvents["Fire"].Add("FireFrame", new AnimationPlayer.EventCallback(GameUnit.Fire));
             
             
         }
