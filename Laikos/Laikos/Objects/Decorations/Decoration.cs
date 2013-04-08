@@ -13,7 +13,7 @@ namespace Laikos
             public float Scale = 1.0f; //Current scale
             public Model currentModel; //Model reference
 
-            private Matrix GetWorldMatrix()
+            public Matrix GetWorldMatrix()
             {
                 return
                     Matrix.CreateScale(Scale) *
@@ -34,11 +34,13 @@ namespace Laikos
                 Scale = 0.1f;
                 Rotation = new Vector3(MathHelper.ToRadians(-90), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
             }
+
             public virtual void Update(GameTime gameTime)
             {
                 Collisions.AddGravity(ref Position);
                 Collisions.CheckWithTerrain(ref Position, 0.5f);
             }
+
             public virtual void Draw()
             {
                 //Ask camera for matrix.

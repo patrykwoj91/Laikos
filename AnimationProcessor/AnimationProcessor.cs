@@ -65,11 +65,41 @@ namespace AnimationProcessor
             // Chain to the base ModelProcessor class so it can convert the model data.
             ModelContent model = base.Process(input, context);
 
+            List<Vector3> vertices = new List<Vector3>();
+            vertices = AddVerticesToList(input, vertices);
+
+            BoundingSphere boundingSphere = BoundingSphere.CreateFromPoints(vertices);
+
             // Store our custom animation data in the Tag property of the model.
             model.Tag = new AnimationData(animationClips, bindPose,
-                                         inverseBindPose, skeletonHierarchy);
+                                         inverseBindPose, skeletonHierarchy, boundingSphere);
 
             return model;
+        }
+
+        private List<Vector3> AddVerticesToList(NodeContent node, List<Vector3> vertList)
+        {
+            MeshContent mesh = node as MeshContent;
+
+            if (mesh != null)
+            {
+                Matrix absTransform = mesh.AbsoluteTransform;
+
+                foreach (GeometryContent geo in mesh.Geometry)
+                {
+                    foreach (int index in geo.Indices)
+                    {
+                        Vector3 vertex = geo.Vertices.Positions[index];
+                        Vector3 transVertex = Vector3.Transform(vertex, absTransform);
+                        vertList.Add(transVertex);
+                    }
+                }
+            }
+
+            foreach (NodeContent child in node.Children)
+                vertList = AddVerticesToList(child, vertList);
+
+            return vertList;
         }
 
 
