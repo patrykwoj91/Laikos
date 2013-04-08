@@ -58,7 +58,7 @@ namespace Laikos
                 BoundingSphere transMeshSphere = XNAUtils.TransformBoundingSphere(origMeshSphere, modelTransforms[mesh.ParentBone.Index]);
                 completeBoundingSphere = BoundingSphere.CreateMerged(completeBoundingSphere, transMeshSphere);
             }
-            newModel.Tag = completeBoundingSphere;
+            newModel.Tag = CreateBoxFromSphere(completeBoundingSphere);
 
             return newModel;
         }

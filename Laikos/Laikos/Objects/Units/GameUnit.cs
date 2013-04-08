@@ -70,19 +70,19 @@ namespace Laikos
 
             if (currentKeyboardState.IsKeyDown(Keys.W))
             {
-                Position.Z += 0.1f;
+                Position.Z += 0.5f;
             }
             if (currentKeyboardState.IsKeyDown(Keys.S))
             {
-                Position.Z -= 0.1f;
+                Position.Z -= 0.5f;
             }
             if (currentKeyboardState.IsKeyDown(Keys.A))
             {
-                Position.X -= 0.1f;
+                Position.X -= 0.5f;
             }
             if (currentKeyboardState.IsKeyDown(Keys.D))
             {
-                Position.X += 0.1f;
+                Position.X += 0.5f;
             }
             if (currentKeyboardState.IsKeyDown(Keys.D1))
             {

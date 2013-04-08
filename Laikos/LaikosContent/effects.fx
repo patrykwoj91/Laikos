@@ -1,11 +1,3 @@
-//----------------------------------------------------
-//--                                                --
-//--               www.riemers.net                  --
-//--         Series 4: Advanced terrain             --
-//--                 Shader code                    --
-//--                                                --
-//----------------------------------------------------
-
 //------- Constants --------
 float4x4 xView;
 float4x4 xProjection;

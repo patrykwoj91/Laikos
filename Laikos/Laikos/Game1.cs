@@ -108,9 +108,10 @@ namespace Laikos
 
             if (kb.IsKeyDown(Keys.J))
             {
-                Collisions.DetailedCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
+                bool collision;
+                collision = Collisions.GeneralDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
                                                   decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
-                Console.WriteLine();
+                Console.WriteLine(collision);
             }
 
             if (kb.IsKeyDown(Keys.L))

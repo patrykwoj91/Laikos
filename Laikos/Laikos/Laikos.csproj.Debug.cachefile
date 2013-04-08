@@ -14,7 +14,6 @@ Content\Models\Terrain\cloudMap.xnb
 Content\Models\Decorations\Ruins1\DiffuseMap.xnb
 Content\Models\Decorations\Ruins1\NormalMap.xnb
 Content\Models\Decorations\Ruins1\SpecMap.xnb
-Content\Models\Test_model\dude.xnb
 Content\Models\Decorations\Ruins1\Ruins.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\Test_model\dude_Anims.xnb
@@ -24,3 +23,4 @@ Content\Models\Test_model\pants_0.xnb
 Content\Models\Test_model\upBodyC_0.xnb
 Content\Models\Decorations\Ruins1\DiffuseMap_0.xnb
 Content\Models\Terrain\cloudMap_0.xnb
+Content\Models\Test_model\dude.xnb
