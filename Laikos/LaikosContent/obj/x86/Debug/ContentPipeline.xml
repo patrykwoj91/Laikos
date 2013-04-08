@@ -7,8 +7,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb</Output>
-      <Time>2013-03-13T12:14:09.2917601+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\effects.xnb</Output>
+      <Time>2013-03-30T21:49:25.8788261+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\grass.dds</Source>
@@ -16,8 +16,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\grass.xnb</Output>
-      <Time>2013-03-13T12:14:08.9641596+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\grass.xnb</Output>
+      <Time>2013-03-14T13:59:35.307043+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Heightmaps\heightmap.bmp</Source>
@@ -25,8 +25,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap.xnb</Output>
-      <Time>2013-03-13T12:14:08.9173595+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap.xnb</Output>
+      <Time>2013-03-14T13:59:35.3280442+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Heightmaps\heightmap1.jpg</Source>
@@ -34,8 +34,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap1.xnb</Output>
-      <Time>2013-03-13T12:14:08.9173595+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap1.xnb</Output>
+      <Time>2013-03-14T13:59:35.324044+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\head.tga</Source>
@@ -43,8 +43,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head.xnb</Output>
-      <Time>2013-03-13T12:14:09.1825599+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head.xnb</Output>
+      <Time>2013-03-14T13:59:34.9780242+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\jacket.tga</Source>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket.xnb</Output>
-      <Time>2013-03-13T12:14:09.22936+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket.xnb</Output>
+      <Time>2013-03-14T13:59:34.9090202+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\pants.tga</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants.xnb</Output>
-      <Time>2013-03-13T12:14:09.2605601+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants.xnb</Output>
+      <Time>2013-03-14T13:59:34.8510169+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\upBodyC.tga</Source>
@@ -70,8 +70,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC.xnb</Output>
-      <Time>2013-03-13T12:14:09.2917601+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC.xnb</Output>
+      <Time>2013-03-14T13:59:34.7990139+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Heightmaps\heightmap2.jpg</Source>
@@ -79,8 +79,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap2.xnb</Output>
-      <Time>2013-03-13T12:14:08.9329595+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Heightmaps\heightmap2.xnb</Output>
+      <Time>2013-03-14T13:59:35.3210438+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\rock.dds</Source>
@@ -88,8 +88,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\rock.xnb</Output>
-      <Time>2013-03-13T12:14:08.9953596+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\rock.xnb</Output>
+      <Time>2013-03-14T13:59:35.2760412+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\sand.dds</Source>
@@ -97,8 +97,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\sand.xnb</Output>
-      <Time>2013-03-13T12:14:09.0265597+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\sand.xnb</Output>
+      <Time>2013-03-14T13:59:35.2450395+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Terrain\Textures\snow.dds</Source>
@@ -106,8 +106,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\snow.xnb</Output>
-      <Time>2013-03-13T12:14:09.0421597+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Terrain\Textures\snow.xnb</Output>
+      <Time>2013-03-14T13:59:35.2130376+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\dude.fbx</Source>
@@ -115,23 +115,23 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\dude.xnb</Output>
-      <Time>2013-03-13T12:14:09.1357599+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\dude.xnb</Output>
+      <Time>2013-03-14T13:59:35.0830302+01:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\Test_model\dude_0.xml</Key>
-        <Value>2013-03-18T21:02:02.4693501+01:00</Value>
+        <Value>2013-03-31T22:59:53.0092116+02:00</Value>
       </Dependency>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head_0.xnb</Request>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket_0.xnb</Request>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants_0.xnb</Request>
-      <Request>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants_0.xnb</Request>
+      <Request>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC_0.xnb</Request>
     </Item>
     <Item>
       <Source>Models\Test_model\dude.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\Test_model\dude_0.xml</Output>
-      <Time>2013-03-13T12:14:09.1357599+01:00</Time>
+      <Time>2013-03-14T13:59:35.0830302+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\head.tga</Source>
@@ -146,8 +146,8 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.1825599+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\head_0.xnb</Output>
+      <Time>2013-03-14T13:59:34.9780242+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\jacket.tga</Source>
@@ -162,8 +162,8 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.22936+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\jacket_0.xnb</Output>
+      <Time>2013-03-14T13:59:34.9090202+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\pants.tga</Source>
@@ -178,8 +178,8 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.2605601+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\pants_0.xnb</Output>
+      <Time>2013-03-14T13:59:34.8510169+01:00</Time>
     </Item>
     <Item>
       <Source>Models\Test_model\upBodyC.tga</Source>
@@ -194,8 +194,8 @@
         <Data Key="PremultiplyAlpha" Type="bool">true</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC_0.xnb</Output>
-      <Time>2013-03-13T12:14:09.2917601+01:00</Time>
+      <Output>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\Models\Test_model\upBodyC_0.xnb</Output>
+      <Time>2013-03-14T13:59:34.7990139+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -203,10 +203,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\LaikosContent\</RootDirectory>
-      <LoggerRootDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\LaikosContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>D:\Documents\Visual Studio 2010\Projects\Laikos\Laikos\Laikos\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\LaikosContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\LaikosContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\Laikos\Laikos\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -234,12 +234,12 @@
         <Value>2010-08-23T13:41:18+02:00</Value>
       </Assembly>
       <Assembly>
-        <Key>D:\Documents\Visual Studio 2010\Projects\Laikos\AnimationProcessor\bin\Debug\AnimationProcessor.dll</Key>
-        <Value>2013-03-18T21:01:58.9045131+01:00</Value>
+        <Key>C:\Users\Piotrek\Documents\Visual Studio 2010\Projects\Laikos1\AnimationProcessor\bin\Debug\AnimationProcessor.dll</Key>
+        <Value>2013-03-31T22:59:49.5100115+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2013-02-26T14:25:15.1258857+01:00</Value>
+        <Value>2013-02-26T20:35:00.8355287+01:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
