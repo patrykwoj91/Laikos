@@ -35,7 +35,6 @@ namespace Laikos
             UnitList.Add(new GameUnit(ModelList["dude"]));
             
             
-            
         }
 
         public override void Update(GameTime gameTime)

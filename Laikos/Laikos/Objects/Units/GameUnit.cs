@@ -54,6 +54,7 @@ namespace Laikos
         private void HandleInput()
         {
             KeyboardState currentKeyboardState = Keyboard.GetState();
+            lastPosition = Position;
 
             if (currentKeyboardState.IsKeyDown(Keys.W))
             {
