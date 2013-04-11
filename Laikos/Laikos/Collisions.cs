@@ -100,11 +100,11 @@ namespace Laikos
            AnimationData animationData1 = model1.Tag as AnimationData;
            BoundingBox originalBox1 = animationData1.BoundingBox;
            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
-           Console.WriteLine(Box1.ToString());
+
            //Doing the same thing for second model
            BoundingBox originalBox2 = (BoundingBox)model2.Tag;
            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
-           Console.WriteLine(Box2.ToString());
+
            //Checking if global bounding Box(surronds whole model) intersects another Box
            bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(BoundingSphere.CreateFromBoundingBox(Box2));
            return collision;
