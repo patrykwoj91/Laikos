@@ -9,6 +9,7 @@ namespace Laikos
     class Unit
     {
         public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
+        public Vector3 lastPosition = new Vector3(0, 0, 0);
         public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
         public float Scale = 1.0f; //Current scale
         public AnimationPlayer animationPlayer; //Controls the animation, references a method in the pre-loaded project

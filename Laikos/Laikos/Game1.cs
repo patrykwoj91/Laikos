@@ -24,7 +24,7 @@ namespace Laikos
         Terrain terrain;
         UnitManager units;
         DecorationManager decorations;
-        
+        BasicEffect effect1;
 
         public Game1()
         {
@@ -34,7 +34,8 @@ namespace Laikos
 
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
+            
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
@@ -67,7 +68,10 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             device = graphics.GraphicsDevice;
-
+            effect1 = new BasicEffect(device);
+            effect1.LightingEnabled = false;
+            effect1.TextureEnabled = false;
+            effect1.VertexColorEnabled = true;
             effect = Content.Load<Effect>("effects");
             
         }
@@ -106,13 +110,12 @@ namespace Laikos
                 Console.WriteLine(pointerPosCol.ToString());
             }
 
-            if (kb.IsKeyDown(Keys.J))
-            {
-                bool collision;
-                collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
+            bool collision;
+            collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
                                                   decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
-                Console.WriteLine(collision);
-            }
+            if (collision)
+                units.UnitList[0].Position = units.UnitList[0].lastPosition;
+
 
             if (kb.IsKeyDown(Keys.L))
             {
@@ -120,7 +123,7 @@ namespace Laikos
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix());
+                collision = Collisions.RayModelCollision(clippedRay, units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix());
                 if (collision == false)
                     Console.WriteLine("Brak kolizji");
                 else

@@ -12,7 +12,6 @@ namespace Laikos
     {
         public List<Decoration> DecorationList;
         public Dictionary<String, Model> ModelList;
-        private Matrix[] modelTransforms;
 
         public DecorationManager(Game game)
             : base(game)
@@ -30,7 +29,7 @@ namespace Laikos
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
             String path = "Models/Decorations/Ruins1/Ruins";
-            ModelList.Add("ruin1", XNAUtils.LoadModelWithBoundingSphere(ref modelTransforms, path, Game.Content));
+            ModelList.Add("ruin1", XNAUtils.LoadModelWithBoundingBox(path, Game.Content));
             DecorationList.Add(new Decoration(ModelList["ruin1"]));
         }
 
