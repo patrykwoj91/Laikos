@@ -167,6 +167,7 @@ namespace Laikos
         }
 
         //Collision between pointer and model to select it
+        //Returns true if collision occured
         public static bool RayModelCollision(Ray ray, Model model, Matrix world)
         {
             bool collision = false;
@@ -174,6 +175,7 @@ namespace Laikos
             BoundingBox originalBox = animationData.BoundingBox;
             BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
 
+            //Determines intersection between mouse Ray and model's box
             float? intersection = Box.Intersects(ray);
             if (intersection <= ray.Direction.Length())
                 return true;
@@ -181,7 +183,8 @@ namespace Laikos
             return collision;
         }
 
-        public static bool RayDecorationCollision(Ray ray, Model model, Matrix world)
+        //Mouse and building collision
+        public static bool RayBuildingCollision(Ray ray, Model model, Matrix world)
         {
             bool collision = false;
             BoundingBox originalBox = (BoundingBox)model.Tag;
@@ -194,13 +197,17 @@ namespace Laikos
             return collision;
         }
 
+        //Binary search of intersection between pointer's ray and terrain
+        //This function returns Vector with coordinates where our pointer collides with terrain
         public static Vector3 BinarySearch(Ray ray)
         {
+            //Set all needed variables (accuracy, height etc.)
             float accuracy = 0.01f;
             float heightAtStartingPoint = Terrain.GetExactHeightAt(ray.Position.X, ray.Position.Z);
             float currentError = ray.Position.Y - heightAtStartingPoint;
             int counter = 0;
 
+            //This loop will find our collision point
             while (currentError < accuracy)
             {
                 ray.Direction /= 2.0f;
@@ -211,12 +218,15 @@ namespace Laikos
                     ray.Position = nextPoint;
                     currentError = ray.Position.Y - heightAtNextPoint;
                 }
+                //There is no point to iterate more than 1000 times
+                //Accuracy is still good enough so we can break the loop
                 if (counter++ == 1000) break;
             }
 
             return ray.Position;
         }
 
+        //We need linear search to improve collision detection
         public static Ray LinearSearch(Ray ray)
         {
             ray.Direction /= 300.0f;
@@ -233,14 +243,20 @@ namespace Laikos
             return ray;
         }
 
+        //Getting Ray of our pointer
         public static Ray GetPointerRay(Vector2 pointerPosition, GraphicsDevice device)
         {
+            // Here we set near and fat screen point. Z coordinate needs to be between 0 and 1
+            // 0 for near
+            // 1 for far
             Vector3 nearScreenPoint = new Vector3(pointerPosition.X, pointerPosition.Y, 0);
             Vector3 farScreenPoint = new Vector3(pointerPosition.X, pointerPosition.Y, 1);
 
+            // Unproject far and near point in 3d world
             Vector3 near3DWorldPoint = device.Viewport.Unproject(nearScreenPoint, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
             Vector3 far3DWorldPoint = device.Viewport.Unproject(farScreenPoint, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
 
+            // Setting and normalizing pointer ray direction
             Vector3 pointerRayDirection = far3DWorldPoint - near3DWorldPoint;
             pointerRayDirection.Normalize();
 
