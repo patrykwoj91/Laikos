@@ -40,7 +40,7 @@ namespace Laikos
             BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
 
             //Checking if global bounding Box(surronds whole model) intersects another Box
-            bool collision = Box1.Intersects(Box2);
+            bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(BoundingSphere.CreateFromBoundingBox(Box2));
             
             return collision;
         }
@@ -87,7 +87,7 @@ namespace Laikos
             //Check if any of created before Boxs intersects with another Box
             for (int i = 0; i < model1Boxs.Length; i++)
                 for (int j = 0; j < model2Boxs.Length; j++)
-                    if (model1Boxs[i].Intersects(model2Boxs[j]))
+                    if (BoundingSphere.CreateFromBoundingBox(model1Boxs[i]).Intersects(BoundingSphere.CreateFromBoundingBox(model2Boxs[j])))
                         return true;
 
             return collision;
@@ -263,6 +263,7 @@ namespace Laikos
             return new Ray(near3DWorldPoint, pointerRayDirection);
         }
 
+        //Shorten our Ray so its between max and lowest height of terrain
         public static Ray ClipRay(Ray ray, float highest, float lowest)
         {
             Vector3 oldStartPoint = ray.Position;

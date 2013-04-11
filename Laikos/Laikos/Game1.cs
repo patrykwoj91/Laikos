@@ -107,28 +107,20 @@ namespace Laikos
                 Console.WriteLine(pointerPosCol.ToString());
             }
 
-            if (kb.IsKeyDown(Keys.J))
-            {
-                bool collision;
-                collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
+            bool collision;
+            collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
                                                   decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
-                Console.WriteLine(collision);
-            }
+            if (collision)
+                units.UnitList[0].Position = units.UnitList[0].lastPosition;
 
-            if (kb.IsKeyDown(Keys.L))
-            {
-                MouseState mouse = Mouse.GetState();
-                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
-                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix());
-                if (collision == false)
-                    Console.WriteLine("Brak kolizji");
-                else
-                    Console.WriteLine("Kolizja");
-            }
-
+            collision = Collisions.GeneralCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
+                units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
             
+            if (collision)
+            {
+                units.UnitList[0].Position = units.UnitList[0].lastPosition;
+                units.UnitList[1].Position = units.UnitList[1].lastPosition;
+            }
             base.Update(gameTime);
         }
 

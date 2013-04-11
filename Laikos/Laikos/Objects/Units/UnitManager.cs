@@ -34,6 +34,8 @@ namespace Laikos
             
             ModelList.Add("dude",Game.Content.Load<Model>(path));
             UnitList.Add(new GameUnit(ModelList["dude"]));
+            UnitList.Add(new GameUnit(ModelList["dude"]));
+            UnitList[1].Position = new Vector3(10, 30, 50);
         }
 
         public override void Update(GameTime gameTime)
