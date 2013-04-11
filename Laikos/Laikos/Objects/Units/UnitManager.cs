@@ -35,7 +35,6 @@ namespace Laikos
             UnitList.Add(new GameUnit(ModelList["dude"]));
             UnitList[0].animationPlayer.RegisteredEvents["Fire"].Add("FireFrame", new AnimationPlayer.EventCallback(GameUnit.Fire));
             
-            
         }
 
         public override void Update(GameTime gameTime)

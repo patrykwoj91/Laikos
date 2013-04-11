@@ -40,7 +40,8 @@ namespace Laikos
             BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
 
             //Checking if global bounding Box(surronds whole model) intersects another Box
-            bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(BoundingSphere.CreateFromBoundingBox(Box2));
+            bool collision = Box1.Intersects(Box2);
+            
             return collision;
         }
 
@@ -86,7 +87,7 @@ namespace Laikos
             //Check if any of created before Boxs intersects with another Box
             for (int i = 0; i < model1Boxs.Length; i++)
                 for (int j = 0; j < model2Boxs.Length; j++)
-                    if (BoundingSphere.CreateFromBoundingBox(model1Boxs[i]).Intersects(BoundingSphere.CreateFromBoundingBox(model2Boxs[j])))
+                    if (model1Boxs[i].Intersects(model2Boxs[j]))
                         return true;
 
             return collision;
@@ -100,13 +101,13 @@ namespace Laikos
            AnimationData animationData1 = model1.Tag as AnimationData;
            BoundingBox originalBox1 = animationData1.BoundingBox;
            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
-           Console.WriteLine(Box1.ToString());
+           
            //Doing the same thing for second model
            BoundingBox originalBox2 = (BoundingBox)model2.Tag;
            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
-           Console.WriteLine(Box2.ToString());
+           
            //Checking if global bounding Box(surronds whole model) intersects another Box
-           bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(BoundingSphere.CreateFromBoundingBox(Box2));
+           bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(Box2);
            return collision;
        }
 
@@ -172,7 +173,7 @@ namespace Laikos
             AnimationData animationData = model.Tag as AnimationData;
             BoundingBox originalBox = animationData.BoundingBox;
             BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
-            Console.WriteLine(ray.Position.ToString() + " " + ray.Direction.ToString());
+
             float? intersection = Box.Intersects(ray);
             if (intersection <= ray.Direction.Length())
                 return true;

@@ -30,14 +30,13 @@ namespace Laikos
             public Decoration(Model currentModelInput)
             {
                 currentModel = currentModelInput;
-                Position = new Vector3(30, 50, 150);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
+                Position = new Vector3(30, 0, 150);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
                 Scale = 0.1f;
-                Rotation = new Vector3(MathHelper.ToRadians(-90), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
+                Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
             }
 
             public virtual void Update(GameTime gameTime)
             {
-                Collisions.AddGravity(ref Position);
                 Collisions.CheckWithTerrain(ref Position, 0.5f);
             }
 
