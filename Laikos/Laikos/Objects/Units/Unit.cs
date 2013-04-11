@@ -16,6 +16,7 @@ namespace Laikos
         public AnimationData animationData; //Used by the AnimationPlayer method
         public AnimationClip clip; //Contains the animation clip currently playing
         public Model currentModel; //Model reference
+        public bool picked;
 
         public Matrix GetWorldMatrix()
         {

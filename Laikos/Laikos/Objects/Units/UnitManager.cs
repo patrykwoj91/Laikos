@@ -12,18 +12,19 @@ namespace Laikos
     {
         public List<GameUnit> UnitList;
         public Dictionary<String,Model> ModelList;
+        public GraphicsDevice device;
 
-        public UnitManager(Game game)
+        public UnitManager(Game game, GraphicsDevice device)
             : base(game)
         {
             UnitList = new List<GameUnit>();
             ModelList = new Dictionary<String, Model>();
+            this.device = device;
         }
 
         public override void Initialize()
         {
             base.Initialize();
-
         }
 
         protected override void LoadContent()
@@ -33,16 +34,14 @@ namespace Laikos
             
             ModelList.Add("dude",Game.Content.Load<Model>(path));
             UnitList.Add(new GameUnit(ModelList["dude"]));
-            
-            
         }
 
         public override void Update(GameTime gameTime)
         {
-         //update obiektow
             foreach (GameUnit unit in UnitList)
             {
-            unit.Update(gameTime);
+                Input.PickUnit(unit, device);
+                unit.Update(gameTime);
             }
         }
 

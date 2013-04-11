@@ -24,7 +24,7 @@ namespace Laikos
         Terrain terrain;
         UnitManager units;
         DecorationManager decorations;
-        BasicEffect effect1;
+        
 
         public Game1()
         {
@@ -34,18 +34,7 @@ namespace Laikos
 
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
-            
-
-            terrain = new Terrain(this);
-            camera = new Camera(this, graphics);
-            units = new UnitManager(this);
-            decorations = new DecorationManager(this);
-            
-            Components.Add(camera);
-            Components.Add(terrain);
-            Components.Add(units);
-            Components.Add(decorations);
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -56,7 +45,19 @@ namespace Laikos
         /// </summary>
         protected override void Initialize()
         {
+            device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
+
+            terrain = new Terrain(this);
+            camera = new Camera(this, graphics);
+            units = new UnitManager(this, device);
+            decorations = new DecorationManager(this);
+
+            Components.Add(camera);
+            Components.Add(terrain);
+            Components.Add(units);
+            Components.Add(decorations);
+
             base.Initialize();
         }
 
@@ -67,11 +68,7 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            device = graphics.GraphicsDevice;
-            effect1 = new BasicEffect(device);
-            effect1.LightingEnabled = false;
-            effect1.TextureEnabled = false;
-            effect1.VertexColorEnabled = true;
+            
             effect = Content.Load<Effect>("effects");
             
         }
@@ -110,12 +107,13 @@ namespace Laikos
                 Console.WriteLine(pointerPosCol.ToString());
             }
 
-            bool collision;
-            collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
+            if (kb.IsKeyDown(Keys.J))
+            {
+                bool collision;
+                collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
                                                   decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
-            if (collision)
-                units.UnitList[0].Position = units.UnitList[0].lastPosition;
-
+                Console.WriteLine(collision);
+            }
 
             if (kb.IsKeyDown(Keys.L))
             {
@@ -123,7 +121,7 @@ namespace Laikos
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                collision = Collisions.RayModelCollision(clippedRay, units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix());
+                bool collision = Collisions.RayModelCollision(clippedRay, units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix());
                 if (collision == false)
                     Console.WriteLine("Brak kolizji");
                 else

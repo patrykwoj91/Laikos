@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Camera.cs" />
+    <Compile Include="Input.cs" />
     <Compile Include="Collisions.cs" />
     <Compile Include="Objects\Decorations\Decoration.cs" />
     <Compile Include="Objects\Decorations\DecorationManager.cs" />

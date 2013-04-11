@@ -23,6 +23,7 @@ namespace Laikos
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
             walk = false;
             idle = true;
+            picked = false;
             PlayAnimation("Idle");//Play the default animation temporary
             
         }
@@ -39,7 +40,7 @@ namespace Laikos
             }
 
             Collisions.AddGravity(ref Position);
-            HandleInput();
+            Input.HandleUnit(ref walk, ref lastPosition, ref Position, ref Rotation, picked);
             Collisions.CheckWithTerrain(ref Position, 0.5f);
 
             base.Update(gameTime);
@@ -49,46 +50,6 @@ namespace Laikos
         {
             
             base.Draw();
-        }
-
-        private void HandleInput()
-        {
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-            lastPosition = Position;
-
-            if (currentKeyboardState.IsKeyDown(Keys.W))
-            {
-                if (!walk) { walk = !walk;}
-                Position.Z += 0.1f;
-                Rotation.Y = MathHelper.ToRadians(180);
-            }
-
-            if (currentKeyboardState.IsKeyDown(Keys.S))
-            {
-                if (!walk) { walk = !walk;}
-                Position.Z -= 0.1f;
-                Rotation.Y = MathHelper.ToRadians(0);
-                
-            }
-
-            if (currentKeyboardState.IsKeyDown(Keys.A))
-            {
-                if (!walk) { walk = !walk;}
-                Position.X -= 0.1f;
-                Rotation.Y = MathHelper.ToRadians(90);
-                
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.D))
-            {
-                if (!walk) { walk = !walk;}
-                Position.X += 0.1f;
-                Rotation.Y = MathHelper.ToRadians(-90);
-            }
-
-            if (currentKeyboardState.IsKeyUp(Keys.D) && currentKeyboardState.IsKeyUp(Keys.S) && currentKeyboardState.IsKeyUp(Keys.A) && currentKeyboardState.IsKeyUp(Keys.W))
-            {
-                walk = false;
-            }
         }
     }
 }
