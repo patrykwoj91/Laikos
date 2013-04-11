@@ -336,7 +336,7 @@ namespace AnimationProcessor
                 if (!geometry.Vertices.Channels.Contains(VertexChannelNames.Weights()))
                     return false;
             }
-
+           
             return true;
         }
 

@@ -34,7 +34,7 @@ namespace Laikos
 
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);

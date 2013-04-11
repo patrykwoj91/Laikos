@@ -20,18 +20,9 @@
       </Item>
 
       <Item>
-        <ClipName>Fire</ClipName>
+        <ClipName>Walk</ClipName>
         <StartFrame>2</StartFrame>
         <EndFrame>99</EndFrame>
-
-        <!-- We can register events in this clip, so we can know when certain frames are hit -->
-        <Events>
-          <Item>
-            <Name>FireFrame</Name>
-            <Keyframe>70</Keyframe>
-          </Item>
-        </Events>
-
       </Item>
 
     </ClipParts>
