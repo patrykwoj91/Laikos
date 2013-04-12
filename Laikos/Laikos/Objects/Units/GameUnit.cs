@@ -12,7 +12,7 @@ namespace Laikos
     class GameUnit : Unit
     {
         //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
-        bool walk, idle;
+        bool walk;
 
         public GameUnit(Model currentModelInput)
             :base(currentModelInput)
@@ -22,7 +22,6 @@ namespace Laikos
             Scale = 0.05f;
             Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
             walk = false;
-            idle = true;
             picked = false;
             PlayAnimation("Idle");//Play the default animation temporary
             

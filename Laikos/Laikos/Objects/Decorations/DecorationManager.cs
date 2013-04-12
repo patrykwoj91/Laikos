@@ -30,7 +30,8 @@ namespace Laikos
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
             String path = "Models/Decorations/Ruins1/Ruins";
             ModelList.Add("ruin1", XNAUtils.LoadModelWithBoundingBox(path, Game.Content));
-            DecorationList.Add(new Decoration(ModelList["ruin1"]));
+            createNewDecoration();
+            createNewDecoration();
         }
 
         public override void Update(GameTime gameTime)
@@ -51,7 +52,10 @@ namespace Laikos
             }
         }
 
-
+        public void createNewDecoration()
+        {
+            DecorationList.Add(new Decoration(ModelList["ruin1"]));
+        }
 
     }
 }

@@ -24,7 +24,7 @@ namespace Laikos
         Terrain terrain;
         UnitManager units;
         DecorationManager decorations;
-        
+        Vector3 pointerPosition = new Vector3(0, 0, 0);
 
         public Game1()
         {
@@ -95,7 +95,6 @@ namespace Laikos
 
             // TODO: Add your update logic here
             KeyboardState kb = Keyboard.GetState();
-        
             if (kb.IsKeyDown(Keys.K))
             {
                 MouseState mouse = Mouse.GetState();
@@ -103,10 +102,9 @@ namespace Laikos
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
-                Vector3 pointerPosCol = Collisions.BinarySearch(shorterRay);
-                Console.WriteLine(pointerPosCol.ToString());
+                pointerPosition = Collisions.BinarySearch(shorterRay);
             }
-
+            decorations.DecorationList[0].Position = pointerPosition;
             bool collision;
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
                                                   decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
@@ -121,6 +119,7 @@ namespace Laikos
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
             }
+
             base.Update(gameTime);
         }
 
