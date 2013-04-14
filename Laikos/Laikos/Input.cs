@@ -79,7 +79,7 @@ namespace Laikos
                 Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                if (Collisions.RayModelCollision(clippedRay, unit.currentModel, unit.GetWorldMatrix()))
+                if (Collisions.RayModelCollision(clippedRay, unit.currentModel.Model, unit.GetWorldMatrix()))
                     unit.picked = true;
                 else
                     unit.picked = false;

@@ -168,10 +168,10 @@ namespace Laikos
 
         //Collision between pointer and model to select it
         //Returns true if collision occured
-        public static bool RayModelCollision(Ray ray, AnimatedModel model, Matrix world)
+        public static bool RayModelCollision(Ray ray, Model model, Matrix world)
         {
             bool collision = false;
-            ModelExtra animationData = model.Model.Tag as ModelExtra;
+            ModelExtra animationData = model.Tag as ModelExtra;
             BoundingBox originalBox = animationData.boundingBox;
             BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
 

@@ -34,7 +34,7 @@ namespace Laikos
 
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -99,30 +99,30 @@ namespace Laikos
             {
                 MouseState mouse = Mouse.GetState();
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-         /*       Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
-                pointerPosition = Collisions.BinarySearch(shorterRay);*/
+                pointerPosition = Collisions.BinarySearch(shorterRay);
                 decorations.DecorationList[0].Position = pointerPosition;
                 BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)decorations.DecorationList[0].currentModel.Tag, decorations.DecorationList[0].GetWorldMatrix());
                 Vector3 size = box.Max - box.Min;
                 Console.WriteLine(size.ToString());
             }
 
-           /* bool collision;
-            collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
+            bool collision;
+            collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel.Model, units.UnitList[0].GetWorldMatrix(),
                                                   decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
             if (collision)
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
 
-            collision = Collisions.GeneralCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
-                units.UnitList[1].currentModel, units.UnitList[1].GetWorldMatrix());
+            collision = Collisions.GeneralCollisionCheck(units.UnitList[0].currentModel.Model, units.UnitList[0].GetWorldMatrix(),
+                units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix());
             
             if (collision)
             {
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
-            }*/
+            }
 
             base.Update(gameTime);
         }
