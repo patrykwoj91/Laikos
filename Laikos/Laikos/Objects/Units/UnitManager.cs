@@ -36,12 +36,7 @@ namespace Laikos
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
             String path = "Models/Test_model2/Test_FBX_Y";
-            
-           // ModelList.Add("dude",Game.Content.Load<Model>(path));
             UnitList.Add(new GameUnit(game,path));
-
-           // UnitList.Add(new GameUnit(ModelList["dude"]));
-           // UnitList[1].Position = new Vector3(20, 30, 50);
         }
 
         public override void Update(GameTime gameTime)
