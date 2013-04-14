@@ -31,16 +31,16 @@ namespace Laikos
         {
             //Retrieving data about BoundingBox from model.Tag for first model
             ModelExtra modelExtra = model1.Tag as ModelExtra;
-            BoundingBox originalBox1 = modelExtra.boundingBox;
-            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
+            BoundingSphere originalSphere1 = modelExtra.boundingSphere;
+            BoundingSphere Sphere1 = XNAUtils.TransformBoundingSphere(originalSphere1, world1);
 
             //Doing the same thing for second model
             ModelExtra modelExtra1 = model2.Tag as ModelExtra;
-            BoundingBox originalBox2 = modelExtra.boundingBox;
-            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
+            BoundingSphere originalSphere2 = modelExtra.boundingSphere;
+            BoundingSphere Sphere2 = XNAUtils.TransformBoundingSphere(originalSphere2, world2);
 
             //Checking if global bounding Box(surronds whole model) intersects another Box
-            bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(BoundingSphere.CreateFromBoundingBox(Box2));
+            bool collision = Sphere1.Intersects(Sphere2);
             
             return collision;
         }
@@ -58,6 +58,7 @@ namespace Laikos
             Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
             model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
             BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
+            
             for (int i = 0; i < model1.Meshes.Count; i++)
             {
                 ModelMesh mesh = model1.Meshes[i];
@@ -72,6 +73,7 @@ namespace Laikos
             Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
             model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
             BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
+            
             for (int i = 0; i < model2.Meshes.Count; i++)
             {
                 ModelMesh mesh = model2.Meshes[i];
