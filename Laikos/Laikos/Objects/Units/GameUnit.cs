@@ -9,46 +9,73 @@ using Animation;
 
 namespace Laikos
 {
-    class GameUnit : Unit
+    class GameUnit
     {
-        //miejsce na rozne pierdoly hp , mana sratatata (a generowane beda na podstawie pliku xml?)
-        bool walk;
+        public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
+        public Vector3 lastPosition = new Vector3(0, 0, 0);
+        public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
+        public float Scale = 1.0f; //Current scale
+        public AnimatedModel currentModel = null; //model
+        public AnimationClip clip = new AnimationClip(); //switch betweent clips
+        public bool walk,picked;
 
-        public GameUnit(Model currentModelInput)
-            :base(currentModelInput)
+        public Matrix GetWorldMatrix()
         {
-            //tu ustawiamy rozne cuda
-            Position = new Vector3(0, 50, 33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
-            Scale = 0.05f;
-            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
-            walk = false;
-            picked = false;
-            PlayAnimation("Idle");//Play the default animation temporary
-            
+            return
+                Matrix.CreateScale(Scale) *
+                Matrix.CreateRotationX(Rotation.X) *
+                Matrix.CreateRotationY(Rotation.Y) *
+                Matrix.CreateRotationZ(Rotation.Z) *
+                Matrix.CreateTranslation(Position);
         }
 
-        public override void Update(GameTime gameTime)
+        public GameUnit(Game game, String path)
+            
+        {
+            //tu ustawiamy rozne cuda
+  
+            //Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
+            Position = new Vector3(0, 50, 33);
+            lastPosition = Position;
+            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
+
+            Scale = 0.05f;
+            walk = false;
+            picked = false;
+
+            currentModel = new AnimatedModel(path);
+            currentModel.LoadContent(game.Content);
+
+            clip = currentModel.Clips["Idle"];
+
+            // And play the clip
+            AnimationPlayer player = currentModel.PlayClip(clip);
+            player.Looping = true;
+        }
+
+        public void Update(GameTime gameTime)
         {
             if (walk)
             {
-                PlayAnimation("Walk");
+                clip = currentModel.Clips["Walk"];
             }
             else
             {
-                PlayAnimation("Idle");
+                clip = currentModel.Clips["Idle"];
             }
+
+            currentModel.Update(gameTime);
+
+            
 
             Collisions.AddGravity(ref Position);
             Input.HandleUnit(ref walk, ref lastPosition, ref Position, ref Rotation, picked);
             Collisions.CheckWithTerrain(ref Position, 0.5f);
-
-            base.Update(gameTime);
         }
 
-        public override void Draw()
+        public void Draw(GraphicsDeviceManager graphics)
         {
-            
-            base.Draw();
+            currentModel.Draw(graphics.GraphicsDevice, GetWorldMatrix());
         }
     }
 }

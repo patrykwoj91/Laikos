@@ -34,7 +34,7 @@ namespace Laikos
 
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Laikos
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
-            units = new UnitManager(this, device);
+            units = new UnitManager(this, device, graphics);
             decorations = new DecorationManager(this);
 
             Components.Add(camera);
@@ -99,17 +99,17 @@ namespace Laikos
             {
                 MouseState mouse = Mouse.GetState();
                 Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+         /*       Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
-                pointerPosition = Collisions.BinarySearch(shorterRay);
+                pointerPosition = Collisions.BinarySearch(shorterRay);*/
                 decorations.DecorationList[0].Position = pointerPosition;
                 BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)decorations.DecorationList[0].currentModel.Tag, decorations.DecorationList[0].GetWorldMatrix());
                 Vector3 size = box.Max - box.Min;
                 Console.WriteLine(size.ToString());
             }
 
-            bool collision;
+           /* bool collision;
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel, units.UnitList[0].GetWorldMatrix(),
                                                   decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
             if (collision)
@@ -122,7 +122,7 @@ namespace Laikos
             {
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
-            }
+            }*/
 
             base.Update(gameTime);
         }

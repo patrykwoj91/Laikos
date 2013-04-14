@@ -30,13 +30,13 @@ namespace Laikos
        public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
         {
             //Retrieving data about BoundingBox from model.Tag for first model
-            AnimationData animationData1 = model1.Tag as AnimationData;
-            BoundingBox originalBox1 = animationData1.BoundingBox;
+            ModelExtra modelExtra = model1.Tag as ModelExtra;
+            BoundingBox originalBox1 = modelExtra.boundingBox;
             BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
 
             //Doing the same thing for second model
-            AnimationData animationData2 = model2.Tag as AnimationData;
-            BoundingBox originalBox2 = animationData2.BoundingBox;
+            ModelExtra modelExtra1 = model2.Tag as ModelExtra;
+            BoundingBox originalBox2 = modelExtra.boundingBox;
             BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
 
             //Checking if global bounding Box(surronds whole model) intersects another Box
@@ -98,8 +98,8 @@ namespace Laikos
        public static bool GeneralDecorationCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
        {
            //Retrieving data about BoundingBox from model.Tag for first model
-           AnimationData animationData1 = model1.Tag as AnimationData;
-           BoundingBox originalBox1 = animationData1.BoundingBox;
+           ModelExtra animationData1 = model1.Tag as ModelExtra;
+           BoundingBox originalBox1 = animationData1.boundingBox;
            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
            
            //Doing the same thing for second model
@@ -168,11 +168,11 @@ namespace Laikos
 
         //Collision between pointer and model to select it
         //Returns true if collision occured
-        public static bool RayModelCollision(Ray ray, Model model, Matrix world)
+        public static bool RayModelCollision(Ray ray, AnimatedModel model, Matrix world)
         {
             bool collision = false;
-            AnimationData animationData = model.Tag as AnimationData;
-            BoundingBox originalBox = animationData.BoundingBox;
+            ModelExtra animationData = model.Model.Tag as ModelExtra;
+            BoundingBox originalBox = animationData.boundingBox;
             BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
 
             //Determines intersection between mouse Ray and model's box
