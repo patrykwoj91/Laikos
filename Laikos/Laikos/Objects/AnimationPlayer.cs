@@ -25,7 +25,7 @@ namespace Laikos
         /// The clip we are playing
         /// </summary>
         private AnimationClip clip = null;
-
+       
         /// <summary>
         /// We maintain a BoneInfo class for each bone. This class does
         /// most of the work in playing the animation.

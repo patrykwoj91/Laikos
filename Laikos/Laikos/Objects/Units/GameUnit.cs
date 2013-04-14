@@ -16,7 +16,8 @@ namespace Laikos
         public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
         public float Scale = 1.0f; //Current scale
         public AnimatedModel currentModel = null; //model
-        public AnimationClip clip = new AnimationClip(); //switch betweent clips
+        public AnimationPlayer player;
+        
         public bool walk,picked;
 
         public Matrix GetWorldMatrix()
@@ -37,7 +38,7 @@ namespace Laikos
             //Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
             Position = new Vector3(0, 50, 33);
             lastPosition = Position;
-            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
+            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
 
             Scale = 0.05f;
             walk = false;
@@ -46,10 +47,11 @@ namespace Laikos
             currentModel = new AnimatedModel(path);
             currentModel.LoadContent(game.Content);
 
-            clip = currentModel.Clips["Idle"];
+            
+            
 
             // And play the clip
-            AnimationPlayer player = currentModel.PlayClip(clip);
+            player = currentModel.PlayClip(currentModel.Clips["Idle"]);
             player.Looping = true;
         }
 
@@ -57,13 +59,16 @@ namespace Laikos
         {
             if (walk)
             {
-                clip = currentModel.Clips["Walk"];
+              player = currentModel.PlayClip(currentModel.Clips["Walk"]);
+              player.Looping = true;
+              
             }
             else
             {
-                clip = currentModel.Clips["Idle"];
+             player = currentModel.PlayClip(currentModel.Clips["Idle"]);
+             // player.Looping = true;
             }
-
+            
             currentModel.Update(gameTime);
 
             

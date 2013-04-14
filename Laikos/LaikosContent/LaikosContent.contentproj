@@ -161,7 +161,8 @@
     <Compile Include="Models\Decorations\Ruins1\Ruins.FBX">
       <Name>Ruins</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>

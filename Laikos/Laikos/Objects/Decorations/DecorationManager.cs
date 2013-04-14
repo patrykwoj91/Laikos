@@ -12,12 +12,18 @@ namespace Laikos
     {
         public List<Decoration> DecorationList;
         public Dictionary<String, Model> ModelList;
+        public GraphicsDevice device;
+        public Game game;
+        GraphicsDeviceManager graphics;
 
-        public DecorationManager(Game game)
+        public DecorationManager(Game game, GraphicsDevice device, GraphicsDeviceManager graphics)
             : base(game)
         {
-            ModelList = new Dictionary<String, Model>();
+            this.game = game;
+            this.graphics = graphics;
             DecorationList = new List<Decoration>();
+            // ModelList = new Dictionary<String, Model>();
+            this.device = device;
         }
 
         public override void Initialize()
@@ -29,32 +35,24 @@ namespace Laikos
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
             String path = "Models/Decorations/Ruins1/Ruins";
-            ModelList.Add("ruin1", XNAUtils.LoadModelWithBoundingBox(path, Game.Content));
-            createNewDecoration();
-            createNewDecoration();
+            DecorationList.Add(new Decoration(game, path));
         }
 
         public override void Update(GameTime gameTime)
         {
-
-           foreach (Decoration decoration in DecorationList)
+            foreach (Decoration unit in DecorationList)
             {
-            decoration.Update(gameTime);
+                
+                unit.Update(gameTime);
             }
-        
         }
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (Decoration decoration in DecorationList)
+            foreach (Decoration unit in DecorationList)
             {
-                decoration.Draw();
+                unit.Draw(graphics);
             }
-        }
-
-        public void createNewDecoration()
-        {
-            DecorationList.Add(new Decoration(ModelList["ruin1"]));
         }
 
     }

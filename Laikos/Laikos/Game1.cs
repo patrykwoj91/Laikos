@@ -51,7 +51,7 @@ namespace Laikos
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             units = new UnitManager(this, device, graphics);
-            decorations = new DecorationManager(this);
+            decorations = new DecorationManager(this, device, graphics);
 
             Components.Add(camera);
             Components.Add(terrain);
@@ -104,7 +104,7 @@ namespace Laikos
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 pointerPosition = Collisions.BinarySearch(shorterRay);
                 decorations.DecorationList[0].Position = pointerPosition;
-                BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)decorations.DecorationList[0].currentModel.Tag, decorations.DecorationList[0].GetWorldMatrix());
+                BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)decorations.DecorationList[0].currentModel.Model.Tag, decorations.DecorationList[0].GetWorldMatrix());
                 Vector3 size = box.Max - box.Min;
                 Console.WriteLine(size.ToString());
             }
