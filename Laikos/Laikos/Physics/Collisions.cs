@@ -101,8 +101,8 @@ namespace Laikos
        {
            //Retrieving data about BoundingBox from model.Tag for first model
            ModelExtra animationData1 = model1.Tag as ModelExtra;
-           BoundingBox originalBox1 = animationData1.boundingBox;
-           BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
+           BoundingSphere originalBox1 = animationData1.boundingSphere;
+           BoundingSphere Box1 = XNAUtils.TransformBoundingSphere(originalBox1, world1);
            
            //Doing the same thing for second model
            ModelExtra animationData2 = model2.Tag as ModelExtra;
@@ -110,7 +110,7 @@ namespace Laikos
            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
            
            //Checking if global bounding Box(surronds whole model) intersects another Box
-           bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(Box2);
+           bool collision = Box1.Intersects(Box2);
            return collision;
        }
 
@@ -127,7 +127,7 @@ namespace Laikos
            Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
            model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
            BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
-           Console.WriteLine(model1.Meshes.Count);
+           //Console.WriteLine(model1.Meshes.Count);
            for (int i = 0; i < model1.Meshes.Count; i++)
            {
                ModelMesh mesh = model1.Meshes[i];
@@ -142,7 +142,7 @@ namespace Laikos
            Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
            model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
            BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
-           Console.WriteLine(model2.Meshes.Count);
+
            for (int i = 0; i < model2.Meshes.Count; i++)
            {
                ModelMesh mesh = model2.Meshes[i];
@@ -158,9 +158,11 @@ namespace Laikos
            //Check if any of created before Boxs intersects with another Box
            for (int i = 0; i < model1Boxs.Length; i++)
                for (int j = 0; j < model2Boxs.Length; j++)
-                   if (BoundingSphere.CreateFromBoundingBox(model1Boxs[i]).Intersects(BoundingSphere.CreateFromBoundingBox(model2Boxs[j])))
+               {
+                   Console.WriteLine(model2Boxs[j].ToString());
+                   if (model1Boxs[i].Intersects(model2Boxs[j]))
                        return true;
-
+               }
            return collision;
        }
 

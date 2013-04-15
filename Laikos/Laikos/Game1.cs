@@ -103,11 +103,11 @@ namespace Laikos
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 pointerPosition = Collisions.BinarySearch(shorterRay);
-                decorations.DecorationList[1].Position = pointerPosition;
-                if (decorations.DecorationList[1].checkIfPossible(pointerPosition))
-                    Console.WriteLine("true");
-                else
-                    Console.WriteLine("false");
+                //decorations.DecorationList[1].Position = pointerPosition;
+                //if (decorations.DecorationList[1].checkIfPossible(pointerPosition))
+                    //Console.WriteLine("true");
+                //else
+                    //Console.WriteLine("false");
             }
 
             bool collision;

@@ -178,7 +178,7 @@
       <Name>test_FBX_Y</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>0.02</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +200,7 @@
       <Name>ruins</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.02</ProcessorParameters_Scale>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
