@@ -20,7 +20,7 @@ namespace Laikos
             //tu ustawiamy rozne cuda
             Position = new Vector3(0, 50, 33);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
             Scale = 0.05f;
-            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(180), MathHelper.ToRadians(0));
+            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
             walk = false;
             picked = false;
             PlayAnimation("Idle");//Play the default animation temporary

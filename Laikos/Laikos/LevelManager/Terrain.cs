@@ -399,5 +399,17 @@ namespace Laikos
 
             return finalHeight;
         }
+
+        public static float GetClippedHeightAt(float xCoord, float zCoord)
+        {
+            bool invalid = xCoord < 0;
+            invalid |= zCoord < 0;
+            invalid |= xCoord > currentWidth;
+            invalid |= zCoord > currentHeight;
+            if (invalid)
+                return 10;
+            else
+                return currentHeightData[(int)xCoord, (int)zCoord];
+        }
     }
 }
