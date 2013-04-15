@@ -105,7 +105,8 @@ namespace Laikos
            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
            
            //Doing the same thing for second model
-           BoundingBox originalBox2 = (BoundingBox)model2.Tag;
+           ModelExtra animationData2 = model2.Tag as ModelExtra;
+           BoundingBox originalBox2 = animationData2.boundingBox;
            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
            
            //Checking if global bounding Box(surronds whole model) intersects another Box

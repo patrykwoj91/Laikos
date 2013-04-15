@@ -104,14 +104,14 @@ namespace Laikos
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 pointerPosition = Collisions.BinarySearch(shorterRay);
                 decorations.DecorationList[0].Position = pointerPosition;
-                BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)decorations.DecorationList[0].currentModel.Model.Tag, decorations.DecorationList[0].GetWorldMatrix());
-                Vector3 size = box.Max - box.Min;
-                Console.WriteLine(size.ToString());
+                //BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)decorations.DecorationList[0].currentModel.Mod, decorations.DecorationList[0].GetWorldMatrix());
+                //Vector3 size = box.Max - box.Min;
+                //Console.WriteLine(size.ToString());
             }
 
             bool collision;
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel.Model, units.UnitList[0].GetWorldMatrix(),
-                                                  decorations.DecorationList[0].currentModel, decorations.DecorationList[0].GetWorldMatrix());
+                                                  decorations.DecorationList[0].currentModel.Model, decorations.DecorationList[0].GetWorldMatrix());
             if (collision)
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
 
