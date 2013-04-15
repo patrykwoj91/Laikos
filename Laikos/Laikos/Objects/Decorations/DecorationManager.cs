@@ -36,6 +36,10 @@ namespace Laikos
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
             String path = "Models/Decorations/Ruins1/Ruins";
             DecorationList.Add(new Decoration(game, path));
+            path = "Models/Decorations/Ruins2/ruins";
+            DecorationList.Add(new Decoration(game,path));
+            DecorationList[1].Position.X -= 10;
+            DecorationList[1].Position.Z = 180;
         }
 
         public override void Update(GameTime gameTime)
