@@ -64,27 +64,27 @@ namespace Laikos
         }
             
             
-            public bool checkIfPossible(Vector3 startPosition)
-            {
-                BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)currentModel.Tag, GetWorldMatrix());
-                Vector3 size = box.Max - box.Min;
-                float lowestPoint = float.MaxValue;
-                float highestPoint = float.MinValue;
+        public bool checkIfPossible(Vector3 startPosition)
+        {
+            BoundingBox box = XNAUtils.TransformBoundingBox(Collisions.GetBoundingBox(currentModel.Model), GetWorldMatrix());
+            Vector3 size = box.Max - box.Min;
+            float lowestPoint = float.MaxValue;
+            float highestPoint = float.MinValue;
                 
-                for (int i = (int)startPosition.X; i < size.X + startPosition.X; i++)
-                {
-                    for (int j = (int)startPosition.Z; j < size.Z + startPosition.Z; j++)
-                    {
-                        if (Terrain.GetClippedHeightAt(i, j) < lowestPoint) lowestPoint = Terrain.GetClippedHeightAt(i, j);
-                        if (Terrain.GetClippedHeightAt(i, j) > lowestPoint) highestPoint = Terrain.GetClippedHeightAt(i, j);
-                    }
-                }
-
-                Console.WriteLine(lowestPoint + " " + highestPoint);
-                if (highestPoint - lowestPoint < 1)
-                    return true;
-                else
-                    return false;
+            for (int i = (int)startPosition.X; i < size.X + startPosition.X; i++)
+            {
+                 for (int j = (int)startPosition.Z; j < size.Z + startPosition.Z; j++)
+                 {
+                     if (Terrain.GetClippedHeightAt(i, j) < lowestPoint) lowestPoint = Terrain.GetClippedHeightAt(i, j);
+                     if (Terrain.GetClippedHeightAt(i, j) > lowestPoint) highestPoint = Terrain.GetClippedHeightAt(i, j);
+                 }
             }
+
+            Console.WriteLine(lowestPoint + " " + highestPoint);
+            if (highestPoint - lowestPoint < 1)
+                return true;
+            else
+                return false;
+        }
     }
 }
