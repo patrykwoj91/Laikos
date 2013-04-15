@@ -127,6 +127,7 @@ namespace Laikos
            Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
            model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
            BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
+           Console.WriteLine(model1.Meshes.Count);
            for (int i = 0; i < model1.Meshes.Count; i++)
            {
                ModelMesh mesh = model1.Meshes[i];
@@ -141,7 +142,7 @@ namespace Laikos
            Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
            model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
            BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
-
+           Console.WriteLine(model2.Meshes.Count);
            for (int i = 0; i < model2.Meshes.Count; i++)
            {
                ModelMesh mesh = model2.Meshes[i];
