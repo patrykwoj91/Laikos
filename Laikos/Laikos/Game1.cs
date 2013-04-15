@@ -26,6 +26,12 @@ namespace Laikos
         DecorationManager decorations;
         Vector3 pointerPosition = new Vector3(0, 0, 0);
 
+        Model myModel;
+        // Set the position of the model in world space, and set the rotation.
+        Vector3 modelPosition = new Vector3(0,-50,33);
+        float modelRotation = 0.0f;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -70,7 +76,8 @@ namespace Laikos
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             effect = Content.Load<Effect>("effects");
-            
+
+            myModel = Content.Load<Model>("Models/Decorations/Ruins3/Ruins3");
         }
 
         /// <summary>
@@ -134,7 +141,38 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+
             GraphicsDevice.Clear(Color.Black);
+
+            // Copy any parent transforms.
+            Matrix[] transforms = new Matrix[myModel.Bones.Count];
+            myModel.CopyAbsoluteBoneTransformsTo(transforms);
+
+            // Draw the model. A model can have multiple meshes, so loop.
+            foreach (ModelMesh mesh in myModel.Meshes)
+            {
+                // This is where the mesh orientation is set, as well 
+                // as our camera and projection.
+                foreach (BasicEffect effect1 in mesh.Effects)
+                {
+                    effect1.EnableDefaultLighting();
+                    effect1.World = transforms[mesh.ParentBone.Index] *
+                        Matrix.CreateRotationY(modelRotation)
+                        * Matrix.CreateTranslation(modelPosition);
+                    effect1.View = Camera.viewMatrix;
+                    effect1.Projection = Camera.projectionMatrix;
+                    
+                }
+                // Draw the mesh, using the effects set above.
+                mesh.Draw();
+            }
+          
+
+
+
+
+
+            
 
             effect.Parameters["xView"].SetValue(Camera.viewMatrix);
             effect.Parameters["xProjection"].SetValue(Camera.projectionMatrix);
