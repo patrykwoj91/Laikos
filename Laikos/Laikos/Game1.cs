@@ -32,9 +32,9 @@ namespace Laikos
 
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1368;
+            graphics.PreferredBackBufferHeight = 766;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -104,9 +104,10 @@ namespace Laikos
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 pointerPosition = Collisions.BinarySearch(shorterRay);
                 decorations.DecorationList[0].Position = pointerPosition;
-                //BoundingBox box = XNAUtils.TransformBoundingBox((BoundingBox)decorations.DecorationList[0].currentModel.Mod, decorations.DecorationList[0].GetWorldMatrix());
-                //Vector3 size = box.Max - box.Min;
-                //Console.WriteLine(size.ToString());
+                BoundingBox box = XNAUtils.TransformBoundingBox(Collisions.GetBoundingBox(decorations.DecorationList[0].currentModel.Model), 
+                    decorations.DecorationList[0].GetWorldMatrix());
+                Vector3 size = box.Max - box.Min;
+                Console.WriteLine(size.ToString());
             }
 
             bool collision;

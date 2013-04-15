@@ -281,5 +281,17 @@ namespace Laikos
 
             return new Ray(pointA, newDirection);
         }
+
+        public static BoundingBox GetBoundingBox(Model model)
+        {
+            ModelExtra modelExtra = (ModelExtra)model.Tag;
+            return modelExtra.boundingBox;
+        }
+
+        public static BoundingSphere GetBoundingSphere(Model model)
+        {
+            ModelExtra modelExtra = (ModelExtra)model.Tag;
+            return modelExtra.boundingSphere;
+        }
     }
 }
