@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 
-namespace AnimationProcessor
+namespace AnimationPipeline
 {
     //przechowuje definicje animacji z pliku XML
     class AnimationDefinition

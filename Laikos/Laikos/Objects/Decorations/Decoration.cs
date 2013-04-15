@@ -1,67 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Animation;
+
 
 namespace Laikos
 {
     class Decoration
     {
-            public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
-            public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
-            public float Scale = 1.0f; //Current scale
-            public Model currentModel; //Model reference
+        public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
+        public Vector3 lastPosition = new Vector3(0, 0, 0);
+        public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
+        public float Scale = 1.0f; //Current scale
+        public AnimatedModel currentModel = null; //model
+        public AnimationPlayer player;
 
-            public Matrix GetWorldMatrix()
-            {
-                return
-                    Matrix.CreateScale(Scale) *
-                    Matrix.CreateRotationX(Rotation.X) *
-                    Matrix.CreateRotationY(Rotation.Y) *
-                    Matrix.CreateRotationZ(Rotation.Z) *
-                    Matrix.CreateTranslation(Position);
-            }
 
-            public Decoration()
-            {
-            }
 
-            public Decoration(Model currentModelInput)
-            {
-                currentModel = currentModelInput;
-                Position = new Vector3(30, 0, 150);//Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
-                Scale = 0.1f;
-                Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
-            }
+        public Matrix GetWorldMatrix()
+        {
+            return
+                Matrix.CreateScale(Scale) *
+                Matrix.CreateRotationX(Rotation.X) *
+                Matrix.CreateRotationY(Rotation.Y) *
+                Matrix.CreateRotationZ(Rotation.Z) *
+                Matrix.CreateTranslation(Position);
+        }
 
-            public virtual void Update(GameTime gameTime)
-            {
-                Collisions.CheckWithTerrain(ref Position, 0.5f);
-            }
+        public Decoration(Game game, String path)
+        {
+            //tu ustawiamy rozne cuda
 
-            public virtual void Draw()
-            {
-                //Ask camera for matrix.
-                Matrix view = Camera.viewMatrix;
+            //Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
+            Position = new Vector3(40, 50, 150);
+            lastPosition = Position;
+            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
 
-                //Ask for 3D projection for this model
-                Matrix projection = Camera.projectionMatrix;
+            currentModel = new AnimatedModel(path);
+            currentModel.LoadContent(game.Content);
 
-                // Render the skinned mesh.
-                foreach (ModelMesh mesh in currentModel.Meshes)
-                {
-                    foreach (BasicEffect effect in mesh.Effects)
-                    {
-                        effect.View = view;
-                        effect.World = GetWorldMatrix();
-                        effect.Projection = projection;
-                        effect.EnableDefaultLighting();
-                    }
 
-                    mesh.Draw();
-                }
-            }
+
+
+            // And play the clip
+            player = currentModel.PlayClip(currentModel.Clips["Take 001"]);
+            player.Looping = true;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+
+            currentModel.Update(gameTime);
+            Collisions.AddGravity(ref Position);
+            Collisions.CheckWithTerrain(ref Position, 0.5f);
+        }
+
+        public void Draw(GraphicsDeviceManager graphics)
+        {
+            currentModel.Draw(graphics.GraphicsDevice, GetWorldMatrix());
+        }
             
             
             public bool checkIfPossible(Vector3 startPosition)
@@ -87,5 +87,4 @@ namespace Laikos
                     return false;
             }
     }
-    
 }

@@ -93,10 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimationClip.cs" />
-    <Compile Include="AnimationData.cs" />
-    <Compile Include="AnimationEvent.cs" />
-    <Compile Include="AnimationPlayer.cs" />
-    <Compile Include="Keyframe.cs" />
+    <Compile Include="AnimationClipReader.cs" />
+    <Compile Include="ModelExtra.cs" />
+    <Compile Include="ModelExtraReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

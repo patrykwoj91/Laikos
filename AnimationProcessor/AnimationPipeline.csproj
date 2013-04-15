@@ -8,8 +8,8 @@
     <ProjectGuid>{6401ECED-B836-4A18-B85F-94B4577A1589}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AnimationProcessor</RootNamespace>
-    <AssemblyName>AnimationProcessor</AssemblyName>
+    <RootNamespace>AnimationPipeline</RootNamespace>
+    <AssemblyName>AnimationPipeline</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -55,8 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimationClipWriter.cs" />
     <Compile Include="AnimationDefinition.cs" />
     <Compile Include="AnimationProcessor.cs" />
+    <Compile Include="ModelExtraWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

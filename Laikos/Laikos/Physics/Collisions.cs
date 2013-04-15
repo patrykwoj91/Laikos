@@ -30,17 +30,17 @@ namespace Laikos
        public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
         {
             //Retrieving data about BoundingBox from model.Tag for first model
-            AnimationData animationData1 = model1.Tag as AnimationData;
-            BoundingBox originalBox1 = animationData1.BoundingBox;
-            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
+            ModelExtra modelExtra = model1.Tag as ModelExtra;
+            BoundingSphere originalSphere1 = modelExtra.boundingSphere;
+            BoundingSphere Sphere1 = XNAUtils.TransformBoundingSphere(originalSphere1, world1);
 
             //Doing the same thing for second model
-            AnimationData animationData2 = model2.Tag as AnimationData;
-            BoundingBox originalBox2 = animationData2.BoundingBox;
-            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
+            ModelExtra modelExtra1 = model2.Tag as ModelExtra;
+            BoundingSphere originalSphere2 = modelExtra.boundingSphere;
+            BoundingSphere Sphere2 = XNAUtils.TransformBoundingSphere(originalSphere2, world2);
 
             //Checking if global bounding Box(surronds whole model) intersects another Box
-            bool collision = BoundingSphere.CreateFromBoundingBox(Box1).Intersects(BoundingSphere.CreateFromBoundingBox(Box2));
+            bool collision = Sphere1.Intersects(Sphere2);
             
             return collision;
         }
@@ -58,6 +58,7 @@ namespace Laikos
             Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
             model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
             BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
+            
             for (int i = 0; i < model1.Meshes.Count; i++)
             {
                 ModelMesh mesh = model1.Meshes[i];
@@ -72,6 +73,7 @@ namespace Laikos
             Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
             model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
             BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
+            
             for (int i = 0; i < model2.Meshes.Count; i++)
             {
                 ModelMesh mesh = model2.Meshes[i];
@@ -98,12 +100,13 @@ namespace Laikos
        public static bool GeneralDecorationCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
        {
            //Retrieving data about BoundingBox from model.Tag for first model
-           AnimationData animationData1 = model1.Tag as AnimationData;
-           BoundingBox originalBox1 = animationData1.BoundingBox;
+           ModelExtra animationData1 = model1.Tag as ModelExtra;
+           BoundingBox originalBox1 = animationData1.boundingBox;
            BoundingBox Box1 = XNAUtils.TransformBoundingBox(originalBox1, world1);
            
            //Doing the same thing for second model
-           BoundingBox originalBox2 = (BoundingBox)model2.Tag;
+           ModelExtra animationData2 = model2.Tag as ModelExtra;
+           BoundingBox originalBox2 = animationData2.boundingBox;
            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
            
            //Checking if global bounding Box(surronds whole model) intersects another Box
@@ -171,8 +174,8 @@ namespace Laikos
         public static bool RayModelCollision(Ray ray, Model model, Matrix world)
         {
             bool collision = false;
-            AnimationData animationData = model.Tag as AnimationData;
-            BoundingBox originalBox = animationData.BoundingBox;
+            ModelExtra animationData = model.Tag as ModelExtra;
+            BoundingBox originalBox = animationData.boundingBox;
             BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
 
             //Determines intersection between mouse Ray and model's box

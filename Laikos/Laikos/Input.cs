@@ -39,14 +39,14 @@ namespace Laikos
                 {
                     if (!walk) { walk = !walk; }
                     Position.Z += 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(180);
+                    Rotation.Y = MathHelper.ToRadians(0);
                 }
 
                 if (keyboardState.IsKeyDown(Keys.S))
                 {
                     if (!walk) { walk = !walk; }
                     Position.Z -= 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(0);
+                    Rotation.Y = MathHelper.ToRadians(180);
 
                 }
 
@@ -54,14 +54,14 @@ namespace Laikos
                 {
                     if (!walk) { walk = !walk; }
                     Position.X -= 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(90);
+                    Rotation.Y = MathHelper.ToRadians(-90);
 
                 }
                 if (keyboardState.IsKeyDown(Keys.D))
                 {
                     if (!walk) { walk = !walk; }
                     Position.X += 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(-90);
+                    Rotation.Y = MathHelper.ToRadians(90);
                 }
 
                 if (keyboardState.IsKeyUp(Keys.D) && keyboardState.IsKeyUp(Keys.S) && keyboardState.IsKeyUp(Keys.A) && keyboardState.IsKeyUp(Keys.W))
@@ -79,7 +79,7 @@ namespace Laikos
                 Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                if (Collisions.RayModelCollision(clippedRay, unit.currentModel, unit.GetWorldMatrix()))
+                if (Collisions.RayModelCollision(clippedRay, unit.currentModel.Model, unit.GetWorldMatrix()))
                     unit.picked = true;
                 else
                     unit.picked = false;
