@@ -126,15 +126,15 @@ namespace Laikos
            //Here we are creating BoundingBox for each mesh for model1
            Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
            model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
-           BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
+           BoundingSphere[] model1Boxs = new BoundingSphere[model1.Meshes.Count];
            //Console.WriteLine(model1.Meshes.Count);
            for (int i = 0; i < model1.Meshes.Count; i++)
            {
                ModelMesh mesh = model1.Meshes[i];
                BoundingSphere origSphere = mesh.BoundingSphere;
-               BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
+               //BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
                Matrix trans = model1Transforms[mesh.ParentBone.Index] * world1;
-               BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
+               BoundingSphere transBox = XNAUtils.TransformBoundingSphere(origSphere, trans);
                model1Boxs[i] = transBox;
            }
 
@@ -142,7 +142,7 @@ namespace Laikos
            Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
            model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
            BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
-
+           Console.WriteLine(model2.Meshes.Count);
            for (int i = 0; i < model2.Meshes.Count; i++)
            {
                ModelMesh mesh = model2.Meshes[i];
@@ -158,11 +158,8 @@ namespace Laikos
            //Check if any of created before Boxs intersects with another Box
            for (int i = 0; i < model1Boxs.Length; i++)
                for (int j = 0; j < model2Boxs.Length; j++)
-               {
-                   Console.WriteLine(model2Boxs[j].ToString());
                    if (model1Boxs[i].Intersects(model2Boxs[j]))
                        return true;
-               }
            return collision;
        }
 

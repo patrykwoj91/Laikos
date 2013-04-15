@@ -112,7 +112,7 @@ namespace Laikos
 
             bool collision;
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0].currentModel.Model, units.UnitList[0].GetWorldMatrix(),
-                                                  decorations.DecorationList[1].currentModel.Model, decorations.DecorationList[1].GetWorldMatrix());
+                                                  decorations.DecorationList[0].currentModel.Model, decorations.DecorationList[0].GetWorldMatrix());
             if (collision)
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
 
