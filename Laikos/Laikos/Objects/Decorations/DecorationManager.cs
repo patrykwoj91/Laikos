@@ -34,7 +34,7 @@ namespace Laikos
         protected override void LoadContent()
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
-            String path = "Models/Decorations/Ruins1/Ruins";
+            String path = "Models/Decorations/Ruins3/Ruins3";
             DecorationList.Add(new Decoration(game, path));
             DecorationList[0].Position += new Vector3(100, 100, 100);
             path = "Models/Decorations/Ruins2/ruins";
