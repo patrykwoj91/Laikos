@@ -71,7 +71,7 @@ namespace Laikos
             }
         }
 
-        public static void PickUnit(GameUnit unit, GraphicsDevice device)
+        public static void PickUnit(Unit unit, GraphicsDevice device)
         {
             if (currentMouseState.LeftButton == ButtonState.Pressed)
             {
