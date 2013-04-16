@@ -4,36 +4,31 @@ using Microsoft.Xna.Framework;
 
 namespace Laikos
 {
-    public class EventManager
+    public static class EventManager
     {
-        enum Events
+        public enum Events
         {
             FixCollisions,
             ScaleUp,
+            ScaleDown,
             Heal
         };
 
-        List<Message> messages;
+        static List<Message> messages = new List<Message>();
 
-
-        public EventManager(Game game)
-        {
-            messages = new List<Message>();
-        }
-
-        public void CreateMessage(Message message)
+        public static void CreateMessage(Message message)
         {
             messages.Add(message);
         }
 
-        public void FindMessageByDestination(GameObject destinationObject, List<Message> result)
+        public static void FindMessageByDestination(GameObject destinationObject, List<Message> result)
         {
             for (int i = 0; i < messages.Count; i++)
                 if (messages[i].Destination.Equals(destinationObject))
                     result.Add(messages[i]);
         }
 
-        public void FindMessageBySender(GameObject senderObject, List<Message> result)
+        public static void FindMessageBySender(GameObject senderObject, List<Message> result)
         {
             for (int i = 0; i < messages.Count; i++)
                 if(messages[i].Destination.Equals(senderObject))

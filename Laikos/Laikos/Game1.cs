@@ -123,18 +123,12 @@ namespace Laikos
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
             }
-
-            /*collision = Collisions.GeneralDecorationCollisionCheck(units.UnitList[0].currentModel.Model, units.UnitList[0].GetWorldMatrix(),
-                                      decorations.DecorationList[0].currentModel.Model, decorations.DecorationList[0].GetWorldMatrix());
-            Console.WriteLine(collision);
+            collision = Collisions.GeneralDecorationCollisionCheck(units.UnitList[0],
+                          decorations.DecorationList[0]);
             if (collision)
-            {
-                units.UnitList[0].Scale = 0.07f;
-            }
+                EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleUp, decorations.DecorationList[0], units.UnitList[0], null));
             else
-            {
-                units.UnitList[0].Scale = 0.05f;
-            }*/
+                EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleDown, decorations.DecorationList[0], units.UnitList[0], null));
             base.Update(gameTime);
         }
 
