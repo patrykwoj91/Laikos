@@ -57,7 +57,7 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            if (walk)
+            /*if (walk)
             {
               player = currentModel.PlayClip(currentModel.Clips["Walk"]);
               player.Looping = true;
@@ -67,7 +67,7 @@ namespace Laikos
             {
              player = currentModel.PlayClip(currentModel.Clips["Idle"]);
              // player.Looping = true;
-            }
+            }*/
             
             currentModel.Update(gameTime);
 

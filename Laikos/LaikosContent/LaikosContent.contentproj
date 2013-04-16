@@ -196,6 +196,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins3\Ruins3.FBX">
+      <Name>Ruins3</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Models\Decorations\Ruins2\ruins.FBX">
       <Name>ruins</Name>
       <Importer>FbxImporter</Importer>
@@ -204,11 +212,67 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins3\Ruins3.FBX">
-      <Name>Ruins3</Name>
+    <Compile Include="Models\Decorations\Ruins2\ruins_1.FBX">
+      <Name>ruins_1</Name>
       <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-      <ProcessorParameters_ResizeTexturesToPowerOfTwo>True</ProcessorParameters_ResizeTexturesToPowerOfTwo>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins2\ruins_2.FBX">
+      <Name>ruins_2</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins2\ruins_3.FBX">
+      <Name>ruins_3</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins2\ruins_004.FBX">
+      <Name>ruins_004</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins2\ruins_005.FBX">
+      <Name>ruins_005</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins2\ruins_006.FBX">
+      <Name>ruins_006</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins2\ruins_007.FBX">
+      <Name>ruins_007</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruins2\ruins_008.FBX">
+      <Name>ruins_008</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

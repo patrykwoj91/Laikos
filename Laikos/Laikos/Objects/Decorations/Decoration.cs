@@ -14,7 +14,7 @@ namespace Laikos
         public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
         public Vector3 lastPosition = new Vector3(0, 0, 0);
         public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
-        public float Scale = 1.0f; //Current scale
+        public float Scale = 1.5f; //Current scale
         public AnimatedModel currentModel = null; //model
         public AnimationPlayer player;
 
@@ -55,7 +55,7 @@ namespace Laikos
 
             currentModel.Update(gameTime);
             Collisions.AddGravity(ref Position);
-            Collisions.CheckWithTerrain(ref Position, 0.5f);
+            Collisions.CheckWithTerrain(ref Position, 1f);
         }
 
         public void Draw(GraphicsDeviceManager graphics)

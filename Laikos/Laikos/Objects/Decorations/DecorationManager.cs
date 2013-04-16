@@ -34,12 +34,12 @@ namespace Laikos
         protected override void LoadContent()
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
-            String path = "Models/Decorations/Ruins1/Ruins";
-            DecorationList.Add(new Decoration(game, path));
+            String path = "Models/Decorations/Ruins3/Ruins3";
+            //DecorationList.Add(new Decoration(game, path));
             path = "Models/Decorations/Ruins2/ruins";
-            //DecorationList.Add(new Decoration(game,path));
-            //DecorationList[1].Position.X = 30;
-            //DecorationList[1].Position.Z = 150;
+            DecorationList.Add(new Decoration(game,path));
+            DecorationList[0].Position.X = 30;
+            DecorationList[0].Position.Z = 150;
         }
 
         public override void Update(GameTime gameTime)

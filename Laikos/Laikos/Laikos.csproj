@@ -125,6 +125,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="LevelManager\Terrain.cs" />
     <Compile Include="Physics\XNAUtils.cs" />
+    <Compile Include="VertexHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

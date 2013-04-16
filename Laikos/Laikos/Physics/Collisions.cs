@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Animation;
 using System;
+using System.Collections.Generic;
 namespace Laikos
 {
     //Static class created to perform collision test between models, terrain and camera.
@@ -116,41 +117,44 @@ namespace Laikos
 
        //This method performs much more detailed collision check.
        //It checks if there is collision for each mesh of model
-       public static bool DetailedDecorationCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+       public static bool DetailedDecorationCollisionCheck(GameUnit unit, Decoration decoration)
        {
            //first we check if there is general collision between two models
            //If method returns false we dont have to perform detailed check
-           if (!GeneralDecorationCollisionCheck(model1, world1, model2, world2))
+           if (!GeneralDecorationCollisionCheck(unit.currentModel.Model, unit.GetWorldMatrix(), decoration.currentModel.Model, decoration.GetWorldMatrix()))
+           {
+               unit.Scale = 0.05f;
                return false;
+           }
+           else
+               unit.Scale = 0.07f;
 
            //Here we are creating BoundingBox for each mesh for model1
-           Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
-           model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
-           BoundingSphere[] model1Boxs = new BoundingSphere[model1.Meshes.Count];
+           Matrix[] model1Transforms = new Matrix[unit.currentModel.Model.Bones.Count];
+           unit.currentModel.Model.CopyAbsoluteBoneTransformsTo(model1Transforms);
+           BoundingBox[] model1Boxs = new BoundingBox[unit.currentModel.Model.Meshes.Count];
            //Console.WriteLine(model1.Meshes.Count);
-           for (int i = 0; i < model1.Meshes.Count; i++)
+           for (int i = 0; i < unit.currentModel.Model.Meshes.Count; i++)
            {
-               ModelMesh mesh = model1.Meshes[i];
+               ModelMesh mesh = unit.currentModel.Model.Meshes[i];
                BoundingSphere origSphere = mesh.BoundingSphere;
-               //BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
-               Matrix trans = model1Transforms[mesh.ParentBone.Index] * world1;
-               BoundingSphere transBox = XNAUtils.TransformBoundingSphere(origSphere, trans);
+               BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
+               Matrix trans = model1Transforms[mesh.ParentBone.Index] * unit.GetWorldMatrix();
+               BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
                model1Boxs[i] = transBox;
            }
 
            //and here for second model
-           Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
-           model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
-           BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
-           Console.WriteLine(model2.Meshes.Count);
-           for (int i = 0; i < model2.Meshes.Count; i++)
+           Matrix[] model2Transforms = new Matrix[decoration.currentModel.Model.Bones.Count];
+           decoration.currentModel.Model.CopyAbsoluteBoneTransformsTo(model2Transforms);
+           BoundingBox[] model2Boxs = new BoundingBox[decoration.currentModel.Model.Meshes.Count];
+           for (int i = 0; i < decoration.currentModel.Model.Meshes.Count; i++)
            {
-               ModelMesh mesh = model2.Meshes[i];
-               BoundingSphere origSphere = mesh.BoundingSphere;
-               BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
-               Matrix trans = model2Transforms[mesh.ParentBone.Index] * world2;
-               BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
-               model2Boxs[i] = transBox;
+               List<Vector3> meshVertices = new List<Vector3>();
+               Matrix trans = model2Transforms[decoration.currentModel.Model.Meshes[i].ParentBone.Index] * decoration.GetWorldMatrix();
+               VertexHelper.ExtractModelMeshData(decoration.currentModel.Model.Meshes[i], ref trans, meshVertices);
+               BoundingBox origBox = BoundingBox.CreateFromPoints(meshVertices);
+               model2Boxs[i] = origBox;
            }
 
            bool collision = false;
@@ -158,10 +162,34 @@ namespace Laikos
            //Check if any of created before Boxs intersects with another Box
            for (int i = 0; i < model1Boxs.Length; i++)
                for (int j = 0; j < model2Boxs.Length; j++)
-                   if (model1Boxs[i].Intersects(model2Boxs[j]))
+               {
+                   if (BoundingSphere.CreateFromBoundingBox(model1Boxs[i]).Intersects(model2Boxs[j]))
+                   {
                        return true;
+                   }
+               }
            return collision;
        }
+
+       public static bool CheckIfInBuilding(Model model, Matrix worldMatrix)
+       {
+           ModelExtra animationData1 = model.Tag as ModelExtra;
+           BoundingSphere originalBox1 = animationData1.boundingSphere;
+           BoundingSphere Box1 = XNAUtils.TransformBoundingSphere(originalBox1, worldMatrix);
+
+           List<Vector3> points = new List<Vector3>();
+           Vector3 point = new Vector3(14.7f, 27, 146);
+           points.Add(point);
+           point = new Vector3(15.5f, 29f, 153f);
+           points.Add(point);
+           BoundingBox Box2 = BoundingBox.CreateFromPoints(points);
+           
+           if (Box1.Intersects(Box2))
+               return true;
+           else
+               return false;
+       }
+
 
         //Simple method to add gravity to every model
         public static void AddGravity(ref Vector3 currentPosition)

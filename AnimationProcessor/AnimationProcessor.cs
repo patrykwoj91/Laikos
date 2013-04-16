@@ -63,8 +63,45 @@ namespace AnimationPipeline
             // Add the extra content to the model 
             model.Tag = modelExtra;
 
+            List<Vector3[]> meshVertices = new List<Vector3[]>();
+            meshVertices = AddModelMeshVertexArrayToList(input, meshVertices);
+
+            int i = 0;
+            foreach (ModelMeshContent mesh in model.Meshes)
+            {
+                List<Vector3> modelMeshVertices = new List<Vector3>();
+                foreach (ModelMeshPartContent part in mesh.MeshParts)
+                    {
+                        if (i < meshVertices.Count)
+                        modelMeshVertices.AddRange(meshVertices[i++]);
+                    }
+                mesh.Tag = modelMeshVertices.ToArray();
+            }
 
             return model;
+        }
+
+        private List<Vector3[]> AddModelMeshVertexArrayToList(NodeContent node, List<Vector3[]> meshVertices)
+        {
+            foreach (NodeContent child in node.Children)
+                meshVertices = AddModelMeshVertexArrayToList(child, meshVertices);
+
+            MeshContent mesh = node as MeshContent;
+
+            if (mesh != null)
+            {
+                List<Vector3> nodeVertices = new List<Vector3>();
+                foreach (GeometryContent geo in mesh.Geometry)
+                {
+                    foreach (int index in geo.Indices)
+                    {
+                        Vector3 vertex = geo.Vertices.Positions[index];
+                        nodeVertices.Add(vertex);
+                    }
+                }
+                meshVertices.Add(nodeVertices.ToArray());
+            }
+            return meshVertices;
         }
 
         #region Skeleton Support
