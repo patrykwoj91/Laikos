@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Laikos
 {
-    public class EventManager : GameComponent
+    public class EventManager
     {
         enum Events
         {
@@ -16,7 +16,7 @@ namespace Laikos
         List<Message> messages;
 
 
-        public EventManager(Game game) : base(game)
+        public EventManager(Game game)
         {
             messages = new List<Message>();
         }
@@ -28,16 +28,16 @@ namespace Laikos
 
         public void FindMessageByDestination(GameObject destinationObject, List<Message> result)
         {
-            for (int i = 0; i < result.Count; i++)
-
+            for (int i = 0; i < messages.Count; i++)
+                if (messages[i].Destination.Equals(destinationObject))
+                    result.Add(messages[i]);
         }
 
-
-
-        public override void Update(GameTime gameTime)
+        public void FindMessageBySender(GameObject senderObject, List<Message> result)
         {
-            
-            base.Update(gameTime);
+            for (int i = 0; i < messages.Count; i++)
+                if(messages[i].Destination.Equals(senderObject))
+                    result.Add(messages[i]);
         }
     }
 }
