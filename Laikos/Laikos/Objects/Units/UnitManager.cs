@@ -10,7 +10,7 @@ namespace Laikos
 {
     class UnitManager : DrawableGameComponent
     {
-        public List<GameUnit> UnitList;
+        public List<Unit> UnitList;
         public Dictionary<String,Model> ModelList;
         public GraphicsDevice device;
         public Game game;
@@ -22,7 +22,7 @@ namespace Laikos
         {
             this.game = game;
             this.graphics = graphics;
-            UnitList = new List<GameUnit>();
+            UnitList = new List<Unit>();
            // ModelList = new Dictionary<String, Model>();
             this.device = device;
         }
@@ -35,16 +35,15 @@ namespace Laikos
         protected override void LoadContent()
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
-            String path = "Models/Test_model2/Test_FBX_Y";
-            UnitList.Add(new GameUnit(game,path));
-            UnitList[0].Position = new Vector3(10, 30, 150);
-            UnitList.Add(new GameUnit(game, path));
-            UnitList[1].Position = new Vector3(20, 30, 50);
+            String path = "Models/Test_model/Test_FBX_Y";
+            UnitList.Add(new Unit(game, path,new Vector3(10, 30, 150),0.1f));
+            UnitList.Add(new Unit(game, path, new Vector3(20, 30, 50), 0.1f));
+         
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (GameUnit unit in UnitList)
+            foreach (Unit unit in UnitList)
             {
                 Input.PickUnit(unit, device);
                 unit.Update(gameTime);
@@ -53,7 +52,7 @@ namespace Laikos
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (GameUnit unit in UnitList)
+            foreach (Unit unit in UnitList)
             {
                 unit.Draw(graphics);
             }

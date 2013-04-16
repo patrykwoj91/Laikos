@@ -9,61 +9,34 @@ using Animation;
 
 namespace Laikos
 {
-    class Decoration
+   public class Decoration : GameObject
     {
-        public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
-        public Vector3 lastPosition = new Vector3(0, 0, 0);
-        public Vector3 Rotation = new Vector3(0, 0, 0); //Current rotation
-        public float Scale = 1.5f; //Current scale
-        public AnimatedModel currentModel = null; //model
-        public AnimationPlayer player;
+       public Message Message = null;
 
+       public Decoration()
+           :base()
+       {
+       }
 
-
-        public Matrix GetWorldMatrix()
+       public Decoration(Game game, string path, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3), Message message = null)
+            : base(game, path)
         {
-            return
-                Matrix.CreateScale(Scale) *
-                Matrix.CreateRotationX(Rotation.X) *
-                Matrix.CreateRotationY(Rotation.Y) *
-                Matrix.CreateRotationZ(Rotation.Z) *
-                Matrix.CreateTranslation(Position);
-        }
-
-        public Decoration(Game game, String path)
-        {
-            //tu ustawiamy rozne cuda
-
-            //Move it to the centre Z - up-/down+ X:left+/right- , Y:high down +/high up -
-            Position = new Vector3(40, 50, 150);
-            lastPosition = Position;
-            Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0));
-
-            currentModel = new AnimatedModel(path);
-            currentModel.LoadContent(game.Content);
-
-
-
-
-            // And play the clip
-            player = currentModel.PlayClip(currentModel.Clips["Take 001"]);
-            player.Looping = true;
+            this.Position = position;
+            this.Rotation = rotation;
+            this.Scale = scale;
+            this.Message = message;
         }
 
         public void Update(GameTime gameTime)
         {
-
-            currentModel.Update(gameTime);
-            Collisions.AddGravity(ref Position);
-            Collisions.CheckWithTerrain(ref Position, 1f);
+            base.Update(gameTime);
         }
 
         public void Draw(GraphicsDeviceManager graphics)
         {
-            currentModel.Draw(graphics.GraphicsDevice, GetWorldMatrix());
+            base.Draw(graphics);
         }
-            
-            
+              
         public bool checkIfPossible(Vector3 startPosition)
         {
             BoundingBox box = XNAUtils.TransformBoundingBox(Collisions.GetBoundingBox(currentModel.Model), GetWorldMatrix());

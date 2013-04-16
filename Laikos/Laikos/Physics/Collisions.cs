@@ -117,7 +117,7 @@ namespace Laikos
 
        //This method performs much more detailed collision check.
        //It checks if there is collision for each mesh of model
-       public static bool DetailedDecorationCollisionCheck(GameUnit unit, Decoration decoration)
+       public static bool DetailedDecorationCollisionCheck(GameObject unit, Decoration decoration)
        {
            //first we check if there is general collision between two models
            //If method returns false we dont have to perform detailed check
