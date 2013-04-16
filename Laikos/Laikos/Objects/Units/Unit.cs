@@ -31,21 +31,22 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             EventManager.FindMessageByDestination(this, messages);
-            //Console.WriteLine(messages.Count);
+            Console.WriteLine(messages.Count);
             for (int i = 0; i < messages.Count; i++ )
             {
                 switch (messages[i].Type)
                 {
                     case (int)EventManager.Events.ScaleUp:
-                        Scale = 0.07f;
+                        Scale = 0.1f;
                         break;
                     case (int)EventManager.Events.ScaleDown:
-                        Scale = 0.1f;
+                        Scale = 0.07f;
                         break;
                 } 
             }
             Input.HandleUnit(ref walk, ref lastPosition, ref Position, ref Rotation, picked);
-            messages.Clear();
+            messages = new List<Message>();
+            EventManager.ClearMessages();
             base.Update(gameTime);
         }
 

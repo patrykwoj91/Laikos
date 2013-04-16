@@ -21,6 +21,11 @@ namespace Laikos
             messages.Add(message);
         }
 
+        public static void ClearMessages()
+        {
+            messages.Clear();
+        }
+
         public static void FindMessageByDestination(GameObject destinationObject, List<Message> result)
         {
             for (int i = 0; i < messages.Count; i++)
