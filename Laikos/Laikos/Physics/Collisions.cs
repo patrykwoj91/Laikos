@@ -98,7 +98,7 @@ namespace Laikos
 
        //This method is performing basic collision detection between two models
        //Whole model is surrounded by BoundingBox stored in model.Tag info
-       public static bool GeneralDecorationCollisionCheck(GameObject unit, Decoration decoration)
+       public static bool GeneralDecorationCollisionCheck(GameObject unit, GameObject decoration)
        {
            //Retrieving data about BoundingBox from model.Tag for first model
            ModelExtra animationData1 = unit.currentModel.Model.Tag as ModelExtra;
@@ -117,7 +117,7 @@ namespace Laikos
 
        //This method performs much more detailed collision check.
        //It checks if there is collision for each mesh of model
-       public static bool DetailedDecorationCollisionCheck(GameObject unit, Decoration decoration)
+       public static bool DetailedDecorationCollisionCheck(GameObject unit, GameObject decoration)
        {
            //first we check if there is general collision between two models
            //If method returns false we dont have to perform detailed check

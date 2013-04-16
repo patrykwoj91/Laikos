@@ -11,24 +11,36 @@ namespace Laikos
 {
    public class Decoration : GameObject
     {
-       public Message Message = null;
+       public List<Message> messages;
 
        public Decoration()
            :base()
        {
        }
 
-       public Decoration(Game game, string path, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3), Message message = null)
+       public Decoration(Game game, string path, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
             : base(game, path)
         {
             this.Position = position;
             this.Rotation = rotation;
             this.Scale = scale;
-            this.Message = message;
+            this.messages = new List<Message>();
         }
 
         public void Update(GameTime gameTime)
         {
+            EventManager.FindMessageByDestination(this, messages);
+            //Console.WriteLine(messages.Count);
+            for (int i = 0; i < messages.Count; i++)
+            {
+                switch (messages[i].Type)
+                {
+                    case (int)EventManager.Events.DeleteBox:
+                        Console.WriteLine("podniesiono skarb");
+                        messages.Clear();
+                        break;
+                }
+            }
             base.Update(gameTime);
         }
 

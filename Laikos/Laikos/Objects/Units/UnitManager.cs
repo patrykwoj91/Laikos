@@ -45,9 +45,9 @@ namespace Laikos
         {
             foreach (Unit unit in UnitList)
             {
-                Input.PickUnit(unit, device);
                 unit.Update(gameTime);
             }
+            Input.SelectUnit(UnitList, device);
         }
 
         public override void Draw(GameTime gameTime)

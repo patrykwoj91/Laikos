@@ -112,6 +112,7 @@ namespace Laikos
 
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0],
                                       decorations.DecorationList[0]);
+            Console.WriteLine(collision);
             if (collision)
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
 
@@ -129,6 +130,10 @@ namespace Laikos
                 EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleUp, decorations.DecorationList[0], units.UnitList[0], null));
             else
                 EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleDown, decorations.DecorationList[0], units.UnitList[0], null));
+
+            Input.PickBox(units.UnitList, decorations.DecorationList, device);
+            foreach (Unit unit in units.UnitList)
+                Input.MoveUnit(unit, device);
             base.Update(gameTime);
         }
 

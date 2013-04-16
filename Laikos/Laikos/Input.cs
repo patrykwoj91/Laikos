@@ -71,18 +71,63 @@ namespace Laikos
             }
         }
 
-        public static void PickUnit(Unit unit, GraphicsDevice device)
+        public static void SelectUnit(List<Unit> unit, GraphicsDevice device)
         {
             if (currentMouseState.LeftButton == ButtonState.Pressed)
             {
+                bool selected = false;
                 currentMouseState = Mouse.GetState();
                 Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                if (Collisions.RayModelCollision(clippedRay, unit.currentModel.Model, unit.GetWorldMatrix()))
-                    unit.picked = true;
-                else
-                    unit.picked = false;
+                for(int i = 0; i < unit.Count; i++)
+                {
+                    selected = Collisions.RayModelCollision(clippedRay, unit[i].currentModel.Model, unit[i].GetWorldMatrix());
+                    if (selected)
+                    {
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, unit[i], null));
+                        break;
+                    }
+                }
+                if(!selected)
+                    for(int i = 0; i < unit.Count; i++)
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit[i], null));
+            }
+        }
+
+        public static void PickBox(List<Unit> unitList, List<Decoration> decorationList, GraphicsDevice device)
+        {
+            if (currentMouseState.RightButton == ButtonState.Pressed)
+            {
+                bool selected = false;
+                currentMouseState = Mouse.GetState();
+                Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+                for (int i = 0; i < decorationList.Count; i++)
+                {
+                    selected = Collisions.RayModelCollision(clippedRay, decorationList[i].currentModel.Model, decorationList[i].GetWorldMatrix());
+                    if (selected)
+                    {
+                        foreach (Unit unit in unitList)
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.PickBox, decorationList[i], unit, null));
+                        break;
+                    }
+                }
+            }
+        }
+
+        public static void MoveUnit(Unit unit, GraphicsDevice device)
+        {
+            if (currentMouseState.RightButton == ButtonState.Pressed)
+            {
+                MouseState mouse = Mouse.GetState();
+                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+                Ray shorterRay = Collisions.LinearSearch(clippedRay);
+                Vector3 pointerPosition = Collisions.BinarySearch(shorterRay);
+                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, unit, pointerPosition));
             }
         }
 
@@ -134,6 +179,7 @@ namespace Laikos
 
             Vector3 cameraOriginalTarget = new Vector3(0, 0, -1);
             Vector3 cameraRotatedTarget = Vector3.Transform(cameraOriginalTarget, cameraRotation);
+            //cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateFromAxisAngle(axis, angle)) + cameraTarget;
             Vector3 cameraFinalTarget = cameraPosition + cameraRotatedTarget;
 
             viewMatrix = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, Vector3.Forward);

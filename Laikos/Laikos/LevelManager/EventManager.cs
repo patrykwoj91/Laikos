@@ -11,14 +11,19 @@ namespace Laikos
             FixCollisions,
             ScaleUp,
             ScaleDown,
-            Heal
+            Selected,
+            Unselected,
+            PickBox,
+            DeleteBox,
+            MoveUnit
         };
 
         static List<Message> messages = new List<Message>();
 
         public static void CreateMessage(Message message)
         {
-            messages.Add(message);
+            if(!messages.Contains(message))
+                messages.Add(message);
         }
 
         public static void ClearMessages()
