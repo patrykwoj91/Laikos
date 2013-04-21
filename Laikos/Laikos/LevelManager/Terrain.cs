@@ -362,10 +362,11 @@ namespace Laikos
         {
             bool invalid = xCoord < 0;
             invalid |= zCoord < 0;
-            invalid |= xCoord > currentWidth;
-            invalid |= zCoord > currentHeight;
+            invalid |= xCoord > currentWidth -1;
+            invalid |= zCoord > currentHeight - 1;
             if (invalid)
                 return 10;
+
 
             int xLower = (int)xCoord;
             int xHigher = xLower + 1;
@@ -411,5 +412,6 @@ namespace Laikos
             else
                 return currentHeightData[(int)xCoord, (int)zCoord];
         }
+
     }
 }
