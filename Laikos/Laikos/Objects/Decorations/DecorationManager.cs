@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Animation;
 
-
 namespace Laikos
 {
     class DecorationManager : DrawableGameComponent
