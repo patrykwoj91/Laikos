@@ -110,15 +110,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelManager\EventManager.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Objects\AnimatedModel.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
     <Compile Include="Objects\Bone.cs" />
     <Compile Include="LevelManager\Camera.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="Objects\Units\Unit.cs" />
     <Compile Include="Physics\Collisions.cs" />
     <Compile Include="Objects\Decorations\Decoration.cs" />
     <Compile Include="Objects\Decorations\DecorationManager.cs" />
-    <Compile Include="Objects\Units\GameUnit.cs" />
+    <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\Units\UnitManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

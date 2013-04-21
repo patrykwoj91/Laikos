@@ -15,6 +15,7 @@ namespace Laikos
         public GraphicsDevice device;
         public Game game;
         GraphicsDeviceManager graphics;
+        List<Message> messages;
 
         public DecorationManager(Game game, GraphicsDevice device, GraphicsDeviceManager graphics)
             : base(game)
@@ -34,12 +35,10 @@ namespace Laikos
         protected override void LoadContent()
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
-            String path = "Models/Decorations/Ruins3/Ruins3";
-            //DecorationList.Add(new Decoration(game, path));
-            path = "Models/Decorations/Ruins2/ruins";
-            DecorationList.Add(new Decoration(game,path));
-            DecorationList[0].Position.X = 30;
-            DecorationList[0].Position.Z = 150;
+            String path = "Models/Decorations/Ruins2/Ruins2"; 
+            DecorationList.Add(new Decoration(game, path, new Vector3(30, 0, 150), 1.5f));
+            path = "Models/Decorations/chest";
+            DecorationList.Add(new Decoration(game, path, new Vector3(30, 0, 50), 1.5f));
         }
 
         public override void Update(GameTime gameTime)

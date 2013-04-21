@@ -74,35 +74,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Test_model\dude.fbx">
-      <Name>dude</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Test_model\head.tga">
-      <Name>head</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Test_model\jacket.tga">
-      <Name>jacket</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Test_model\pants.tga">
-      <Name>pants</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Test_model\upBodyC.tga">
-      <Name>upBodyC</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\Terrain\Heightmaps\heightmap2.jpg">
       <Name>heightmap2</Name>
       <Importer>TextureImporter</Importer>
@@ -166,15 +137,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Test_model\dude_Anims.xml">
-      <Name>dude_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <SubType>Designer</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Test_model2\test_FBX_Y.FBX">
+    <Compile Include="Models\Test_model\test_FBX_Y.FBX">
       <Name>test_FBX_Y</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
@@ -182,97 +145,32 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Test_model2\test_FBX_Y_Anims.xml">
+    <Compile Include="Models\Test_model\test_FBX_Y_Anims.xml">
       <Name>test_FBX_Y_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Test_model2\test_m.jpg">
+    <Compile Include="Models\Test_model\test_m.jpg">
       <Name>test_m</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins3\Ruins3.FBX">
-      <Name>Ruins3</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins.FBX">
-      <Name>ruins</Name>
+    <Compile Include="Models\Decorations\Ruins2\Ruins2.FBX">
+      <Name>Ruins2</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
       <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_1.FBX">
-      <Name>ruins_1</Name>
+    <Compile Include="Models\Decorations\chest.fbx">
+      <Name>chest</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_2.FBX">
-      <Name>ruins_2</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_3.FBX">
-      <Name>ruins_3</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_004.FBX">
-      <Name>ruins_004</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_005.FBX">
-      <Name>ruins_005</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_006.FBX">
-      <Name>ruins_006</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_007.FBX">
-      <Name>ruins_007</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Ruins2\ruins_008.FBX">
-      <Name>ruins_008</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

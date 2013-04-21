@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Animation;
+
+
+namespace Laikos
+{
+   public class GameObject
+    {
+        public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
+        public Vector3 lastPosition = new Vector3(0, 0, 0);
+        public Vector3 Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0)); //Current rotation
+        public float Scale = 1.0f; //Current scale
+        public AnimatedModel currentModel = null; //model
+        public AnimationPlayer player;
+       
+        
+        public Matrix GetWorldMatrix()
+        {
+            return
+                Matrix.CreateScale(Scale) *
+                Matrix.CreateRotationX(Rotation.X) *
+                Matrix.CreateRotationY(Rotation.Y) *
+                Matrix.CreateRotationZ(Rotation.Z) *
+                Matrix.CreateTranslation(Position);
+        }
+
+        public GameObject()
+        {    
+        }
+
+        public GameObject(Game game, String path)
+            
+        {
+            currentModel = new AnimatedModel(path);
+            currentModel.LoadContent(game.Content);
+
+            // And play the clip
+            player = currentModel.PlayClip(currentModel.Clips["Take 001"]);
+            player.Looping = true;
+        }
+
+        public void Update(GameTime gameTime)
+        { 
+            currentModel.Update(gameTime);
+            Collisions.AddGravity(ref Position);
+            Collisions.CheckWithTerrain(ref Position, 0.5f);
+        }
+
+        public void Draw(GraphicsDeviceManager graphics)
+        {
+            currentModel.Draw(graphics.GraphicsDevice, GetWorldMatrix());
+        }
+    }
+}

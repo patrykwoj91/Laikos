@@ -98,17 +98,17 @@ namespace Laikos
 
        //This method is performing basic collision detection between two models
        //Whole model is surrounded by BoundingBox stored in model.Tag info
-       public static bool GeneralDecorationCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+       public static bool GeneralDecorationCollisionCheck(GameObject unit, GameObject decoration)
        {
            //Retrieving data about BoundingBox from model.Tag for first model
-           ModelExtra animationData1 = model1.Tag as ModelExtra;
+           ModelExtra animationData1 = unit.currentModel.Model.Tag as ModelExtra;
            BoundingSphere originalBox1 = animationData1.boundingSphere;
-           BoundingSphere Box1 = XNAUtils.TransformBoundingSphere(originalBox1, world1);
+           BoundingSphere Box1 = XNAUtils.TransformBoundingSphere(originalBox1, unit.GetWorldMatrix());
            
            //Doing the same thing for second model
-           ModelExtra animationData2 = model2.Tag as ModelExtra;
+           ModelExtra animationData2 = decoration.currentModel.Model.Tag as ModelExtra;
            BoundingBox originalBox2 = animationData2.boundingBox;
-           BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, world2);
+           BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, decoration.GetWorldMatrix());
            
            //Checking if global bounding Box(surronds whole model) intersects another Box
            bool collision = Box1.Intersects(Box2);
@@ -117,17 +117,12 @@ namespace Laikos
 
        //This method performs much more detailed collision check.
        //It checks if there is collision for each mesh of model
-       public static bool DetailedDecorationCollisionCheck(GameUnit unit, Decoration decoration)
+       public static bool DetailedDecorationCollisionCheck(GameObject unit, GameObject decoration)
        {
            //first we check if there is general collision between two models
            //If method returns false we dont have to perform detailed check
-           if (!GeneralDecorationCollisionCheck(unit.currentModel.Model, unit.GetWorldMatrix(), decoration.currentModel.Model, decoration.GetWorldMatrix()))
-           {
-               unit.Scale = 0.05f;
+           if (!GeneralDecorationCollisionCheck(unit, decoration))
                return false;
-           }
-           else
-               unit.Scale = 0.07f;
 
            //Here we are creating BoundingBox for each mesh for model1
            Matrix[] model1Transforms = new Matrix[unit.currentModel.Model.Bones.Count];
@@ -171,26 +166,6 @@ namespace Laikos
            return collision;
        }
 
-       public static bool CheckIfInBuilding(Model model, Matrix worldMatrix)
-       {
-           ModelExtra animationData1 = model.Tag as ModelExtra;
-           BoundingSphere originalBox1 = animationData1.boundingSphere;
-           BoundingSphere Box1 = XNAUtils.TransformBoundingSphere(originalBox1, worldMatrix);
-
-           List<Vector3> points = new List<Vector3>();
-           Vector3 point = new Vector3(14.7f, 27, 146);
-           points.Add(point);
-           point = new Vector3(15.5f, 29f, 153f);
-           points.Add(point);
-           BoundingBox Box2 = BoundingBox.CreateFromPoints(points);
-           
-           if (Box1.Intersects(Box2))
-               return true;
-           else
-               return false;
-       }
-
-
         //Simple method to add gravity to every model
         public static void AddGravity(ref Vector3 currentPosition)
         {
@@ -220,7 +195,7 @@ namespace Laikos
             bool collision = false;
             BoundingBox originalBox = (BoundingBox)model.Tag;
             BoundingBox Box = XNAUtils.TransformBoundingBox(originalBox, world);
-
+            
             float? intersection = Box.Intersects(ray);
             if (intersection <= ray.Direction.Length())
                 return true;
