@@ -107,12 +107,12 @@ namespace Laikos
                 //if (decorations.DecorationList[0].checkIfPossible(pointerPosition))
                     //Console.WriteLine("true");
                 //else
-                    Console.WriteLine(pointerPosition);
+                    //Console.WriteLine(pointerPosition);
             }
 
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0],
                                       decorations.DecorationList[0]);
-            Console.WriteLine(collision);
+            //Console.WriteLine(collision);
             if (collision)
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
 

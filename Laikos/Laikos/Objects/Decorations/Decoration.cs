@@ -12,6 +12,7 @@ namespace Laikos
    public class Decoration : GameObject
     {
        public List<Message> messages;
+       public List<BoundingBox> meshBoundingBoxes;
 
        public Decoration()
            :base()
@@ -21,10 +22,20 @@ namespace Laikos
        public Decoration(Game game, string path, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
             : base(game, path)
         {
-            this.Position = position;
-            this.Rotation = rotation;
-            this.Scale = scale;
-            this.messages = new List<Message>();
+           this.Position = position;
+           this.Rotation = rotation;
+           this.Scale = scale;
+           this.messages = new List<Message>();
+           this.meshBoundingBoxes = new List<BoundingBox>();
+           Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
+           currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
+           foreach (ModelMesh mesh in currentModel.Model.Meshes)
+           {
+               List<Vector3> meshVertices = new List<Vector3>();
+               Matrix transformations = modelTransforms[mesh.ParentBone.Index] * GetWorldMatrix();
+               VertexHelper.ExtractModelMeshData(mesh, ref transformations, meshVertices);
+               meshBoundingBoxes.Add(BoundingBox.CreateFromPoints(meshVertices));
+           }
         }
 
         public void Update(GameTime gameTime)
