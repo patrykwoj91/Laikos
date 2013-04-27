@@ -38,6 +38,8 @@ namespace Laikos
             String path = "Models/Test_model/Test_FBX_Y";
             UnitList.Add(new Unit(game, path,new Vector3(10, 30, 150),0.1f));
             UnitList.Add(new Unit(game, path, new Vector3(20, 30, 50), 0.1f));
+            path = "Models/Cannon/cannon_skeleton";
+            UnitList.Add(new Unit(game, path, new Vector3(20, 30, 50), 0.1f));
          
         }
 
