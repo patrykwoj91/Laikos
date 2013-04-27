@@ -26,7 +26,7 @@ namespace Laikos
         //************************** Methods created to handle UNITS input *************************//
         //******************************************************************************************//
 
-        public static void HandleUnit(ref bool walk, ref Vector3 lastPosition, ref Vector3 Position, ref Vector3 Rotation, bool picked)
+        public static void HandleUnit(ref bool walk, ref Vector3 lastPosition, ref Vector3 Position, ref Vector3 Rotation, bool picked, AnimationPlayer player, AnimatedModel currentModel)
         {
             keyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
@@ -62,6 +62,30 @@ namespace Laikos
                     if (!walk) { walk = !walk; }
                     Position.X += 0.1f;
                     Rotation.Y = MathHelper.ToRadians(90);
+                }
+
+                if (keyboardState.IsKeyDown(Keys.D1))
+                {
+                    player = currentModel.PlayClip(currentModel.Clips["Idle"]);
+                    player.Looping = true;
+                }
+
+                if (keyboardState.IsKeyDown(Keys.D2))
+                {
+                    player = currentModel.PlayClip(currentModel.Clips["Walk"]);
+                    player.Looping = true;
+                }
+
+                if (keyboardState.IsKeyDown(Keys.D3))
+                {
+                    player = currentModel.PlayClip(currentModel.Clips["Run"]);
+                    player.Looping = true;
+                }
+
+                if (keyboardState.IsKeyDown(Keys.D4))
+                {
+                    player = currentModel.PlayClip(currentModel.Clips["Alert"]);
+                    player.Looping = true;
                 }
 
                 if (keyboardState.IsKeyUp(Keys.D) && keyboardState.IsKeyUp(Keys.S) && keyboardState.IsKeyUp(Keys.A) && keyboardState.IsKeyUp(Keys.W))

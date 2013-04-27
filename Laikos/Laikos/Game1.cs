@@ -32,8 +32,8 @@ namespace Laikos
 
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1368;
-            graphics.PreferredBackBufferHeight = 766;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
         }
 
@@ -112,7 +112,7 @@ namespace Laikos
 
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0],
                                       decorations.DecorationList[0]);
-            Console.WriteLine(collision);
+            //Console.WriteLine(collision);
             if (collision)
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
 

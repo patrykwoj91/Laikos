@@ -83,7 +83,7 @@ namespace Laikos
                         break;
                 } 
             }
-            Input.HandleUnit(ref walk, ref lastPosition, ref Position, ref Rotation, picked);
+            Input.HandleUnit(ref walk, ref lastPosition, ref Position, ref Rotation, picked,player,currentModel);
             messages = new List<Message>();
             base.Update(gameTime);
         }
