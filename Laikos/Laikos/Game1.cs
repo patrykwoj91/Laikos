@@ -143,6 +143,10 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //RasterizerState rs = new RasterizerState();
+            //rs.CullMode = CullMode.None;
+            //device.RasterizerState = rs;
+
             GraphicsDevice.Clear(Color.Black);
 
             effect.Parameters["xView"].SetValue(Camera.viewMatrix);

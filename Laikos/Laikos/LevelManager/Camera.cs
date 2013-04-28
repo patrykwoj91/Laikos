@@ -71,7 +71,7 @@ namespace Laikos
             Input.UpdateViewMatrix(ref viewMatrix, cameraPosition, upDownRot, leftRightRot);
             Input.UpdateBezier(ref cameraPosition);
             //Checking for collision with terrain if camera is within range of our terrain
-            if (cameraPosition.X < Terrain.currentWidth -1 && cameraPosition.Z < Terrain.currentHeight - 1)
+            if (cameraPosition.X < Terrain.width -1 && cameraPosition.Z < Terrain.height - 1)
             {
                 Collisions.CheckWithTerrain(ref cameraPosition, zoom);
             }

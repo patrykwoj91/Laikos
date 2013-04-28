@@ -26,6 +26,28 @@ namespace Laikos
             }
         }
 
+        public static bool CollisionCheck(GameObject object1, GameObject object2)
+        {
+
+            if (object1 is Unit)
+            {
+                Unit unit1 = (Unit)object1;
+            }
+            else if (object1 is Decoration)
+            {
+                Decoration decoration1 = (Decoration)object1;
+            }
+            if (object2 is Unit)
+            {
+                Unit unit2 = (Unit)object2;
+            }
+            else if (object2 is Decoration)
+            {
+                Decoration decoration2 = (Decoration)object2;
+            }
+            return false;
+        }
+
         //This method is performing basic collision detection between two models
         //Whole model is surrounded by BoundingBox stored in model.Tag info
        public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
@@ -144,12 +166,9 @@ namespace Laikos
            //Check if any of created before Boxs intersects with another Box
            for (int i = 0; i < model1Boxs.Length; i++)
                for (int j = 0; j < decoration.meshBoundingBoxes.Count; j++)
-               {
                    if (model1Boxs[i].Intersects(decoration.meshBoundingBoxes[j]))
-                   {
                        return true;
-                   }
-               }
+
            return collision;
        }
 
