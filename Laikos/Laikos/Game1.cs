@@ -89,26 +89,15 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            EventManager.Update();
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+          if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             // TODO: Add your update logic here
-            KeyboardState kb = Keyboard.GetState(); bool collision;
-            if (kb.IsKeyDown(Keys.K))
-            {
-                MouseState mouse = Mouse.GetState();
-                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
-                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                Ray shorterRay = Collisions.LinearSearch(clippedRay);
-                pointerPosition = Collisions.BinarySearch(shorterRay);
-                //decorations.DecorationList[0].Position = pointerPosition;
-                //if (decorations.DecorationList[0].checkIfPossible(pointerPosition))
-                    //Console.WriteLine("true");
-                //else
-                    //Console.WriteLine(pointerPosition);
-            }
+            
+            bool collision;
+
 
             collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0],
                                       decorations.DecorationList[0]);
@@ -124,16 +113,9 @@ namespace Laikos
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
             }
-            collision = Collisions.GeneralDecorationCollisionCheck(units.UnitList[0],
-                          decorations.DecorationList[0]);
-            if (collision)
-                EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleUp, decorations.DecorationList[0], units.UnitList[0], null));
-            else
-                EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleDown, decorations.DecorationList[0], units.UnitList[0], null));
 
-            Input.PickBox(units.UnitList, decorations.DecorationList, device);
-            foreach (Unit unit in units.UnitList)
-                Input.MoveUnit(unit, device);
+
+            Input.Update(gameTime, device, camera, units.UnitList,decorations.DecorationList);
             base.Update(gameTime);
         }
 

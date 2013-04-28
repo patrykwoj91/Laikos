@@ -17,6 +17,7 @@ namespace Laikos
         public float Scale = 1.0f; //Current scale
         public AnimatedModel currentModel = null; //model
         public AnimationPlayer player;
+        public bool selected = false;
        
         
         public Matrix GetWorldMatrix()

@@ -40,13 +40,13 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            EventManager.FindMessageByDestination(this, messages);
+            EventManager.FindMessagesByDestination(this, messages);
             //Console.WriteLine(messages.Count);
             for (int i = 0; i < messages.Count; i++)
             {
                 switch (messages[i].Type)
                 {
-                    case (int)EventManager.Events.DeleteBox:
+                    case (int)EventManager.Events.Interaction:
                         Console.WriteLine("podniesiono skarb");
                         messages.Clear();
                         break;

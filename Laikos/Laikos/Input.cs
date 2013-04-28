@@ -9,248 +9,181 @@ namespace Laikos
     static class Input
     {
         static KeyboardState keyboardState;
+        static MouseState currentMouseState, oldMouseState;
 
-        public static MouseState oldMouseState;
-        static MouseState currentMouseState;
-
-        //***************************//
-        //Variables to control camera//
-        static float bezTime = 1.0f;
-        static Vector3 bezStartPosition;
-        static Vector3 bezMidPosition;
-        static Vector3 bezEndPosition;
-        static float moveSpeed = 60.0f;
-        //***************************//
-
-        //******************************************************************************************//
-        //************************** Methods created to handle UNITS input *************************//
-        //******************************************************************************************//
-
-        public static void HandleUnit(ref bool walk, ref Vector3 lastPosition, ref Vector3 Position, ref Vector3 Rotation, bool picked, AnimationPlayer player, AnimatedModel currentModel)
+        /// <summary>
+        /// Handle Keyboard - temporary unit WSAD movement and Animation swap
+        /// </summary>
+        public static void HandleKeyboard(List<Unit> unitlist)
         {
-            keyboardState = Keyboard.GetState();
-            currentMouseState = Mouse.GetState();
-
-            lastPosition = Position;
-
-            if (picked)
+            foreach (Unit unit in unitlist)
             {
-                if (keyboardState.IsKeyDown(Keys.W))
-                {
-                    if (!walk) { walk = !walk; }
-                    Position.Z += 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(0);
-                }
+                unit.lastPosition = unit.Position;
 
-                if (keyboardState.IsKeyDown(Keys.S))
+                if (unit.selected)
                 {
-                    if (!walk) { walk = !walk; }
-                    Position.Z -= 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(180);
-
-                }
-
-                if (keyboardState.IsKeyDown(Keys.A))
-                {
-                    if (!walk) { walk = !walk; }
-                    Position.X -= 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(-90);
-
-                }
-                if (keyboardState.IsKeyDown(Keys.D))
-                {
-                    if (!walk) { walk = !walk; }
-                    Position.X += 0.1f;
-                    Rotation.Y = MathHelper.ToRadians(90);
-                }
-
-                if (keyboardState.IsKeyDown(Keys.D1))
-                {
-                    player = currentModel.PlayClip(currentModel.Clips["Idle"]);
-                    player.Looping = true;
-                }
-
-                if (keyboardState.IsKeyDown(Keys.D2))
-                {
-                    player = currentModel.PlayClip(currentModel.Clips["Walk"]);
-                    player.Looping = true;
-                }
-
-                if (keyboardState.IsKeyDown(Keys.D3))
-                {
-                    player = currentModel.PlayClip(currentModel.Clips["Run"]);
-                    player.Looping = true;
-                }
-
-                if (keyboardState.IsKeyDown(Keys.D4))
-                {
-                    player = currentModel.PlayClip(currentModel.Clips["Alert"]);
-                    player.Looping = true;
-                }
-
-                if (keyboardState.IsKeyUp(Keys.D) && keyboardState.IsKeyUp(Keys.S) && keyboardState.IsKeyUp(Keys.A) && keyboardState.IsKeyUp(Keys.W))
-                {
-                    walk = false;
-                }
-            }
-        }
-
-        public static void SelectUnit(List<Unit> unit, GraphicsDevice device)
-        {
-            if (currentMouseState.LeftButton == ButtonState.Pressed)
-            {
-                bool selected = false;
-                currentMouseState = Mouse.GetState();
-                Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
-                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                for(int i = 0; i < unit.Count; i++)
-                {
-                    selected = Collisions.RayModelCollision(clippedRay, unit[i].currentModel.Model, unit[i].GetWorldMatrix());
-                    if (selected)
+                    if (keyboardState.IsKeyDown(Keys.W))
                     {
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, unit[i], null));
-                        break;
+                        if (!unit.walk) { unit.walk = !unit.walk; }
+                        unit.Position.Z += 0.1f;
+                        unit.Rotation.Y = MathHelper.ToRadians(0);
                     }
-                }
-                if(!selected)
-                    for(int i = 0; i < unit.Count; i++)
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit[i], null));
-            }
-        }
-
-        public static void PickBox(List<Unit> unitList, List<Decoration> decorationList, GraphicsDevice device)
-        {
-            if (currentMouseState.RightButton == ButtonState.Pressed)
-            {
-                bool selected = false;
-                currentMouseState = Mouse.GetState();
-                Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
-                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                for (int i = 0; i < decorationList.Count; i++)
-                {
-                    selected = Collisions.RayModelCollision(clippedRay, decorationList[i].currentModel.Model, decorationList[i].GetWorldMatrix());
-                    if (selected)
+                    if (keyboardState.IsKeyDown(Keys.S))
                     {
-                        foreach (Unit unit in unitList)
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.PickBox, decorationList[i], unit, null));
-                        break;
+                        if (!unit.walk) { unit.walk = !unit.walk; }
+                        unit.Position.Z -= 0.1f;
+                        unit.Rotation.Y = MathHelper.ToRadians(180);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.A))
+                    {
+                        if (!unit.walk) { unit.walk = !unit.walk; }
+                        unit.Position.X -= 0.1f;
+                        unit.Rotation.Y = MathHelper.ToRadians(-90);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.D))
+                    {
+                        if (!unit.walk) { unit.walk = !unit.walk; }
+                        unit.Position.X += 0.1f;
+                        unit.Rotation.Y = MathHelper.ToRadians(90);
+                    }
+
+                    if (keyboardState.IsKeyDown(Keys.D1))
+                    {
+                        unit.player = unit.currentModel.PlayClip(unit.currentModel.Clips["Idle"]);
+                        unit.player.Looping = true;
                     }
                 }
             }
         }
 
-        public static void MoveUnit(Unit unit, GraphicsDevice device)
+        /// <summary>
+        /// Handles mouse Left click and Right Click actions
+        /// </summary>
+        public static void HandleMouse(List<Unit> unitlist, List<Decoration> decorationlist, GraphicsDevice device)
         {
-            if (currentMouseState.RightButton == ButtonState.Pressed)
+            List<GameObject> allObjects = new List<GameObject>(unitlist.Count + decorationlist.Count); //ad building list later here
+            allObjects.AddRange(unitlist);
+            allObjects.AddRange(decorationlist);
+
+            #region Left Click (Selecting)
+            if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
             {
-                MouseState mouse = Mouse.GetState();
-                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
+                Console.WriteLine("Left Button " + currentMouseState.LeftButton.ToString());
+                bool selected = false;
+                
+                Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+
+                for (int i = 0; i < allObjects.Count; i++)
+                {
+                    selected = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
+                    if (selected)
+                    {
+                        if ((allObjects[i] is Unit) && !allObjects[i].selected)
+                        {
+                            foreach (Unit unit in unitlist)
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                            break;
+                        }
+                    }
+                    if (!selected)
+                        foreach (GameObject unit in unitlist)
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+                }                             
+            }
+            #endregion
+
+            #region Right Click (Moving and Interactions)
+            if (currentMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released)
+            {
+                Console.WriteLine("Right Button " + currentMouseState.RightButton.ToString());
+
+                bool selected = false;
+                bool obj_selected = false;
+                Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 Vector3 pointerPosition = Collisions.BinarySearch(shorterRay);
-                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, unit, pointerPosition));
+
+                foreach (GameObject obj in allObjects) //random right click?
+                    if (obj.selected == true)
+                    {
+                        obj_selected = true;
+                        break;
+                    }
+                if (obj_selected) //if not random right click
+                {
+                    foreach (GameObject obj in allObjects)
+                    {
+                        selected = Collisions.RayModelCollision(clippedRay, obj.currentModel.Model, obj.GetWorldMatrix());
+
+                        if (selected && (obj is Unit || obj is Decoration))
+                            foreach (GameObject reciever in allObjects)
+                                if (reciever.selected)
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, reciever, obj)); //interaction Event unit - unit , unit-decoration , unit-buiding itp.
+                        if(!selected)
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                    }
+
+                }
             }
+            #endregion
         }
 
-
-
-        //******************************************************************************************//
-        //************************** Methods created to handle CAMERA input ************************//
-        //******************************************************************************************//
-
-        //Handling input from mouse and keyboard to move camera
-        public static void HandleCamera(float amount, ref Vector3 cameraPosition, float zoom, 
-            float backBufferHeight, float backBufferWidth, float upDownRot, float leftRightRot)
+        /// <summary>
+        /// Handling input from mouse and keyboard to move camera
+        /// </summary>
+        public static void HandleCamera(float amount, Camera cam)
         {
             Vector3 moveVector = new Vector3(0, 0, 0);
 
-            currentMouseState = Mouse.GetState();
-
-                //Simple zoom in
+            //Simple zoom in
             if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
-                 if (bezTime > 1.0f)
-                     InitBezier(cameraPosition, cameraPosition - new Vector3(0, zoom, zoom));
-                //Simple zoom out
+                if (cam.bezTime > 1.0f)
+                    cam.InitBezier(true);
+            //Simple zoom out
             if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
-                 if (bezTime > 1.0f)
-                     InitBezier(cameraPosition, cameraPosition - new Vector3(0, -zoom, -zoom));
+                if (cam.bezTime > 1.0f)
+                    cam.InitBezier(false);
 
-            oldMouseState = currentMouseState;
-
-            if (bezTime > 1.0f)
+            if (cam.bezTime > 1.0f)
             {
                 //Moving camera if mouse is near edge of screen
-                if (Mouse.GetState().X > backBufferWidth - 5.0f) //right
+                if (Mouse.GetState().X > cam.backBufferWidth - 5.0f) //right
                     moveVector += new Vector3(3, 0, 0);
                 if (Mouse.GetState().X < 5.0f)    //left
                     moveVector += new Vector3(-3, 0, 0);
-                if (Mouse.GetState().Y > backBufferHeight - 5.0f)   //down
+                if (Mouse.GetState().Y > cam.backBufferHeight - 5.0f)   //down
                     moveVector += new Vector3(0, -2, 2);
                 if (Mouse.GetState().Y < 5.0f)    //up
                     moveVector += new Vector3(0, 2, -2);
             }
+
             //add created earlier vector to camera position
-            AddToCameraPosition(ref cameraPosition, moveVector * amount, upDownRot, leftRightRot);
+            Matrix cameraRotation = Matrix.CreateRotationX(cam.upDownRot) * Matrix.CreateRotationY(cam.leftRightRot);
+            Vector3 rotatedVector = Vector3.Transform(moveVector * amount, cameraRotation);
+            cam.cameraPosition += cam.moveSpeed * rotatedVector;
         }
 
-        //Updating viewMatrix so camera can move
-        public static void UpdateViewMatrix(ref Matrix viewMatrix, Vector3 cameraPosition, float upDownRot, float leftRightRot)
+        /// <summary>
+        /// Handling Inputs: Camera Movement, Keyboard, Mouse Buttons 
+        /// </summary>
+        public static void Update(GameTime gameTime, GraphicsDevice device, Camera camera, List<Unit> unitlist, List<Decoration> decorationlist)
         {
-            Matrix cameraRotation = Matrix.CreateRotationX(upDownRot) * Matrix.CreateRotationY(leftRightRot);
+            float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
 
-            Vector3 cameraOriginalTarget = new Vector3(0, 0, -1);
-            Vector3 cameraRotatedTarget = Vector3.Transform(cameraOriginalTarget, cameraRotation);
-            //cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateFromAxisAngle(axis, angle)) + cameraTarget;
-            Vector3 cameraFinalTarget = cameraPosition + cameraRotatedTarget;
+            keyboardState = Keyboard.GetState();
+            currentMouseState = Mouse.GetState();
 
-            viewMatrix = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, Vector3.Forward);
-        }
+            HandleCamera(timeDifference, camera);
+            HandleMouse(unitlist,decorationlist, device);
+            HandleKeyboard(unitlist);
 
-        //Adding vector created before to current camera position
-        public static void AddToCameraPosition(ref Vector3 cameraPosition, Vector3 vectorToAdd, float upDownRot, float leftRightRot)
-        {
-            Matrix cameraRotation = Matrix.CreateRotationX(upDownRot) * Matrix.CreateRotationY(leftRightRot);
-            Vector3 rotatedVector = Vector3.Transform(vectorToAdd, cameraRotation);
-            cameraPosition += moveSpeed * rotatedVector;
-        }
-
-        private static void InitBezier(Vector3 startPosition, Vector3 endPosition)
-        {
-            bezStartPosition = startPosition;
-            bezEndPosition = endPosition;
-            bezMidPosition = (bezStartPosition + bezEndPosition) / 2.0f;
-
-            Vector3 cameraDirection = endPosition - startPosition;
-
-            bezTime = 0.0f;
-        }
-
-        public static void UpdateBezier(ref Vector3 cameraPosition)
-        {
-            bezTime += 0.05f;
-            if (bezTime > 1.0f)
-                return;
-
-            float smoothValue = MathHelper.SmoothStep(0, 1, bezTime);
-            Vector3 newCamPos = Bezier(bezStartPosition, bezMidPosition, bezEndPosition, smoothValue);
-
-            cameraPosition = newCamPos;
-        }
-
-        private static Vector3 Bezier(Vector3 startPoint, Vector3 midPoint, Vector3 endPoint, float time)
-        {
-            float invTime = 1.0f - time;
-            float powTime = (float)Math.Pow(time, 2);
-            float powInvTime = (float)Math.Pow(invTime, 2);
-
-            Vector3 result = startPoint * powInvTime;
-            result += 2 * midPoint * time * invTime;
-            result += endPoint * powTime;
-
-            return result;
+            oldMouseState = currentMouseState;
         }
     }
 }

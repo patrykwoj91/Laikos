@@ -8,14 +8,14 @@ namespace Laikos
 {
     public class Unit : GameObject
     {
-        public bool walk, picked;
+        public bool walk;
         public List<Message> messages;
-        public int messageSent = 0;
+        //public int messageSent = 0;
         public Unit()
             : base()
         {
             walk = false;
-            picked = false;
+            
             this.messages = new List<Message>();
         }
 
@@ -30,44 +30,32 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            EventManager.FindMessageByDestination(this, messages);
-            //Console.WriteLine(messages.Count);
+            
+            EventManager.FindMessagesByDestination(this, messages);
+           // Console.WriteLine(messages.Count); 
             for (int i = 0; i < messages.Count; i++ )
             {
+                
                 switch (messages[i].Type)
                 {
-                    case (int)EventManager.Events.ScaleUp:
-                        Scale = 0.1f;
-                        break;
-                    case (int)EventManager.Events.ScaleDown:
-                        Scale = 0.07f;
-                        break;
                     case (int)EventManager.Events.Selected:
-                        picked = true;
-                        //messages.Clear();
-                        //EventManager.ClearMessages();
+                        selected = true;
                         break;
                     case (int)EventManager.Events.Unselected:
-                        picked = false;
-                        //messages.Clear();
-                        //EventManager.ClearMessages();
+                        selected = false;
                         break;
-                    case (int)EventManager.Events.PickBox:
-                        if (Collisions.GeneralDecorationCollisionCheck(messages[i].Destination, messages[i].Sender) && picked == true)
+                    case (int)EventManager.Events.Interaction:
+                        if (Collisions.GeneralDecorationCollisionCheck(messages[i].Destination, messages[i].Sender) && selected == true)
                         {
                             if (messages[i].Sender.currentModel.Model.Meshes[0].Name == "Chest_TreasureChest")
                             {
-                                if (messageSent < 1)
-                                {
-                                    Console.WriteLine("Podniesiono skarb");
-                                    messageSent++;
-                                }
+                                Console.WriteLine("Podniesiono skarb");
                                 EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, messages[i].Destination, new Vector3(5, Terrain.GetExactHeightAt(5, 30), 50)));
                             }
                         }
                         break;
-                    case (int)EventManager.Events.MoveUnit:
-                        if (picked == true)
+                    case (int)EventManager.Events.MoveUnit: //nakladajace sie komunikaty powoduja problem z kolejnymi ruchami 
+                        if (selected)
                         {
                             Vector3 direction = (Vector3)messages[i].Payload - Position;
                             direction.Normalize();
@@ -76,15 +64,14 @@ namespace Laikos
                             Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 500;
                             if (Math.Abs(Position.X - ((Vector3)messages[i].Payload).X) < 0.5f && Math.Abs(Position.Z - ((Vector3)messages[i].Payload).Z) < 0.5f)
                             {
-                                messages.Clear();
-                                EventManager.ClearMessages();
+       
                             }
                         }
                         break;
                 } 
             }
-            Input.HandleUnit(ref walk, ref lastPosition, ref Position, ref Rotation, picked,player,currentModel);
-            messages = new List<Message>();
+           
+            //messages = new List<Message>();
             base.Update(gameTime);
         }
 
