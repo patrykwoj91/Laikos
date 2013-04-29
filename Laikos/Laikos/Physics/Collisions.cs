@@ -32,6 +32,7 @@ namespace Laikos
             if (object1 is Unit)
             {
                 Unit unit1 = (Unit)object1;
+                List<BoundingSphere> boundingList1 = new List<BoundingSphere>();
             }
             else if (object1 is Decoration)
             {

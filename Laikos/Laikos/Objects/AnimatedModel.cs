@@ -89,6 +89,24 @@ namespace Laikos
             modelExtra = model.Tag as ModelExtra;
             System.Diagnostics.Debug.Assert(modelExtra != null);
 
+            Effect customEffect = content.Load<Effect>("shaders/CustomSkinnedEffect");
+
+            foreach (ModelMesh mesh in Model.Meshes)
+            {
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    SkinnedEffect skinnedEffect = part.Effect as SkinnedEffect;
+                    if (skinnedEffect != null)
+                    {
+                        // Create new custom skinned effect from our base effect
+                        CustomSkinnedEffect custom = new CustomSkinnedEffect(customEffect);
+                        custom.CopyFromSkinnedEffect(skinnedEffect);
+
+                        part.Effect = custom;
+                    }
+                }
+            }
+
             ObtainBones();
         }
 
@@ -233,6 +251,20 @@ namespace Laikos
                         seffect.EnableDefaultLighting();
                         seffect.PreferPerPixelLighting = true;
                         seffect.SetBoneTransforms(skeleton);
+                    }
+                    if (effect is CustomSkinnedEffect)
+                    {
+                        CustomSkinnedEffect ceffect = effect as CustomSkinnedEffect;
+                        ceffect.SetBoneTransforms(skeleton);
+
+                        ceffect.World = boneTransforms[modelMesh.ParentBone.Index] * world;
+                        ceffect.View = view;
+                        ceffect.Projection = projection;
+
+                        ceffect.EnableDefaultLighting();
+
+                        ceffect.SpecularColor = new Vector3(0.25f);
+                        ceffect.SpecularPower = 16;
                     }
                 }
 
