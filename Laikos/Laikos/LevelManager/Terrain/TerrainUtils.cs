@@ -56,7 +56,7 @@ namespace Laikos
             heightMap.GetData(heightMapColors);
 
             //Initializing heightData array
-            heightData = new float[width, height];
+            heightData = new float[width + 1, height + 1];
 
             //In this loop we are going to fill heightData 
             //with numbers based on color of heightmap file
@@ -69,6 +69,12 @@ namespace Laikos
                     if (heightData[x, y] < minimumHeight) minimumHeight = heightData[x, y];
                     if (heightData[x, y] > maximumHeight) maximumHeight = heightData[x, y];
                 }
+
+            for (int x = 0; x < width + 1; x++)
+                heightData[x, height] = heightData[x, height - 1];
+
+            for (int y = 0; y < height; y++)
+                heightData[width, y] = heightData[width - 1, y];
 
             //In this loop we are going to make sure that every point in map is < 60
             for (int x = 0; x < width; x++)

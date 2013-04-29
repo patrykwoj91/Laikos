@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Laikos.LevelManager
+namespace Laikos
 {
     class Triangle
     {
@@ -43,6 +43,42 @@ namespace Laikos.LevelManager
                 lChild = new Triangle(this, center, tPoint, lPoint, heightData);
                 rChild = new Triangle(this, center, rPoint, tPoint, heightData);
             }
+        }
+
+        public void AddNeighs(Triangle lNeigh, Triangle rNeigh, Triangle bNeigh)
+        {
+            this.lNeigh = lNeigh;
+            this.rNeigh = rNeigh;
+            this.bNeigh = bNeigh;
+
+            if (lChild != null)
+            {
+                Triangle bNeighRightChild = null;
+                Triangle bNeighLeftChild = null;
+                Triangle lNeighRightChild = null;
+                Triangle rNeighLeftChild = null;
+
+                if (bNeigh != null)
+                {
+                    bNeighLeftChild = bNeigh.lChild;
+                    bNeighRightChild = bNeigh.rChild;
+                }
+                 
+                if (lNeigh != null)
+                    lNeighRightChild = lNeigh.rChild;
+                if (rNeigh != null)
+                    rNeighLeftChild = rNeigh.lChild;
+
+                lChild.AddNeighs(rChild, bNeighRightChild, lNeighRightChild);
+                rChild.AddNeighs(bNeighLeftChild, lChild, rNeighLeftChild);
+            }
+        }
+
+        public void AddIndices(ref List<int> indicesList)
+        {
+            indicesList.Add(lInd);
+            indicesList.Add(tInd);
+            indicesList.Add(rInd);
         }
     }
 }
