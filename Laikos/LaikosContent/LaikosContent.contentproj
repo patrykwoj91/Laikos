@@ -199,12 +199,35 @@
       <Processor>EffectProcessor</Processor>
     </Compile>
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Compile Include="Models\cannon_skeleton\cannon_skeleton.FBX">
       <Name>cannon_skeleton</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shader\Common.fxh">
+      <Name>Common</Name>
+    </None>
+    <None Include="Shader\CustomPS.fxh">
+      <Name>CustomPS</Name>
+    </None>
+    <None Include="Shader\CustomVS.fxh">
+      <Name>CustomVS</Name>
+    </None>
+    <None Include="Shader\Lighting.fxh">
+      <Name>Lighting</Name>
+    </None>
+    <None Include="Shader\Macros.fxh">
+      <Name>Macros</Name>
+    </None>
+    <None Include="Shader\SkinnedEffect.fxh">
+      <Name>SkinnedEffect</Name>
+    </None>
+    <None Include="Shader\Structures.fxh">
+      <Name>Structures</Name>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
