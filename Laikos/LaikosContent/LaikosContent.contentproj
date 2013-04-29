@@ -181,13 +181,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\cannon_skeleton\cannon_skeleton.FBX">
-      <Name>cannon_skeleton</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\cannon_skeleton\metal-texture.jpg">
       <Name>metal-texture</Name>
       <Importer>TextureImporter</Importer>
@@ -204,6 +197,13 @@
       <Name>CustomSkinnedEffect</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+    <ItemGroup>
+    <Compile Include="Models\cannon_skeleton\cannon_skeleton.FBX">
+      <Name>cannon_skeleton</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
