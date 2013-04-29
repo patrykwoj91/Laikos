@@ -110,10 +110,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomSkinnedEffect.cs" />
     <Compile Include="LevelManager\EventManager.cs" />
-    <Compile Include="LevelManager\QTNode.cs" />
-    <Compile Include="LevelManager\TerrainUtils.cs" />
-    <Compile Include="LevelManager\Triangle.cs" />
+    <Compile Include="LevelManager\Terrain\QTNode.cs" />
+    <Compile Include="LevelManager\Terrain\TerrainUtils.cs" />
+    <Compile Include="LevelManager\Terrain\Triangle.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Objects\AnimatedModel.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="LevelManager\Terrain.cs" />
+    <Compile Include="LevelManager\Terrain\Terrain.cs" />
     <Compile Include="Physics\XNAUtils.cs" />
     <Compile Include="VertexHelper.cs" />
   </ItemGroup>

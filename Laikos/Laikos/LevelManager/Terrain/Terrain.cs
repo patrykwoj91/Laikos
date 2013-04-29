@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace Laikos
 {
@@ -59,6 +60,9 @@ namespace Laikos
         private Texture2D snowTexture;
         private Texture2D terrainMap;
         private QTNode rootNode;
+        private List<Triangle> triangleList;
+        private List<int> indicesList;
+        DynamicIndexBuffer dynamicIndexBuffer;
         //***************************************************************//
 
         public Terrain(Game game)
@@ -89,6 +93,24 @@ namespace Laikos
             VertexMultiTextured[,] vertexArray = TerrainUtils.Reshape1DTo2D<VertexMultiTextured>(vertices, width, height);
             rootNode = new QTNode(vertexArray, device, grassTexture, 64, effect, rockTexture, snowTexture, sandTexture);
             TerrainUtils.CopyToBuffer(ref vertexBuffer, ref indexBuffer, vertices, indices, device);
+
+            int terrainSize = 32;
+            Triangle leftTriangle = new Triangle(null, new Vector2(0, 0), new Vector2(terrainSize, 0), new Vector2(0, terrainSize), heightData);
+            Triangle rightTriangle = new Triangle(null, new Vector2(terrainSize, terrainSize), new Vector2(0, terrainSize), new Vector2(terrainSize, 0), heightData);
+            leftTriangle.AddNeighs(null, null, rightTriangle);
+            rightTriangle.AddNeighs(null, null, leftTriangle);
+
+            triangleList = new List<Triangle>();
+            triangleList.Add(leftTriangle);
+            triangleList.Add(rightTriangle);
+
+            indicesList = new List<int>();
+            foreach (Triangle t in triangleList)
+                t.AddIndices(ref indicesList);
+
+            dynamicIndexBuffer = new DynamicIndexBuffer(device, typeof(int), indicesList.Count, BufferUsage.WriteOnly);
+            dynamicIndexBuffer.SetData(indicesList.ToArray(), 0, indicesList.Count, SetDataOptions.Discard);
+            dynamicIndexBuffer.ContentLost += dynamicIndexBuffer_ContentLost;
         }
 
         public override void Draw(GameTime gameTime)
@@ -103,6 +125,7 @@ namespace Laikos
             QTNode.nodesRendered = 0;
             BoundingFrustum cameraFrustrum = new BoundingFrustum(Camera.viewMatrix * Camera.projectionMatrix);
             rootNode.Draw(Matrix.Identity, Camera.viewMatrix, Camera.projectionMatrix, cameraFrustrum);
+            //Console.WriteLine(QTNode.nodesRendered.ToString());
         }
 
         //Moving terrain to the center of the world (0, 0, 0)
@@ -110,6 +133,12 @@ namespace Laikos
         {
             Matrix worldMatrix = Matrix.Identity;
             return worldMatrix;
+        }
+
+        private void dynamicIndexBuffer_ContentLost(object sender, EventArgs e)
+        {
+            dynamicIndexBuffer.Dispose();
+            dynamicIndexBuffer.SetData(indicesList.ToArray(), 0, indicesList.Count, SetDataOptions.Discard);
         }
 
         //Getting exact height at given point (x and z) returns y - height.
