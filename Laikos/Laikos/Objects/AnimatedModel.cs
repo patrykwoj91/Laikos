@@ -89,7 +89,7 @@ namespace Laikos
             modelExtra = model.Tag as ModelExtra;
             System.Diagnostics.Debug.Assert(modelExtra != null);
 
-            Effect customEffect = content.Load<Effect>("shadery/CustomSkinnedEffect");
+            Effect customEffect = content.Load<Effect>("Shader/CustomSkinnedEffect");
 
             foreach (ModelMesh mesh in Model.Meshes)
             {
