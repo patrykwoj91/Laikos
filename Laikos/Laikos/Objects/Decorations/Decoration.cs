@@ -40,18 +40,7 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            EventManager.FindMessagesByDestination(this, messages);
-            //Console.WriteLine(messages.Count);
-            for (int i = 0; i < messages.Count; i++)
-            {
-                switch (messages[i].Type)
-                {
-                    case (int)EventManager.Events.Interaction:
-                        Console.WriteLine("podniesiono skarb");
-                        messages.Clear();
-                        break;
-                }
-            }
+            HandleEvent(gameTime);
             base.Update(gameTime);
         }
 
@@ -81,6 +70,20 @@ namespace Laikos
                 return true;
             else
                 return false;
+        }
+
+        public override void HandleEvent(GameTime gameTime)
+        {
+            EventManager.FindMessagesByDestination(this, messages);
+            for (int i = 0; i < messages.Count; i++)
+            {
+                switch (messages[i].Type)
+                {
+                    case (int)EventManager.Events.Interaction:
+                        Console.WriteLine("Dekoracja - obsluga interakcji");
+                        break;
+                }
+            }
         }
     }
 }

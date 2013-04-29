@@ -8,11 +8,11 @@ namespace Laikos
     public class Message
     {
         public int Type;
-        public GameObject Sender; //nadawca
-        public GameObject Destination; // odbiorca
+        public Object Sender; //nadawca
+        public Object Destination; // odbiorca
         public Object Payload; // dodatkowy obiekt np. przeniesienie zasobu od jednostki do budynku
 
-        public Message(int type, GameObject sender, GameObject destination, Object payload)
+        public Message(int type, Object sender, Object destination, Object payload)
         {
             Type = type;
             Sender = sender;

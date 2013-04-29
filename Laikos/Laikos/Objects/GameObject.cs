@@ -56,5 +56,9 @@ namespace Laikos
         {
             currentModel.Draw(graphics.GraphicsDevice, GetWorldMatrix());
         }
+
+        public virtual void HandleEvent(GameTime gameTime)
+        {
+        }
     }
 }
