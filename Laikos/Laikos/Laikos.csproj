@@ -123,8 +123,8 @@
     <Compile Include="Input.cs" />
     <Compile Include="Objects\Units\Unit.cs" />
     <Compile Include="Physics\Collisions.cs" />
-    <Compile Include="Objects\Decorations\Decoration.cs" />
-    <Compile Include="Objects\Decorations\DecorationManager.cs" />
+    <Compile Include="Objects\Units\Decorations\Decoration.cs" />
+    <Compile Include="Objects\Units\Decorations\DecorationManager.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\Units\UnitManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +142,10 @@
     <ProjectReference Include="..\..\Animation\Animation.csproj">
       <Project>{87091037-1D53-43A9-BCCA-D869B9B1162D}</Project>
       <Name>Animation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MyDataTypes\MyDataTypes.csproj">
+      <Project>{8231A90D-00A8-413C-A06E-EE99B0545D5A}</Project>
+      <Name>MyDataTypes</Name>
     </ProjectReference>
     <ProjectReference Include="..\LaikosContent\LaikosContent.contentproj">
       <Name>LaikosContent %28Content%29</Name>

@@ -24,7 +24,17 @@ namespace Laikos
         /// <summary>
         /// The clip we are playing
         /// </summary>
-        private AnimationClip clip = null;
+        public AnimationClip clip = null;
+
+        /// <summary>
+        /// Animation clip to blend from
+        /// </summary>
+        public AnimationClip old_clip = null;
+
+        /// <summary>
+        /// The clip we are playing
+        /// </summary>
+        public Dictionary<String, AnimationClip> Clips = null;
        
         /// <summary>
         /// We maintain a BoneInfo class for each bone. This class does
@@ -46,6 +56,16 @@ namespace Laikos
         /// The looping option
         /// </summary>
         private bool looping = false;
+        
+        /// <summary>
+        /// How much to blend by
+        /// </summary>
+        public float blendFactor = 0.1f;
+
+        private float _blend = 0;
+
+
+
 
         #endregion
 
@@ -70,12 +90,6 @@ namespace Laikos
                 }
             }
         }
-
-        /// <summary>
-        /// The associated animation clip
-        /// </summary>
-        [Browsable(false)]
-        public AnimationClip Clip { get { return clip; } }
 
         /// <summary>
         /// The clip duration
@@ -104,25 +118,30 @@ namespace Laikos
         /// association between a clip and a model and sets up for playing
         /// </summary>
         /// <param name="clip"></param>
-        public AnimationPlayer(AnimationClip clip, AnimatedModel model)
+        public AnimationPlayer(Dictionary <String, AnimationClip> Clips, AnimatedModel model)
         {
-            this.clip = clip;
+            this.Clips = Clips;
             this.model = model;
+            clip = Clips["Take 001"];
+            old_clip = clip;
+            looping = true;
 
-            // Create the bone information classes
-            boneCnt = clip.Bones.Count;
-            boneInfos = new BoneInfo[boneCnt];
+                    // Create the bone information classes
+                boneCnt = clip.Bones.Count;
 
-            for(int b=0;  b<boneInfos.Length;  b++)
-            {
-                // Create it
-                boneInfos[b] = new BoneInfo(clip.Bones[b]);
+                boneInfos = new BoneInfo[boneCnt];
 
-                // Assign it to a model bone
-                boneInfos[b].SetModel(model);
-            }
+                for (int b = 0; b < boneInfos.Length; b++)
+                {
+                    // Create it
 
-            Rewind();
+                    boneInfos[b] = new BoneInfo(clip.Bones[b]);
+
+                    // Assign it to a model bone
+                    boneInfos[b].SetModel(model);
+                }
+
+                Rewind();
         }
 
         #endregion
@@ -148,6 +167,61 @@ namespace Laikos
             if (looping && Position >= Duration)
                 Position = 0;
         }
+        
+        #endregion
+
+        #region Playing
+
+        public void PlayClip(String name, Boolean looping)
+        {
+            old_clip = clip;
+
+            clip = Clips[name];
+            this.looping = looping;
+
+            if (old_clip.Name != clip.Name) //interpolowac tylko zmiane clipu czy wszystko?
+            {
+                //podstawowe pytanie jak sprawdzic co jest grane w danym momencie
+            }
+
+                // Create the bone information classes
+                boneCnt = clip.Bones.Count;
+
+                boneInfos = new BoneInfo[boneCnt];
+
+                for (int b = 0; b < boneInfos.Length; b++)
+                {
+                    // Create it
+
+                    boneInfos[b] = new BoneInfo(clip.Bones[b]);
+
+                    // Assign it to a model bone
+                    boneInfos[b].SetModel(model);
+                }
+
+                Rewind();
+            
+        }
+
+        public Matrix BlendTransforms(Matrix fromTransforms, Matrix toTransforms)
+        {
+            
+                Vector3 vt1; Vector3 vs1; Quaternion q1;
+                fromTransforms.Decompose(out vs1, out q1, out vt1);
+
+                Vector3 vt2; Vector3 vs2; Quaternion q2;
+                toTransforms.Decompose(out vs2, out q2, out vt2);
+
+                Vector3 vtBlend = Vector3.Lerp(vt1, vt2, _blend);
+                Vector3 vsBlend = Vector3.Lerp(vs1, vs2, _blend);
+                Quaternion qBlend = Quaternion.Slerp(q1, q2, _blend);
+
+                toTransforms = Matrix.CreateScale(vsBlend) * Matrix.CreateFromQuaternion(qBlend)
+                                * Matrix.CreateTranslation(vtBlend);
+            
+            return toTransforms;
+        }
+
 
         #endregion
 
@@ -285,6 +359,7 @@ namespace Laikos
                     Matrix m = Matrix.CreateFromQuaternion(rotation);
                     m.Translation = translation;
                     assignedBone.SetCompleteTransform(m);
+
                 }
             }
 
