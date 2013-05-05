@@ -105,8 +105,8 @@ namespace Laikos
             if (collision)
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
 
-            collision = Collisions.GeneralCollisionCheck(units.UnitList[0].currentModel.Model, units.UnitList[0].GetWorldMatrix(),
-                 units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix());
+            collision = Collisions.DetailedCollisionCheck(units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix(),
+                 units.UnitList[2].currentModel.Model, units.UnitList[2].GetWorldMatrix());
             
             if (collision)
             {
