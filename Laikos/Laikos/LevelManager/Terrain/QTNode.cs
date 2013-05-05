@@ -83,48 +83,43 @@ namespace Laikos
 
         }
 
-        public void Draw(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix, BoundingFrustum cameraFrustrum)
+        public void Draw(Effect GBuffer, BoundingFrustum cameraFrustrum)
         {
-            BoundingBox transformedBox = XNAUtils.TransformBoundingBox(nodeBoundingBox, worldMatrix);
+            BoundingBox transformedBox = XNAUtils.TransformBoundingBox(nodeBoundingBox, Matrix.Identity);
             ContainmentType cameraNodeContainment = cameraFrustrum.Contains(transformedBox);
             if (cameraNodeContainment != ContainmentType.Disjoint)
             {
                 if (isEndNode)
                 {
-                    DrawCurrentNode(worldMatrix, viewMatrix, projectionMatrix);
+                    DrawCurrentNode(Matrix.Identity, Camera.viewMatrix, Camera.projectionMatrix, GBuffer);
                 }
                 else
                 {
-                    nodeUL.Draw(worldMatrix, viewMatrix, projectionMatrix, cameraFrustrum);
-                    nodeUR.Draw(worldMatrix, viewMatrix, projectionMatrix, cameraFrustrum);
-                    nodeLL.Draw(worldMatrix, viewMatrix, projectionMatrix, cameraFrustrum);
-                    nodeLR.Draw(worldMatrix, viewMatrix, projectionMatrix, cameraFrustrum);
+                    nodeUL.Draw(GBuffer, cameraFrustrum);
+                    nodeUR.Draw(GBuffer, cameraFrustrum);
+                    nodeLL.Draw(GBuffer, cameraFrustrum);
+                    nodeLR.Draw(GBuffer, cameraFrustrum);
                 }
             }
         }
 
-        private void DrawCurrentNode(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix)
+        private void DrawCurrentNode(Matrix worldMatrix, Matrix viewMatrix, Matrix projectionMatrix, Effect GBuffer)
         {
-            effect.CurrentTechnique = effect.Techniques["MultiTextured"];
-            effect.Parameters["xTexture0"].SetValue(sandTexture);
-            effect.Parameters["xTexture1"].SetValue(grassTexture);
-            effect.Parameters["xTexture2"].SetValue(rockTexture);
-            effect.Parameters["xTexture3"].SetValue(snowTexture);
+            GBuffer.CurrentTechnique = GBuffer.Techniques["MultiTextured"];
+            GBuffer.Parameters["xTexture0"].SetValue(sandTexture);
+            GBuffer.Parameters["xTexture1"].SetValue(grassTexture);
+            GBuffer.Parameters["xTexture2"].SetValue(rockTexture);
+            GBuffer.Parameters["xTexture3"].SetValue(snowTexture);
 
-            Vector3 lightDirection = new Vector3(1.0f, -1.0f, -1.0f);
-            lightDirection.Normalize();
-            effect.Parameters["xLightDirection"].SetValue(lightDirection);
-            effect.Parameters["xAmbient"].SetValue(0.1f);
-            effect.Parameters["xEnableLighting"].SetValue(true);
-
-            foreach (EffectPass pass in effect.CurrentTechnique.Passes)
-            {
-                pass.Apply();
+            GBuffer.Parameters["View"].SetValue(Camera.viewMatrix);
+            GBuffer.Parameters["Projection"].SetValue(Camera.projectionMatrix);
+            GBuffer.Parameters["World"].SetValue(Matrix.Identity);
+            GBuffer.CurrentTechnique.Passes[0].Apply();
 
                 device.SetVertexBuffer(nodeVertexBuffer);
                 device.Indices = nodeIndexBuffer;
                 device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, width * height, 0, (width * 2 * (height - 1) - 2));
-            }
+
 
             nodesRendered++;
         }

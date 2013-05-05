@@ -129,11 +129,36 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\Clear.fx">
+      <Name>Clear</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Effects\DirectionalLight.fx">
+      <Name>DirectionalLight</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Effects\Composition.fx">
+      <Name>Composition</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Effects\PointLight.fx">
+      <Name>PointLight</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <Compile Include="Models\Decorations\Ruins1\Ruins.FBX">
       <Name>Ruins</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
       <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="SpotLightGeometry.fbx">
+      <Name>SpotLightGeometry</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -181,53 +206,72 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\cannon_skeleton\metal-texture.jpg">
+    <Compile Include="Models\Decorations\cannon_skeleton\metal-texture.jpg">
       <Name>metal-texture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\cannon_skeleton\stars.jpg">
+    <Compile Include="Models\Decorations\cannon_skeleton\stars.jpg">
       <Name>stars</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Shader\CustomSkinnedEffect.fx">
-      <Name>CustomSkinnedEffect</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\cannon_skeleton\cannon_skeleton.FBX">
+    <None Include="Models\Decorations\cannon_skeleton\cannon_skeleton.FBX">
       <Name>cannon_skeleton</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Effects\GBuffer.fx">
+      <Name>GBuffer</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="PointLightGeometry.fbx">
+      <Name>PointLightGeometry</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\sphere.x">
+      <Name>sphere</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\oko0.FBX">
+      <Name>oko0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\okoZTekstura.FBX">
+      <Name>okoZTekstura</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="null_normal.tga">
+      <Name>null_normal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="null_specular.tga">
+      <Name>null_specular</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\Common.fxh">
-      <Name>Common</Name>
-    </None>
-    <None Include="Shader\CustomPS.fxh">
-      <Name>CustomPS</Name>
-    </None>
-    <None Include="Shader\CustomVS.fxh">
-      <Name>CustomVS</Name>
-    </None>
-    <None Include="Shader\Lighting.fxh">
-      <Name>Lighting</Name>
-    </None>
-    <None Include="Shader\Macros.fxh">
-      <Name>Macros</Name>
-    </None>
-    <None Include="Shader\SkinnedEffect.fxh">
-      <Name>SkinnedEffect</Name>
-    </None>
-    <None Include="Shader\Structures.fxh">
-      <Name>Structures</Name>
-    </None>
+    <Compile Include="Models\tekstura.bmp">
+      <Name>tekstura</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\texturaInne.bmp">
+      <Name>texturaInne</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

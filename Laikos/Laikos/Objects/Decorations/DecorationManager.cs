@@ -49,14 +49,5 @@ namespace Laikos
                 unit.Update(gameTime);
             }
         }
-
-        public override void Draw(GameTime gameTime)
-        {
-            foreach (Decoration unit in DecorationList)
-            {
-                unit.Draw(graphics);
-            }
-        }
-
     }
 }

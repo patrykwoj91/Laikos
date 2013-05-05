@@ -110,11 +110,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomSkinnedEffect.cs" />
+    <Compile Include="Renderer\DefferedRenderer.cs" />
+    <Compile Include="Renderer\FullscreenQuad.cs" />
     <Compile Include="LevelManager\EventManager.cs" />
     <Compile Include="LevelManager\Terrain\QTNode.cs" />
     <Compile Include="LevelManager\Terrain\TerrainUtils.cs" />
     <Compile Include="LevelManager\Terrain\Triangle.cs" />
+    <Compile Include="Lights\DirectionalLight.cs" />
+    <Compile Include="Lights\LightManager.cs" />
+    <Compile Include="Lights\PointLight.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Objects\AnimatedModel.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
