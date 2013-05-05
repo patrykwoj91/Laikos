@@ -44,11 +44,6 @@ namespace Laikos
             base.Update(gameTime);
         }
 
-        public void Draw(GraphicsDeviceManager graphics)
-        {
-            base.Draw(graphics);
-        }
-              
         public bool checkIfPossible(Vector3 startPosition)
         {
             BoundingBox box = XNAUtils.TransformBoundingBox(Collisions.GetBoundingBox(currentModel.Model), GetWorldMatrix());

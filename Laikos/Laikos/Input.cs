@@ -8,7 +8,7 @@ namespace Laikos
 {
     static class Input
     {
-        static KeyboardState keyboardState;
+        static KeyboardState currentKeyboardState, oldKeyboardState;
         static MouseState currentMouseState, oldMouseState;
 
         /// <summary>
@@ -22,36 +22,41 @@ namespace Laikos
 
                 if (unit.selected)
                 {
-                    if (keyboardState.IsKeyDown(Keys.W))
+                    if (currentKeyboardState.IsKeyDown(Keys.W))
                     {
                         if (!unit.walk) { unit.walk = !unit.walk; }
                         unit.Position.Z += 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(0);
                     }
-                    if (keyboardState.IsKeyDown(Keys.S))
+                    if (currentKeyboardState.IsKeyDown(Keys.S))
                     {
                         if (!unit.walk) { unit.walk = !unit.walk; }
                         unit.Position.Z -= 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(180);
                     }
-                    if (keyboardState.IsKeyDown(Keys.A))
+                    if (currentKeyboardState.IsKeyDown(Keys.A))
                     {
                         if (!unit.walk) { unit.walk = !unit.walk; }
                         unit.Position.X -= 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(-90);
                     }
-                    if (keyboardState.IsKeyDown(Keys.D))
+                    if (currentKeyboardState.IsKeyDown(Keys.D))
                     {
                         if (!unit.walk) { unit.walk = !unit.walk; }
                         unit.Position.X += 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(90);
                     }
 
-                    if (keyboardState.IsKeyDown(Keys.D1))
+                    if (currentKeyboardState.IsKeyDown(Keys.D1))
                     {
                         unit.player = unit.currentModel.PlayClip(unit.currentModel.Clips["Idle"]);
                         unit.player.Looping = true;
                     }
+                }
+
+                if (currentKeyboardState.IsKeyDown(Keys.F1) && oldKeyboardState.IsKeyUp(Keys.F1))
+                {
+                    DefferedRenderer.debug = !DefferedRenderer.debug;
                 }
             }
         }
@@ -166,7 +171,7 @@ namespace Laikos
             //add created earlier vector to camera position
             Matrix cameraRotation = Matrix.CreateRotationX(cam.upDownRot) * Matrix.CreateRotationY(cam.leftRightRot);
             Vector3 rotatedVector = Vector3.Transform(moveVector * amount, cameraRotation);
-            cam.cameraPosition += cam.moveSpeed * rotatedVector;
+            Camera.cameraPosition += cam.moveSpeed * rotatedVector;
         }
 
         /// <summary>
@@ -176,7 +181,7 @@ namespace Laikos
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
 
-            keyboardState = Keyboard.GetState();
+            currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
 
             HandleCamera(timeDifference, camera);
@@ -184,6 +189,7 @@ namespace Laikos
             HandleKeyboard(unitlist);
 
             oldMouseState = currentMouseState;
+            oldKeyboardState = currentKeyboardState;
         }
     }
 }

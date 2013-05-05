@@ -34,11 +34,6 @@ namespace Laikos
             base.Update(gameTime);
         }
 
-        public void Draw(GraphicsDeviceManager graphics)
-        {
-            base.Draw(graphics);
-        }
-
         public override void HandleEvent(GameTime gameTime)
         {
             EventManager.FindMessagesByDestination(this, messages);

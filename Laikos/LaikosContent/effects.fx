@@ -106,7 +106,7 @@ MTPixelToFrame MultiTexturedPS(MTVertexToPixel PSIn)
         lightingFactor = saturate(saturate(dot(PSIn.Normal, PSIn.LightDirection)) + xAmbient);
 
      float blendDistance = 0.99f;
-     float blendWidth = 0.005f;
+     float blendWidth = 0.01f;
      float blendFactor = clamp((PSIn.Depth-blendDistance)/blendWidth, 0, 1);
          
      float4 farColor;
@@ -127,59 +127,6 @@ MTPixelToFrame MultiTexturedPS(MTVertexToPixel PSIn)
 
 
     return Output;
-}
-
-//------- Technique: Textured --------
-
-struct TexVertexToPixel
-{
-    float4 Position       : POSITION;    
-    float4 Color        : COLOR0;
-    float LightingFactor: TEXCOORD0;
-    float2 TextureCoords: TEXCOORD1;
-};
-
-struct TexPixelToFrame
-{
-    float4 Color : COLOR0;
-};
-
-TexVertexToPixel TexturedVS( float4 inPos : POSITION, float3 inNormal: NORMAL, float2 inTexCoords: TEXCOORD0)
-{    
-    TexVertexToPixel Output = (TexVertexToPixel)0;
-    float4x4 preViewProjection = mul (xView, xProjection);
-    float4x4 preWorldViewProjection = mul (xWorld, preViewProjection);
-    
-    Output.Position = mul(inPos, preWorldViewProjection);    
-    Output.TextureCoords = inTexCoords;
-    
-    float3 Normal = normalize(mul(normalize(inNormal), xWorld));    
-    Output.LightingFactor = 1;
-    if (xEnableLighting)
-        Output.LightingFactor = saturate(dot(Normal, -xLightDirection));
-    
-    return Output;    
-}
-
-TexPixelToFrame TexturedPS(TexVertexToPixel PSIn)
-{
-    TexPixelToFrame Output = (TexPixelToFrame)0;        
-    
-    Output.Color = tex2D(TextureSampler, PSIn.TextureCoords);
-    Output.Color.rgb *= saturate(PSIn.LightingFactor + xAmbient);
-
-    return Output;
-}
-
-// --------- List of Techniques ---------
-
-technique Textured
-{
-    pass Pass0
-    {  
-        VertexShader = compile vs_2_0 TexturedVS();
-        PixelShader  = compile ps_2_0 TexturedPS();
-    }
 }
 
 technique MultiTextured

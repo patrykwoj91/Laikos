@@ -22,7 +22,7 @@ namespace Laikos
         private float farPlane;
 
         //Camera settings used to move 
-        public Vector3 cameraPosition;
+        public static Vector3 cameraPosition;
         public float leftRightRot;
         public float upDownRot;
         private float zoom;

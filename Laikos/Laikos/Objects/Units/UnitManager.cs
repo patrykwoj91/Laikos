@@ -35,11 +35,12 @@ namespace Laikos
         protected override void LoadContent()
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
-            String path = "Models/Test_model/Test_FBX_Y";
-            UnitList.Add(new Unit(game, path,new Vector3(10, 30, 150),0.1f));
+            String path = "Models/Test_model/test_FBX_Y";
+            for(int i = 0; i < 1; i ++)
+            UnitList.Add(new Unit(game, path,new Vector3(i * 10, 30, 150), 0.1f));
             UnitList.Add(new Unit(game, path, new Vector3(20, 30, 50), 0.1f));
-            path = "Models/cannon_skeleton/cannon_skeleton";
-            UnitList.Add(new Unit(game, path, new Vector3(20, 30, 50), 0.1f));
+            //path = "Models/okoZTekstura";
+            //UnitList.Add(new Unit(game, path, new Vector3(50, 30, 50), 0.1f));
          
         }
 
@@ -50,15 +51,6 @@ namespace Laikos
                 unit.Update(gameTime);
             }
            
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            foreach (Unit unit in UnitList)
-            {
-                unit.Draw(graphics);
-            }
-        }
-       
+        }       
     }
 }

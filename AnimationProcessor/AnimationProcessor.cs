@@ -38,6 +38,162 @@ namespace AnimationPipeline
         /// </summary>
         private Dictionary<MaterialContent, SkinnedMaterialContent> toSkinnedMaterial = new Dictionary<MaterialContent, SkinnedMaterialContent>();
 
+        #region Deffered Lighting Variables
+        string directory;
+
+        //NormalMap texture property
+        [DisplayName("Normal Map Texture")]
+        [Description("This will be used as the normal map on the model, if not set will use a default.")]
+        [DefaultValue("")]
+        public string NormalMapTexture { get; set; }
+
+        //Normal Map Key, will be used to search for the normal map in the opaque data of the model
+        [DisplayName("Normal Map Key")]
+        [Description("This will be the key that will be used to search for the normal map in the opaque data of the model")]
+        [DefaultValue("NormalMap")]
+        public string NormalMapKey
+        {
+            get { return normalMapKey; }
+            set { normalMapKey = value; }
+        }
+        private string normalMapKey = "NormalMap";
+
+        //Specular Map Texture Property
+        [DisplayName("Specular Map Texture")]
+        [Description("This will be used as the specular map on model, if not set will use a default")]
+        [DefaultValue("")]
+        public string SpecularMapTexture { get; set; }
+
+        //Specular Map Key, will be used to search for the specular map in the opaque data of the model
+        [DisplayName("Specular Map Key")]
+        [Description("This will be the key that will be used to search for the specular map in the opaque data of the model")]
+        [DefaultValue("SpecularMap")]
+        public string SpecularMapKey
+        {
+            get { return specularMapKey; }
+            set { specularMapKey = value; }
+        }
+        private string specularMapKey = "SpecularMap";
+
+        //Turn the GenerateTangentFrames option to be always on
+        [Browsable(false)]
+        public override bool GenerateTangentFrames { get { return true; } set { } }
+
+        static IList<string> acceptableVertexChannelNames = new string[]
+        {
+            VertexChannelNames.TextureCoordinate(0),
+            VertexChannelNames.Normal(0),
+            VertexChannelNames.Binormal(0),
+            VertexChannelNames.Tangent(0),
+            VertexChannelNames.Weights(0),
+        };
+        #endregion
+
+        #region Deffered Lighting Support
+        protected override void ProcessVertexChannel(GeometryContent geometry, int vertexChannelIndex, ContentProcessorContext context)
+        {
+            string vertexChannelName = geometry.Vertices.Channels[vertexChannelIndex].Name;
+
+            if (acceptableVertexChannelNames.Contains(vertexChannelName))
+                base.ProcessVertexChannel(geometry, vertexChannelIndex, context);
+            else
+                geometry.Vertices.Channels.Remove(vertexChannelName);
+        }
+
+        private void LookUpTextures(NodeContent node)
+        {
+            MeshContent mesh = node as MeshContent;
+
+            if (mesh != null)
+            {
+                #region Normal Map Path Lookup
+                string normalMapPath;
+
+                if (!string.IsNullOrEmpty(NormalMapTexture))
+                    normalMapPath = NormalMapTexture;
+                else
+                    normalMapPath = mesh.OpaqueData.GetValue<string>(NormalMapKey, null);
+
+                if (normalMapPath == null)
+                {
+                    normalMapPath = Path.Combine(directory, mesh.Name + "_n.tga");
+
+                    if (!File.Exists(normalMapPath))
+                        normalMapPath = "null_normal.tga";
+                }
+                else
+                    normalMapPath = Path.Combine(directory, normalMapPath);
+                #endregion
+
+                #region Specular Map Path Lookup
+                string specularMapPath;
+
+                if (!string.IsNullOrEmpty(SpecularMapTexture))
+                    specularMapPath = SpecularMapTexture;
+                else
+                    specularMapPath = mesh.OpaqueData.GetValue<string>(SpecularMapKey, null);
+
+                if (specularMapPath == null)
+                {
+                    specularMapPath = Path.Combine(directory, mesh.Name + "_s.tga");
+
+                    if (!File.Exists(specularMapPath))
+                        specularMapPath = "null_specular.tga";
+                }
+                else
+                {
+                    specularMapPath = Path.Combine(directory, specularMapPath);
+                }
+                #endregion
+
+                foreach (GeometryContent geo in mesh.Geometry)
+                {
+                    if (geo.Material != null)
+                    {
+                        if (geo.Material.Textures.ContainsKey(NormalMapKey))
+                        {
+                            ExternalReference<TextureContent> texRef = geo.Material.Textures[NormalMapKey];
+                            geo.Material.Textures.Remove(NormalMapKey);
+                            geo.Material.Textures.Add("NormalMap", texRef);
+                        }
+                        else
+                            geo.Material.Textures.Add("NormalMap", new ExternalReference<TextureContent>(normalMapPath));
+
+                        if (geo.Material.Textures.ContainsKey(SpecularMapKey))
+                        {
+                            ExternalReference<TextureContent> texRef = geo.Material.Textures[SpecularMapKey];
+                            geo.Material.Textures.Remove(SpecularMapKey);
+                            geo.Material.Textures.Add("SpecularMap", texRef);
+                        }
+                        else
+                            geo.Material.Textures.Add("SpecularMap", new ExternalReference<TextureContent>(specularMapPath));
+                    }
+                }
+            }
+
+            foreach (NodeContent child in node.Children)
+            {
+                LookUpTextures(child);
+            }
+        }
+
+        /*protected override MaterialContent ConvertMaterial(MaterialContent material, ContentProcessorContext context)
+        {
+            EffectMaterialContent defferedShadingMarerial = new EffectMaterialContent();
+
+            defferedShadingMarerial.Effect = new ExternalReference<EffectContent>("Effects/GBuffer.fx");
+
+            foreach (KeyValuePair<string, ExternalReference<TextureContent>> texture in material.Textures)
+            {
+                if ((texture.Key == "Texture") || (texture.Key == "NormalMap") || (texture.Key == "SpecularMap"))
+                    defferedShadingMarerial.Textures.Add(texture.Key, texture.Value);
+            }
+
+            return context.Convert<MaterialContent, MaterialContent>(defferedShadingMarerial, typeof(MaterialProcessor).Name);
+        }*/
+
+        #endregion
+
         /// <summary>
         /// The function to process a model from original content into model content for export
         /// </summary>
@@ -46,6 +202,11 @@ namespace AnimationPipeline
         /// <returns></returns>
         public override ModelContent Process(NodeContent input, ContentProcessorContext context)
         {
+            if (input == null) throw new ArgumentNullException("input");
+
+            directory = Path.GetDirectoryName(input.Identity.SourceFilename);
+
+            LookUpTextures(input);
             // Process the skeleton for skinned character animation
             BoneContent skeleton = ProcessSkeleton(input);
 
@@ -322,8 +483,8 @@ namespace AnimationPipeline
                             smaterial.SpecularColor = bmaterial.SpecularColor;
                             smaterial.SpecularPower = bmaterial.SpecularPower;
                             smaterial.Texture = bmaterial.Texture;
+                            
                             smaterial.WeightsPerVertex = 4;
-
                             toSkinnedMaterial[geometry.Material] = smaterial;
                             geometry.Material = smaterial;
                         }
