@@ -135,6 +135,10 @@
   <ItemGroup>
     <Compile Include="Models\Decorations\test_ruins1\test_ruins1.FBX">
       <Name>test_ruins1</Name>
+      <Processor>AnimationProcessor</Processor>
+      <Importer>FbxImporter</Importer>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
+    </Compile>
     <Compile Include="Effects\Clear.fx">
       <Name>Clear</Name>
       <Importer>EffectImporter</Importer>
@@ -154,10 +158,6 @@
       <Name>PointLight</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
-    </Compile>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="SpotLightGeometry.fbx">
       <Name>SpotLightGeometry</Name>
@@ -221,7 +221,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Cannon_skeleton\cannon_skeleton.FBX">
+    <None Include="Models\Units\Cannon_skeleton\cannon_skeleton.FBX">
       <Name>cannon_skeleton</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
@@ -243,16 +243,6 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\oko0.FBX">
-      <Name>oko0</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\okoZTekstura.FBX">
-      <Name>okoZTekstura</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
     <Compile Include="null_normal.tga">
       <Name>null_normal</Name>
       <Importer>TextureImporter</Importer>
@@ -267,10 +257,6 @@
   <ItemGroup>
     <Compile Include="Models\Units\Cannon_skeleton\cannon_skeleton_Anims.xml">
       <Name>cannon_skeleton_Anims</Name>
-    <Compile Include="Models\tekstura.bmp">
-      <Name>tekstura</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -287,10 +273,6 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Models\Units\Eye\texturaInne.bmp">
-    <Compile Include="Models\texturaInne.bmp">
-      <Name>texturaInne</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

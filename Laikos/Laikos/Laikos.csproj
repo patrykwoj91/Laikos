@@ -127,8 +127,8 @@
     <Compile Include="Input.cs" />
     <Compile Include="Objects\Units\Unit.cs" />
     <Compile Include="Physics\Collisions.cs" />
-    <Compile Include="Objects\Units\Decorations\Decoration.cs" />
-    <Compile Include="Objects\Units\Decorations\DecorationManager.cs" />
+    <Compile Include="Objects\Decorations\Decoration.cs" />
+    <Compile Include="Objects\Decorations\DecorationManager.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\Units\UnitManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -52,27 +52,27 @@ namespace Laikos
                         unit.currentModel.player.PlayClip("Idle",false);
                         //unit.currentModel.player.Looping = true;
                     }
-                    if (keyboardState.IsKeyDown(Keys.D2))
+                    if (currentKeyboardState.IsKeyDown(Keys.D2))
                     {
                         unit.currentModel.player.PlayClip("Walk",false);
                       //  unit.currentModel.player.Looping = true;
                     }
-                    if (keyboardState.IsKeyDown(Keys.D3))
+                    if (currentKeyboardState.IsKeyDown(Keys.D3))
                     {
                         unit.currentModel.player.PlayClip("Light_Fire", false);
                        // unit.player.Looping = false;
                     }
-                    if (keyboardState.IsKeyDown(Keys.D4))
+                    if (currentKeyboardState.IsKeyDown(Keys.D4))
                     {
                         unit.currentModel.player.PlayClip("Heavy_Fire", false);
                         //unit.player.Looping = false;
                     }
-                    if (keyboardState.IsKeyDown(Keys.D5))
+                    if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
                         unit.currentModel.player.PlayClip("Transform", false);
                         //unit.player.Looping = false;
                     }
-                    if (keyboardState.IsKeyDown(Keys.D6))
+                    if (currentKeyboardState.IsKeyDown(Keys.D6))
                     {
                         unit.currentModel.player.PlayClip("Rotate", false);
                         //unit.player.Looping = false;
