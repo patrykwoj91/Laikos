@@ -49,11 +49,6 @@ namespace Laikos
             Collisions.CheckWithTerrain(ref Position, 0.5f);
         }
 
-        public void Draw(GraphicsDeviceManager graphics)
-        {
-            currentModel.Draw(graphics.GraphicsDevice, GetWorldMatrix());
-        }
-
         public virtual void HandleEvent(GameTime gameTime)
         {
         }

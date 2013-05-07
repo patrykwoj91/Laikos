@@ -21,7 +21,7 @@ namespace Laikos
         /// <summary>
         /// The actual underlying XNA model
         /// </summary>
-        private Model model = null;
+        public Model model = null;
 
         /// <summary>
         /// Extra data associated with the XNA model fe lists of clips
@@ -87,7 +87,7 @@ namespace Laikos
         {
             this.model = content.Load<Model>(assetName);
             modelExtra = model.Tag as ModelExtra;
-            System.Diagnostics.Debug.Assert(modelExtra != null);
+            //System.Diagnostics.Debug.Assert(modelExtra != null);
             
 
             ObtainBones();
@@ -174,7 +174,7 @@ namespace Laikos
         /// <param name="graphics">The graphics device to draw on</param>
         /// <param name="camera">A camera to determine the view</param>
         /// <param name="world">A world matrix to place the model</param>
-        public void Draw(GraphicsDevice graphics, Matrix world)
+        public void Draw(GraphicsDevice device, Matrix world, Effect GBuffer, Texture2D normals, Texture2D speculars, bool isSkinned)
         {
             if (model == null)
                 return;
@@ -210,39 +210,33 @@ namespace Laikos
             //Ask for 3D projection for this model
             Matrix projection = Camera.projectionMatrix;
 
+            if (isSkinned)
+                GBuffer.CurrentTechnique = GBuffer.Techniques["Skinning"];
+            else
+                GBuffer.CurrentTechnique = GBuffer.Techniques["NoSkinning"];
 
-            // Draw the model.
-            foreach (ModelMesh modelMesh in model.Meshes)
+            GBuffer.Parameters["View"].SetValue(Camera.viewMatrix);
+            GBuffer.Parameters["Projection"].SetValue(Camera.projectionMatrix);
+
+            foreach (ModelMesh mesh in model.Meshes)
             {
-                foreach (Effect effect in modelMesh.Effects)
+                foreach (ModelMeshPart part in mesh.MeshParts)
                 {
-                    if (effect is BasicEffect)
-                    {
-                        BasicEffect beffect = effect as BasicEffect;
-                        beffect.World = boneTransforms[modelMesh.ParentBone.Index] * world;
-                        beffect.View = view;
-                        beffect.Projection = projection;
-                        beffect.EnableDefaultLighting();
-                        beffect.PreferPerPixelLighting = true;
-                    }
+                    device.SetVertexBuffer(part.VertexBuffer, part.VertexOffset);
+                    device.Indices = part.IndexBuffer;
+                    
+                    GBuffer.Parameters["isSkinned"].SetValue(isSkinned);
+                    GBuffer.Parameters["World"].SetValue(boneTransforms[mesh.ParentBone.Index] * world);
+                    GBuffer.Parameters["Texture"].SetValue(part.Effect.Parameters["Texture"].GetValueTexture2D());
+                    GBuffer.Parameters["NormalMap"].SetValue(normals);
+                    GBuffer.Parameters["SpecularMap"].SetValue(speculars);
+                    GBuffer.Parameters["Bones"].SetValue(skeleton);
+                    GBuffer.CurrentTechnique.Passes[0].Apply();
 
-                    if (effect is SkinnedEffect)
-                    {
-                        SkinnedEffect seffect = effect as SkinnedEffect;
-                        seffect.World = boneTransforms[modelMesh.ParentBone.Index] * world;
-                        seffect.View = view;
-                        seffect.Projection = projection;
-                        seffect.EnableDefaultLighting();
-                        seffect.PreferPerPixelLighting = true;
-                        seffect.SetBoneTransforms(skeleton);
-                    }
+                    device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
                 }
-
-                modelMesh.Draw();
             }
         }
-
-
         #endregion
 
     }

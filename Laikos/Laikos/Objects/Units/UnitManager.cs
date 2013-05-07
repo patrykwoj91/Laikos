@@ -55,14 +55,6 @@ namespace Laikos
             //    Console.WriteLine(unit.currentModel.player.clip.Name);
             }
 
-        }
-
-        public override void Draw(GameTime gameTime)
-        {
-            foreach (Unit unit in UnitList)
-            {
-                unit.Draw(graphics);
-            }
-        }
+        }       
     }
 }

@@ -24,6 +24,9 @@ namespace Laikos
         Terrain terrain;
         UnitManager units;
         DecorationManager decorations;
+        List<GameObject> objects;
+        DefferedRenderer defferedRenderer;
+
         Vector3 pointerPosition = new Vector3(0, 0, 0);
 
         public Game1()
@@ -31,7 +34,7 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
-
+            objects = new List<GameObject>();
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
@@ -70,7 +73,7 @@ namespace Laikos
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             effect = Content.Load<Effect>("effects");
-            
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch);
         }
 
         /// <summary>
@@ -130,11 +133,11 @@ namespace Laikos
             //device.RasterizerState = rs;
 
             GraphicsDevice.Clear(Color.Black);
+            objects.AddRange(units.UnitList);
+            objects.AddRange(decorations.DecorationList);
 
-            effect.Parameters["xView"].SetValue(Camera.viewMatrix);
-            effect.Parameters["xProjection"].SetValue(Camera.projectionMatrix);
-            effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
-          
+            defferedRenderer.Draw(objects, terrain);
+            objects.Clear();
             base.Draw(gameTime);
 
             

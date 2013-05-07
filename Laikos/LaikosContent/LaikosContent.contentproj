@@ -135,9 +135,34 @@
   <ItemGroup>
     <Compile Include="Models\Decorations\test_ruins1\test_ruins1.FBX">
       <Name>test_ruins1</Name>
+    <Compile Include="Effects\Clear.fx">
+      <Name>Clear</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Effects\DirectionalLight.fx">
+      <Name>DirectionalLight</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Effects\Composition.fx">
+      <Name>Composition</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Effects\PointLight.fx">
+      <Name>PointLight</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
       <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
+    </Compile>
+    <Compile Include="SpotLightGeometry.fbx">
+      <Name>SpotLightGeometry</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -200,11 +225,50 @@
       <Name>cannon_skeleton</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Effects\GBuffer.fx">
+      <Name>GBuffer</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="PointLightGeometry.fbx">
+      <Name>PointLightGeometry</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\sphere.x">
+      <Name>sphere</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\oko0.FBX">
+      <Name>oko0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\okoZTekstura.FBX">
+      <Name>okoZTekstura</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="null_normal.tga">
+      <Name>null_normal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="null_specular.tga">
+      <Name>null_specular</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Units\Cannon_skeleton\cannon_skeleton_Anims.xml">
       <Name>cannon_skeleton_Anims</Name>
+    <Compile Include="Models\tekstura.bmp">
+      <Name>tekstura</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
@@ -223,6 +287,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Models\Units\Eye\texturaInne.bmp">
+    <Compile Include="Models\texturaInne.bmp">
       <Name>texturaInne</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
