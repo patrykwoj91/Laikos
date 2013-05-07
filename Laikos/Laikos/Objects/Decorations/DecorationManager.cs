@@ -36,7 +36,7 @@ namespace Laikos
         {
             //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
             String path = "Models/Decorations/Ruins2/Ruins2"; 
-            DecorationList.Add(new Decoration(game, path, new Vector3(30, 5, 150), 1.5f));
+            DecorationList.Add(new Decoration(game, path, new Vector3(60, 5, 150), 2.5f));
             path = "Models/Decorations/chest";
             DecorationList.Add(new Decoration(game, path, new Vector3(30, 0, 50), 1.5f));
         }

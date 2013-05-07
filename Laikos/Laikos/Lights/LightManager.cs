@@ -1,8 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-using System.Linq;
-using System.Text;
+using System.Collections.Generic;
 
 namespace Laikos
 {
@@ -10,13 +12,21 @@ namespace Laikos
     {
         List<DirectionalLight> directionalLights;
         List<PointLight> pointLights;
+        List<SpotLight> spotLights;
+
+        private GraphicsDevice device;
+        private Effect depthWriter;
 
         public List<DirectionalLight> getDirectionalLights() { return directionalLights; }
+        public List<PointLight> getPointLights() { return pointLights; }
+        public List<SpotLight> getSpotLights() { return spotLights; }
 
-        public LightManager()
+        public LightManager(ContentManager content, GraphicsDevice device)
         {
             directionalLights = new List<DirectionalLight>();
             pointLights = new List<PointLight>();
+            depthWriter = content.Load<Effect>("Effects/DepthWriter");
+            this.device = device;
         }
 
         public void AddLight(DirectionalLight light)
@@ -29,6 +39,11 @@ namespace Laikos
             pointLights.Add(light);
         }
 
+        public void AddLight(SpotLight light)
+        {
+            spotLights.Add(light);
+        }
+
         public void RemoveLight(DirectionalLight light)
         {
             directionalLights.Remove(light);
@@ -39,6 +54,18 @@ namespace Laikos
             pointLights.Remove(light);
         }
 
+        public void RemoveLight(SpotLight light)
+        {
+            spotLights.Remove(light);
+        }
+
+        public void RemoveAllLights()
+        {
+            directionalLights.Clear();
+            pointLights.Clear();
+            spotLights.Clear();
+        }
+
         public void CreateLightMap()
         {
             foreach (DirectionalLight light in directionalLights)
@@ -47,10 +74,14 @@ namespace Laikos
                 light.CreateLightMap();
         }
 
-        public void RemoveAllLights()
+        public void CreateShadowMap(List<Model> models)
         {
-            directionalLights.Clear();
-            pointLights.Clear();
+            device.BlendState = BlendState.Opaque;
+            device.DepthStencilState = DepthStencilState.Default;
+            device.RasterizerState = RasterizerState.CullCounterClockwise;
+
+            foreach (PointLight light in pointLights)
+                if(light.withShadows) light.CreateShadowMap(light, models, depthWriter);
         }
     }
 }

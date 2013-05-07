@@ -39,8 +39,8 @@ namespace Laikos
             for(int i = 0; i < 1; i ++)
             UnitList.Add(new Unit(game, path,new Vector3(i * 10, 30, 150), 0.1f));
             UnitList.Add(new Unit(game, path, new Vector3(20, 30, 50), 0.1f));
-            //path = "Models/okoZTekstura";
-            //UnitList.Add(new Unit(game, path, new Vector3(50, 30, 50), 0.1f));
+            path = "Models/okoZTekstura";
+            UnitList.Add(new Unit(game, path, new Vector3(50, 30, 50), 0.05f));
          
         }
 

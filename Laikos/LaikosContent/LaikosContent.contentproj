@@ -218,6 +218,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\DepthWriter.fx">
+      <Name>DepthWriter</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Georgia.spritefont">
+      <Name>Georgia</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="Models\Decorations\cannon_skeleton\cannon_skeleton.FBX">
       <Name>cannon_skeleton</Name>
       <Importer>FbxImporter</Importer>

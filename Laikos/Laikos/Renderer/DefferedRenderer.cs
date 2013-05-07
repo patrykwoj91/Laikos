@@ -33,16 +33,18 @@ namespace Laikos
         private Texture2D speculars;
 
         private Vector2 halfPixel;
+        private GameTime gameTime;
         public static bool debug = false;
+        private SpriteFont font;
         #endregion
 
-        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch)
+        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font)
         {
             #region Initialize Variables
             this.device = device;
             this.spriteBatch = spriteBatch;
-            this.lights = new LightManager();
-
+            this.lights = new LightManager(content, device);
+            this.font = font;
             fsq = new FullscreenQuad(device);
 
             halfPixel = new Vector2()
@@ -113,12 +115,17 @@ namespace Laikos
             device.SetRenderTarget(null);
         }
 
-        public void Draw(List<GameObject> objects, Terrain terrain)
+        public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
+            gameTime = GameTime;
             SetGBuffer();
             ClearGBuffer();
             RenderSceneTo3Targets(objects, terrain);
             ResolveGBuffer();
+            //List<Model> models = new List<Model>();
+            //foreach (GameObject obj in objects)
+                //models.Add(obj.currentModel.Model);
+            //lights.CreateShadowMap(models);
             DrawLights(objects);
             if(debug)
                 Debug();
@@ -152,6 +159,7 @@ namespace Laikos
             rect.X += width;
             spriteBatch.Draw((Texture2D)lightRT, rect, Color.White);
 
+            spriteBatch.DrawString(font, "FPS: " + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(10.0f, 20.0f), Color.White);
             //End SpriteBatch
             spriteBatch.End();
         }
@@ -167,17 +175,15 @@ namespace Laikos
             device.DepthStencilState = DepthStencilState.None;
 
             lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.1f));
-            //lights.AddLight(new DirectionalLight(Vector3.Down, Color.DarkOliveGreen, 0.5f));
             
             foreach (GameObject obj in objects)
             {
                 if (obj is Unit)
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 10, obj.Position.Z);
-                    lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1));
+                    lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, true, 1));
                 }
             }
-
             lights.CreateLightMap();
             lights.RemoveAllLights();
             device.BlendState = BlendState.Opaque;

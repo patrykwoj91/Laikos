@@ -26,6 +26,7 @@ namespace Laikos
         DecorationManager decorations;
         List<GameObject> objects;
         DefferedRenderer defferedRenderer;
+        private SpriteFont font;
 
         Vector3 pointerPosition = new Vector3(0, 0, 0);
 
@@ -73,7 +74,8 @@ namespace Laikos
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             effect = Content.Load<Effect>("effects");
-            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch);
+            font = Content.Load<SpriteFont>("Georgia");
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
         }
 
         /// <summary>
@@ -102,11 +104,11 @@ namespace Laikos
             bool collision;
 
 
-            collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0],
+            /*collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[2],
                                       decorations.DecorationList[0]);
             //Console.WriteLine(collision);
             if (collision)
-                units.UnitList[0].Position = units.UnitList[0].lastPosition;
+                units.UnitList[2].Position = units.UnitList[2].lastPosition;
 
             collision = Collisions.DetailedCollisionCheck(units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix(),
                  units.UnitList[2].currentModel.Model, units.UnitList[2].GetWorldMatrix());
@@ -115,7 +117,7 @@ namespace Laikos
             {
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
-            }
+            }*/
 
 
             Input.Update(gameTime, device, camera, units.UnitList,decorations.DecorationList);
@@ -136,7 +138,7 @@ namespace Laikos
             objects.AddRange(units.UnitList);
             objects.AddRange(decorations.DecorationList);
 
-            defferedRenderer.Draw(objects, terrain);
+            defferedRenderer.Draw(objects, terrain, gameTime);
             objects.Clear();
             base.Draw(gameTime);
 

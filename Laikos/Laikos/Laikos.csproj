@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lights\SpotLight.cs" />
     <Compile Include="Renderer\DefferedRenderer.cs" />
     <Compile Include="Renderer\FullscreenQuad.cs" />
     <Compile Include="LevelManager\EventManager.cs" />
