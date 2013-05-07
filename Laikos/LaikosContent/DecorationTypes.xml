@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MyDataTypes.DecorationType[]">
+
+    <Item>
+      <name>Ruins2</name>
+      <model>Models/Decorations/test_ruins2/test_ruins2</model>
+    </Item>
+
+    <Item>
+      <name>Ruins1</name>
+      <model>Models/Decorations/test_ruins1/test_ruins1</model>
+    </Item>
+
+  </Asset>
+</XnaContent>

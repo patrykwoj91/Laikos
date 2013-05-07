@@ -579,23 +579,28 @@ namespace AnimationPipeline
                         {
                             AnimationClip.Bone clipBone = new AnimationClip.Bone();
                             clipBone.Name = modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Name;
+                            LinkedList<AnimationClip.Keyframe> keyframes = new LinkedList<AnimationClip.Keyframe>();
 
                             if (modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Keyframes.Count != 0)
                             {
 
                                 for (int j = 0; j < modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Keyframes.Count; j++)
                                 {
+                                    
                                     if ((modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Keyframes[j].Time >= StartTime) && (modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Keyframes[j].Time <= EndTime))
                                     {
                                         AnimationClip.Keyframe frame = new AnimationClip.Keyframe();
                                         frame.Rotation = modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Keyframes[j].Rotation;
                                         frame.Time = modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Keyframes[j].Time - StartTime;
                                         frame.Translation = modelExtra.Clips[AnimDef.OriginalClipName].Bones[i].Keyframes[j].Translation;
-                                        clipBone.Keyframes.Add(frame);
+                                        keyframes.AddLast(frame);
+                                       //clipBone.Keyframes.Add(frame);
                                     }
                                     
                                 }
                             }
+                            LinearKeyframeReduction(keyframes);
+                            clipBone.Keyframes = keyframes.ToList<AnimationClip.Keyframe>();
                             MainClip.Bones.Add(clipBone);
 
                         }
@@ -720,8 +725,8 @@ namespace AnimationPipeline
 
                         keyframes.AddLast(newKeyframe);
                     }
-
-                   // LinearKeyframeReduction(keyframes);
+                
+                   
                     foreach (AnimationClip.Keyframe keyframe in keyframes)
                     {
                         clip.Bones[boneIndex].Keyframes.Add(keyframe);

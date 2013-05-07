@@ -16,7 +16,7 @@ namespace Laikos
         public Vector3 Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0)); //Current rotation
         public float Scale = 1.0f; //Current scale
         public AnimatedModel currentModel = null; //model
-        public AnimationPlayer player;
+        
         public bool selected = false;
        
         
@@ -40,9 +40,6 @@ namespace Laikos
             currentModel = new AnimatedModel(path);
             currentModel.LoadContent(game.Content);
 
-            // And play the clip
-            player = currentModel.PlayClip(currentModel.Clips["Take 001"]);
-            player.Looping = true;
         }
 
         public void Update(GameTime gameTime)

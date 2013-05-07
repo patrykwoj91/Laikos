@@ -5,12 +5,13 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Animation;
-
+using MyDataTypes;
 
 namespace Laikos
 {
    public class Decoration : GameObject
     {
+       public DecorationType type;
        public List<Message> messages;
        public List<BoundingBox> meshBoundingBoxes;
 
@@ -19,14 +20,15 @@ namespace Laikos
        {
        }
 
-       public Decoration(Game game, string path, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
-            : base(game, path)
+       public Decoration(Game game, DecorationType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
+            : base(game, type.model)
         {
            this.Position = position;
            this.Rotation = rotation;
            this.Scale = scale;
            this.messages = new List<Message>();
            this.meshBoundingBoxes = new List<BoundingBox>();
+
            Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
            currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
            foreach (ModelMesh mesh in currentModel.Model.Meshes)
