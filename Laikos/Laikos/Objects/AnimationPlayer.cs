@@ -22,14 +22,19 @@ namespace Laikos
         private float position = 0;
 
         /// <summary>
-        /// The clip we are playing
+        /// The clip we are playing next
         /// </summary>
-        public AnimationClip clip = null;
-
+        public AnimationClip next_clip = null;
+        
         /// <summary>
         /// Animation clip to blend from
         /// </summary>
-        public AnimationClip old_clip = null;
+        public AnimationClip current_clip = null;
+
+        public float clip_StartTime;
+        public float clip_CurrentTime;
+        public  float clip_EndTime;
+
 
         /// <summary>
         /// The clip we are playing
@@ -60,9 +65,8 @@ namespace Laikos
         /// <summary>
         /// How much to blend by
         /// </summary>
-        public float blendFactor = 0.1f;
-
-        private float _blend = 0;
+        public TimeSpan totalblendTime = TimeSpan.FromMilliseconds(300);
+        public TimeSpan currentblendTime;
 
 
 
@@ -95,7 +99,7 @@ namespace Laikos
         /// The clip duration
         /// </summary>
         [Browsable(false)]
-        public float Duration { get { return (float)clip.Duration; } }
+        public float Duration { get { return (float)current_clip.Duration; } }
 
         /// <summary>
         /// A model this animation is assigned to. It will play on that model.
@@ -122,12 +126,12 @@ namespace Laikos
         {
             this.Clips = Clips;
             this.model = model;
-            clip = Clips["Take 001"];
-            old_clip = clip;
+            current_clip = Clips["Take 001"];
+            
             looping = true;
 
                     // Create the bone information classes
-                boneCnt = clip.Bones.Count;
+                boneCnt = current_clip.Bones.Count;
 
                 boneInfos = new BoneInfo[boneCnt];
 
@@ -135,7 +139,7 @@ namespace Laikos
                 {
                     // Create it
 
-                    boneInfos[b] = new BoneInfo(clip.Bones[b]);
+                    boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
 
                     // Assign it to a model bone
                     boneInfos[b].SetModel(model);
@@ -174,18 +178,18 @@ namespace Laikos
 
         public void PlayClip(String name, Boolean looping)
         {
-            old_clip = clip;
-
-            clip = Clips[name];
+            
+            next_clip = Clips[name];
+            current_clip = next_clip;
             this.looping = looping;
 
-            if (old_clip.Name != clip.Name) //interpolowac tylko zmiane clipu czy wszystko?
+            if (next_clip.Name != current_clip.Name) //interpolowac tylko zmiane clipu czy wszystko?
             {
                 //podstawowe pytanie jak sprawdzic co jest grane w danym momencie
             }
 
                 // Create the bone information classes
-                boneCnt = clip.Bones.Count;
+                boneCnt = current_clip.Bones.Count;
 
                 boneInfos = new BoneInfo[boneCnt];
 
@@ -193,7 +197,7 @@ namespace Laikos
                 {
                     // Create it
 
-                    boneInfos[b] = new BoneInfo(clip.Bones[b]);
+                    boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
 
                     // Assign it to a model bone
                     boneInfos[b].SetModel(model);
@@ -203,7 +207,7 @@ namespace Laikos
             
         }
 
-        public Matrix BlendTransforms(Matrix fromTransforms, Matrix toTransforms)
+      /*  public Matrix BlendTransforms(Matrix fromTransforms, Matrix toTransforms)
         {
             
                 Vector3 vt1; Vector3 vs1; Quaternion q1;
@@ -220,7 +224,7 @@ namespace Laikos
                                 * Matrix.CreateTranslation(vtBlend);
             
             return toTransforms;
-        }
+        }*/
 
 
         #endregion
