@@ -25,6 +25,7 @@ namespace Laikos
         {
             directionalLights = new List<DirectionalLight>();
             pointLights = new List<PointLight>();
+            spotLights = new List<SpotLight>();
             depthWriter = content.Load<Effect>("Effects/DepthWriter");
             this.device = device;
         }

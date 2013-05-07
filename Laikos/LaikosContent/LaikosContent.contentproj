@@ -231,10 +231,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-      <Name>cannon_skeleton</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\GBuffer.fx">
@@ -261,11 +257,6 @@
       <Name>null_specular</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Cannon_skeleton\cannon_skeleton_Anims.xml">
-      <Name>cannon_skeleton_Anims</Name>
     </Compile>
   </ItemGroup>
   <ItemGroup>
