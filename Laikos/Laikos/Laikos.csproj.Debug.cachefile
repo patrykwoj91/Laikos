@@ -39,3 +39,5 @@ Content\Models\Decorations\test_ruins1\DiffuseMap_0.xnb
 Content\Models\Units\Test_model\test_m_0.xnb
 Content\Models\Units\Eye\texturaInne_1.xnb
 Content\Models\Units\Eye\tekstura_0.xnb
+Content\Effects\SpotLight.xnb
+Content\SpotCookie.xnb

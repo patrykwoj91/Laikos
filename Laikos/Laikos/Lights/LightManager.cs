@@ -73,6 +73,8 @@ namespace Laikos
                 light.CreateLightMap();
             foreach (PointLight light in pointLights)
                 light.CreateLightMap();
+            foreach (SpotLight light in spotLights)
+                light.CreateLightMap();
         }
 
         public void CreateShadowMap(List<Model> models)
@@ -83,8 +85,8 @@ namespace Laikos
 
             foreach (PointLight light in pointLights)
                 if(light.withShadows) light.CreateShadowMap(light, models, depthWriter);
-
-            //foreach (SpotLight light in spotLights)
+            foreach (SpotLight light in spotLights)
+                if (light.withShadows) light.CreateShadowMap(models, depthWriter);
                 //if (light.withShadows) light.CreateShadowMaps(light, models, depthWriter);
         }
     }
