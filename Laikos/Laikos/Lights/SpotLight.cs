@@ -9,28 +9,29 @@ namespace Laikos
     class SpotLight
     {
         public Vector3 position { get; set; }
-        Vector3 direction { get; set; }
-        Color color { get; set; }
+        public Vector3 direction { get; set; }
+        public Color color { get; set; }
 
-        float intensity { get; set; }
-        float nearPlane { get; set; }
-        float farPlane { get; set; }
-        float FOV { get; set; }
+        public float intensity { get; set; }
+        public float nearPlane { get; set; }
+        public float farPlane { get; set; }
+        public float FOV { get; set; }
 
-        bool withShadows { get; set; }
-        int shadowMapResolution { get; set; }
-        float depthBias { get; set; }
+        public bool withShadows { get; set; }
+        public int shadowMapResolution { get; set; }
+        public float depthBias { get; set; }
 
-        Matrix world { get; set; }
-        Matrix view { get; set; }
-        Matrix projection { get; set; }
+        public Matrix world { get; set; }
+        public Matrix view { get; set; }
+        public Matrix projection { get; set; }
 
-        RenderTarget2D shadowMap { get; set; }
-        Texture2D attentuationTexture { get; set; }
+        public RenderTarget2D shadowMap { get; set; }
+        public Texture2D attentuationTexture { get; set; }
         GraphicsDevice device;
+        Effect spotLightEffect;
 
         public SpotLight(GraphicsDevice device, Vector3 position, Vector3 direction, Color color, float intensity, 
-            bool withShadows, int shadowMapResolution, Texture2D attentuationTexture)
+            bool withShadows, int shadowMapResolution, Texture2D attentuationTexture, Effect spotLightEffect)
         {
             this.position = position;
             this.device = device;
@@ -40,6 +41,7 @@ namespace Laikos
             this.withShadows = withShadows;
             this.shadowMapResolution = shadowMapResolution;
             this.attentuationTexture = attentuationTexture;
+            this.spotLightEffect = spotLightEffect;
 
             nearPlane = 1.0f;
             farPlane = 100.0f;
@@ -79,6 +81,58 @@ namespace Laikos
             semiProduct.Decompose(out s, out q, out p);
             Matrix rotation = Matrix.CreateFromQuaternion(q);
             world = scaling * rotation * translation;
+        }
+
+        public void CreateShadowMaps(SpotLight light, List<Model> models, Effect depthWriter)
+        {
+            device.SetRenderTarget(shadowMap);
+            device.Clear(Color.Transparent);
+
+            depthWriter.Parameters["View"].SetValue(view);
+            depthWriter.Parameters["Projection"].SetValue(projection);
+            depthWriter.Parameters["LightPosition"].SetValue(position);
+            depthWriter.Parameters["DepthPrecision"].SetValue(farPlane);
+
+            DrawModels(models, depthWriter);
+        }
+
+        void CreateLightMaps()
+        {
+
+        }
+
+        void DrawModels(List<Model> Models, Effect depthWriter)
+        {
+            //Draw Each Model
+            foreach (Model model in Models)
+            {
+                //Get Transforms
+                Matrix[] transforms = new Matrix[model.Bones.Count];
+                model.CopyAbsoluteBoneTransformsTo(transforms);
+
+                //Draw Each ModelMesh
+                foreach (ModelMesh mesh in model.Meshes)
+                {
+                    //Draw Each ModelMeshPart
+                    foreach (ModelMeshPart part in mesh.MeshParts)
+                    {
+                        //Set Vertex Buffer
+                        device.SetVertexBuffer(part.VertexBuffer, part.VertexOffset);
+
+                        //Set Index Buffer
+                        device.Indices = part.IndexBuffer;
+
+                        //Set World
+                        depthWriter.Parameters["World"].SetValue(transforms[mesh.ParentBone.Index]);
+
+                        //Apply Effect
+                        depthWriter.CurrentTechnique.Passes[0].Apply();
+
+                        //Draw
+                        device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, part.NumVertices, part.StartIndex, part.PrimitiveCount);
+                    }
+                }
+            }
         }
     }
 }

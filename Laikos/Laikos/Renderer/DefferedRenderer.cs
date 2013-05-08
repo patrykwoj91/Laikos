@@ -24,6 +24,7 @@ namespace Laikos
         private Effect clearBuffer;
         private Effect directionalLight;
         private Effect pointLightEffect;
+        private Effect spotLightEffect;
         private Effect finalComposition;
         private Effect GBuffer;
 
@@ -72,7 +73,7 @@ namespace Laikos
             sphereModel = content.Load<Model>("Models/sphere");
             normals = content.Load<Texture2D>("null_normal");
             speculars = content.Load<Texture2D>("null_specular");
-            /*spotLight = content.Load<Effect>("Effects/SpotLight");*/
+            //spotLightEffect = content.Load<Effect>("Effects/SpotLight");
             #endregion
         }
 
@@ -182,8 +183,10 @@ namespace Laikos
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 10, obj.Position.Z);
                     lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, true, 1));
+                    lights.AddLight(new SpotLight(device, lightPosition, Vector3.Down, Color.Wheat, 10.0f, false, 256, colorRT, spotLightEffect));
                 }
             }
+            
             lights.CreateLightMap();
             lights.RemoveAllLights();
             device.BlendState = BlendState.Opaque;

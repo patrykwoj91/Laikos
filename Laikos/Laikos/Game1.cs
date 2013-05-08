@@ -73,7 +73,6 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            effect = Content.Load<Effect>("effects");
             font = Content.Load<SpriteFont>("Georgia");
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
         }
