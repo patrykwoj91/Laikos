@@ -33,7 +33,7 @@ namespace Laikos
         private Texture2D speculars;
 
         private Vector2 halfPixel;
-        public static bool debug = false;
+        public static bool debug = true;
         #endregion
 
         public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch)
