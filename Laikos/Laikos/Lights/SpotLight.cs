@@ -27,7 +27,6 @@ namespace Laikos
 
         public RenderTarget2D shadowMap { get; set; }
         public static GraphicsDevice device;
-        Effect spotLightEffect;
 
         private static Model spotLightGeometry;
         private static Effect spotLightEffect;
@@ -46,7 +45,6 @@ namespace Laikos
             this.intensity = intensity;
             this.withShadows = withShadows;
             this.shadowMapResolution = shadowMapResolution;
-            this.spotLightEffect = spotLightEffect;
 
             nearPlane = 1.0f;
             farPlane = 100.0f;
