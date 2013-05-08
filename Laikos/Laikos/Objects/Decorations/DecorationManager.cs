@@ -1,44 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Animation;
-
+using MyDataTypes;
 
 namespace Laikos
 {
     class DecorationManager : DrawableGameComponent
     {
+        public Dictionary<String,DecorationType> DecorationTypes;
         public List<Decoration> DecorationList;
-        public Dictionary<String, Model> ModelList;
+        
         public GraphicsDevice device;
-        public Game game;
         GraphicsDeviceManager graphics;
-        List<Message> messages;
+        public Game game;
+        
+        //List<Message> messages;
 
         public DecorationManager(Game game, GraphicsDevice device, GraphicsDeviceManager graphics)
             : base(game)
         {
             this.game = game;
             this.graphics = graphics;
-            DecorationList = new List<Decoration>();
-            // ModelList = new Dictionary<String, Model>();
             this.device = device;
         }
 
         public override void Initialize()
         {
+            DecorationTypes = new Dictionary<String, DecorationType>();
+            DecorationList = new List<Decoration>();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            //tu z pliku bedziemy sciezki do modeli wczytywac do listy modeli (na razie recznie)
-            String path = "Models/Decorations/Ruins1/Ruins"; 
-            DecorationList.Add(new Decoration(game, path, new Vector3(30, 5, 150), 1.5f));
-            path = "Models/Decorations/chest";
-            DecorationList.Add(new Decoration(game, path, new Vector3(30, 0, 50), 1.5f));
+            DecorationTypes = Game.Content.Load<DecorationType[]>("DecorationTypes").ToDictionary(t => t.name);
+             
+            DecorationList.Add(new Decoration(game, DecorationTypes["Ruins1"], new Vector3(30, 25, 150), 1.5f));
+
         }
 
         public override void Update(GameTime gameTime)

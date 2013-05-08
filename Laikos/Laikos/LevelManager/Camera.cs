@@ -58,7 +58,6 @@ namespace Laikos
         {
             //Initializing hardware variables
             device = Game.GraphicsDevice;
-            //Input.oldMouseState = Mouse.GetState();
             //Initializing camera initial parameters
             viewAngle = MathHelper.PiOver4;
             aspectRatio = device.Viewport.AspectRatio;

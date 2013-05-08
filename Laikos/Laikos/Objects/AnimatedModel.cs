@@ -24,7 +24,7 @@ namespace Laikos
         public Model model = null;
 
         /// <summary>
-        /// Extra data associated with the XNA model
+        /// Extra data associated with the XNA model fe lists of clips
         /// </summary>
         private ModelExtra modelExtra = null;
 
@@ -41,7 +41,7 @@ namespace Laikos
         /// <summary>
         /// An associated animation clip player
         /// </summary>
-        private AnimationPlayer player = null;
+        public AnimationPlayer player;
 
         #endregion
 
@@ -88,8 +88,10 @@ namespace Laikos
             this.model = content.Load<Model>(assetName);
             modelExtra = model.Tag as ModelExtra;
             //System.Diagnostics.Debug.Assert(modelExtra != null);
+            
 
             ObtainBones();
+            player = new AnimationPlayer(Clips, this);
         }
 
 
@@ -139,12 +141,12 @@ namespace Laikos
         /// </summary>
         /// <param name="clip">The clip to play</param>
         /// <returns>The player that will play this clip</returns>
-        public AnimationPlayer PlayClip(AnimationClip clip)
-        {
+        //public AnimationPlayer PlayClip(Dictionary<String,AnimationClip> clips)
+       // {
             // Create a clip player and assign it to this model
-            player = new AnimationPlayer(clip, this);
-            return player;
-        }
+       //     player = new AnimationPlayer(clips, this);
+       //     return player;
+      //  }
 
         #endregion
 

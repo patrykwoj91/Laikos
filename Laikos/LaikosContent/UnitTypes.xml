@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MyDataTypes.UnitType[]">
+
+    <Item>
+      <race>Niebianin</race>
+      <name>Reconnaissance Eye</name>
+      <hp>50.0</hp>
+      <mp>50.0</mp>
+      <model>Models/Units/Eye/eye</model>
+    </Item>
+
+    <Item>
+      <race>Niebianin</race>
+      <name>Dummy</name>
+      <hp>0.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Test_model/test_model</model>
+    </Item>
+
+    <Item>
+      <race>Niebianin</race>
+      <name>Mobile Cannon</name>
+      <hp>0.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Cannon_skeleton/cannon_skeleton</model>
+    </Item>
+
+  </Asset>
+</XnaContent>

@@ -133,12 +133,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="Models\Decorations\test_ruins1\test_ruins1.FBX">
       <Name>test_ruins1</Name>
-      <Processor>AnimationProcessor</Processor>
-      <Importer>FbxImporter</Importer>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
-    </Compile>
+=======
     <Compile Include="Effects\Clear.fx">
       <Name>Clear</Name>
       <Importer>EffectImporter</Importer>
@@ -158,6 +156,13 @@
       <Name>PointLight</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Ruins1\Ruins.FBX">
+      <Name>Ruins</Name>
+>>>>>>> 9918e58f77e46baf6a4124eaf82bef164ab77056
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="SpotLightGeometry.fbx">
       <Name>SpotLightGeometry</Name>
@@ -203,6 +208,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="Models\Buildings\" />
   </ItemGroup>
   <ItemGroup>
@@ -221,16 +227,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\DepthWriter.fx">
-      <Name>DepthWriter</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
+    <Compile Include="Models\Units\Cannon_skeleton\cannon_skeleton.FBX">
+=======
+    <Compile Include="Models\Decorations\cannon_skeleton\metal-texture.jpg">
+      <Name>metal-texture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Georgia.spritefont">
-      <Name>Georgia</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
+    <Compile Include="Models\Decorations\cannon_skeleton\stars.jpg">
+      <Name>stars</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\Decorations\cannon_skeleton\cannon_skeleton.FBX">
+>>>>>>> 9918e58f77e46baf6a4124eaf82bef164ab77056
+      <Name>cannon_skeleton</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\GBuffer.fx">
@@ -248,6 +264,16 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Models\oko0.FBX">
+      <Name>oko0</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\okoZTekstura.FBX">
+      <Name>okoZTekstura</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
     <Compile Include="null_normal.tga">
       <Name>null_normal</Name>
       <Importer>TextureImporter</Importer>
@@ -260,6 +286,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="Models\Units\Cannon_skeleton\cannon_skeleton_Anims.xml">
+      <Name>cannon_skeleton_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Models\Units\Eye\eye.FBX">
       <Name>eye</Name>
       <Importer>FbxImporter</Importer>
@@ -268,11 +302,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Units\Eye\tekstura.bmp">
+=======
+    <Compile Include="Models\tekstura.bmp">
+>>>>>>> 9918e58f77e46baf6a4124eaf82bef164ab77056
       <Name>tekstura</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Models\Units\Eye\texturaInne.bmp">
+=======
+    <Compile Include="Models\texturaInne.bmp">
+>>>>>>> 9918e58f77e46baf6a4124eaf82bef164ab77056
+      <Name>texturaInne</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
