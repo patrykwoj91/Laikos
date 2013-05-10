@@ -51,7 +51,7 @@ namespace Laikos
             FOV = MathHelper.PiOver2;
             depthBias = 1.0f / 2000.0f;
             projection = Matrix.CreatePerspectiveFieldOfView(FOV, 1.0f, nearPlane, farPlane);
-            shadowMap = new RenderTarget2D(device, shadowMapResolution, shadowMapResolution, false, SurfaceFormat.Single, DepthFormat.Depth24Stencil8);
+            shadowMap = new RenderTarget2D(device, shadowMapResolution, shadowMapResolution, false, SurfaceFormat.Single, DepthFormat.None);
             GBufferTextureSize = new Vector2(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
 
             Update();
@@ -110,6 +110,7 @@ namespace Laikos
             depthWriter.Parameters["LightPosition"].SetValue(position);
             depthWriter.Parameters["DepthPrecision"].SetValue(farPlane);
 
+            depthWriter.CurrentTechnique.Passes[0].Apply();
             DrawModels(models, depthWriter);
         }
 

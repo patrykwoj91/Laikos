@@ -87,7 +87,6 @@ namespace Laikos
                 if(light.withShadows) light.CreateShadowMap(light, models, depthWriter);
             foreach (SpotLight light in spotLights)
                 if (light.withShadows) light.CreateShadowMap(models, depthWriter);
-                //if (light.withShadows) light.CreateShadowMaps(light, models, depthWriter);
         }
     }
 }

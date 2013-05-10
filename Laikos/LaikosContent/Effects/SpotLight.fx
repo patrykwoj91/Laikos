@@ -239,7 +239,7 @@ float4 PS(VSO input) : COLOR0
 	half4 encodedNormal = tex2D(GBuffer1, UV);
 
 	//Decode Normal
-	half3 Normal = mul(decode(encodedNormal.xyz), inverseView);
+	half3 Normal = decode(encodedNormal.xyz);
 	
 	//Get Specular Intensity from GBuffer
 	float SpecularIntensity = tex2D(GBuffer0, UV).w;
