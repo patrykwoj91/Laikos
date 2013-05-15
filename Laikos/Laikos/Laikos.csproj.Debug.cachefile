@@ -30,6 +30,7 @@ Content\Models\Units\Eye\eye.xnb
 Content\Models\Units\Test_model\test_model_Anims.xnb
 Content\UnitTypes.xnb
 Content\DecorationTypes.xnb
+Content\Models\Units\Eye\eye_Anims.xnb
 Content\Georgia.xnb
 Content\Models\Units\Eye\texturaInne_0.xnb
 Content\Models\Terrain\cloudMap_0.xnb

@@ -134,22 +134,6 @@ namespace Laikos
 
         #endregion
 
-        #region Animation Management
-
-        /// <summary>
-        /// Play an animation clip
-        /// </summary>
-        /// <param name="clip">The clip to play</param>
-        /// <returns>The player that will play this clip</returns>
-        //public AnimationPlayer PlayClip(Dictionary<String,AnimationClip> clips)
-       // {
-            // Create a clip player and assign it to this model
-       //     player = new AnimationPlayer(clips, this);
-       //     return player;
-      //  }
-
-        #endregion
-
         #region Updating
 
         /// <summary>
