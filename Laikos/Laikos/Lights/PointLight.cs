@@ -52,7 +52,7 @@ namespace Laikos
             this.withShadows = withShadows;
             this.shadowMapResoultion = shadowMapResolution;
             if(withShadows)
-                //shadowMap = new RenderTargetCube(device, shadowMapResolution, false, SurfaceFormat.Single, DepthFormat.Depth24Stencil8);
+                shadowMap = new RenderTargetCube(device, shadowMapResolution, false, SurfaceFormat.Single, DepthFormat.Depth24Stencil8);
             this.depthBias = 1.0f / (20 * radius);
         }
 
@@ -114,7 +114,7 @@ namespace Laikos
             device.DepthStencilState = DepthStencilState.Default;
         }
 
-        public void CreateShadowMap(PointLight light, List<Model> Models, Effect depthWriter)
+        public void CreateShadowMap(PointLight light, List<GameObject> Models, Effect depthWriter, Terrain terrain)
         {
             Matrix[] views = new Matrix[6];
 
@@ -167,19 +167,19 @@ namespace Laikos
             device.Clear(Color.Transparent);
             depthWriter.Parameters["View"].SetValue(views[5]);
             DrawModels(Models, depthWriter);
+
         }
 
-        void DrawModels(List<Model> Models, Effect depthWriter)
+        void DrawModels(List<GameObject> Models, Effect depthWriter)
         {
-            //Draw Each Model
-            foreach (Model model in Models)
+            foreach (GameObject model in Models)
             {
                 //Get Transforms
-                Matrix[] transforms = new Matrix[model.Bones.Count];
-                model.CopyAbsoluteBoneTransformsTo(transforms);
+                Matrix[] transforms = new Matrix[model.currentModel.Bones.Count];
+                model.currentModel.Model.CopyAbsoluteBoneTransformsTo(transforms);
 
                 //Draw Each ModelMesh
-                foreach (ModelMesh mesh in model.Meshes)
+                foreach (ModelMesh mesh in model.currentModel.Model.Meshes)
                 {
                     //Draw Each ModelMeshPart
                     foreach (ModelMeshPart part in mesh.MeshParts)
@@ -191,7 +191,7 @@ namespace Laikos
                         device.Indices = part.IndexBuffer;
 
                         //Set World
-                        depthWriter.Parameters["World"].SetValue(transforms[mesh.ParentBone.Index]);
+                        depthWriter.Parameters["World"].SetValue(transforms[mesh.ParentBone.Index] * model.GetWorldMatrix());
 
                         //Apply Effect
                         depthWriter.CurrentTechnique.Passes[0].Apply();

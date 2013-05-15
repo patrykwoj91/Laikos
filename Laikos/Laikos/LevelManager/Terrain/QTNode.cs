@@ -123,5 +123,34 @@ namespace Laikos
 
             nodesRendered++;
         }
+
+        public void DrawShadows(Effect depthWriter, BoundingFrustum cameraFrustrum)
+        {
+            BoundingBox transformedBox = XNAUtils.TransformBoundingBox(nodeBoundingBox, Matrix.Identity);
+            ContainmentType cameraNodeContainment = cameraFrustrum.Contains(transformedBox);
+            if (cameraNodeContainment != ContainmentType.Disjoint)
+            {
+                if (isEndNode)
+                {
+                    DrawShadow(depthWriter);
+                }
+                else
+                {
+                    nodeUL.DrawShadows(depthWriter, cameraFrustrum);
+                    nodeUR.DrawShadows(depthWriter, cameraFrustrum);
+                    nodeLL.DrawShadows(depthWriter, cameraFrustrum);
+                    nodeLR.DrawShadows(depthWriter, cameraFrustrum);
+                }
+            }
+        }
+
+        private void DrawShadow(Effect depthWriter)
+        {
+            depthWriter.Parameters["World"].SetValue(Matrix.Identity);
+            device.SetVertexBuffer(nodeVertexBuffer);
+            device.Indices = nodeIndexBuffer;
+            depthWriter.CurrentTechnique.Passes[0].Apply();
+            device.DrawIndexedPrimitives(PrimitiveType.TriangleStrip, 0, 0, width * height, 0, (width * 2 * (height - 1) - 2));
+        }
     }
 }

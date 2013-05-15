@@ -80,7 +80,7 @@ namespace Laikos
         protected override void LoadContent()
         {
             //Loading textures and effects from content
-            terrainMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap-2");
+            terrainMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap2");
             grassTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/grass");
             sandTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/sand");
             snowTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/snow");
@@ -124,7 +124,13 @@ namespace Laikos
             QTNode.nodesRendered = 0;
             BoundingFrustum cameraFrustrum = new BoundingFrustum(Camera.viewMatrix * Camera.projectionMatrix);
             rootNode.Draw(GBuffer, cameraFrustrum);
-           // Console.WriteLine(QTNode.nodesRendered.ToString());
+            //Console.WriteLine(QTNode.nodesRendered.ToString());
+        }
+
+        public void DrawShadow(Effect depthWriter)
+        {
+            BoundingFrustum cameraFrustrum = new BoundingFrustum(Camera.viewMatrix * Camera.projectionMatrix);
+            rootNode.DrawShadows(depthWriter, cameraFrustrum);
         }
 
         //Moving terrain to the center of the world (0, 0, 0)

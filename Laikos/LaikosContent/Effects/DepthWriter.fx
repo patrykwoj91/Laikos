@@ -19,22 +19,29 @@ VSO VS(VSI input)
 {
 	VSO output;
 
-	float4 worldPosition = mul(input.Position, World);
-	float4 viewPosition = mul(worldPosition, View);
-	output.Position = mul(viewPosition, worldPosition);
+	//float4 worldPosition = mul(input.Position, World);
+	//float4 viewPosition = mul(worldPosition, View);
+	//output.Position = mul(viewPosition, worldPosition);
 
-	output.WorldPosition = worldPosition;
+	//output.WorldPosition = worldPosition;
+	float4x4 preViewProjection = mul(View, Projection);
+	float4x4 preWorldViewProjection = mul(World, preViewProjection);
+	output.Position = mul(input.Position, preWorldViewProjection);
+
+	output.WorldPosition = output.Position;
 
 	return output;
 }
 
 float4 PS(VSO input) : COLOR0
 {
-	input.WorldPosition /= input.WorldPosition.w;
+	//input.WorldPosition /= input.WorldPosition.w;
 
-	float Depth = max(0.01f, length(LightPosition - input.WorldPosition)) / DepthPrecision;
-
-	return exp((DepthPrecision, 0.5f) * Depth);
+	//float Depth = max(0.01f, length(LightPosition - input.WorldPosition)) / DepthPrecision;
+	float4 color = (float4)0;
+	color.r = input.WorldPosition.z / input.WorldPosition.w;
+	return color;
+	//return exp((DepthPrecision, 0.5f) * Depth);
 }
 
 technique Default
