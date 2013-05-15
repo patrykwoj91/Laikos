@@ -263,15 +263,15 @@ float4 PS(VSO input) : COLOR0
 	Position /= Position.w;
 	
 	//Calculate Homogenous Position with respect to light
-	float4 LightScreenPos = mul(Position, LightViewProjection);
+	float4 LightScreenPos = mul(-Position, LightViewProjection);
 
-	LightScreenPos /= LightScreenPos.w;
+	LightScreenPos /= LightScreenPos.w;//w
 
 	//Calculate Projected UV from Light POV
 	float2 LUV = 0.5f * (float2(LightScreenPos.x, -LightScreenPos.y) + 1);
 
 	//Load the Projected Depth from the Shadow Map, do manual linear filtering
-	float lZ = manualSample(ShadowMap, LUV, shadowMapSize);
+	float lZ = manualSample(ShadowMap, LUV, shadowMapSize).x;
 
 	//Get Attenuation factor from cookie
 	float Attenuation = tex2D(Cookie, LUV).r;
@@ -286,7 +286,7 @@ float4 PS(VSO input) : COLOR0
 		float len = max(0.01f, length(LightPosition - Position)) / DepthPrecision;
 
 		//Calculate the Shadow Factor
-		ShadowFactor = (lZ * exp(-(DepthPrecision * 0.5f) * (len - DepthBias)));
+		ShadowFactor = max(0.01f, min(1.0f, (lZ * exp(-(DepthPrecision * 0.0001f) * (len - DepthBias)))));
 	}
 
 	//Return Phong Shaded Value Modulated by Shadows if Shadowing is on

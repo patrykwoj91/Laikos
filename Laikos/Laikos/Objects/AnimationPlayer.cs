@@ -17,40 +17,33 @@ namespace Laikos
         #region Fields
 
         /// <summary>
-        /// Current position in time in the clip
+        /// position in time in the clip
         /// </summary>
-        private float position = 0;
-
+        private float current_position = 0;
+        private float next_position = 0;
         /// <summary>
-        /// The clip we are playing next
-        /// </summary>
-        public AnimationClip next_clip = null;
-        
-        /// <summary>
-        /// Animation clip to blend from
+        /// The clips
         /// </summary>
         public AnimationClip current_clip = null;
-
-        public float clip_StartTime;
-        public float clip_CurrentTime;
-        public  float clip_EndTime;
-
+        public AnimationClip next_clip = null;
 
         /// <summary>
         /// The clip we are playing
         /// </summary>
         public Dictionary<String, AnimationClip> Clips = null;
-       
+
         /// <summary>
         /// We maintain a BoneInfo class for each bone. This class does
         /// most of the work in playing the animation.
         /// </summary>
-        private BoneInfo[] boneInfos;
-
+        private BoneInfo[] current_boneInfos;
+        private BoneInfo[] next_boneInfos;
+        private BoneInfo[] blended_boneInfos; //tu wrzucac wszystko i tym sterowac caloscia 
         /// <summary>
         /// The number of bones
         /// </summary>
         private int boneCnt;
+        private int boneCnt2;
 
         /// <summary>
         /// An assigned model
@@ -61,12 +54,13 @@ namespace Laikos
         /// The looping option
         /// </summary>
         private bool looping = false;
-        
+
         /// <summary>
         /// How much to blend by
         /// </summary>
-        public TimeSpan totalblendTime = TimeSpan.FromMilliseconds(300);
-        public TimeSpan currentblendTime;
+        public double totalblendTime = 1; //miliseconds
+        public float currentblendTime;
+        public AnimationClip.Bone[] blendedBones;
 
 
 
@@ -75,22 +69,35 @@ namespace Laikos
 
         #region Properties
 
-        /// <summary>
-        /// The position in the animation
-        /// </summary>
-        [Browsable(false)]
         public float Position
         {
-            get { return position; }
+            get
+            {
+                if (next_clip != null) return next_position;
+                else return current_position;
+            }
             set
             {
-                if (value > Duration)
-                    value = Duration;
-
-                position = value;
-                foreach (BoneInfo bone in boneInfos)
+                
+                if (next_clip != null)
                 {
-                    bone.SetPosition(position);
+                    if (value > Duration)
+                        value = (float)Duration;
+                    next_position = value;
+                    foreach (BoneInfo bone in next_boneInfos)
+                    {
+                        bone.SetPosition(next_position);
+                    }
+                }
+                else
+                {
+                    if (value > Duration)
+                        value = (float)Duration;
+                    current_position = value;
+                    foreach (BoneInfo bone in current_boneInfos)
+                    {
+                        bone.SetPosition(current_position);
+                    }
                 }
             }
         }
@@ -99,7 +106,16 @@ namespace Laikos
         /// The clip duration
         /// </summary>
         [Browsable(false)]
-        public float Duration { get { return (float)current_clip.Duration; } }
+        public double Duration
+        {
+            get
+            {
+                if (next_clip != null)
+                    return next_clip.Duration;
+                else
+                    return current_clip.Duration;
+            }
+        }
 
         /// <summary>
         /// A model this animation is assigned to. It will play on that model.
@@ -122,30 +138,31 @@ namespace Laikos
         /// association between a clip and a model and sets up for playing
         /// </summary>
         /// <param name="clip"></param>
-        public AnimationPlayer(Dictionary <String, AnimationClip> Clips, AnimatedModel model)
+        public AnimationPlayer(Dictionary<String, AnimationClip> Clips, AnimatedModel model)
         {
+            blendedBones = new AnimationClip.Bone[model.Bones.Count];
+                
             this.Clips = Clips;
             this.model = model;
             current_clip = Clips["Take 001"];
-            
+
             looping = true;
 
-                    // Create the bone information classes
-                boneCnt = current_clip.Bones.Count;
+            // Create the bone information classes
+            boneCnt = current_clip.Bones.Count;
 
-                boneInfos = new BoneInfo[boneCnt];
+            current_boneInfos = new BoneInfo[boneCnt];
 
-                for (int b = 0; b < boneInfos.Length; b++)
-                {
-                    // Create it
+            for (int b = 0; b < current_boneInfos.Length; b++)
+            {
+                // Create it
+                current_boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
 
-                    boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
+                // Assign it to a model bone
+                current_boneInfos[b].SetModel(model);
+            }
 
-                    // Assign it to a model bone
-                    boneInfos[b].SetModel(model);
-                }
-
-                Rewind();
+            Rewind();
         }
 
         #endregion
@@ -167,66 +184,119 @@ namespace Laikos
         /// <param name="delta"></param>
         public void Update(GameTime gameTime)
         {
+            #region Update current_clip
             Position = Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (looping && Position >= Duration)
                 Position = 0;
+            #endregion  
+
+            //if not blending, copy current transforms;
+            if (next_clip == null)
+            {
+                #region Copying
+                for (int i = 0; i < current_clip.Bones.Count(); i++)
+                {
+                    blendedBones[i] = new AnimationClip.Bone();
+                    blendedBones[i].Name = current_clip.Bones[i].Name;
+                    for (int j = 0; j < current_clip.Bones[i].Keyframes.Count(); j++)
+                    {
+                        blendedBones[i].Keyframes.Add(new AnimationClip.Keyframe());
+                        blendedBones[i].Keyframes[j].Rotation = current_clip.Bones[i].Keyframes[j].Rotation;
+                        blendedBones[i].Keyframes[j].Translation = current_clip.Bones[i].Keyframes[j].Translation;
+                        blendedBones[i].Keyframes[j].Time = current_clip.Bones[i].Keyframes[j].Time;
+                    }
+                }
+                #endregion
+                return;
+            }
+            
+            //if we get there, means that we blending WOW!
+            if (Position < Duration)
+            {
+                
+                if (currentblendTime > (float)Duration) //we try to catch , where are we in current animation
+                    currentblendTime = 0;
+                else
+                    currentblendTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                
+            }
+
+            float blendAmount = currentblendTime / (float)totalblendTime;
+            Console.WriteLine(blendAmount);
+            if (blendAmount >= 1.0f)
+            {
+                current_clip = next_clip;
+                #region Copying
+                for (int i = 0; i < current_clip.Bones.Count(); i++)
+                {
+                    blendedBones[i] = new AnimationClip.Bone();
+                    blendedBones[i].Name = current_clip.Bones[i].Name;
+                    for (int j = 0; j < current_clip.Bones[i].Keyframes.Count(); j++)
+                    {
+                        blendedBones[i].Keyframes.Add(new AnimationClip.Keyframe());
+                        blendedBones[i].Keyframes[j].Rotation = current_clip.Bones[i].Keyframes[j].Rotation;
+                        blendedBones[i].Keyframes[j].Translation = current_clip.Bones[i].Keyframes[j].Translation;
+                        blendedBones[i].Keyframes[j].Time = current_clip.Bones[i].Keyframes[j].Time;
+                    }
+                }
+                #endregion
+                next_clip = null;
+                return;
+            }
+            Quaternion currentRotation, nextRotation, blendedRotation;
+            Vector3 currentTranslation, nextTranslation, blendedTranslation;
+
+            for (int i = 0; i < blendedBones.Count(); i++)
+            {
+                blendedBones[i] = new AnimationClip.Bone();
+                blendedBones[i].Name = current_clip.Bones[i].Name;
+                for (int j = 0; j < blendedBones[i].Keyframes.Count(); j++)
+                {
+                    blendedBones[i].Keyframes.Add(new AnimationClip.Keyframe());
+                    currentRotation = current_clip.Bones[i].Keyframes[j].Rotation;
+                    currentTranslation = current_clip.Bones[i].Keyframes[j].Translation;
+                    nextRotation = next_clip.Bones[i].Keyframes[j].Rotation;
+                    nextTranslation = next_clip.Bones[i].Keyframes[j].Translation;
+
+                    Quaternion.Slerp(ref currentRotation, ref nextRotation, blendAmount, out blendedRotation);
+                    Vector3.Lerp(ref currentTranslation, ref nextTranslation, blendAmount, out blendedTranslation);
+
+
+                    blendedBones[i].Keyframes[j].Rotation = blendedRotation;
+                    blendedBones[i].Keyframes[j].Translation = blendedTranslation;
+                    blendedBones[i].Keyframes[j].Time = current_clip.Bones[i].Keyframes[j].Time;
+                }
+            }
+
+
         }
-        
+
         #endregion
 
         #region Playing
 
         public void PlayClip(String name, Boolean looping)
         {
-            
-            next_clip = Clips[name];
-            current_clip = next_clip;
             this.looping = looping;
+            next_clip = Clips[name];
+            currentblendTime = 0;
 
-            if (next_clip.Name != current_clip.Name) //interpolowac tylko zmiane clipu czy wszystko?
+            // Create the bone information classes
+            boneCnt2 = next_clip.Bones.Count;
+
+            next_boneInfos = new BoneInfo[boneCnt];
+
+            for (int b = 0; b < next_boneInfos.Length; b++)
             {
-                //podstawowe pytanie jak sprawdzic co jest grane w danym momencie
+                // Create it
+
+                next_boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
+
+                // Assign it to a model bone
+                next_boneInfos[b].SetModel(model);
             }
-
-                // Create the bone information classes
-                boneCnt = current_clip.Bones.Count;
-
-                boneInfos = new BoneInfo[boneCnt];
-
-                for (int b = 0; b < boneInfos.Length; b++)
-                {
-                    // Create it
-
-                    boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
-
-                    // Assign it to a model bone
-                    boneInfos[b].SetModel(model);
-                }
-
-                Rewind();
-            
+            Rewind();
         }
-
-      /*  public Matrix BlendTransforms(Matrix fromTransforms, Matrix toTransforms)
-        {
-            
-                Vector3 vt1; Vector3 vs1; Quaternion q1;
-                fromTransforms.Decompose(out vs1, out q1, out vt1);
-
-                Vector3 vt2; Vector3 vs2; Quaternion q2;
-                toTransforms.Decompose(out vs2, out q2, out vt2);
-
-                Vector3 vtBlend = Vector3.Lerp(vt1, vt2, _blend);
-                Vector3 vsBlend = Vector3.Lerp(vs1, vs2, _blend);
-                Quaternion qBlend = Quaternion.Slerp(q1, q2, _blend);
-
-                toTransforms = Matrix.CreateScale(vsBlend) * Matrix.CreateFromQuaternion(qBlend)
-                                * Matrix.CreateTranslation(vtBlend);
-            
-            return toTransforms;
-        }*/
-
-
         #endregion
 
         #region BoneInfo class
@@ -292,7 +362,7 @@ namespace Laikos
             /// The bone this animation bone is assigned to in the model
             /// </summary>
             public Bone ModelBone { get { return assignedBone; } }
-            
+
             #endregion
 
             #region Constructor

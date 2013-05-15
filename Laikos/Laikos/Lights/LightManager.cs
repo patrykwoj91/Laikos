@@ -77,16 +77,22 @@ namespace Laikos
                 light.CreateLightMap();
         }
 
-        public void CreateShadowMap(List<Model> models)
+        public void CreateShadowMap(List<GameObject> models, Terrain terrain)
         {
             device.BlendState = BlendState.Opaque;
             device.DepthStencilState = DepthStencilState.Default;
             device.RasterizerState = RasterizerState.CullCounterClockwise;
-
             foreach (PointLight light in pointLights)
-                if(light.withShadows) light.CreateShadowMap(light, models, depthWriter);
+                if (light.withShadows)
+                {
+                    light.CreateShadowMap(light, models, depthWriter, terrain);
+                }
             foreach (SpotLight light in spotLights)
-                if (light.withShadows) light.CreateShadowMap(models, depthWriter);
+                if (light.withShadows)
+                {
+                    light.CreateShadowMap(models, depthWriter, terrain);
+                }
+
         }
     }
 }

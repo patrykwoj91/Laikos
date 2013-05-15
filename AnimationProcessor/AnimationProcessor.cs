@@ -599,7 +599,7 @@ namespace AnimationPipeline
                                     
                                 }
                             }
-                            LinearKeyframeReduction(keyframes);
+                           // LinearKeyframeReduction(keyframes);
                             clipBone.Keyframes = keyframes.ToList<AnimationClip.Keyframe>();
                             MainClip.Bones.Add(clipBone);
 
