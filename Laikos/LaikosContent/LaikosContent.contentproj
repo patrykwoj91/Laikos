@@ -166,7 +166,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
       <ProcessorParameters_Scale>0.02</ProcessorParameters_Scale>
-      <ProcessorParameters_RotationX>90</ProcessorParameters_RotationX>
     </Compile>
   </ItemGroup>
   <ItemGroup>

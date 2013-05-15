@@ -109,7 +109,7 @@ namespace Laikos
                 if (obj is Unit)
                 {
                     Unit unit = (Unit)obj;
-                    unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, true);
                 }
                 if (obj is Decoration)
                 {
