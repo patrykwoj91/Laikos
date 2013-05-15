@@ -202,7 +202,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	if(shadows)
 	{
 		float len = max(0.01f, length(lightPosition - input.ScreenPosition)) / depthPrecision;
-		//shadowFactor = (lightZ * exp(-(depthPrecision * 0.5f) * (len - depthBias)));
+		shadowFactor = (lightZ * exp(-(depthPrecision * 0.5f) * (len - depthBias)));
 	}
 
     //take into account attenuation and lightIntensity.

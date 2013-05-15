@@ -125,6 +125,7 @@ namespace Laikos
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
             gameTime = GameTime;
+            CreateLights(objects);
             SetGBuffer();
             ClearGBuffer();
             RenderSceneTo3Targets(objects, terrain);
@@ -132,11 +133,11 @@ namespace Laikos
             List<Model> models = new List<Model>();
             foreach (GameObject obj in objects)
                 models.Add(obj.currentModel.Model);
-            lights.CreateShadowMap(models);
+            lights.CreateShadowMap(objects, terrain);
             DrawLights(objects);
             if(debug)
                 Debug();
-
+            
         }
 
         private void Debug()
@@ -185,18 +186,8 @@ namespace Laikos
             device.BlendState = BlendState.AlphaBlend;
             device.DepthStencilState = DepthStencilState.None;
 
-            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.7f));
-            
-            foreach (GameObject obj in objects)
-            {
-                if (obj is Unit)
-                {
-                    Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 50, obj.Position.Z);
-                    //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 1, true, 512));
-                }
-            }
-            shadowMap = lights.getSpotLights()[2].shadowMap;
+
+            shadowMap = lights.getSpotLights()[0].shadowMap;
             lights.CreateLightMap();
             lights.RemoveAllLights();
             device.BlendState = BlendState.Opaque;
@@ -213,6 +204,25 @@ namespace Laikos
             finalComposition.Techniques[0].Passes[0].Apply();
             fsq.Render(Vector2.One * -1, Vector2.One);
 
+        }
+
+        private void CreateLights(List<GameObject> objects)
+        {
+            DirectionalLight.Initialize(directionalLight, colorRT, normalRT, depthRT, halfPixel, fsq);
+            PointLight.Initialize(pointLightEffect, colorRT, normalRT, depthRT, halfPixel, fsq, device, sphereModel);
+            SpotLight.Initialize(device, spotLight, spotCookie, spotLightGeometry, colorRT, normalRT, depthRT);
+
+            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.1f));
+
+            foreach (GameObject obj in objects)
+            {
+                if (obj is Unit)
+                {
+                    Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 10, obj.Position.Z);
+                    //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
+                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 512));
+                }
+            }
         }
 
     }

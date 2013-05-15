@@ -47,11 +47,11 @@ namespace Laikos
             this.shadowMapResolution = shadowMapResolution;
 
             nearPlane = 1.0f;
-            farPlane = 100.0f;
+            farPlane = 30.0f;
             FOV = MathHelper.PiOver2;
-            depthBias = 1.0f / 2000.0f;
+            depthBias = 1.0f / 6.5f;
             projection = Matrix.CreatePerspectiveFieldOfView(FOV, 1.0f, nearPlane, farPlane);
-            shadowMap = new RenderTarget2D(device, shadowMapResolution, shadowMapResolution, false, SurfaceFormat.Single, DepthFormat.None);
+            shadowMap = new RenderTarget2D(device, shadowMapResolution, shadowMapResolution, false, SurfaceFormat.Single, DepthFormat.Depth24Stencil8);
             GBufferTextureSize = new Vector2(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
 
             Update();
@@ -100,7 +100,7 @@ namespace Laikos
             world = scaling * rotation * translation;
         }
 
-        public void CreateShadowMap(List<Model> models, Effect depthWriter)
+        public void CreateShadowMap(List<GameObject> models, Effect depthWriter, Terrain terrain)
         {
             device.SetRenderTarget(shadowMap);
             device.Clear(Color.Transparent);
@@ -110,8 +110,9 @@ namespace Laikos
             depthWriter.Parameters["LightPosition"].SetValue(position);
             depthWriter.Parameters["DepthPrecision"].SetValue(farPlane);
 
-            depthWriter.CurrentTechnique.Passes[0].Apply();
+            terrain.DrawShadow(depthWriter);
             DrawModels(models, depthWriter);
+            
         }
 
         public void CreateLightMap()
@@ -161,17 +162,16 @@ namespace Laikos
                 spotLightGeometry.Meshes[0].MeshParts[0].StartIndex, spotLightGeometry.Meshes[0].MeshParts[0].PrimitiveCount);
         }
 
-        void DrawModels(List<Model> Models, Effect depthWriter)
+        void DrawModels(List<GameObject> Models, Effect depthWriter)
         {
-            //Draw Each Model
-            foreach (Model model in Models)
+            foreach (GameObject model in Models)
             {
                 //Get Transforms
-                Matrix[] transforms = new Matrix[model.Bones.Count];
-                model.CopyAbsoluteBoneTransformsTo(transforms);
+                Matrix[] transforms = new Matrix[model.currentModel.Bones.Count];
+                model.currentModel.Model.CopyAbsoluteBoneTransformsTo(transforms);
 
                 //Draw Each ModelMesh
-                foreach (ModelMesh mesh in model.Meshes)
+                foreach (ModelMesh mesh in model.currentModel.Model.Meshes)
                 {
                     //Draw Each ModelMeshPart
                     foreach (ModelMeshPart part in mesh.MeshParts)
@@ -183,7 +183,7 @@ namespace Laikos
                         device.Indices = part.IndexBuffer;
 
                         //Set World
-                        depthWriter.Parameters["World"].SetValue(transforms[mesh.ParentBone.Index]);
+                        depthWriter.Parameters["World"].SetValue(transforms[mesh.ParentBone.Index] * model.GetWorldMatrix());
 
                         //Apply Effect
                         depthWriter.CurrentTechnique.Passes[0].Apply();
