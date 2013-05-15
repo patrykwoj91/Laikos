@@ -124,7 +124,7 @@ namespace Laikos
             QTNode.nodesRendered = 0;
             BoundingFrustum cameraFrustrum = new BoundingFrustum(Camera.viewMatrix * Camera.projectionMatrix);
             rootNode.Draw(GBuffer, cameraFrustrum);
-            Console.WriteLine(QTNode.nodesRendered.ToString());
+           // Console.WriteLine(QTNode.nodesRendered.ToString());
         }
 
         //Moving terrain to the center of the world (0, 0, 0)
