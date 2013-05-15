@@ -191,9 +191,9 @@ namespace Laikos
             {
                 if (obj is Unit)
                 {
-                    Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 50, obj.Position.Z);
+                    Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 5, obj.Position.Z);
                     //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 1, true, 512));
+                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 1, false, 512));
                 }
             }
             shadowMap = lights.getSpotLights()[2].shadowMap;
