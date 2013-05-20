@@ -36,15 +36,11 @@ namespace Laikos
         /// We maintain a BoneInfo class for each bone. This class does
         /// most of the work in playing the animation.
         /// </summary>
-        private BoneInfo[] current_boneInfos;
-        private BoneInfo[] next_boneInfos;
-        private BoneInfo[] blended_boneInfos; //tu wrzucac wszystko i tym sterowac caloscia 
+        private BoneInfo[] played_boneInfos; //tu wrzucac wszystko i tym sterowac caloscia 
         /// <summary>
         /// The number of bones
         /// </summary>
         private int boneCnt;
-        private int boneCnt2;
-
         /// <summary>
         /// An assigned model
         /// </summary>
@@ -84,7 +80,7 @@ namespace Laikos
                     if (value > Duration)
                         value = (float)Duration;
                     next_position = value;
-                    foreach (BoneInfo bone in next_boneInfos)
+                    foreach (BoneInfo bone in played_boneInfos)
                     {
                         bone.SetPosition(next_position);
                     }
@@ -94,7 +90,7 @@ namespace Laikos
                     if (value > Duration)
                         value = (float)Duration;
                     current_position = value;
-                    foreach (BoneInfo bone in current_boneInfos)
+                    foreach (BoneInfo bone in played_boneInfos)
                     {
                         bone.SetPosition(current_position);
                     }
@@ -151,15 +147,15 @@ namespace Laikos
             // Create the bone information classes
             boneCnt = current_clip.Bones.Count;
 
-            current_boneInfos = new BoneInfo[boneCnt];
+            played_boneInfos = new BoneInfo[boneCnt];
 
-            for (int b = 0; b < current_boneInfos.Length; b++)
+            for (int b = 0; b < played_boneInfos.Length; b++)
             {
                 // Create it
-                current_boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
+                played_boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
 
                 // Assign it to a model bone
-                current_boneInfos[b].SetModel(model);
+                played_boneInfos[b].SetModel(model);
             }
 
             Rewind();
@@ -207,6 +203,14 @@ namespace Laikos
                     }
                 }
                 #endregion
+                for (int b = 0; b < blendedBones.Length; b++)
+                {
+                    // Create it
+                    played_boneInfos[b] = new BoneInfo(blendedBones[b]);
+
+                    // Assign it to a model bone
+                    played_boneInfos[b].SetModel(model);
+                }
                 return;
             }
             
@@ -222,7 +226,7 @@ namespace Laikos
             }
 
             float blendAmount = currentblendTime / (float)totalblendTime;
-            Console.WriteLine(blendAmount);
+           // Console.WriteLine(blendAmount);
             if (blendAmount >= 1.0f)
             {
                 current_clip = next_clip;
@@ -241,7 +245,19 @@ namespace Laikos
                 }
                 #endregion
                 next_clip = null;
+                for (int b = 0; b < blendedBones.Length; b++)
+                {
+                    // Create it
+                    played_boneInfos[b] = new BoneInfo(blendedBones[b]);
+
+                    // Assign it to a model bone
+                    played_boneInfos[b].SetModel(model);
+                }
+                Rewind();
+                Console.WriteLine("AFTER Blend Clip");
                 return;
+
+               
             }
             Quaternion currentRotation, nextRotation, blendedRotation;
             Vector3 currentTranslation, nextTranslation, blendedTranslation;
@@ -267,8 +283,15 @@ namespace Laikos
                     blendedBones[i].Keyframes[j].Time = current_clip.Bones[i].Keyframes[j].Time;
                 }
             }
+            for (int b = 0; b < blendedBones.Length; b++)
+            {
+                // Create it
+                played_boneInfos[b] = new BoneInfo(blendedBones[b]);
 
-
+                // Assign it to a model bone
+                played_boneInfos[b].SetModel(model);
+            }
+            Console.WriteLine("Blending now!");
         }
 
         #endregion
@@ -280,21 +303,6 @@ namespace Laikos
             this.looping = looping;
             next_clip = Clips[name];
             currentblendTime = 0;
-
-            // Create the bone information classes
-            boneCnt2 = next_clip.Bones.Count;
-
-            next_boneInfos = new BoneInfo[boneCnt];
-
-            for (int b = 0; b < next_boneInfos.Length; b++)
-            {
-                // Create it
-
-                next_boneInfos[b] = new BoneInfo(current_clip.Bones[b]);
-
-                // Assign it to a model bone
-                next_boneInfos[b].SetModel(model);
-            }
             Rewind();
         }
         #endregion
