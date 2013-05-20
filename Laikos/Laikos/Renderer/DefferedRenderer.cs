@@ -109,7 +109,7 @@ namespace Laikos
                 if (obj is Unit)
                 {
                     Unit unit = (Unit)obj;
-                    unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, true);
+                    unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
                 if (obj is Decoration)
                 {
@@ -219,7 +219,7 @@ namespace Laikos
                 if (obj is Unit)
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 10, obj.Position.Z);
-                    //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
+                    lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
                     lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 512));
                 }
             }

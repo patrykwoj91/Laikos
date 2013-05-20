@@ -47,9 +47,9 @@ namespace Laikos
             this.shadowMapResolution = shadowMapResolution;
 
             nearPlane = 1.0f;
-            farPlane = 30.0f;
+            farPlane = 80.0f;
             FOV = MathHelper.PiOver2;
-            depthBias = 1.0f / 6.5f;
+            depthBias = 1.0f / 1000.5f ;
             projection = Matrix.CreatePerspectiveFieldOfView(FOV, 1.0f, nearPlane, farPlane);
             shadowMap = new RenderTarget2D(device, shadowMapResolution, shadowMapResolution, false, SurfaceFormat.Single, DepthFormat.Depth24Stencil8);
             GBufferTextureSize = new Vector2(device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
@@ -167,8 +167,15 @@ namespace Laikos
             foreach (GameObject model in Models)
             {
                 //Get Transforms
-                Matrix[] transforms = new Matrix[model.currentModel.Bones.Count];
-                model.currentModel.Model.CopyAbsoluteBoneTransformsTo(transforms);
+                Matrix[] boneTransforms = new Matrix[model.currentModel.Bones.Count];
+
+                for (int i = 0; i < model.currentModel.Bones.Count; i++)
+                {
+                    Bone bone = model.currentModel.Bones[i];
+                    bone.ComputeAbsoluteTransform();
+
+                    boneTransforms[i] = bone.AbsoluteTransform;
+                }
 
                 //Draw Each ModelMesh
                 foreach (ModelMesh mesh in model.currentModel.Model.Meshes)
@@ -183,7 +190,7 @@ namespace Laikos
                         device.Indices = part.IndexBuffer;
 
                         //Set World
-                        depthWriter.Parameters["World"].SetValue(transforms[mesh.ParentBone.Index] * model.GetWorldMatrix());
+                        depthWriter.Parameters["World"].SetValue(boneTransforms[mesh.ParentBone.Index] * model.GetWorldMatrix());
 
                         //Apply Effect
                         depthWriter.CurrentTechnique.Passes[0].Apply();
