@@ -40,9 +40,9 @@ namespace Laikos
         {
             UnitTypes = Game.Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
 
-            //UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 150), 0.05f));
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 150), 0.05f));
             UnitList.Add(new Unit(game, UnitTypes["Dummy"], new Vector3(10, 30, 50), 0.1f));
-            //UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 100), 0.05f));
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 100), 0.05f));
             //UnitList.Add(new Unit(game, UnitTypes["Mobile Cannon"], new Vector3(40, 30, 100), 0.1f));
             
         }
