@@ -49,24 +49,25 @@ namespace Laikos
 
                     if (currentKeyboardState.IsKeyDown(Keys.D1))
                     {
-                        unit.currentModel.player.PlayClip("Idle",false);
+                        unit.currentModel.player.PlayClip("Idle",true);
                         //unit.currentModel.player.Looping = true;
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.D2))
                     {
-                        unit.currentModel.player.PlayClip("Walk",false);
+                        unit.currentModel.player.PlayClip("Walk",true);
                       //  unit.currentModel.player.Looping = true;
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.D3))
                     {
-                        unit.currentModel.player.PlayClip("Run", false);
+                        unit.currentModel.player.PlayClip("Run", true);
                        // unit.player.Looping = false;
                     }
-                   /* if (currentKeyboardState.IsKeyDown(Keys.D4))
+                    if (currentKeyboardState.IsKeyDown(Keys.D4))
                     {
-                        unit.currentModel.player.PlayClip("Heavy_Fire", false);
+                        unit.currentModel.player.PlayClip("Alert", false);
                         //unit.player.Looping = false;
                     }
+                    /*
                     if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
                         unit.currentModel.player.PlayClip("Transform", false);
