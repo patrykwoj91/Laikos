@@ -65,6 +65,55 @@ namespace Laikos
 
         #region Properties
 
+        public float next_Position
+        {
+            get
+            {
+                if (next_clip != null)
+                {
+                    foreach (BoneInfo bone in played_boneInfos)
+                    {
+                        bone.SetPosition(next_position);
+
+                    }
+                    // Console.WriteLine(next_position);
+                }
+                    return next_position;
+            }
+            set
+            {
+                if (next_clip != null)
+                {
+                    if (value > Duration)
+                        value = (float)Duration;
+                    next_position = value;
+                }
+            }
+        }
+
+       public float current_Position
+        {
+            get
+            {
+                    foreach (BoneInfo bone in played_boneInfos)
+                    {
+                        bone.SetPosition(current_position);
+
+                    }
+   
+                return current_position;
+            }
+            set
+            {
+                    if (value > Duration)
+                        value = (float)Duration;
+                    current_position = value;
+            }
+        }
+
+
+
+
         public float Position
         {
             get
@@ -100,20 +149,13 @@ namespace Laikos
                     if (value > Duration)
                         value = (float)Duration;
                     next_position = value;
-                  //  foreach (BoneInfo bone in played_boneInfos)
-                   // {
-                  //      bone.SetPosition(next_position);
-                  //  }
+                
                 }
                 else
                 {
                     if (value > Duration)
                         value = (float)Duration;
                     current_position = value;
-                  //  foreach (BoneInfo bone in played_boneInfos)
-                   // {
-                  //      bone.SetPosition(current_position);
-                   // }
                 }
             }
         }
@@ -177,8 +219,8 @@ namespace Laikos
                 // Assign it to a model bone
                 played_boneInfos[b].SetModel(model);
             }
-            
-            Rewind();
+
+            Position = 0;
         }
 
         #endregion
@@ -188,10 +230,10 @@ namespace Laikos
         /// <summary>
         /// Reset back to time zero.
         /// </summary>
-        public void Rewind()
-        {
-            Position = 0;
-        }
+        //public void Rewind()
+        //{
+        //    Position = 0;
+        //}
 
         /// <summary>
         /// Update the clip position
@@ -200,10 +242,17 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             #region Update current_clip
-            Position = Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (looping && Position >= Duration)
-                Position = 0;
+            current_Position = current_Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (looping && current_Position >= current_clip.Duration)
+                current_Position = 0;
             #endregion  
+             /*#region Update current_clip
+             Position = Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
+             if (looping && Position >= Duration)
+                 Position = 0;
+             #endregion  */
+
+
 
             //if not blending, copy current transforms;
             if (next_clip == null)
@@ -234,15 +283,21 @@ namespace Laikos
             }
             
             //if we get there, means that we blending WOW!
-            //if (Position < Duration)
-            //{
+           // #region Update next_clip
+           // next_Position = next_Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
+           // if (looping && next_Position >= next_clip.Duration)
+           //     next_Position = 0;
+           // #endregion
+
+            if (current_Position < current_clip.Duration)
+            {
                 
-               // if (currentblendTime.TotalSeconds > (float)Duration) //we try to catch , where are we in current animation
-                //    currentblendTime = TimeSpan.Zero;
-               // else
+                if (currentblendTime.TotalSeconds > (float)current_clip.Duration) //we try to catch , where are we in current animation
+                    currentblendTime = TimeSpan.Zero;
+                else
                     currentblendTime += gameTime.ElapsedGameTime;
                 
-            //}
+            }
 
             float blendAmount = (float)(currentblendTime.TotalSeconds / totalblendTime.TotalSeconds);
 

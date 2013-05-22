@@ -36,9 +36,9 @@ namespace Laikos
 
             Content.RootDirectory = "Content";
             objects = new List<GameObject>();
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
