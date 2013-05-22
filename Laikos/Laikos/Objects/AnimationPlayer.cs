@@ -54,7 +54,7 @@ namespace Laikos
         /// <summary>
         /// How much to blend by
         /// </summary>
-        public TimeSpan totalblendTime = TimeSpan.FromMilliseconds(300); //miliseconds
+        public TimeSpan totalblendTime = TimeSpan.FromMilliseconds(200); //miliseconds
         public TimeSpan currentblendTime;
         public AnimationClip.Bone[] blendedBones;
 
@@ -294,7 +294,12 @@ namespace Laikos
                 else
                 {
 
-                    for (int j = 0; j < 50; j++)
+                    int h = 10;
+                    if (current_clip.Bones[i].Keyframes.Count > next_clip.Bones[i].Keyframes.Count)
+                        h = next_clip.Bones[i].Keyframes.Count;
+                    else
+                        h = current_clip.Bones[i].Keyframes.Count;
+                    for (int j = 0; j < h; j++)
                     {
                         blendedBones[i].Keyframes.Add(new AnimationClip.Keyframe());
                         
