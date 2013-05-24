@@ -54,7 +54,7 @@ namespace Laikos
         /// <summary>
         /// How much to blend by
         /// </summary>
-        public TimeSpan totalblendTime = TimeSpan.FromMilliseconds(200); //miliseconds
+        public TimeSpan totalblendTime = TimeSpan.FromMilliseconds(300); //miliseconds
         public TimeSpan currentblendTime;
         public AnimationClip.Bone[] blendedBones;
 
@@ -303,7 +303,7 @@ namespace Laikos
 
            // Console.WriteLine(blendAmount);
 
-            if (blendAmount >= 1.0f)
+            if (blendAmount > 1.0f)
             {
                 current_clip = next_clip;
                 #region Copying

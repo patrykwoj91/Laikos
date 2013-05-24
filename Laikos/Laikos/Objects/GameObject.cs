@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Animation;
+using Microsoft.Xna.Framework.Storage;
+using System.IO;
 
 
 namespace Laikos
@@ -16,7 +18,12 @@ namespace Laikos
         public Vector3 Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0)); //Current rotation
         public float Scale = 1.0f; //Current scale
         public AnimatedModel currentModel = null; //model
-        
+        public AnimatedModel High = null;
+        public AnimatedModel Mid = null;
+        public AnimatedModel Low = null;
+        bool exists = false;
+        public float temp_position = 0.0f;
+
         public bool selected = false;
        
         
@@ -37,13 +44,53 @@ namespace Laikos
         public GameObject(Game game, String path)
             
         {
-            currentModel = new AnimatedModel(path);
-            currentModel.LoadContent(game.Content);
 
+            if ((File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "High" + ".xnb"))) &&
+                (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "Mid" + ".xnb"))) &&
+                (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "Low" + ".xnb"))))
+            {
+                High = new AnimatedModel(path + "High");
+                High.LoadContent(game.Content);
+                Mid = new AnimatedModel(path + "Mid");
+                Mid.LoadContent(game.Content);
+                Low = new AnimatedModel(path + "Low");
+                Low.LoadContent(game.Content);
+                currentModel = Mid;
+                temp_position = currentModel.player.current_Position;
+                exists = true;
+            }
+            else
+            {
+                currentModel = new AnimatedModel(path);
+                currentModel.LoadContent(game.Content);
+            }
         }
 
         public void Update(GameTime gameTime)
-        { 
+        {
+            Console.WriteLine(Camera.cameraPosition.Z);
+            if (exists)
+            {
+                if (Camera.cameraPosition.Z < 90)
+                {
+                    temp_position = currentModel.player.current_Position;
+                    currentModel = High;
+                    currentModel.player.current_Position = temp_position;
+                }
+                else if (Camera.cameraPosition.Z > 90 && Camera.cameraPosition.Z < 120)
+                {
+                    temp_position = currentModel.player.current_Position;
+                    currentModel = Mid;
+                    currentModel.player.current_Position = temp_position;
+                }
+                else
+                {
+                    temp_position = currentModel.player.current_Position;
+                    currentModel = Low;
+                    currentModel.player.current_Position = temp_position;
+                }
+            }
+
             currentModel.Update(gameTime);
             Collisions.AddGravity(ref Position);
             Collisions.CheckWithTerrain(ref Position, 0.5f);

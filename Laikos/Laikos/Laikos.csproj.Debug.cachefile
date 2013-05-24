@@ -22,7 +22,6 @@ Content\SpotLightGeometry.xnb
 Content\Models\Units\Test_model\test_model.xnb
 Content\Models\Decorations\test_ruins2\test_ruins2.xnb
 Content\PointLightGeometry.xnb
-Content\Models\Units\Eye\eye.xnb
 Content\Effects\Clear.xnb
 Content\Effects\DirectionalLight.xnb
 Content\Effects\Composition.xnb
@@ -33,11 +32,16 @@ Content\Effects\SpotLight.xnb
 Content\Models\Units\Test_model\test_model_Anims.xnb
 Content\UnitTypes.xnb
 Content\DecorationTypes.xnb
-Content\Models\Units\Eye\eye_Anims.xnb
 Content\Georgia.xnb
-Content\Models\Units\Eye\texturaInne_0.xnb
 Content\Models\Terrain\cloudMap_0.xnb
 Content\Models\Decorations\test_ruins1\DiffuseMap_0.xnb
 Content\Models\Units\Test_model\test_m_0.xnb
 Content\Models\Units\Eye\texturaInne_1.xnb
 Content\Models\Units\Eye\tekstura_0.xnb
+Content\Models\Units\Eye\texturaInne.xnb
+Content\Models\Units\Eye\okoHigh.xnb
+Content\Models\Units\Eye\okoLow.xnb
+Content\Models\Units\Eye\okoMid.xnb
+Content\Models\Units\Eye\okoLow_Anims.xnb
+Content\Models\Units\Eye\okoMid_Anims.xnb
+Content\Models\Units\Eye\okoHigh_Anims.xnb
