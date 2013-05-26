@@ -333,7 +333,7 @@ namespace Laikos
 
             }
 
-            #region Blending
+           #region Blending
             Quaternion currentRotation, nextRotation, blendedRotation;
             Vector3 currentTranslation, nextTranslation, blendedTranslation;
 
@@ -394,7 +394,7 @@ namespace Laikos
 
          // System.Threading.Thread.Sleep(100000);
             
-            Console.WriteLine("Blending now!");
+            Console.WriteLine(blendAmount);
             #endregion
         }
 
