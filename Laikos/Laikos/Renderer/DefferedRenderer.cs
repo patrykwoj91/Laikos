@@ -212,7 +212,7 @@ namespace Laikos
             PointLight.Initialize(pointLightEffect, colorRT, normalRT, depthRT, halfPixel, fsq, device, sphereModel);
             SpotLight.Initialize(device, spotLight, spotCookie, spotLightGeometry, colorRT, normalRT, depthRT);
 
-            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.1f));
+            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.6f));
 
             foreach (GameObject obj in objects)
             {

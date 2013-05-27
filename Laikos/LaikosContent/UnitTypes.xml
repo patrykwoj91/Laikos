@@ -7,7 +7,7 @@
       <name>Reconnaissance Eye</name>
       <hp>50.0</hp>
       <mp>50.0</mp>
-      <model>Models/Units/Eye/eye</model>
+      <model>Models/Units/Eye/oko</model>
     </Item>
 
     <Item>
@@ -20,10 +20,10 @@
 
     <Item>
       <race>Niebianin</race>
-      <name>Mobile Cannon</name>
+      <name>Antigravity Tank</name>
       <hp>0.0</hp>
       <mp>0.0</mp>
-      <model>Models/Units/Cannon_skeleton/cannon_skeleton</model>
+      <model>Models/Units/tank/czolg</model>
     </Item>
 
   </Asset>

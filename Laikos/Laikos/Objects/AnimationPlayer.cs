@@ -54,8 +54,8 @@ namespace Laikos
         /// <summary>
         /// How much to blend by
         /// </summary>
-        public double totalblendTime = 1; //miliseconds
-        public float currentblendTime;
+        public TimeSpan totalblendTime = TimeSpan.FromMilliseconds(300); //miliseconds
+        public TimeSpan currentblendTime;
         public AnimationClip.Bone[] blendedBones;
 
 
@@ -65,13 +65,82 @@ namespace Laikos
 
         #region Properties
 
+        public float next_Position
+        {
+            get
+            {
+                if (next_clip != null)
+                {
+                    foreach (BoneInfo bone in played_boneInfos)
+                    {
+                        bone.SetPosition(next_position);
+
+                    }
+                    // Console.WriteLine(next_position);
+                }
+                    return next_position;
+            }
+            set
+            {
+                if (next_clip != null)
+                {
+                    if (value > Duration)
+                        value = (float)Duration;
+                    next_position = value;
+                }
+            }
+        }
+
+       public float current_Position
+        {
+            get
+            {
+                    foreach (BoneInfo bone in played_boneInfos)
+                    {
+                        bone.SetPosition(current_position);
+
+                    }
+   
+                return current_position;
+            }
+            set
+            {
+                    if (value > Duration)
+                        value = (float)Duration;
+                    current_position = value;
+            }
+        }
+
+
+
+
         public float Position
         {
             get
             {
-                if (next_clip != null) return next_position;
-                else return current_position;
+                if (next_clip != null)
+                {
+                    foreach (BoneInfo bone in played_boneInfos)
+                    {
+                       bone.SetPosition(next_position);
+                        
+                    }
+                   // Console.WriteLine(next_position);
+                    return next_position;
+                }
+                else
+                {
+                    foreach (BoneInfo bone in played_boneInfos)
+                    {
+                        bone.SetPosition(current_position);
+                    }
+                   // Console.WriteLine(current_position);
+                    return current_position;
+                } 
+                
+
             }
+
             set
             {
                 
@@ -80,20 +149,13 @@ namespace Laikos
                     if (value > Duration)
                         value = (float)Duration;
                     next_position = value;
-                    foreach (BoneInfo bone in played_boneInfos)
-                    {
-                        bone.SetPosition(next_position);
-                    }
+                
                 }
                 else
                 {
                     if (value > Duration)
                         value = (float)Duration;
                     current_position = value;
-                    foreach (BoneInfo bone in played_boneInfos)
-                    {
-                        bone.SetPosition(current_position);
-                    }
                 }
             }
         }
@@ -158,21 +220,20 @@ namespace Laikos
                 played_boneInfos[b].SetModel(model);
             }
 
-            Rewind();
+            Position = 0;
         }
 
         #endregion
 
         #region Update and Transport Controls
 
-
         /// <summary>
         /// Reset back to time zero.
         /// </summary>
-        public void Rewind()
-        {
-            Position = 0;
-        }
+        //public void Rewind()
+        //{
+        //    Position = 0;
+        //}
 
         /// <summary>
         /// Update the clip position
@@ -181,10 +242,17 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             #region Update current_clip
-            Position = Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (looping && Position >= Duration)
-                Position = 0;
+            current_Position = current_Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (looping && current_Position >= current_clip.Duration)
+                current_Position = 0;
             #endregion  
+             /*#region Update current_clip
+             Position = Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
+             if (looping && Position >= Duration)
+                 Position = 0;
+             #endregion  */
+
+
 
             //if not blending, copy current transforms;
             if (next_clip == null)
@@ -215,19 +283,27 @@ namespace Laikos
             }
             
             //if we get there, means that we blending WOW!
-            if (Position < Duration)
+           // #region Update next_clip
+           // next_Position = next_Position + (float)gameTime.ElapsedGameTime.TotalSeconds;
+           // if (looping && next_Position >= next_clip.Duration)
+           //     next_Position = 0;
+           // #endregion
+
+            if (current_Position < current_clip.Duration)
             {
                 
-                if (currentblendTime > (float)Duration) //we try to catch , where are we in current animation
-                    currentblendTime = 0;
+                if (currentblendTime.TotalSeconds > (float)current_clip.Duration) //we try to catch , where are we in current animation
+                    currentblendTime = TimeSpan.Zero;
                 else
-                    currentblendTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    currentblendTime += gameTime.ElapsedGameTime;
                 
             }
 
-            float blendAmount = currentblendTime / (float)totalblendTime;
+            float blendAmount = (float)(currentblendTime.TotalSeconds / totalblendTime.TotalSeconds);
+
            // Console.WriteLine(blendAmount);
-            if (blendAmount >= 1.0f)
+
+            if (blendAmount > 1.0f)
             {
                 current_clip = next_clip;
                 #region Copying
@@ -249,49 +325,77 @@ namespace Laikos
                 {
                     // Create it
                     played_boneInfos[b] = new BoneInfo(blendedBones[b]);
-
                     // Assign it to a model bone
                     played_boneInfos[b].SetModel(model);
                 }
-                Rewind();
                 Console.WriteLine("AFTER Blend Clip");
                 return;
 
-               
             }
+
+           #region Blending
             Quaternion currentRotation, nextRotation, blendedRotation;
             Vector3 currentTranslation, nextTranslation, blendedTranslation;
 
-            for (int i = 0; i < blendedBones.Count(); i++)
+            for (int i = 0; i < boneCnt; i++)
             {
                 blendedBones[i] = new AnimationClip.Bone();
                 blendedBones[i].Name = current_clip.Bones[i].Name;
-                for (int j = 0; j < blendedBones[i].Keyframes.Count(); j++)
+
+               // Console.WriteLine(i + " Kość: " + blendedBones[i].Name + " Klatek: " + current_clip.Bones[i].Keyframes.Count());
+                if (i == 0 || i == 1)
                 {
-                    blendedBones[i].Keyframes.Add(new AnimationClip.Keyframe());
-                    currentRotation = current_clip.Bones[i].Keyframes[j].Rotation;
-                    currentTranslation = current_clip.Bones[i].Keyframes[j].Translation;
-                    nextRotation = next_clip.Bones[i].Keyframes[j].Rotation;
-                    nextTranslation = next_clip.Bones[i].Keyframes[j].Translation;
+                }
+                else
+                {
 
-                    Quaternion.Slerp(ref currentRotation, ref nextRotation, blendAmount, out blendedRotation);
-                    Vector3.Lerp(ref currentTranslation, ref nextTranslation, blendAmount, out blendedTranslation);
+                    int h = 10;
+                    if (current_clip.Bones[i].Keyframes.Count > next_clip.Bones[i].Keyframes.Count)
+                        h = next_clip.Bones[i].Keyframes.Count;
+                    else
+                        h = current_clip.Bones[i].Keyframes.Count;
+                    for (int j = 0; j < h; j++)
+                    {
+                        blendedBones[i].Keyframes.Add(new AnimationClip.Keyframe());
+                        
+                        currentRotation = current_clip.Bones[i].Keyframes[j].Rotation;
+                        currentTranslation = current_clip.Bones[i].Keyframes[j].Translation;
+                        nextRotation = next_clip.Bones[i].Keyframes[j].Rotation;
+                        nextTranslation = next_clip.Bones[i].Keyframes[j].Translation;
+
+                        //Console.WriteLine("Obecna rotacja: "+currentRotation);
+                        //Console.WriteLine("Obecna translacja: " + currentTranslation);
+                        //Console.WriteLine("Nastepna rotacja: " + nextRotation);
+                        //Console.WriteLine("Nastepna translacja: " + nextTranslation);
+                        Quaternion.Slerp(ref currentRotation, ref nextRotation, blendAmount, out blendedRotation);
+                        Vector3.Lerp(ref currentTranslation, ref nextTranslation, blendAmount, out blendedTranslation);
 
 
-                    blendedBones[i].Keyframes[j].Rotation = blendedRotation;
-                    blendedBones[i].Keyframes[j].Translation = blendedTranslation;
-                    blendedBones[i].Keyframes[j].Time = current_clip.Bones[i].Keyframes[j].Time;
+                          blendedBones[i].Keyframes[j].Rotation = blendedRotation;
+                          blendedBones[i].Keyframes[j].Translation = blendedTranslation;
+                          blendedBones[i].Keyframes[j].Time = current_clip.Bones[i].Keyframes[j].Time;
+                       
+                              // Create it
+                              played_boneInfos[i] = new BoneInfo(blendedBones[i]);
+
+                              // Assign it to a model bone
+                              played_boneInfos[i].SetModel(model);
+                          
+                    }
                 }
             }
-            for (int b = 0; b < blendedBones.Length; b++)
-            {
-                // Create it
-                played_boneInfos[b] = new BoneInfo(blendedBones[b]);
+         //   Console.WriteLine(current_clip.Bones[0].Keyframes.Count());
+          //  Console.WriteLine(current_clip.Bones[1].Keyframes.Count());
+         //   Console.WriteLine(current_clip.Bones[2].Keyframes.Count());
 
-                // Assign it to a model bone
-                played_boneInfos[b].SetModel(model);
-            }
-            Console.WriteLine("Blending now!");
+         //   Console.WriteLine(next_clip.Bones[0].Keyframes.Count());
+         //   Console.WriteLine(next_clip.Bones[1].Keyframes.Count());
+         //   Console.WriteLine(next_clip.Bones[2].Keyframes.Count());
+
+         // System.Threading.Thread.Sleep(100000);
+            
+            Console.WriteLine(blendAmount);
+            #endregion
         }
 
         #endregion
@@ -302,8 +406,8 @@ namespace Laikos
         {
             this.looping = looping;
             next_clip = Clips[name];
-            currentblendTime = 0;
-            Rewind();
+            currentblendTime = TimeSpan.Zero;
+            next_position = 0;
         }
         #endregion
 
