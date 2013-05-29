@@ -26,5 +26,21 @@
       <model>Models/Units/tank/czolg</model>
     </Item>
 
+    <Item>
+      <race>Alien</race>
+      <name>Alien</name>
+      <hp>0.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Alien/alien</model>
+    </Item>
+
+    <Item>
+      <race>Alien</race>
+      <name>Spider Rider</name>
+      <hp>0.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Alien_Spider_Rider/alien_spider_rider</model>
+    </Item>
+
   </Asset>
 </XnaContent>
