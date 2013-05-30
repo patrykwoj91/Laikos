@@ -120,8 +120,8 @@ namespace MapEditor
             rockTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/rock");
 
             //Loading basic map.
-            terrainMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/small");
-            undergroundMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/small");
+            terrainMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/path");
+            undergroundMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/path");
 
             //All preparations to draw terrain are loaded here
             LoadHeightData(undergroundMap, ref undergroundHeightData, ref undergroundWidth, ref undergroundHeight);

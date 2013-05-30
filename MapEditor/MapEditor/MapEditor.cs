@@ -134,8 +134,8 @@ namespace MapEditor
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 pointerPosition = Collisions.BinarySearch(shorterRay);
 
-                UInt32[] data = new UInt32[terrain.TerrainMap.Height * terrain.TerrainMap.Width];
-                terrain.TerrainMap.GetData<UInt32>(data);
+                Color[] data = new Color[terrain.TerrainMap.Height * terrain.TerrainMap.Width];
+                terrain.TerrainMap.GetData<Color>(data);
 
                 Int32 positionHeight = (int)pointerPosition.Z;
                 Int32 positionWidth = (int)pointerPosition.X;
@@ -146,13 +146,17 @@ namespace MapEditor
                     {
                         if (((positionHeight - pencilSize / 2 + i) > 0) && ((positionWidth - pencilSize / 2 + j) > 0))
                         {
-                            data[(positionHeight - pencilSize / 2 + i) * terrain.TerrainMap.Height + (positionWidth - pencilSize / 2 + j)] += 5;
+                            data[(positionHeight - pencilSize / 2 + i) * terrain.TerrainMap.Height + (positionWidth - pencilSize / 2 + j)].R += 5;
+                            data[(positionHeight - pencilSize / 2 + i) * terrain.TerrainMap.Height + (positionWidth - pencilSize / 2 + j)].G += 5;
+                            data[(positionHeight - pencilSize / 2 + i) * terrain.TerrainMap.Height + (positionWidth - pencilSize / 2 + j)].B += 5;
                         }
                     }
                 }
 
+                Console.Out.WriteLine(data[(positionHeight) * terrain.TerrainMap.Height + (positionWidth)]);
+
                 GraphicsDevice.Textures[0] = null;
-                terrain.TerrainMap.SetData<UInt32>(data);
+                terrain.TerrainMap.SetData<Color>(data);
 
                 terrain.reloadTerrainMap();
 
