@@ -61,14 +61,6 @@ namespace AnimationPipeline
                     set;
                 }
             };
-
-
-            [Microsoft.Xna.Framework.Content.ContentSerializer(Optional = true)] //lista eventow, opcjonalna
-            public List<Event> Events
-            {
-                get;
-                set;
-            }
         };
 
         public List<ClipPart> ClipParts //lista animacji po podziale animacji glownej

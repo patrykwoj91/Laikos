@@ -5,50 +5,47 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Animation;
-
+using MyDataTypes;
 
 namespace Laikos
 {
    public class Decoration : GameObject
     {
+       public DecorationType type;
        public List<Message> messages;
+       public List<BoundingBox> meshBoundingBoxes;
 
        public Decoration()
            :base()
        {
        }
 
-       public Decoration(Game game, string path, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
-            : base(game, path)
+       public Decoration(Game game, DecorationType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
+            : base(game, type.model)
         {
-            this.Position = position;
-            this.Rotation = rotation;
-            this.Scale = scale;
-            this.messages = new List<Message>();
+           this.Position = position;
+           this.Rotation = rotation;
+           this.Scale = scale;
+           this.messages = new List<Message>();
+           this.meshBoundingBoxes = new List<BoundingBox>();
+
+           Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
+           currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
+           foreach (ModelMesh mesh in currentModel.Model.Meshes)
+           {
+               List<Vector3> meshVertices = new List<Vector3>();
+               Matrix transformations = modelTransforms[mesh.ParentBone.Index] * GetWorldMatrix();
+               VertexHelper.ExtractModelMeshData(mesh, ref transformations, meshVertices);
+               meshBoundingBoxes.Add(BoundingBox.CreateFromPoints(meshVertices));
+           }
         }
 
         public void Update(GameTime gameTime)
         {
-            EventManager.FindMessageByDestination(this, messages);
-            //Console.WriteLine(messages.Count);
-            for (int i = 0; i < messages.Count; i++)
-            {
-                switch (messages[i].Type)
-                {
-                    case (int)EventManager.Events.DeleteBox:
-                        Console.WriteLine("podniesiono skarb");
-                        messages.Clear();
-                        break;
-                }
-            }
+            HandleEvent(gameTime);
             base.Update(gameTime);
         }
 
-        public void Draw(GraphicsDeviceManager graphics)
-        {
-            base.Draw(graphics);
-        }
-              
         public bool checkIfPossible(Vector3 startPosition)
         {
             BoundingBox box = XNAUtils.TransformBoundingBox(Collisions.GetBoundingBox(currentModel.Model), GetWorldMatrix());
@@ -70,6 +67,20 @@ namespace Laikos
                 return true;
             else
                 return false;
+        }
+
+        public override void HandleEvent(GameTime gameTime)
+        {
+            EventManager.FindMessagesByDestination(this, messages);
+            for (int i = 0; i < messages.Count; i++)
+            {
+                switch (messages[i].Type)
+                {
+                    case (int)EventManager.Events.Interaction:
+                        Console.WriteLine("Dekoracja - obsluga interakcji");
+                        break;
+                }
+            }
         }
     }
 }

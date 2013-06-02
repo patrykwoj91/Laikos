@@ -9,40 +9,53 @@ namespace Laikos
         public enum Events
         {
             FixCollisions,
-            ScaleUp,
-            ScaleDown,
             Selected,
             Unselected,
-            PickBox,
-            DeleteBox,
+            Interaction,
             MoveUnit
         };
 
-        static List<Message> messages = new List<Message>();
+        static List<Message> lastFrame_messages = new List<Message>();
+
+        static List<Message> currentFrame_messages = new List<Message>();
 
         public static void CreateMessage(Message message)
         {
-            if(!messages.Contains(message))
-                messages.Add(message);
+            if(!currentFrame_messages.Contains(message))
+                currentFrame_messages.Add(message);
         }
 
-        public static void ClearMessages()
+        public static void FindMessagesByDestination(GameObject destination, List<Message> result)
         {
-            messages.Clear();
+            for (var i = 0; i < lastFrame_messages.Count; i++)
+            {
+                var m = lastFrame_messages[i];
+                if (m.Destination != null && m.Destination.Equals(destination))
+                {
+                    result.Add(m);
+                    
+                }
+            }
         }
 
-        public static void FindMessageByDestination(GameObject destinationObject, List<Message> result)
+        public static void FindMessagesBySender(GameObject sender, List<Message> result)
         {
-            for (int i = 0; i < messages.Count; i++)
-                if (messages[i].Destination.Equals(destinationObject))
-                    result.Add(messages[i]);
+            for (var i = 0; i < lastFrame_messages.Count; i++)
+            {
+                var m = lastFrame_messages[i];
+                if (m.Sender.Equals(sender))
+                {
+                    result.Add(m);
+                }
+            }
         }
 
-        public static void FindMessageBySender(GameObject senderObject, List<Message> result)
+        public static void Update()
         {
-            for (int i = 0; i < messages.Count; i++)
-                if(messages[i].Destination.Equals(senderObject))
-                    result.Add(messages[i]);
+            var t = lastFrame_messages;
+            lastFrame_messages = currentFrame_messages;
+            currentFrame_messages = t;
+            currentFrame_messages.Clear();
         }
     }
 }

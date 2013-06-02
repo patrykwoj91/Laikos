@@ -26,6 +26,29 @@ namespace Laikos
             }
         }
 
+        public static bool CollisionCheck(GameObject object1, GameObject object2)
+        {
+
+            if (object1 is Unit)
+            {
+                Unit unit1 = (Unit)object1;
+                List<BoundingSphere> boundingList1 = new List<BoundingSphere>();
+            }
+            else if (object1 is Decoration)
+            {
+                Decoration decoration1 = (Decoration)object1;
+            }
+            if (object2 is Unit)
+            {
+                Unit unit2 = (Unit)object2;
+            }
+            else if (object2 is Decoration)
+            {
+                Decoration decoration2 = (Decoration)object2;
+            }
+            return false;
+        }
+
         //This method is performing basic collision detection between two models
         //Whole model is surrounded by BoundingBox stored in model.Tag info
        public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
@@ -117,8 +140,9 @@ namespace Laikos
 
        //This method performs much more detailed collision check.
        //It checks if there is collision for each mesh of model
-       public static bool DetailedDecorationCollisionCheck(GameObject unit, GameObject decoration)
+       public static bool DetailedDecorationCollisionCheck(GameObject unit, GameObject deco)
        {
+           Decoration decoration = (Decoration)deco;
            //first we check if there is general collision between two models
            //If method returns false we dont have to perform detailed check
            if (!GeneralDecorationCollisionCheck(unit, decoration))
@@ -127,42 +151,25 @@ namespace Laikos
            //Here we are creating BoundingBox for each mesh for model1
            Matrix[] model1Transforms = new Matrix[unit.currentModel.Model.Bones.Count];
            unit.currentModel.Model.CopyAbsoluteBoneTransformsTo(model1Transforms);
-           BoundingBox[] model1Boxs = new BoundingBox[unit.currentModel.Model.Meshes.Count];
-           //Console.WriteLine(model1.Meshes.Count);
+           BoundingSphere[] model1Boxs = new BoundingSphere[unit.currentModel.Model.Meshes.Count];
+
            for (int i = 0; i < unit.currentModel.Model.Meshes.Count; i++)
            {
                ModelMesh mesh = unit.currentModel.Model.Meshes[i];
                BoundingSphere origSphere = mesh.BoundingSphere;
-               BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
                Matrix trans = model1Transforms[mesh.ParentBone.Index] * unit.GetWorldMatrix();
-               BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
+               BoundingSphere transBox = XNAUtils.TransformBoundingSphere(origSphere, trans);
                model1Boxs[i] = transBox;
-           }
-
-           //and here for second model
-           Matrix[] model2Transforms = new Matrix[decoration.currentModel.Model.Bones.Count];
-           decoration.currentModel.Model.CopyAbsoluteBoneTransformsTo(model2Transforms);
-           BoundingBox[] model2Boxs = new BoundingBox[decoration.currentModel.Model.Meshes.Count];
-           for (int i = 0; i < decoration.currentModel.Model.Meshes.Count; i++)
-           {
-               List<Vector3> meshVertices = new List<Vector3>();
-               Matrix trans = model2Transforms[decoration.currentModel.Model.Meshes[i].ParentBone.Index] * decoration.GetWorldMatrix();
-               VertexHelper.ExtractModelMeshData(decoration.currentModel.Model.Meshes[i], ref trans, meshVertices);
-               BoundingBox origBox = BoundingBox.CreateFromPoints(meshVertices);
-               model2Boxs[i] = origBox;
            }
 
            bool collision = false;
 
            //Check if any of created before Boxs intersects with another Box
            for (int i = 0; i < model1Boxs.Length; i++)
-               for (int j = 0; j < model2Boxs.Length; j++)
-               {
-                   if (BoundingSphere.CreateFromBoundingBox(model1Boxs[i]).Intersects(model2Boxs[j]))
-                   {
+               for (int j = 0; j < decoration.meshBoundingBoxes.Count; j++)
+                   if (model1Boxs[i].Intersects(decoration.meshBoundingBoxes[j]))
                        return true;
-                   }
-               }
+
            return collision;
        }
 

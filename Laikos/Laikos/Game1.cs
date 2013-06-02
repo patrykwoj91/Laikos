@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using MyDataTypes;
 
 namespace Laikos
 {
@@ -19,21 +20,24 @@ namespace Laikos
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
-        Effect effect;
+        SpriteFont font;
+        Vector3 pointerPosition = new Vector3(0, 0, 0);
         Camera camera;
         Terrain terrain;
-        UnitManager units;
         DecorationManager decorations;
-        Vector3 pointerPosition = new Vector3(0, 0, 0);
+        DefferedRenderer defferedRenderer;
+        List<GameObject> objects;
+
+        Dictionary<String, UnitType> UnitTypes;
+        Player player;
+        //Player enemy;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-
             Content.RootDirectory = "Content";
-
-            graphics.PreferredBackBufferWidth = 1368;
-            graphics.PreferredBackBufferHeight = 766;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
             graphics.IsFullScreen = false;
         }
 
@@ -50,12 +54,10 @@ namespace Laikos
 
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
-            units = new UnitManager(this, device, graphics);
             decorations = new DecorationManager(this, device, graphics);
 
             Components.Add(camera);
             Components.Add(terrain);
-            Components.Add(units);
             Components.Add(decorations);
 
             base.Initialize();
@@ -68,9 +70,12 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
-            effect = Content.Load<Effect>("effects");
-            
+            font = Content.Load<SpriteFont>("Georgia");
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
+            objects = new List<GameObject>();
+            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+
+            player = new Player(this, UnitTypes);
         }
 
         /// <summary>
@@ -89,51 +94,35 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            player.Update(gameTime);
+            EventManager.Update();
+
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+          if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
             // TODO: Add your update logic here
-            KeyboardState kb = Keyboard.GetState(); bool collision;
-            if (kb.IsKeyDown(Keys.K))
-            {
-                MouseState mouse = Mouse.GetState();
-                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
-                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-                Ray shorterRay = Collisions.LinearSearch(clippedRay);
-                pointerPosition = Collisions.BinarySearch(shorterRay);
-                //decorations.DecorationList[0].Position = pointerPosition;
-                //if (decorations.DecorationList[0].checkIfPossible(pointerPosition))
-                    //Console.WriteLine("true");
-                //else
-                    Console.WriteLine(pointerPosition);
-            }
+            
+            //bool collision;
 
-            collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[0],
+
+            /*collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[2],
                                       decorations.DecorationList[0]);
-            Console.WriteLine(collision);
+            //Console.WriteLine(collision);
             if (collision)
-                units.UnitList[0].Position = units.UnitList[0].lastPosition;
+                units.UnitList[2].Position = units.UnitList[2].lastPosition;
 
-            collision = Collisions.GeneralCollisionCheck(units.UnitList[0].currentModel.Model, units.UnitList[0].GetWorldMatrix(),
-                 units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix());
+            collision = Collisions.DetailedCollisionCheck(units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix(),
+                 units.UnitList[2].currentModel.Model, units.UnitList[2].GetWorldMatrix());
             
             if (collision)
             {
                 units.UnitList[0].Position = units.UnitList[0].lastPosition;
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
-            }
-            collision = Collisions.GeneralDecorationCollisionCheck(units.UnitList[0],
-                          decorations.DecorationList[0]);
-            if (collision)
-                EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleUp, decorations.DecorationList[0], units.UnitList[0], null));
-            else
-                EventManager.CreateMessage(new Message((int)EventManager.Events.ScaleDown, decorations.DecorationList[0], units.UnitList[0], null));
+            }*/
 
-            Input.PickBox(units.UnitList, decorations.DecorationList, device);
-            foreach (Unit unit in units.UnitList)
-                Input.MoveUnit(unit, device);
+
+            Input.Update(gameTime, device, camera, player.UnitList,decorations.DecorationList);
             base.Update(gameTime);
         }
 
@@ -143,12 +132,16 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            //RasterizerState rs = new RasterizerState();
+            //rs.CullMode = CullMode.None;
+            //device.RasterizerState = rs;
 
-            effect.Parameters["xView"].SetValue(Camera.viewMatrix);
-            effect.Parameters["xProjection"].SetValue(Camera.projectionMatrix);
-            effect.Parameters["xWorld"].SetValue(terrain.SetWorldMatrix());
-          
+            GraphicsDevice.Clear(Color.Black);
+            objects.AddRange(player.UnitList);
+            objects.AddRange(decorations.DecorationList);
+
+            defferedRenderer.Draw(objects, terrain, gameTime);
+            objects.Clear();
             base.Draw(gameTime);
 
             

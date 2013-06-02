@@ -4,70 +4,62 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
+using MyDataTypes;
 namespace Laikos
 {
     public class Unit : GameObject
     {
-        public bool walk, picked;
+        public bool walk;
         public List<Message> messages;
-        public int messageSent = 0;
+        public UnitType type;
+
         public Unit()
             : base()
         {
             walk = false;
-            picked = false;
             this.messages = new List<Message>();
         }
 
-        public Unit(Game game, string path, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
-            : base(game, path)
+        public Unit(Game game, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
+            : base(game, type.model)
         {
             this.Position = position;
             this.Rotation = rotation;
             this.Scale = scale;
             this.messages = new List<Message>();
+            this.type = (UnitType)type.Clone();
         }
 
         public void Update(GameTime gameTime)
         {
-            EventManager.FindMessageByDestination(this, messages);
-            //Console.WriteLine(messages.Count);
-            for (int i = 0; i < messages.Count; i++ )
+            HandleEvent(gameTime);
+            base.Update(gameTime);
+        }
+
+        public override void HandleEvent(GameTime gameTime)
+        {
+            EventManager.FindMessagesByDestination(this, messages);
+            // Console.WriteLine(messages.Count); 
+            for (int i = 0; i < messages.Count; i++)
             {
                 switch (messages[i].Type)
                 {
-                    case (int)EventManager.Events.ScaleUp:
-                        Scale = 0.1f;
-                        break;
-                    case (int)EventManager.Events.ScaleDown:
-                        Scale = 0.07f;
-                        break;
                     case (int)EventManager.Events.Selected:
-                        picked = true;
-                        //messages.Clear();
-                        //EventManager.ClearMessages();
+                        selected = true;
                         break;
+
                     case (int)EventManager.Events.Unselected:
-                        picked = false;
-                        //messages.Clear();
-                        //EventManager.ClearMessages();
+                        selected = false;
                         break;
-                    case (int)EventManager.Events.PickBox:
-                        if (Collisions.GeneralDecorationCollisionCheck(messages[i].Destination, messages[i].Sender) && picked == true)
-                        {
-                            if (messages[i].Sender.currentModel.Model.Meshes[0].Name == "Chest_TreasureChest")
-                            {
-                                if (messageSent < 1)
-                                {
-                                    Console.WriteLine("Podniesiono skarb");
-                                    messageSent++;
-                                }
-                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, messages[i].Destination, new Vector3(5, Terrain.GetExactHeightAt(5, 30), 50)));
-                            }
-                        }
+
+                    case (int)EventManager.Events.Interaction:
+
+                        Console.WriteLine("Jednostka - interakcja z" + messages[i].Payload.ToString());
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, this, messages[i].Payload, null));
                         break;
-                    case (int)EventManager.Events.MoveUnit:
-                        if (picked == true)
+
+                    case (int)EventManager.Events.MoveUnit: //nakladajace sie komunikaty powoduja problem z kolejnymi ruchami 
+                        if (selected)
                         {
                             Vector3 direction = (Vector3)messages[i].Payload - Position;
                             direction.Normalize();
@@ -76,21 +68,13 @@ namespace Laikos
                             Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 500;
                             if (Math.Abs(Position.X - ((Vector3)messages[i].Payload).X) < 0.5f && Math.Abs(Position.Z - ((Vector3)messages[i].Payload).Z) < 0.5f)
                             {
-                                messages.Clear();
-                                EventManager.ClearMessages();
+
                             }
                         }
                         break;
-                } 
+                }
             }
-            Input.HandleUnit(ref walk, ref lastPosition, ref Position, ref Rotation, picked);
-            messages = new List<Message>();
-            base.Update(gameTime);
         }
 
-        public void Draw(GraphicsDeviceManager graphics)
-        {
-            base.Draw(graphics);
-        }
     }
 }

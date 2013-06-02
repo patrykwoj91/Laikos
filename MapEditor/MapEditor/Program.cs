@@ -1,6 +1,6 @@
 using System;
 
-namespace MapEditor
+namespace Laikos
 {
 #if WINDOWS || XBOX
     static class Program
@@ -10,7 +10,7 @@ namespace MapEditor
         /// </summary>
         static void Main(string[] args)
         {
-            using (MapEditor game = new MapEditor())
+            using (Game1 game = new Game1())
             {
                 game.Run();
             }
