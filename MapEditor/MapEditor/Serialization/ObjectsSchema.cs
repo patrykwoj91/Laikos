@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Laikos.Serialization
+{
+    public class ObjectsSchema
+    {
+        public List<UnitGroup> unitGroups;
+        public List<BuildingGroup> buildingsGroups;
+
+        public ObjectsSchema()
+        {
+            unitGroups = new List<UnitGroup>();
+            buildingsGroups = new List<BuildingGroup>();
+        }
+    }
+}
