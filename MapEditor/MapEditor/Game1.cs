@@ -194,6 +194,26 @@ namespace Laikos
             {
                 oneKeyboardClickDetected = true;
 
+                if (keyboardState.IsKeyDown(Keys.Delete))
+                {
+                    if (creationMode == CREATION_MODE.UNITS_MOVE)
+                    {
+                        Unit unitSelected = null;
+                        foreach (Unit unit in player.UnitList)
+                        {
+                            if (unit.selected)
+                            {
+                                unitSelected = unit;
+                                break;
+                            }
+                        }
+
+                        if (unitSelected != null)
+                        {
+                            player.UnitList.Remove(unitSelected);
+                        }
+                    }
+                }
                 if (keyboardState.IsKeyDown(Keys.D0))
                 {
 
@@ -338,6 +358,7 @@ namespace Laikos
             }
             else if
                 (
+                    (keyboardState.IsKeyUp(Keys.Delete)) &&
                     (keyboardState.IsKeyUp(Keys.D0)) &&
                     (keyboardState.IsKeyUp(Keys.D1)) &&
                     (keyboardState.IsKeyUp(Keys.D2)) &&
