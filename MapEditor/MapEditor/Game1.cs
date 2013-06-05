@@ -469,7 +469,7 @@ namespace Laikos
                                 break;
                             }
                         }
-                        if (!selected)
+                        if ((!selected) && (unitSelected != null))
                         {
                             unitSelected.Position.Z = pointerPosition.Z;
                             unitSelected.Position.X = pointerPosition.X;

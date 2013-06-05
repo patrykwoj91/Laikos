@@ -96,6 +96,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -111,6 +112,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lights\SpotLight.cs" />
+    <Compile Include="PathFiding\KOLEJNOSC.cs" />
+    <Compile Include="PathFiding\Map.cs" />
+    <Compile Include="PathFiding\Program.cs" />
+    <Compile Include="PathFiding\Wezel.cs" />
+    <Compile Include="PathFiding\Wspolrzedne.cs" />
+    <Compile Include="PathFiding\ZnajdzSciezke.cs" />
     <Compile Include="Renderer\DefferedRenderer.cs" />
     <Compile Include="Renderer\FullscreenQuad.cs" />
     <Compile Include="LevelManager\EventManager.cs" />
