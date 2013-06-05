@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Media;
 using System.IO;
 //using System.Windows.Forms;
 
-using Laikos.Serialization;
 using MyDataTypes;
+using MyDataTypes.Serialization;
 
 namespace Laikos
 {
@@ -41,8 +41,6 @@ namespace Laikos
         CREATION_MODE creationMode = CREATION_MODE.TERRAIN_UP;
         byte creationOption = 0;
         byte creationType = 0;
-
-        List<String> units = new List<String>() { "Antigravity Tank", "Alien", "Reconnaissance Eye" };
 
         ObjectsSchema objectsSchema;
 
@@ -107,8 +105,8 @@ namespace Laikos
             player = new Player(this, UnitTypes);
 
             System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\Zielu\Documents\GitHub\Laikos\MapEditor\MapEditor\Serialization\ObjectsSchema.xml");
-            objectsSchema = (ObjectsSchema)reader.Deserialize(file);
+            //System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\Zielu\Documents\GitHub\Laikos\MapEditor\MapEditor\Serialization\ObjectsSchema.xml");
+            objectsSchema = Content.Load<ObjectsSchema>("ObjectsSchema");//(ObjectsSchema)reader.Deserialize(file);
         }
 
         /// <summary>
@@ -278,6 +276,7 @@ namespace Laikos
                 }
                 else if (keyboardState.IsKeyDown(Keys.F11))
                 {
+                    #region Stworzenie schematu
                     //ObjectsSchema schemat = new ObjectsSchema();
                     //schemat.unitGroups.Add(new UnitGroup("Demons"));
                     //schemat.unitGroups[0].units.Add(new UnitSchema ("Alien"));
@@ -322,6 +321,7 @@ namespace Laikos
                     //System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\Users\Zielu\Desktop\SerializationOverview.xml");
                     //writer.Serialize(file, schemat);
                     //file.Close();
+                    #endregion Stworzenie schematu
                 }
                 else if (keyboardState.IsKeyDown(Keys.D8) && ((creationMode == CREATION_MODE.BUILDING_BUILD) || (creationMode == CREATION_MODE.UNITS_BUILD)))
                 {

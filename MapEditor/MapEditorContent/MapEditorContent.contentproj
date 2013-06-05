@@ -187,6 +187,10 @@
       <Project>{6401ECED-B836-4A18-B85F-94B4577A1589}</Project>
       <Name>AnimationPipeline</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\MyDataTypes\MyDataTypes.csproj">
+      <Project>{8231A90D-00A8-413C-A06E-EE99B0545D5A}</Project>
+      <Name>MyDataTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -230,6 +234,13 @@
       <Name>path</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ObjectsSchema.xml">
+      <Name>ObjectsSchema</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

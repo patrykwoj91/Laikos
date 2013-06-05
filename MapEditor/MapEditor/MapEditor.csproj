@@ -129,9 +129,6 @@
     <Compile Include="Lights\PointLight.cs" />
     <Compile Include="Lights\SpotLight.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="Serialization\BuildingGroup.cs" />
-    <Compile Include="Serialization\BuildingSchema.cs" />
-    <Compile Include="Serialization\ObjectsSchema.cs" />
     <Compile Include="Objects\AnimatedModel.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
     <Compile Include="Objects\Bone.cs" />
@@ -147,14 +144,11 @@
     <Compile Include="MapEditor.cs" />
     <Compile Include="Renderer\DefferedRenderer.cs" />
     <Compile Include="Renderer\FullscreenQuad.cs" />
-    <Compile Include="Serialization\UnitGroup.cs" />
-    <Compile Include="Serialization\UnitSchema.cs" />
     <Compile Include="VertexHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="Serialization\ObjectsSchema.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Animation\Animation.csproj">

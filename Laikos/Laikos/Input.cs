@@ -153,11 +153,20 @@ namespace Laikos
                         selected = Collisions.RayModelCollision(clippedRay, obj.currentModel.Model, obj.GetWorldMatrix());
 
                         if (selected && (obj is Unit || obj is Decoration))
+                        {
                             foreach (GameObject reciever in allObjects)
+                            {
                                 if (reciever.selected)
+                                {
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, reciever, obj)); //interaction Event unit - unit , unit-decoration , unit-buiding itp.
-                        if(!selected)
+                                }
+                            }
+                        }
+
+                        if (!selected)
+                        {
                             EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                        }
                     }
 
                 }
