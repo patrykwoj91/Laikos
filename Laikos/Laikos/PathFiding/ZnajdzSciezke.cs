@@ -2,43 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
-namespace Laikos
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Laikos.PathFiding
 {
-    static class ZnajdzSciezke
+    public class ZnajdzSciezke
     {
-        private static int[,] mapa = new int[,] 
-            { 
-                {0, 0, 0, 0, 0, 0, 0 ,0},
-                {0, 1, 0, 0, 0, 1, 1 ,1},
-                {0, 1, 0, 0, 0, 0, 0 ,0},
-                {0, 1, 0, 0, 1, 0, 0 ,0},
-                {0, 1, 1, 1, 0, 0, 0 ,0},
-                {0, 1, 1, 1, 0, 1, 0 ,0},
-                {0, 1, 1, 1, 0, 1, 1 ,0},
-                {0, 0, 0, 0, 0, 1, 0 ,0}
-            };
+        private int[,] mapa;
 
-        public static void mapaUstaw(int[,] _mapa, int _szerokosc, int _wysokosc)
+        public void mapaUstaw()
+        {
+            mapa = Map.WalkMeshMap;
+            wymiarX = Map.Width;
+            wymiarY = Map.Heigth;
+        }
+
+        public void mapaUstaw(int[,] _mapa, int _szerokosc, int _wysokosc)
         {
             mapa = _mapa;
             wymiarX = _szerokosc;
             wymiarY = _wysokosc;
         }
 
-        private static int wymiarX = 50;
+        private int wymiarX = 50;
 
-        private static int wymiarY = 50;
+        private int wymiarY = 50;
 
-        private static List<Wspolrzedne> sciezka = new List<Wspolrzedne>();
-        private static List<Wezel> sciezkaPrzeszukiwana;
+        private List<Wspolrzedne> sciezka = new List<Wspolrzedne>();
+        private List<Wezel> sciezkaPrzeszukiwana;
 
-        public static List<Wspolrzedne> obliczSciezke(Wspolrzedne _poczatek, Wspolrzedne _koniec)
+        public List<Wspolrzedne> obliczSciezke(Wspolrzedne _poczatek, Wspolrzedne _koniec, int[,] _mapa)
         {
-            return obliczSciezke(_poczatek, _koniec, mapa);
+            int[,] mapaTmp = mapa;
+            mapa = _mapa;
+
+            List<Wspolrzedne> wynik = obliczSciezke(_poczatek, _koniec);
+
+            mapa = mapaTmp;
+            return wynik;
         }
 
-        public static List<Wspolrzedne> obliczSciezke(Wspolrzedne _poczatek, Wspolrzedne _koniec, int [,] _mapa)
+        public List<Wspolrzedne> obliczSciezke(Wspolrzedne _poczatek, Wspolrzedne _koniec)
         {
             Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
             Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
@@ -60,7 +69,7 @@ namespace Laikos
                 if (obecny.Sprawdzony)
                 {
                     obecny = obecny.Ojciec;
-                    
+
                     if (obecny == null)
                     {
                         Console.Out.WriteLine("Nie znaleziono drogi.");
@@ -161,7 +170,7 @@ namespace Laikos
         //    for (int i = 0; i < 
         //}
 
-        private static KOLEJNOSC odwrocRuch(KOLEJNOSC _ruch)
+        private KOLEJNOSC odwrocRuch(KOLEJNOSC _ruch)
         {
             switch (_ruch)
             {
@@ -178,7 +187,7 @@ namespace Laikos
             return KOLEJNOSC.GORA;
         }
 
-        private static KOLEJNOSC obliczRuch(Wspolrzedne _poczatek, Wspolrzedne _koniec)
+        private KOLEJNOSC obliczRuch(Wspolrzedne _poczatek, Wspolrzedne _koniec)
         {
             if (_koniec.Y < _poczatek.Y)
             {
@@ -200,7 +209,7 @@ namespace Laikos
             return KOLEJNOSC.GORA;
         }
 
-        private static bool obliczDzieci(Wezel _obecny, Wspolrzedne _warunekStopu)
+        private bool obliczDzieci(Wezel _obecny, Wspolrzedne _warunekStopu)
         {
             _obecny.Sprawdzony = true;
 
@@ -276,7 +285,7 @@ namespace Laikos
             return false;
         }
 
-        private static bool wezelJuzIstnieje(Wezel _nowy)
+        private bool wezelJuzIstnieje(Wezel _nowy)
         {
             foreach (Wezel _wezel in sciezkaPrzeszukiwana)
             {
@@ -289,7 +298,7 @@ namespace Laikos
             return true;
         }
 
-        private static bool czySciana(Wspolrzedne _obecny, KOLEJNOSC _ruch)
+        private bool czySciana(Wspolrzedne _obecny, KOLEJNOSC _ruch)
         {
             switch (_ruch)
             {
@@ -306,7 +315,7 @@ namespace Laikos
             return false;
         }
 
-        private static double kosztSciezki(Wezel _obecny)
+        private double kosztSciezki(Wezel _obecny)
         {
             Wezel licznikSciezki = _obecny;
             int dlugoscSciezki = 0;
@@ -320,7 +329,7 @@ namespace Laikos
             return dlugoscSciezki;
         }
 
-        private static double funkcjaHeurystyczna(Wspolrzedne _obecny, Wspolrzedne _koniec)
+        private double funkcjaHeurystyczna(Wspolrzedne _obecny, Wspolrzedne _koniec)
         {
             return Math.Abs(_obecny.X - _koniec.X) + Math.Abs(_obecny.Y - _koniec.Y);
         }

@@ -4,32 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 
-namespace Laikos
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Laikos.PathFiding
 {
-    class Map
+    public static class Map
     {
-        private int[,] map;
-        public int[,] WalkMeshMap
+        private static int[,] map;
+        public static int[,] WalkMeshMap
         {
             get { return map; }
             set { map = value; }
         }
 
-        private int width;
-        public int Width
+        private static int width;
+        public static int Width
         {
             get { return width; }
         }
-        private int height;
-        public int Heigth
+        private static int height;
+        public static int Heigth
         {
             get { return height; }
         }
-    
-        public void loadMap (Bitmap _map)
+
+        public static void loadMap (Texture2D _map)
         {
             width = _map.Width;
             height = _map.Height;
+
+            int[] mapTexTmp = new int [width * height];
+            _map.GetData<int>(mapTexTmp);
 
             int[,] mapTmp = new int[Width, Heigth];
 
@@ -37,7 +42,9 @@ namespace Laikos
             {
                 for (int heightTmp = 0; heightTmp < _map.Height; ++heightTmp)
                 {
-                    if (_map.GetPixel(widthTmp, heightTmp).R < 50)
+                    Color bitmapColor = Color.FromArgb(mapTexTmp[widthTmp * width + heightTmp]);
+
+                    if ((bitmapColor.R > 50) && (bitmapColor.R < 150))
                     {
                         mapTmp[widthTmp, heightTmp] = 0;
                     }

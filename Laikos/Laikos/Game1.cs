@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -31,6 +32,8 @@ namespace Laikos
         Dictionary<String, UnitType> UnitTypes;
         Player player;
         //Player enemy;
+
+        System.Drawing.Bitmap bitmapTmp;
 
         public Game1()
         {
@@ -74,6 +77,7 @@ namespace Laikos
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
             objects = new List<GameObject>();
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap"));
 
             player = new Player(this, UnitTypes);
         }

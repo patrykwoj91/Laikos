@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Laikos
+namespace Laikos.PathFiding
 {
-    class Wspolrzedne
+    public class Wspolrzedne
     {
         private int x;
         public int X
