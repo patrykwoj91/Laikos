@@ -7,7 +7,7 @@
     <OriginalClipName>Take 001</OriginalClipName>
     
     <!-- The total number of frames in the original clip -->
-    <OriginalFrameCount>100</OriginalFrameCount>
+    <OriginalFrameCount>120</OriginalFrameCount>
 
     <!-- The new parts we want -->
     <ClipParts>
@@ -16,21 +16,27 @@
       <Item>
         <ClipName>Idle</ClipName>
         <StartFrame>0</StartFrame>
-        <EndFrame>20</EndFrame>
+        <EndFrame>100</EndFrame>
       </Item>
 
       <Item>
         <ClipName>Walk</ClipName>
-        <StartFrame>21</StartFrame>
-        <EndFrame>80</EndFrame>
+        <StartFrame>105</StartFrame>
+        <EndFrame>145</EndFrame>
       </Item>
-
-      <Item>
+	  
+	  <Item>
         <ClipName>Run</ClipName>
-        <StartFrame>81</StartFrame>
-        <EndFrame>100</EndFrame>
+        <StartFrame>150</StartFrame>
+        <EndFrame>180</EndFrame>
       </Item>
-	 
+	  
+	  <Item>
+        <ClipName>Alert</ClipName>
+        <StartFrame>185</StartFrame>
+        <EndFrame>285</EndFrame>
+      </Item> 
+
     </ClipParts>
 
   </Asset>

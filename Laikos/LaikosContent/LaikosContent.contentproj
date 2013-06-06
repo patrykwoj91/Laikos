@@ -198,7 +198,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Buildings\" />
+    <Compile Include="Models\Buildings\Niebianie\Strażnica\texturaInne.bmp">
+      <Name>texturaInne</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Strażnica\texturaInne2.bmp">
+      <Name>texturaInne2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UnitTypes.xml">
@@ -361,11 +370,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Eye\okoHigh.FBX">
-      <Name>okoHigh</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
     <Compile Include="Models\Units\Eye\okoLow.FBX">
       <Name>okoLow</Name>
       <Importer>FbxImporter</Importer>
@@ -378,16 +382,66 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Alien\alien.FBX">
-      <Name>alien</Name>
+    <Compile Include="Effects\ParticleEffect.fx">
+      <Name>ParticleEffect</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\obserwatorium.FBX">
+      <Name>obserwatorium</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Strażnica\strażnica.FBX">
+      <Name>strażnica</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p1.FBX">
+      <Name>pałac_rady_p1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p2.FBX">
+      <Name>pałac_rady_p2</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p3.FBX">
+      <Name>pałac_rady_p3</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p4.FBX">
+      <Name>pałac_rady_p4</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <None Include="Models\Units\Alien\alien.FBX">
+      <Name>alien</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </None>
     <None Include="Models\Units\Alien_Spider_Rider\alien_spider_rider.FBX">
       <Name>alien_spider_rider</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </None>
+    <Compile Include="Models\Units\Eye\okoHigh.FBX">
+      <Name>okoHigh</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Particles\grid.x">
+      <Name>grid</Name>
+      <Importer>XImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Trojnog\trojnog.FBX">
+      <Name>trojnog</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Units\Alien\4706.jpg">
@@ -412,11 +466,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\images.jpg">
-      <Name>images</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Models\Units\Alien_Spider_Rider\obcy.png">
       <Name>obcy</Name>
       <Importer>TextureImporter</Importer>
@@ -426,6 +475,120 @@
   <ItemGroup>
     <Compile Include="Models\Units\Alien\alien_Anims.xml">
       <Name>alien_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Particles\checker.bmp">
+      <Name>checker</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Particles\explosion.png">
+      <Name>explosion</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Particles\fire.png">
+      <Name>fire</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Particles\smoke.png">
+      <Name>smoke</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Particles\ExplosionSettings.xml">
+      <Name>ExplosionSettings</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+    <Compile Include="Particles\ExplosionSmokeSettings.xml">
+      <Name>ExplosionSmokeSettings</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+    <Compile Include="Particles\FireSettings.xml">
+      <Name>FireSettings</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+    <Compile Include="Particles\ProjectileTrailSettings.xml">
+      <Name>ProjectileTrailSettings</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+    <Compile Include="Particles\SmokePlumeSettings.xml">
+      <Name>SmokePlumeSettings</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Trojnog\metalSzary.bmp">
+      <Name>metalSzary</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Trojnog\trojnog_Anims.xml">
+      <Name>trojnog_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\blekit.jpg">
+      <Name>blekit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\drewno.jpg">
+      <Name>drewno</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\rftq1.jpg">
+      <Name>rftq1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\texturaInne.bmp">
+      <Name>texturaInne</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\texturaInne2.bmp">
+      <Name>texturaInne2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Buildings\Niebianie\Pałac_rady\texturaInne.bmp">
+      <Name>texturaInne</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Pałac_rady\texturaInne2.bmp">
+      <Name>texturaInne2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BuildingTypes.xml">
+      <SubType>Designer</SubType>
+      <Name>BuildingTypes</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>

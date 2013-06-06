@@ -67,13 +67,12 @@ namespace Laikos
                         unit.currentModel.player.PlayClip("Alert", false);
                         //unit.player.Looping = false;
                     }
-                    /*
+                    
                     if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
-                        unit.currentModel.player.PlayClip("Transform", false);
-                        //unit.player.Looping = false;
+                        unit.HP = 0;
                     }
-                    if (currentKeyboardState.IsKeyDown(Keys.D6))
+                   /* if (currentKeyboardState.IsKeyDown(Keys.D6))
                     {
                         unit.currentModel.player.PlayClip("Rotate", false);
                         //unit.player.Looping = false;
@@ -152,7 +151,7 @@ namespace Laikos
                     {
                         selected = Collisions.RayModelCollision(clippedRay, obj.currentModel.Model, obj.GetWorldMatrix());
 
-                        if (selected && (obj is Unit || obj is Decoration))
+                        if (selected && (obj is Unit || obj is Building))
                             foreach (GameObject reciever in allObjects)
                                 if (reciever.selected)
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, reciever, obj)); //interaction Event unit - unit , unit-decoration , unit-buiding itp.

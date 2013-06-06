@@ -25,6 +25,7 @@ namespace Laikos
         Camera camera;
         Terrain terrain;
         DecorationManager decorations;
+        BuildingManager buildings;
         DefferedRenderer defferedRenderer;
         List<GameObject> objects;
 
@@ -32,12 +33,15 @@ namespace Laikos
         Player player;
         //Player enemy;
 
+        //ParticleSystem explosionParticles;
+        //ParticleSystem smokePlumeParticles;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
         }
 
@@ -55,10 +59,15 @@ namespace Laikos
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
-
+            buildings = new BuildingManager(this, device, graphics);
+        //    explosionParticles = new ParticleSystem(this, Content, "ExplosionSettings");
+        //    smokePlumeParticles = new ParticleSystem(this, Content, "SmokePlumeSettings");
+         
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
+            Components.Add(buildings);
+
 
             base.Initialize();
         }
@@ -71,9 +80,12 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Georgia");
-            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+        //    smokePlumeParticles.LoadContent(device);
+        //    explosionParticles.LoadContent(device);
+
 
             player = new Player(this, UnitTypes);
         }
@@ -123,24 +135,60 @@ namespace Laikos
 
 
             Input.Update(gameTime, device, camera, player.UnitList,decorations.DecorationList);
+
+            UpdateExplosions(gameTime);
+            UpdateSmokePlume(gameTime);
             base.Update(gameTime);
         }
 
+        void UpdateExplosions(GameTime gameTime)
+        {
+
+            for (int i = player.UnitList.Count - 1; i >= 0; i--)
+            {
+                if (player.UnitList[i].HP == 0)
+                {
+                defferedRenderer.explosionParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
+                defferedRenderer.explosionSmokeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
+                    player.UnitList.RemoveAt(i);
+                }
+                    defferedRenderer.explosionParticles.Update(gameTime);
+            }
+        }
+
+        void UpdateSmokePlume(GameTime gameTime)
+        {
+            for (int i = player.UnitList.Count - 1; i >= 0; i--)
+            {
+               // if (player.UnitList[i].HP == 0)
+               // {
+                    // This is trivial: we just create one new smoke particle per frame.
+              //  defferedRenderer.smokePlumeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
+               // }
+            }
+            defferedRenderer.explosionSmokeParticles.Update(gameTime);
+        }
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            device.Clear(Color.CornflowerBlue);
             //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
-
-            GraphicsDevice.Clear(Color.Black);
+            defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
-
+            objects.AddRange(buildings.BuildingList);
+            
             defferedRenderer.Draw(objects, terrain, gameTime);
+            //smokePlumeParticles.Draw(gameTime, device);
+            //explosionParticles.Draw(gameTime, device);
+  
             objects.Clear();
             base.Draw(gameTime);
 

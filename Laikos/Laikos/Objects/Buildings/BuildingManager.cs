@@ -10,10 +10,10 @@ using MyDataTypes;
 
 namespace Laikos
 {
-    class DecorationManager : DrawableGameComponent
+    class BuildingManager : DrawableGameComponent
     {
-        public Dictionary<String,DecorationType> DecorationTypes;
-        public List<Decoration> DecorationList;
+        public Dictionary<String,BuildingType> BuildingTypes;
+        public List<Building> BuildingList;
         
         public GraphicsDevice device;
         GraphicsDeviceManager graphics;
@@ -21,7 +21,7 @@ namespace Laikos
         
         //List<Message> messages;
 
-        public DecorationManager(Game game, GraphicsDevice device, GraphicsDeviceManager graphics)
+        public BuildingManager(Game game, GraphicsDevice device, GraphicsDeviceManager graphics)
             : base(game)
         {
             this.game = game;
@@ -31,24 +31,23 @@ namespace Laikos
 
         public override void Initialize()
         {
-            DecorationTypes = new Dictionary<String, DecorationType>();
-            DecorationList = new List<Decoration>();
+            BuildingTypes = new Dictionary<String, BuildingType>();
+            BuildingList = new List<Building>();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            DecorationTypes = Game.Content.Load<DecorationType[]>("DecorationTypes").ToDictionary(t => t.name);
+            BuildingTypes = Game.Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.name);
              
-           // DecorationList.Add(new Decoration(game, DecorationTypes["Ruins1"], new Vector3(30, 25, 150), 1.5f));
+            BuildingList.Add(new Building(game, BuildingTypes["Obserwatorium"], new Vector3(10, 30, 50), 0.1f));
 
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (Decoration unit in DecorationList)
-            {
-                
+            foreach (Building unit in BuildingList)
+            {   
                 unit.Update(gameTime);
             }
         }

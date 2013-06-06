@@ -92,7 +92,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildingType.cs" />
     <Compile Include="DecorationType.cs" />
+    <Compile Include="ParticleSettingsType.cs" />
     <Compile Include="UnitType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
