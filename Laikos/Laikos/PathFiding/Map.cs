@@ -28,12 +28,12 @@ namespace Laikos.PathFiding
             get { return height; }
         }
 
-        public static void loadMap (Texture2D _map)
+        public static void loadMap(Texture2D _map)
         {
             width = _map.Width;
             height = _map.Height;
 
-            int[] mapTexTmp = new int [width * height];
+            int[] mapTexTmp = new int[width * height];
             _map.GetData<int>(mapTexTmp);
 
             int[,] mapTmp = new int[Width, Heigth];
@@ -44,13 +44,13 @@ namespace Laikos.PathFiding
                 {
                     Color bitmapColor = Color.FromArgb(mapTexTmp[widthTmp * width + heightTmp]);
 
-                    if ((bitmapColor.R > 50) && (bitmapColor.R < 150))
+                    if ((bitmapColor.R >= 0) && (bitmapColor.R < 20))
                     {
-                        mapTmp[widthTmp, heightTmp] = 0;
+                        mapTmp[heightTmp, widthTmp] = 0;
                     }
                     else
                     {
-                        mapTmp[widthTmp, heightTmp] = 1;
+                        mapTmp[heightTmp, widthTmp] = 1;
                     }
                 }
                 Console.Out.Write(".");

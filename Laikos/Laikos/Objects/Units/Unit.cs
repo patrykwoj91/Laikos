@@ -23,7 +23,7 @@ namespace Laikos
         public List<Wspolrzedne> destinyPoints;
         private IEnumerator<Wspolrzedne> destinyPointer;
         Vector3 direction;
-       
+
 
         public Unit()
             : base()
@@ -42,7 +42,7 @@ namespace Laikos
             this.type = (UnitType)type.Clone();
 
             this.pathFiding = new ZnajdzSciezke();
-            this.pathFiding.mapaUstaw ();
+            this.pathFiding.mapaUstaw();
         }
 
         public void Update(GameTime gameTime)
@@ -53,13 +53,6 @@ namespace Laikos
 
         public override void HandleEvent(GameTime gameTime)
         {
-            if ((destinyPoints != null) && (destinyPointer != null))
-            {
-                destinyPointer = destinyPoints.GetEnumerator();
-                Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
-                direction = vecTmp - Position;
-            }
-
             EventManager.FindMessagesByDestination(this, messages);
             // Console.WriteLine(messages.Count); 
             for (int i = 0; i < messages.Count; i++)
@@ -83,18 +76,31 @@ namespace Laikos
                     case (int)EventManager.Events.MoveUnit: //nakladajace sie komunikaty powoduja problem z kolejnymi ruchami 
                         if (selected)
                         {
+                            if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
+                            {
+                                destinyPointer = destinyPoints.GetEnumerator();
+                                destinyPointer.MoveNext();
+                                Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                direction = vecTmp - Position;
+                            }
+
                             direction.Normalize();
 
-                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 500;
-                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 500;
-                            
-                            if (Math.Abs(Position.X - ((Vector3)messages[i].Payload).X) < 0.5f && Math.Abs(Position.Z - ((Vector3)messages[i].Payload).Z) < 0.5f)
+                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 30;
+                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 30;
+
+                            //Console.WriteLine(Position.X + " " + destinyPointer.Current.X + ", " + Position.Z + " " + destinyPointer.Current.Y);
+
+                            if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                             {
                                 // Next step walk.
                                 if (!destinyPointer.MoveNext())
                                 {
                                     destinyPoints = null;
                                     destinyPointer = null;
+
+                                    direction.X = 0;
+                                    direction.Z = 0;
                                 }
                                 else
                                 {

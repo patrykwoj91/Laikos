@@ -80,7 +80,7 @@ namespace Laikos
         protected override void LoadContent()
         {
             //Loading textures and effects from content
-            terrainMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap2");
+            terrainMap = Game.Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap3");
             grassTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/grass");
             sandTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/sand");
             snowTexture = Game.Content.Load<Texture2D>("Models/Terrain/Textures/snow");

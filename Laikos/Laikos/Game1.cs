@@ -77,7 +77,7 @@ namespace Laikos
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
             objects = new List<GameObject>();
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap"));
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap3"));
 
             player = new Player(this, UnitTypes);
         }

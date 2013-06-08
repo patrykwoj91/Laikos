@@ -52,6 +52,11 @@ namespace Laikos.PathFiding
             Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
             Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
 
+            if (mapa[_koniec.X, _koniec.Y] == 1)
+            {
+                return new List<Wspolrzedne>();
+            }
+
             sciezkaPrzeszukiwana = new List<Wezel>();
 
             Wezel obecny = new Wezel();
@@ -148,6 +153,8 @@ namespace Laikos.PathFiding
                     //Console.In.ReadLine();
                 }
             };
+
+            sciezka = new List<Wspolrzedne>();
 
             for (int wezel = 0; wezel < sciezkaPrzeszukiwana.Count; ++wezel)
             {
