@@ -7,6 +7,8 @@ float4x3 Bones[MAX_BONES];
 float specularIntensity = 0.8f;
 float specularPower = 0.5f;
 bool isSkinned = false;
+bool xClip;
+float4 xClipPlane;
 
 texture Texture;
 texture NormalMap;
@@ -241,6 +243,7 @@ struct MTVertexToPixel
     float2 TextureCoords     : TEXCOORD1;
     float4 TextureWeights    : TEXCOORD2;
 	float2 Depth			 : TEXCOORD3;
+	float4 ClipDistances	:TEXCOORD4;
 };
 
 struct MTVertexIN
@@ -267,6 +270,11 @@ MTVertexToPixel MultiTexturedVS(MTVertexIN input)
     output.Depth.x = output.Position.z;
 	output.Depth.y = output.Position.w;
 
+	if(xClip)
+	{
+		output.ClipDistances=dot(input.Position, xClipPlane);
+	}
+
     return output;    
 }
 
@@ -282,6 +290,9 @@ struct MTPixelToFrame
 PSO MultiTexturedPS(MTVertexToPixel PSIn)
 {
      PSO Output = (PSO)0;
+
+	 clip(PSIn.ClipDistances);
+
 	 float4 specularAttributes = tex2D(specularSampler, PSIn.TextureCoords);
      float blendDistance = 0.99f;
      float blendWidth = 0.01f;
@@ -311,8 +322,70 @@ PSO MultiTexturedPS(MTVertexToPixel PSIn)
      return Output;
 }
 
+//------- Technique: SkyDome --------
+ struct SDVertexToPixel
+ {    
+     float4 Position         : POSITION;
+     float2 TextureCoords    : TEXCOORD0;
+     float4 ObjectPosition    : TEXCOORD1;
+	 float4 ClipDistances		:TEXCOORD2;
+ };
+ 
+ struct SDPixelToFrame
+ {
+    half4 Color  : COLOR0;
+	half4 Normal : COLOR1;
+	half4 Depth  : COLOR2;
+ };
+ 
+ SDVertexToPixel SkyDomeVS( float4 inPos : POSITION, float2 inTexCoords: TEXCOORD0)
+ {    
+     SDVertexToPixel Output = (SDVertexToPixel)0;
 
-//Technique
+     float4x4 preViewProjection = mul (View, Projection);
+     float4x4 preWorldViewProjection = mul (World, preViewProjection);
+	
+     Output.Position = mul(inPos, preWorldViewProjection);
+     Output.TextureCoords = inTexCoords;
+     Output.ObjectPosition = inPos;
+     
+	 if(xClip)
+	{
+		Output.ClipDistances=dot(inPos,xClipPlane);
+	}
+
+     return Output;    
+ }
+ 
+ SDPixelToFrame SkyDomePS(SDVertexToPixel PSIn)
+ {
+     SDPixelToFrame Output = (SDPixelToFrame)0;        
+
+	 clip(PSIn.ClipDistances);
+
+     float4 topColor = float4(0.3f, 0.3f, 0.8f, 1);    
+     float4 bottomColor = 1;    
+     
+     float4 baseColor = lerp(bottomColor, topColor, saturate((PSIn.ObjectPosition.y)/0.4f));
+     float4 cloudValue = tex2D(TextureSampler0, PSIn.TextureCoords).r;
+     
+     Output.Color = lerp(baseColor,1, cloudValue);        
+	 Output.Normal = 1;
+	 Output.Depth = 1;
+     return Output;
+ }
+ 
+ //Techniques
+ technique SkyDome
+ {
+     pass Pass0
+     {
+         VertexShader = compile vs_2_0 SkyDomeVS();
+         PixelShader = compile ps_2_0 SkyDomePS();
+     }
+ }
+
+
 technique Skinning
 {
 	pass p0

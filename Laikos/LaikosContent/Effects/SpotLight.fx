@@ -263,9 +263,9 @@ float4 PS(VSO input) : COLOR0
 	Position /= Position.w;
 	
 	//Calculate Homogenous Position with respect to light
-	float4 LightScreenPos = mul(-Position, LightViewProjection);
+	float4 LightScreenPos = mul(Position, LightViewProjection);
 
-	LightScreenPos /= LightScreenPos.w;//w
+	LightScreenPos /= LightScreenPos.w;
 
 	//Calculate Projected UV from Light POV
 	float2 LUV = 0.5f * (float2(LightScreenPos.x, -LightScreenPos.y) + 1);
@@ -286,11 +286,26 @@ float4 PS(VSO input) : COLOR0
 		float len = max(0.01f, length(LightPosition - Position)) / DepthPrecision;
 
 		//Calculate the Shadow Factor
-		ShadowFactor = max(0.01f, min(1.0f, (lZ * exp(-(DepthPrecision * 0.0001f) * (len - DepthBias)))));
+		ShadowFactor = (lZ * exp(-(DepthPrecision * 0.000000001f) * (len - DepthBias)));
 	}
 
+	float2 ShadowTexCoord = 0.5 * LightScreenPos.xy / 
+                            LightScreenPos.w + float2( 0.5, 0.5 );
+    ShadowTexCoord.y = 1.0f - ShadowTexCoord.y;
+
+	float shadowdepth = tex2D(ShadowMap, ShadowTexCoord).r; 
+
+	float ourdepth = (LightScreenPos.z / LightScreenPos.w) - DepthBias;
+    
+    // Check to see if this pixel is in front or behind the value in the shadow map
+    if (shadowdepth < ourdepth)
+    {
+        // Shadow the pixel by lowering the intensity
+        Attenuation *= float4(0.2,0.2,0.2,0);
+    };
+
 	//Return Phong Shaded Value Modulated by Shadows if Shadowing is on
-	return ShadowFactor * Phong(Position.xyz, Normal, Attenuation, SpecularIntensity, SpecularPower);
+	return Phong(Position.xyz, Normal, Attenuation, SpecularIntensity, SpecularPower);
 }
 
 //Technique

@@ -7,7 +7,7 @@
       <name>Reconnaissance Eye</name>
       <hp>50.0</hp>
       <mp>50.0</mp>
-      <model>Models/Units/Eye/eye</model>
+      <model>Models/Units/Eye/oko</model>
     </Item>
 
     <Item>

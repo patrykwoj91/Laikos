@@ -19,8 +19,13 @@ Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Models\Decorations\test_ruins1\test_ruins1.xnb
 Content\SpotLightGeometry.xnb
+Content\Models\Units\Test_model\test_model.xnb
 Content\Models\Decorations\test_ruins2\test_ruins2.xnb
 Content\PointLightGeometry.xnb
+<<<<<<< HEAD
+Content\Models\Units\Eye\eye.xnb
+=======
+>>>>>>> 821917412181ff8c778b180e2c366abea39ef05a
 Content\Effects\Clear.xnb
 Content\Effects\DirectionalLight.xnb
 Content\Effects\Composition.xnb
@@ -37,17 +42,13 @@ Content\Models\Decorations\test_ruins1\DiffuseMap_0.xnb
 Content\Models\Units\Test_model\test_m_0.xnb
 Content\Models\Units\Eye\texturaInne_1.xnb
 Content\Models\Units\Eye\tekstura_0.xnb
+<<<<<<< HEAD
+=======
 Content\Models\Units\Eye\texturaInne.xnb
-Content\Models\Units\Test_model\test_model.xnb
 Content\Models\Units\Eye\okoHigh.xnb
 Content\Models\Units\Eye\okoLow.xnb
 Content\Models\Units\Eye\okoMid.xnb
 Content\Models\Units\Eye\okoLow_Anims.xnb
 Content\Models\Units\Eye\okoMid_Anims.xnb
 Content\Models\Units\Eye\okoHigh_Anims.xnb
-Content\Models\SkyDome\cloudMap.xnb
-Content\Models\SkyDome\dome.xnb
-Content\Models\SkyDome\cloudMap_0.xnb
-Content\Effects\Water.xnb
-Content\waterbump.xnb
-Content\Models\Terrain\minimap.xnb
+>>>>>>> 821917412181ff8c778b180e2c366abea39ef05a
