@@ -21,7 +21,7 @@ namespace Laikos
         //////////////////////////////////
         public ZnajdzSciezke pathFiding;
         public List<Wspolrzedne> destinyPoints;
-        private IEnumerator<Wspolrzedne> destinyPointer;
+        public IEnumerator<Wspolrzedne> destinyPointer;
         Vector3 direction;
 
 
@@ -86,10 +86,8 @@ namespace Laikos
 
                             direction.Normalize();
 
-                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 30;
-                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 30;
-
-                            //Console.WriteLine(Position.X + " " + destinyPointer.Current.X + ", " + Position.Z + " " + destinyPointer.Current.Y);
+                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
 
                             if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                             {
@@ -99,8 +97,8 @@ namespace Laikos
                                     destinyPoints = null;
                                     destinyPointer = null;
 
-                                    direction.X = 0;
-                                    direction.Z = 0;
+                                    direction.X = 0.0f;
+                                    direction.Z = 0.0f;
                                 }
                                 else
                                 {
