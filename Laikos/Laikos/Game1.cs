@@ -43,9 +43,9 @@ namespace Laikos
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -113,6 +113,8 @@ namespace Laikos
             Input.Update(this, gameTime, device, camera, player.UnitList,decorations.DecorationList);
 
             EventManager.Update();
+            UpdateExplosions(gameTime, objects);
+            UpdateExplosionSmoke(gameTime, objects);
             base.Update(gameTime);
 
             // TODO: Add your update logic here
@@ -150,6 +152,7 @@ namespace Laikos
             //device.RasterizerState = rs;
             defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
                         //if (noob)
             //{
 
@@ -161,8 +164,7 @@ namespace Laikos
             objects.AddRange(buildings.BuildingList);
             
             defferedRenderer.Draw(objects, terrain, gameTime);
-            //smokePlumeParticles.Draw(gameTime, device);
-            //explosionParticles.Draw(gameTime, device);
+
   
             objects.Clear();
             base.Draw(gameTime);
@@ -173,22 +175,22 @@ namespace Laikos
          void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
         {
 
-            for (int i = objects.Count - 1; i >= 0; i--)
+            for (int i = player.UnitList.Count - 1; i >= 0; i--)
             {
-                if (objects[i] is Unit)
-                {
-                    Unit unit = (Unit)objects[i];
-                    if (unit.HP == 0)
+
+
+                if (player.UnitList[i].HP == 0)
                     {
-                        defferedRenderer.explosionParticles.AddParticle(objects[i].Position, Vector3.Zero);
-                        defferedRenderer.explosionSmokeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                        defferedRenderer.explosionParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
+                        defferedRenderer.explosionSmokeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
+                        player.UnitList[i].HP = 10;
                     }
-                }
+                
                 defferedRenderer.explosionParticles.Update(gameTime);
             }
         }
 
-        void UpdateSmokePlume(GameTime gameTime, List<GameObject> objects)
+        void UpdateExplosionSmoke(GameTime gameTime, List<GameObject> objects)
         {
             for (int i = objects.Count - 1; i >= 0; i--)
             {

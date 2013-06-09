@@ -71,6 +71,7 @@ namespace Laikos
                     if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
                         unit.HP = 0;
+                        Console.WriteLine(unit.HP);
                     }
                    /* if (currentKeyboardState.IsKeyDown(Keys.D6))
                     {
