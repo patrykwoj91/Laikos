@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Laikos</RootNamespace>
+    <RootNamespace>MapEditor</RootNamespace>
     <AssemblyName>Laikos</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -96,6 +96,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -118,6 +119,12 @@
     <Compile Include="Physics\ParticleSystem\ParticleEmitter.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleSystem.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleVertex.cs" />
+    <Compile Include="PathFiding\KOLEJNOSC.cs" />
+    <Compile Include="PathFiding\Map.cs" />
+    <Compile Include="PathFiding\Program.cs" />
+    <Compile Include="PathFiding\Wezel.cs" />
+    <Compile Include="PathFiding\Wspolrzedne.cs" />
+    <Compile Include="PathFiding\ZnajdzSciezke.cs" />
     <Compile Include="Physics\ParticleSystem\Projectile.cs" />
     <Compile Include="Renderer\BloomComponent.cs" />
     <Compile Include="Renderer\BloomSettings.cs" />

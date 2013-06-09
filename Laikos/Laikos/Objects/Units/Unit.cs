@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using MyDataTypes;
+
+using Laikos.PathFiding;
+
 namespace Laikos
 {
     public class Unit : GameObject
@@ -14,6 +17,15 @@ namespace Laikos
         public UnitType type;
         public double HP;
         public double maxHP;
+
+        //////////////////////////////////
+        // PathFiding Variables
+        //////////////////////////////////
+        public ZnajdzSciezke pathFiding;
+        public List<Wspolrzedne> destinyPoints;
+        private IEnumerator<Wspolrzedne> destinyPointer;
+        Vector3 direction;
+
 
         public Unit()
             : base()
@@ -32,6 +44,9 @@ namespace Laikos
             this.type = (UnitType)type.Clone();
             maxHP = this.type.maxhp;
             HP = maxHP;
+
+            this.pathFiding = new ZnajdzSciezke();
+            this.pathFiding.mapaUstaw();
         }
 
         public void Update(GameTime gameTime)
@@ -67,14 +82,37 @@ namespace Laikos
                     case (int)EventManager.Events.MoveUnit: //nakladajace sie komunikaty powoduja problem z kolejnymi ruchami 
                         if (selected)
                         {
-                            Vector3 direction = (Vector3)messages[i].Payload - Position;
+                            if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
+                            {
+                                destinyPointer = destinyPoints.GetEnumerator();
+                                destinyPointer.MoveNext();
+                                Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                direction = vecTmp - Position;
+                            }
+
                             direction.Normalize();
 
-                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 500;
-                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 500;
-                            if (Math.Abs(Position.X - ((Vector3)messages[i].Payload).X) < 0.5f && Math.Abs(Position.Z - ((Vector3)messages[i].Payload).Z) < 0.5f)
-                            {
+                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 30;
+                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 30;
 
+                            //Console.WriteLine(Position.X + " " + destinyPointer.Current.X + ", " + Position.Z + " " + destinyPointer.Current.Y);
+
+                            if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
+                            {
+                                // Next step walk.
+                                if (!destinyPointer.MoveNext())
+                                {
+                                    destinyPoints = null;
+                                    destinyPointer = null;
+
+                                    direction.X = 0;
+                                    direction.Z = 0;
+                                }
+                                else
+                                {
+                                    Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                    direction = vecTmp - Position;
+                                }
                             }
                         }
                         break;

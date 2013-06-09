@@ -204,7 +204,7 @@ namespace Laikos
             //rect.X += width;
             spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
 
-            spriteBatch.DrawString(font, "FPS: " + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(10.0f, 20.0f), Color.White);
+            spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
             //End SpriteBatch
             spriteBatch.End();
         }

@@ -24,8 +24,8 @@ namespace Laikos
 
             UnitList = new List<Unit>();
 
-            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 150), 0.05f));
-            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 100), 0.05f));
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(100, 30, 150), 0.05f));
+            //UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 100), 0.05f));
            // UnitList.Add(new Unit(game, UnitTypes["Antigravity Tank"], new Vector3(10,30,50), 0.15f));
             UnitList.Add(new Unit(game, UnitTypes["Trojnog Auto"], new Vector3(10, 30, 50), 0.3f));
             

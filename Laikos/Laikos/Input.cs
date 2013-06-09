@@ -159,11 +159,28 @@ namespace Laikos
                         selected = Collisions.RayModelCollision(clippedRay, obj.currentModel.Model, obj.GetWorldMatrix());
 
                         if (selected && (obj is Unit || obj is Building))
+                        {
                             foreach (GameObject reciever in allObjects)
+                            {
                                 if (reciever.selected)
+                                {
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, reciever, obj)); //interaction Event unit - unit , unit-decoration , unit-buiding itp.
-                        if(!selected)
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                                }
+                            }
+                        }
+
+                        if ((!selected) && (obj.GetType() == typeof(Unit)))
+                        {
+                            Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne ((int)((Unit)obj).Position.X, (int)((Unit)obj).Position.Z);
+                            Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne ((int)pointerPosition.X, (int) pointerPosition.Z);
+                            
+                            ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
+
+                            if (((Unit)obj).destinyPoints.Count > 0)
+                            {
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                            }
+                        }
                     }
 
                 }

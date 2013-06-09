@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -35,8 +36,8 @@ namespace Laikos
         Player player;
         //Player enemy;
 
-        //ParticleSystem explosionParticles;
-        //ParticleSystem smokePlumeParticles;
+        System.Drawing.Bitmap bitmapTmp;
+
 
         public Game1()
         {
@@ -84,7 +85,7 @@ namespace Laikos
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-        //    smokePlumeParticles.LoadContent(device);
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap3"));
         //    explosionParticles.LoadContent(device);
 
             player = new Player(this, UnitTypes);
