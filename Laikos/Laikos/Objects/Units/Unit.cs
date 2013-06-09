@@ -13,6 +13,7 @@ namespace Laikos
         public List<Message> messages;
         public UnitType type;
         public double HP;
+        public double maxHP;
 
         public Unit()
             : base()
@@ -29,7 +30,8 @@ namespace Laikos
             this.Scale = scale;
             this.messages = new List<Message>();
             this.type = (UnitType)type.Clone();
-            HP = this.type.hp;
+            maxHP = this.type.maxhp;
+            HP = maxHP;
         }
 
         public void Update(GameTime gameTime)

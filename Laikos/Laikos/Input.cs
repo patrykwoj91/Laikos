@@ -14,7 +14,7 @@ namespace Laikos
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
         /// </summary>
-        public static void HandleKeyboard(List<Unit> unitlist)
+        public static void HandleKeyboard(List<Unit> unitlist, Game game)
         {
             foreach (Unit unit in unitlist)
             {
@@ -78,6 +78,9 @@ namespace Laikos
                         //unit.player.Looping = false;
                     }*/
                 }
+                // Allows the game to exit
+                if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
+                    game.Exit();
 
                 if (currentKeyboardState.IsKeyDown(Keys.F1) && oldKeyboardState.IsKeyUp(Keys.F1))
                 {
@@ -206,7 +209,7 @@ namespace Laikos
         /// <summary>
         /// Handling Inputs: Camera Movement, Keyboard, Mouse Buttons 
         /// </summary>
-        public static void Update(GameTime gameTime, GraphicsDevice device, Camera camera, List<Unit> unitlist, List<Decoration> decorationlist)
+        public static void Update(Game game,GameTime gameTime, GraphicsDevice device, Camera camera, List<Unit> unitlist, List<Decoration> decorationlist)
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
 
@@ -215,7 +218,7 @@ namespace Laikos
 
             HandleCamera(timeDifference, camera);
             HandleMouse(unitlist,decorationlist, device);
-            HandleKeyboard(unitlist);
+            HandleKeyboard(unitlist,game);
 
             oldMouseState = currentMouseState;
             oldKeyboardState = currentKeyboardState;

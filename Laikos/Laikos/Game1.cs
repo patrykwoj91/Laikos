@@ -42,9 +42,9 @@ namespace Laikos
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1000;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -108,14 +108,14 @@ namespace Laikos
         protected override void Update(GameTime gameTime)
         {
             player.Update(gameTime);
-            EventManager.Update();
 
-            // Allows the game to exit
-          if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            Input.Update(this, gameTime, device, camera, player.UnitList,decorations.DecorationList);
+
+            EventManager.Update();
+            base.Update(gameTime);
 
             // TODO: Add your update logic here
-            
+
             //bool collision;
 
 
@@ -134,41 +134,9 @@ namespace Laikos
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
             }*/
 
-
-            Input.Update(gameTime, device, camera, player.UnitList,decorations.DecorationList);
-
-            UpdateExplosions(gameTime);
-            UpdateSmokePlume(gameTime);
-            base.Update(gameTime);
         }
 
-        void UpdateExplosions(GameTime gameTime)
-        {
-
-            for (int i = player.UnitList.Count - 1; i >= 0; i--)
-            {
-                if (player.UnitList[i].HP == 0)
-                {
-                defferedRenderer.explosionParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                defferedRenderer.explosionSmokeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                    player.UnitList.RemoveAt(i);
-                }
-                    defferedRenderer.explosionParticles.Update(gameTime);
-            }
-        }
-
-        void UpdateSmokePlume(GameTime gameTime)
-        {
-            for (int i = player.UnitList.Count - 1; i >= 0; i--)
-            {
-               // if (player.UnitList[i].HP == 0)
-               // {
-                    // This is trivial: we just create one new smoke particle per frame.
-              //  defferedRenderer.smokePlumeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-               // }
-            }
-            defferedRenderer.explosionSmokeParticles.Update(gameTime);
-        }
+       
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -200,5 +168,40 @@ namespace Laikos
 
             
         }
+
+         void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+        {
+
+            for (int i = objects.Count - 1; i >= 0; i--)
+            {
+                if (objects[i] is Unit)
+                {
+                    Unit unit = (Unit)objects[i];
+                    if (unit.HP == 0)
+                    {
+                        defferedRenderer.explosionParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                        defferedRenderer.explosionSmokeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                    }
+                }
+                defferedRenderer.explosionParticles.Update(gameTime);
+            }
+        }
+
+        void UpdateSmokePlume(GameTime gameTime, List<GameObject> objects)
+        {
+            for (int i = objects.Count - 1; i >= 0; i--)
+            {
+                if (objects[i] is Unit)
+                {
+                    Unit unit = (Unit)objects[i];
+                    if (100*unit.HP/unit.maxHP <= 5)
+                    {
+                        defferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                    }
+                }
+                defferedRenderer.explosionSmokeParticles.Update(gameTime);
+            }    
+        }
     }
 }
+

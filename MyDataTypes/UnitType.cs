@@ -15,7 +15,7 @@ namespace MyDataTypes
     {
         public String race;
         public String name;
-        public Double hp;
+        public Double maxhp;
         public Double mp;
         public String model;
 

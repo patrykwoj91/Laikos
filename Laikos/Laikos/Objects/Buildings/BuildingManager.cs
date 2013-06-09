@@ -40,7 +40,7 @@ namespace Laikos
         {
             BuildingTypes = Game.Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.name);
              
-            BuildingList.Add(new Building(game, BuildingTypes["Obserwatorium"], new Vector3(10, 30, 50), 0.1f));
+          //  BuildingList.Add(new Building(game, BuildingTypes["Obserwatorium"], new Vector3(10, 30, 50), 0.1f));
 
         }
 

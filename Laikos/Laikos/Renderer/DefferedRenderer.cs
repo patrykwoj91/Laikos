@@ -44,11 +44,12 @@ namespace Laikos
         private SpriteFont font;
         public static bool debug = false;
 
-       public ParticleSystem explosionParticles;
-       public ParticleSystem explosionSmokeParticles;
+        public ParticleSystem explosionParticles;
+        public ParticleSystem explosionSmokeParticles;
+        public ParticleSystem SmokePlumeParticles;
         #endregion
 
-        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font,Game game)
+        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font, Game game)
         {
             #region Initialize Variables
             this.device = device;
@@ -74,6 +75,7 @@ namespace Laikos
 
             explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
             explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
+            SmokePlumeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
             #endregion
 
             #region Load Content
@@ -92,7 +94,7 @@ namespace Laikos
             explosionSmokeParticles.LoadContent(device);
             explosionParticles.LoadContent(device);
             #endregion
-            
+
         }
 
         private void SetGBuffer()
@@ -155,18 +157,18 @@ namespace Laikos
             ClearGBuffer();
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
-         
+
             //List<Model> models = new List<Model>();
-           // foreach (GameObject obj in objects)
-              //  models.Add(obj.currentModel.Model);
+            // foreach (GameObject obj in objects)
+            //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
 
             DrawLights(objects);
             explosionSmokeParticles.Draw(gameTime, device);
             explosionParticles.Draw(gameTime, device);
-            if(debug)
+            if (debug)
                 Debug();
-            
+
         }
 
         private void Debug()
@@ -232,7 +234,7 @@ namespace Laikos
             finalComposition.Parameters["colorMap"].SetValue(colorRT);
             finalComposition.Parameters["lightMap"].SetValue(lightRT);
             finalComposition.Parameters["halfPixel"].SetValue(halfPixel);
-            
+
             finalComposition.Techniques[0].Passes[0].Apply();
             fsq.Render(Vector2.One * -1, Vector2.One);
 
@@ -256,5 +258,5 @@ namespace Laikos
                 }
             }
         }
-    }
+    }     
 }
