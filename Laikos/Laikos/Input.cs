@@ -174,8 +174,12 @@ namespace Laikos
                         {
                             Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne ((int)((Unit)obj).Position.X, (int)((Unit)obj).Position.Z);
                             Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne ((int)pointerPosition.X, (int) pointerPosition.Z);
-                            
+
+                            DateTime tp0 = DateTime.Now;
                             ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
+                            ((Unit)obj).destinyPointer = null;
+                            DateTime tp1 = DateTime.Now;
+                            Console.WriteLine(tp1 - tp0);
 
                             if (((Unit)obj).destinyPoints.Count > 0)
                             {
