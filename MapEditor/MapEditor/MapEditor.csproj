@@ -14,7 +14,7 @@
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
     <XnaProfile>HiDef</XnaProfile>
-    <XnaCrossPlatformGroupID>9360bd42-8278-4ccb-a86a-ccbd4135df88</XnaCrossPlatformGroupID>
+    <XnaCrossPlatformGroupID>9360bd42-8278-4ccb-a86a-ccbd4135df87</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
