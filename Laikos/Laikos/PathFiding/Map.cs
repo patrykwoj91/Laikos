@@ -10,6 +10,8 @@ namespace Laikos.PathFiding
 {
     public static class Map
     {
+        private const int SKALA = 10;
+
         private static int[,] map;
         public static int[,] WalkMeshMap
         {
@@ -23,7 +25,7 @@ namespace Laikos.PathFiding
             get { return width; }
         }
         private static int height;
-        public static int Heigth
+        public static int Height
         {
             get { return height; }
         }
@@ -36,22 +38,48 @@ namespace Laikos.PathFiding
             int[] mapTexTmp = new int[width * height];
             _map.GetData<int>(mapTexTmp);
 
-            int[,] mapTmp = new int[Width, Heigth];
+            int[,] mapTmp = new int[Width / SKALA + 1, Height / SKALA + 1];
 
-            for (int widthTmp = 0; widthTmp < _map.Width; ++widthTmp)
+            int iloscDobrych = 0;
+            int iloscZlych = 0;
+            int licznik = 0;
+
+            for (int widthTmp = 0; widthTmp < Width / SKALA; ++widthTmp)
             {
-                for (int heightTmp = 0; heightTmp < _map.Height; ++heightTmp)
+                for (int heightTmp = 0; heightTmp < Height / SKALA; ++heightTmp)
                 {
-                    Color bitmapColor = Color.FromArgb(mapTexTmp[widthTmp * width + heightTmp]);
-
-                    if ((bitmapColor.R >= 0) && (bitmapColor.R < 20))
+                    for (int i = 0; i < SKALA; ++i)
                     {
-                        mapTmp[heightTmp, widthTmp] = 0;
+                        for (int j = 0; j < SKALA; ++j)
+                        {
+                            Color bitmapColor = Color.FromArgb(mapTexTmp[(widthTmp * SKALA * width + heightTmp * SKALA) + (i * width) + j]);
+
+                            if ((bitmapColor.R >= 0) && (bitmapColor.R < 20))
+                            {
+                                //mapTmp[heightTmp, widthTmp] = 0;
+                                ++iloscDobrych;
+                            }
+                            else
+                            {
+                                ++iloscZlych;
+                                //mapTmp[heightTmp, widthTmp] = 1;
+                            }
+                        }
+                    }
+
+                    if ((iloscDobrych / SKALA) > iloscZlych)
+                    {
+                        mapTmp[licznik % (height / SKALA), licznik / (width / SKALA)] = 0;
                     }
                     else
                     {
-                        mapTmp[heightTmp, widthTmp] = 1;
+                        mapTmp[licznik % (height / SKALA), licznik / (width / SKALA)] = 1;
                     }
+
+                    iloscDobrych = 0;
+                    iloscZlych = 0;
+
+                    ++licznik;
                 }
                 Console.Out.Write(".");
             }

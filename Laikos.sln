@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animation", "Animation\Anim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "MapEditor\MapEditor\MapEditor.csproj", "{AF44256F-C3A9-40B9-A2AD-F14E806FE767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditorContent", "MapEditor\MapEditorContent\MapEditorContent.contentproj", "{9D4703AC-2B11-48A2-8EDC-B24BF7BA774B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDataTypes", "MyDataTypes\MyDataTypes.csproj", "{8231A90D-00A8-413C-A06E-EE99B0545D5A}"
 EndProject
 Global
@@ -51,10 +49,6 @@ Global
 		{AF44256F-C3A9-40B9-A2AD-F14E806FE767}.Release|x86.ActiveCfg = Release|x86
 		{AF44256F-C3A9-40B9-A2AD-F14E806FE767}.Release|x86.Build.0 = Release|x86
 		{AF44256F-C3A9-40B9-A2AD-F14E806FE767}.Release|Xbox 360.ActiveCfg = Release|x86
-		{9D4703AC-2B11-48A2-8EDC-B24BF7BA774B}.Debug|x86.ActiveCfg = Debug|x86
-		{9D4703AC-2B11-48A2-8EDC-B24BF7BA774B}.Debug|Xbox 360.ActiveCfg = Debug|x86
-		{9D4703AC-2B11-48A2-8EDC-B24BF7BA774B}.Release|x86.ActiveCfg = Release|x86
-		{9D4703AC-2B11-48A2-8EDC-B24BF7BA774B}.Release|Xbox 360.ActiveCfg = Release|x86
 		{8231A90D-00A8-413C-A06E-EE99B0545D5A}.Debug|x86.ActiveCfg = Debug|x86
 		{8231A90D-00A8-413C-A06E-EE99B0545D5A}.Debug|x86.Build.0 = Debug|x86
 		{8231A90D-00A8-413C-A06E-EE99B0545D5A}.Debug|Xbox 360.ActiveCfg = Debug|x86

@@ -50,11 +50,13 @@ namespace Laikos
         Terrain terrain;
 
         DecorationManager decorations;
+        BuildingManager buildings;
         DefferedRenderer defferedRenderer;
 
         List<GameObject> objects;
 
         Dictionary<String, UnitType> UnitTypes;
+        Dictionary<String, BuildingType> BuildingTypes;
 
         Player player;
         //Player enemy;
@@ -82,10 +84,12 @@ namespace Laikos
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
+            buildings = new BuildingManager(this, device, graphics);
 
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
+            Components.Add(buildings);
 
             base.Initialize();
         }
@@ -101,6 +105,7 @@ namespace Laikos
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
             objects = new List<GameObject>();
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.name);
 
             player = new Player(this, UnitTypes);
 
@@ -476,6 +481,23 @@ namespace Laikos
                         }
                     }
                 }
+                else if (creationMode == CREATION_MODE.BUILDING_BUILD)
+                {
+                    if (!oneMouseClickDetected)
+                    {
+                        oneMouseClickDetected = true;
+
+                        if ((creationOption < 6) && (!objectsSchema.buildingsGroups[creationType].buildings[creationOption - 1].name.StartsWith("Building_")))
+                        {
+                            //player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.05f));
+                            buildings.BuildingList.Add (new Building (player.game, BuildingTypes[objectsSchema.buildingsGroups[creationType].buildings[creationOption - 1].name], new Vector3 (positionWidth, 30, positionHeight), 0.05f));
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.BUILDING_MOVE)
+                {
+
+                }
             }
             else if (mouseState.LeftButton == ButtonState.Released)
             {
@@ -495,6 +517,7 @@ namespace Laikos
             GraphicsDevice.Clear(Color.Black);
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
+            objects.AddRange(buildings.BuildingList);
 
             defferedRenderer.Draw(objects, terrain, gameTime);
             objects.Clear();

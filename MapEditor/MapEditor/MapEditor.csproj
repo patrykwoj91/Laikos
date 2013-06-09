@@ -132,6 +132,8 @@
     <Compile Include="Objects\AnimatedModel.cs" />
     <Compile Include="Objects\AnimationPlayer.cs" />
     <Compile Include="Objects\Bone.cs" />
+    <Compile Include="Objects\Buildings\Building.cs" />
+    <Compile Include="Objects\Buildings\BuildingManager.cs" />
     <Compile Include="Objects\Decorations\Decoration.cs" />
     <Compile Include="Objects\Decorations\DecorationManager.cs" />
     <Compile Include="Objects\GameObject.cs" />
@@ -155,14 +157,14 @@
       <Project>{87091037-1D53-43A9-BCCA-D869B9B1162D}</Project>
       <Name>Animation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Laikos\LaikosContent\LaikosContent.contentproj">
+      <Project>{976AB03C-50A7-4836-BA42-5AF015AEED37}</Project>
+      <Name>LaikosContent %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
     <ProjectReference Include="..\..\MyDataTypes\MyDataTypes.csproj">
       <Project>{8231A90D-00A8-413C-A06E-EE99B0545D5A}</Project>
       <Name>MyDataTypes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MapEditorContent\MapEditorContent.contentproj">
-      <Project>{9D4703AC-2B11-48A2-8EDC-B24BF7BA774B}</Project>
-      <Name>MapEditorContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +194,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Objects\Buildings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

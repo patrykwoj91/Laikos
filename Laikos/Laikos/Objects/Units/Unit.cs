@@ -23,7 +23,7 @@ namespace Laikos
         //////////////////////////////////
         public ZnajdzSciezke pathFiding;
         public List<Wspolrzedne> destinyPoints;
-        private IEnumerator<Wspolrzedne> destinyPointer;
+        public IEnumerator<Wspolrzedne> destinyPointer;
         Vector3 direction;
 
 
