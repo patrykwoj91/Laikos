@@ -169,8 +169,11 @@ namespace Laikos
                             Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne ((int)pointerPosition.X, (int) pointerPosition.Z);
                             
                             ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
-                            
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+
+                            if (((Unit)obj).destinyPoints.Count > 0)
+                            {
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                            }
                         }
                     }
 
