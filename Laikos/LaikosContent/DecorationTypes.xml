@@ -12,5 +12,10 @@
       <model>Models/Decorations/test_ruins1/test_ruins1</model>
     </Item>
 
+    <Item>
+      <name>Obserwatorium</name>
+      <model>Models/Buildings/Niebianie/Obserwatorium/obserwatorium</model>
+    </Item>
+    
   </Asset>
 </XnaContent>

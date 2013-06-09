@@ -12,6 +12,7 @@ namespace Laikos
         public bool walk;
         public List<Message> messages;
         public UnitType type;
+        public double HP;
 
         public Unit()
             : base()
@@ -28,12 +29,15 @@ namespace Laikos
             this.Scale = scale;
             this.messages = new List<Message>();
             this.type = (UnitType)type.Clone();
+            HP = this.type.hp;
         }
 
         public void Update(GameTime gameTime)
         {
             HandleEvent(gameTime);
             base.Update(gameTime);
+
+
         }
 
         public override void HandleEvent(GameTime gameTime)

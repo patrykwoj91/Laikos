@@ -13,17 +13,49 @@
     <Item>
       <race>Niebianin</race>
       <name>Dummy</name>
-      <hp>0.0</hp>
+      <hp>10.0</hp>
       <mp>0.0</mp>
       <model>Models/Units/Test_model/test_model</model>
     </Item>
 
     <Item>
       <race>Niebianin</race>
-      <name>Mobile Cannon</name>
-      <hp>0.0</hp>
+      <name>Antigravity Tank</name>
+      <hp>10.0</hp>
       <mp>0.0</mp>
-      <model>Models/Units/Cannon_skeleton/cannon_skeleton</model>
+      <model>Models/Units/tank/czolg</model>
+    </Item>
+
+    <Item>
+      <race>Niebianin</race>
+      <name>Trojnog Auto</name>
+      <hp>10.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Trojnog/trojnog</model>
+    </Item>
+
+    <Item>
+      <race>Alien</race>
+      <name>Alien</name>
+      <hp>10.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Alien/alien</model>
+    </Item>
+
+    <Item>
+      <race>Alien</race>
+      <name>Spider Rider</name>
+      <hp>10.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Alien_Spider_Rider/alien_spider_rider</model>
+    </Item>
+
+    <Item>
+      <race>Alien</race>
+      <name>asd</name>
+      <hp>10.0</hp>
+      <mp>0.0</mp>
+      <model>Models/Units/Broom/broom</model>
     </Item>
 
   </Asset>

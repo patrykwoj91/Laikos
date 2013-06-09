@@ -43,9 +43,12 @@ namespace Laikos
         private GameTime gameTime;
         private SpriteFont font;
         public static bool debug = false;
+
+       public ParticleSystem explosionParticles;
+       public ParticleSystem explosionSmokeParticles;
         #endregion
 
-        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font)
+        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font,Game game)
         {
             #region Initialize Variables
             this.device = device;
@@ -68,6 +71,9 @@ namespace Laikos
             normalRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
             depthRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Single, DepthFormat.None);
             lightRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
+
+            explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
+            explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
             #endregion
 
             #region Load Content
@@ -83,6 +89,8 @@ namespace Laikos
             spotLightGeometry = content.Load<Model>("SpotLightGeometry");
             spotCookie = content.Load<Texture2D>("SpotCookie");
             water = new Water(device, content, GBuffer);
+            explosionSmokeParticles.LoadContent(device);
+            explosionParticles.LoadContent(device);
             #endregion
             
         }
@@ -120,6 +128,11 @@ namespace Laikos
                     Decoration decoration = (Decoration)obj;
                     decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
+                if (obj is Building)
+                {
+                    Building building = (Building)obj;
+                    building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                }
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
@@ -142,9 +155,15 @@ namespace Laikos
             ClearGBuffer();
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
+         
+            //List<Model> models = new List<Model>();
+           // foreach (GameObject obj in objects)
+              //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
+
             DrawLights(objects);
-            
+            explosionSmokeParticles.Draw(gameTime, device);
+            explosionParticles.Draw(gameTime, device);
             if(debug)
                 Debug();
             

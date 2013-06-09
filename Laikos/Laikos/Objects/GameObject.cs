@@ -78,9 +78,7 @@ namespace Laikos
                     temp_position = currentModel.player.current_Position;
                     currentModel = High;
                     currentModel.player.current_Position = temp_position;
-                   // Console.WriteLine("High: " + Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) +
-                   // Math.Pow(this.Position.Y - Camera.cameraPosition.Y, 2) +
-                   // Math.Pow(this.Position.Z - Camera.cameraPosition.Z, 2)));
+
                 }
                 else if (Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) +
                     Math.Pow(this.Position.Y - Camera.cameraPosition.Y, 2) +
@@ -92,18 +90,14 @@ namespace Laikos
                     temp_position = currentModel.player.current_Position;
                     currentModel = Mid;
                     currentModel.player.current_Position = temp_position;
-                   // Console.WriteLine("Mid: " + Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) +
-                   // Math.Pow(this.Position.Y - Camera.cameraPosition.Y, 2) +
-                   // Math.Pow(this.Position.Z - Camera.cameraPosition.Z, 2)));
+
                 }
                 else
                 {
                     temp_position = currentModel.player.current_Position;
                     currentModel = Low;
                     currentModel.player.current_Position = temp_position;
-                   // Console.WriteLine("Low: " + Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) +
-                   // Math.Pow(this.Position.Y - Camera.cameraPosition.Y, 2) +
-                   // Math.Pow(this.Position.Z - Camera.cameraPosition.Z, 2)));
+
                 }
             }
 
