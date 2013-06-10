@@ -13,13 +13,15 @@ namespace Laikos.PathFiding
 {
     public class ZnajdzSciezke
     {
+        private const int SKALA = 10;
+
         private int[,] mapa;
 
         public void mapaUstaw()
         {
             mapa = Map.WalkMeshMap;
             wymiarX = Map.Width;
-            wymiarY = Map.Heigth;
+            wymiarY = Map.Height;
         }
 
         public void mapaUstaw(int[,] _mapa, int _szerokosc, int _wysokosc)
@@ -49,9 +51,15 @@ namespace Laikos.PathFiding
 
         public List<Wspolrzedne> obliczSciezke(Wspolrzedne _poczatek, Wspolrzedne _koniec)
         {
+            _poczatek.X = _poczatek.X / SKALA;
+            _poczatek.Y = _poczatek.Y / SKALA;
+
+            _koniec.X = _koniec.X / SKALA;
+            _koniec.Y = _koniec.Y / SKALA;
+
             Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
             Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
-
+            
             if (mapa[_koniec.X, _koniec.Y] == 1)
             {
                 return new List<Wspolrzedne>();
@@ -148,9 +156,6 @@ namespace Laikos.PathFiding
                     }
 
                     obecny = sciezkaPrzeszukiwana[idNajlepszegoWezla];
-
-                    //Console.Out.WriteLine(obecny.Wspolrzedne.X + " " + obecny.Wspolrzedne.Y + " " + obecny.Waga);
-                    //Console.In.ReadLine();
                 }
             };
 
@@ -160,13 +165,8 @@ namespace Laikos.PathFiding
             {
                 if (sciezkaPrzeszukiwana[wezel].NalezyDoRozwiazania)
                 {
-                    sciezka.Add(sciezkaPrzeszukiwana[wezel].Wspolrzedne);
+                    sciezka.Add(new Wspolrzedne(sciezkaPrzeszukiwana[wezel].Wspolrzedne.X * SKALA, sciezkaPrzeszukiwana[wezel].Wspolrzedne.Y * SKALA));
                 }
-            }
-
-            for (int i = 0; i < sciezkaPrzeszukiwana.Count; ++i)
-            {
-                //Console.Out.WriteLine(sciezkaPrzeszukiwana[i].Wspolrzedne.X + " " + sciezkaPrzeszukiwana[i].Wspolrzedne.Y + " " + sciezkaPrzeszukiwana[i].Waga);
             }
 
             return sciezka;
@@ -183,12 +183,20 @@ namespace Laikos.PathFiding
             {
                 case KOLEJNOSC.GORA:
                     return KOLEJNOSC.DOL;
+                case KOLEJNOSC.GORA_PRAWO:
+                    return KOLEJNOSC.DOL_LEWO;
                 case KOLEJNOSC.PRAWO:
                     return KOLEJNOSC.LEWO;
+                case KOLEJNOSC.DOL_PRAWO:
+                    return KOLEJNOSC.GORA_LEWO;
                 case KOLEJNOSC.DOL:
                     return KOLEJNOSC.GORA;
+                case KOLEJNOSC.DOL_LEWO:
+                    return KOLEJNOSC.GORA_PRAWO;
                 case KOLEJNOSC.LEWO:
                     return KOLEJNOSC.PRAWO;
+                case KOLEJNOSC.GORA_LEWO:
+                    return KOLEJNOSC.DOL_PRAWO;
             }
 
             return KOLEJNOSC.GORA;
@@ -196,31 +204,45 @@ namespace Laikos.PathFiding
 
         private KOLEJNOSC obliczRuch(Wspolrzedne _poczatek, Wspolrzedne _koniec)
         {
-            if (_koniec.Y < _poczatek.Y)
+            if ((_koniec.Y < _poczatek.Y) && (_koniec.X == _poczatek.X))
             {
                 return KOLEJNOSC.GORA;
             }
-            else if (_koniec.X > _poczatek.X)
+            else if ((_koniec.Y < _poczatek.Y) && (_koniec.X > _poczatek.X))
+            {
+                return KOLEJNOSC.GORA_PRAWO;
+            }
+            else if ((_koniec.X > _poczatek.X) && (_koniec.Y == _poczatek.Y))
             {
                 return KOLEJNOSC.PRAWO;
             }
-            else if (_koniec.Y > _poczatek.Y)
+            else if ((_koniec.X > _poczatek.X) && (_koniec.Y > _poczatek.Y))
+            {
+                return KOLEJNOSC.DOL_PRAWO;
+            }
+            else if ((_koniec.Y > _poczatek.Y) && (_koniec.X == _poczatek.X))
             {
                 return KOLEJNOSC.DOL;
             }
-            else if (_koniec.X < _poczatek.X)
+            else if ((_koniec.Y > _poczatek.Y) && (_koniec.X < _poczatek.X))
+            {
+                return KOLEJNOSC.DOL_LEWO;
+            }
+            else if ((_koniec.X < _poczatek.X) && (_koniec.Y == _poczatek.Y))
             {
                 return KOLEJNOSC.LEWO;
             }
-
-            return KOLEJNOSC.GORA;
+            else
+            {
+                return KOLEJNOSC.GORA_LEWO;
+            }
         }
 
         private bool obliczDzieci(Wezel _obecny, Wspolrzedne _warunekStopu)
         {
             _obecny.Sprawdzony = true;
 
-            for (int _kolejny = 0; _kolejny < 4; ++_kolejny)
+            for (int _kolejny = 0; _kolejny < 8; ++_kolejny)
             {
                 //Pominięcie drogi, którą się przyszło.
                 if ((_obecny.Ojciec != null) && (KOLEJNOSC)_kolejny == odwrocRuch(_obecny.OstatniRuch))
@@ -242,16 +264,32 @@ namespace Laikos.PathFiding
                         nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y - 1;
                         nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X;
                         break;
+                    case KOLEJNOSC.GORA_PRAWO:
+                        nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y - 1;
+                        nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X + 1;
+                        break;
                     case KOLEJNOSC.PRAWO:
                         nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y;
+                        nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X + 1;
+                        break;
+                    case KOLEJNOSC.DOL_PRAWO:
+                        nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y + 1;
                         nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X + 1;
                         break;
                     case KOLEJNOSC.DOL:
                         nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y + 1;
                         nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X;
                         break;
+                    case KOLEJNOSC.DOL_LEWO:
+                        nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y + 1;
+                        nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X - 1;
+                        break;
                     case KOLEJNOSC.LEWO:
                         nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y;
+                        nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X - 1;
+                        break;
+                    case KOLEJNOSC.GORA_LEWO:
+                        nowy.Wspolrzedne.Y = _obecny.Wspolrzedne.Y - 1;
                         nowy.Wspolrzedne.X = _obecny.Wspolrzedne.X - 1;
                         break;
                 }
@@ -311,12 +349,20 @@ namespace Laikos.PathFiding
             {
                 case KOLEJNOSC.GORA:
                     return !((_obecny.Y - 1 >= 0) && (mapa[_obecny.X, _obecny.Y - 1] == 0));
+                case KOLEJNOSC.GORA_PRAWO:
+                    return !((_obecny.Y - 1 >= 0) && (_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y - 1] == 0));
                 case KOLEJNOSC.PRAWO:
                     return !((_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y] == 0));
+                case KOLEJNOSC.DOL_PRAWO:
+                    return !((_obecny.Y + 1 < wymiarY) && (_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.DOL:
                     return !((_obecny.Y + 1 < wymiarY) && (mapa[_obecny.X, _obecny.Y + 1] == 0));
+                case KOLEJNOSC.DOL_LEWO:
+                    return !((_obecny.Y + 1 < wymiarY) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.LEWO:
                     return !((_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y] == 0));
+                case KOLEJNOSC.GORA_LEWO:
+                    return !((_obecny.Y - 1 >= 0) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
             }
 
             return false;

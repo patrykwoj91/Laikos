@@ -42,7 +42,7 @@ namespace Laikos
         private Vector2 halfPixel;
         private GameTime gameTime;
         private SpriteFont font;
-        public static bool debug = false;
+        public static bool debug = true;
 
         public ParticleSystem explosionParticles;
         public ParticleSystem explosionSmokeParticles;
@@ -75,7 +75,7 @@ namespace Laikos
 
             explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
             explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
-            SmokePlumeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
+            SmokePlumeParticles = new ParticleSystem(game, content, "SmokePlumeSettings");
             #endregion
 
             #region Load Content
@@ -93,6 +93,7 @@ namespace Laikos
             water = new Water(device, content, GBuffer);
             explosionSmokeParticles.LoadContent(device);
             explosionParticles.LoadContent(device);
+            SmokePlumeParticles.LoadContent(device);
             #endregion
 
         }
@@ -136,9 +137,9 @@ namespace Laikos
                     building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
             }
-            water.DrawSkyDome(Camera.viewMatrix);
+           // water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
-            water.DrawWater(time);
+          //  water.DrawWater(time);
             device.SetRenderTarget(null);
         }
 
@@ -149,8 +150,8 @@ namespace Laikos
                 models.Add(obj.currentModel.Model);
             float time = (float)GameTime.TotalGameTime.TotalMilliseconds / 100.0f;
             float waterTime = (float)GameTime.TotalGameTime.TotalMilliseconds / 300.0f;
-            water.DrawRefractionMap(terrain, objects, normals, speculars);
-            water.DrawReflectionMap(terrain, objects, normals, speculars);
+           // water.DrawRefractionMap(terrain, objects, normals, speculars);
+           // water.DrawReflectionMap(terrain, objects, normals, speculars);
             gameTime = GameTime;
             CreateLights(objects);
             SetGBuffer();
@@ -163,9 +164,14 @@ namespace Laikos
             //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
 
+            
+            
+            
+        
+            SmokePlumeParticles.Draw(gameTime, device);
             DrawLights(objects);
-            explosionSmokeParticles.Draw(gameTime, device);
             explosionParticles.Draw(gameTime, device);
+            explosionSmokeParticles.Draw(gameTime, device);
             if (debug)
                 Debug();
 
