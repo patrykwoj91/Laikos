@@ -115,7 +115,6 @@
     <Compile Include="Lights\SpotLight.cs" />
     <Compile Include="Minimap.cs" />
     <Compile Include="Objects\Buildings\Building.cs" />
-    <Compile Include="Objects\Buildings\BuildingManager.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleEmitter.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleSystem.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleVertex.cs" />

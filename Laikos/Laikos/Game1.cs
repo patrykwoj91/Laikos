@@ -26,15 +26,16 @@ namespace Laikos
         Camera camera;
         Terrain terrain;
         DecorationManager decorations;
-        BuildingManager buildings;
         DefferedRenderer defferedRenderer;
         List<GameObject> objects;
         Minimap minimap;
         bool noob = true;
 
         Dictionary<String, UnitType> UnitTypes;
+        Dictionary<String, BuildingType> BuildingTypes;
+
         Player player;
-        //Player enemy;
+        Player enemy;
 
         System.Drawing.Bitmap bitmapTmp;
 
@@ -62,14 +63,10 @@ namespace Laikos
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
-            buildings = new BuildingManager(this, device, graphics);
-        //    explosionParticles = new ParticleSystem(this, Content, "ExplosionSettings");
-        //    smokePlumeParticles = new ParticleSystem(this, Content, "SmokePlumeSettings");
          
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
-            Components.Add(buildings);
             minimap = new Minimap(device, terrain, Content);
             base.Initialize();
         }
@@ -84,11 +81,14 @@ namespace Laikos
             font = Content.Load<SpriteFont>("Georgia");
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
-            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap3"));
-        //    explosionParticles.LoadContent(device);
 
-            player = new Player(this, UnitTypes);
+            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.Name);
+             
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
+
+
+            player = new Player(this, UnitTypes, BuildingTypes);
             
         }
 
@@ -110,7 +110,7 @@ namespace Laikos
         {
             player.Update(gameTime);
 
-            Input.Update(this, gameTime, device, camera, player.UnitList,decorations.DecorationList);
+            Input.Update(this, gameTime, device, camera, player,decorations.DecorationList);
 
             EventManager.Update();
             UpdateExplosions(gameTime, objects);
@@ -161,7 +161,7 @@ namespace Laikos
             //}
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
-            objects.AddRange(buildings.BuildingList);
+            objects.AddRange(player.BuildingList);
             
             defferedRenderer.Draw(objects, terrain, gameTime);
 

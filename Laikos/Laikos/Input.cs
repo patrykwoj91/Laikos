@@ -14,9 +14,9 @@ namespace Laikos
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
         /// </summary>
-        public static void HandleKeyboard(List<Unit> unitlist, Game game)
+        public static void HandleKeyboard(Player player, Game game, GraphicsDevice device)
         {
-            foreach (Unit unit in unitlist)
+            foreach (Unit unit in player.UnitList)
             {
                 unit.lastPosition = unit.Position;
 
@@ -73,12 +73,14 @@ namespace Laikos
                         unit.HP = 0;
                         Console.WriteLine(unit.HP);
                     }
-                   /* if (currentKeyboardState.IsKeyDown(Keys.D6))
-                    {
-                        unit.currentModel.player.PlayClip("Rotate", false);
-                        //unit.player.Looping = false;
-                    }*/
+                    
                 }
+
+                if (currentKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
+                {
+                    player.Build(player.BuildingTypes["Pałac rady"], GetPointerCoord(device));
+                }
+
                 // Allows the game to exit
                 if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
                     game.Exit();
@@ -97,10 +99,10 @@ namespace Laikos
         /// <summary>
         /// Handles mouse Left click and Right Click actions
         /// </summary>
-        public static void HandleMouse(List<Unit> unitlist, List<Decoration> decorationlist, GraphicsDevice device)
+        public static void HandleMouse(Player player, List<Decoration> decorationlist, GraphicsDevice device)
         {
-            List<GameObject> allObjects = new List<GameObject>(unitlist.Count + decorationlist.Count); //ad building list later here
-            allObjects.AddRange(unitlist);
+            List<GameObject> allObjects = new List<GameObject>(player.UnitList.Count + decorationlist.Count); //ad building list later here
+            allObjects.AddRange(player.UnitList);
             allObjects.AddRange(decorationlist);
 
             #region Left Click (Selecting)
@@ -120,7 +122,7 @@ namespace Laikos
                     {
                         if ((allObjects[i] is Unit) && !allObjects[i].selected)
                         {
-                            foreach (Unit unit in unitlist)
+                            foreach (Unit unit in player.UnitList)
                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
 
                             EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
@@ -128,7 +130,7 @@ namespace Laikos
                         }
                     }
                     if (!selected)
-                        foreach (GameObject unit in unitlist)
+                        foreach (GameObject unit in player.UnitList)
                             EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
                 }                             
             }
@@ -231,7 +233,7 @@ namespace Laikos
         /// <summary>
         /// Handling Inputs: Camera Movement, Keyboard, Mouse Buttons 
         /// </summary>
-        public static void Update(Game game,GameTime gameTime, GraphicsDevice device, Camera camera, List<Unit> unitlist, List<Decoration> decorationlist)
+        public static void Update(Game game,GameTime gameTime, GraphicsDevice device, Camera camera, Player player, List<Decoration> decorationlist)
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
 
@@ -239,11 +241,22 @@ namespace Laikos
             currentMouseState = Mouse.GetState();
 
             HandleCamera(timeDifference, camera);
-            HandleMouse(unitlist,decorationlist, device);
-            HandleKeyboard(unitlist,game);
+            HandleMouse(player,decorationlist, device);
+            HandleKeyboard(player,game, device);
 
             oldMouseState = currentMouseState;
             oldKeyboardState = currentKeyboardState;
+        }
+
+       public static Vector3 GetPointerCoord(GraphicsDevice device)
+        {
+            Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
+            Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+            Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+            Ray shorterRay = Collisions.LinearSearch(clippedRay);
+            Vector3 pointerPosition = Collisions.BinarySearch(shorterRay);
+
+            return pointerPosition;
         }
     }
 }

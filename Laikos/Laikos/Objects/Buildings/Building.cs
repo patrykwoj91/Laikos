@@ -21,7 +21,7 @@ namespace Laikos
        }
 
        public Building(Game game, BuildingType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
-            : base(game, type.model)
+            : base(game, type.Model)
         {
            this.Position = position;
            this.Rotation = rotation;

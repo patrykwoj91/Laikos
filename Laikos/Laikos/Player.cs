@@ -12,26 +12,26 @@ using MyDataTypes;
 namespace Laikos
 {
    public class Player
-    {
-        private Dictionary<String,UnitType> UnitTypes;
-        public List<Unit> UnitList;
+   {
         public Game game;
-        
-        public Player(Game game, Dictionary<String,UnitType> UnitTypes)
+
+        public Dictionary<String,UnitType> UnitTypes;
+        public List<Unit> UnitList;
+        public Dictionary<String, BuildingType> BuildingTypes;
+        public List<Building> BuildingList;
+
+        public List<Message> messages;
+       
+        public int Souls;
+ 
+        public Player(Game game, Dictionary<String, UnitType> UnitTypes, Dictionary<String, BuildingType> BuildingTypes)
         {
             this.game = game;
             this.UnitTypes = UnitTypes;
-
             UnitList = new List<Unit>();
-
-            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(100, 30, 150), 0.05f));
-            //UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 100), 0.05f));
-           // UnitList.Add(new Unit(game, UnitTypes["Antigravity Tank"], new Vector3(10,30,50), 0.15f));
-            UnitList.Add(new Unit(game, UnitTypes["Trojnog Auto"], new Vector3(10, 30, 50), 0.3f));
-            
-       
-            
-
+            this.BuildingTypes = BuildingTypes;
+            BuildingList = new List<Building>();
+            Initialize();
         }
 
         public void Update(GameTime gameTime)
@@ -40,6 +40,33 @@ namespace Laikos
             {
                 unit.Update(gameTime);
             }
-        }       
+            foreach (Building building in BuildingList)
+            {
+                building.Update(gameTime);
+            }
+        }
+       
+
+       public void Initialize()
+       {
+            Souls = 1000;
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(100, 30, 150), 0.05f));
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 100), 0.05f));
+            UnitList.Add(new Unit(game, UnitTypes["Antigravity Tank"], new Vector3(10,30,50), 0.15f));
+            BuildingList.Add(new Building(game, BuildingTypes["Obserwatorium"], new Vector3(10, 30, 50), BuildingTypes["Obserwatorium"].Scale));
+       }
+
+       public bool Build(BuildingType building, Vector3 position)
+       {
+           if (Souls >= building.Souls)
+           {
+               BuildingList.Add(new Building(game, building, position, building.Scale));
+               Souls -= building.Souls;
+               Console.WriteLine(Souls);
+               return true;
+           }
+           Console.WriteLine("false");
+           return false;
+       }
     }
 }
