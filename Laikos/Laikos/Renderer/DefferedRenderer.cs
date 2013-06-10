@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 using Animation;
+using System.IO;
 
 namespace Laikos
 {
@@ -15,6 +16,7 @@ namespace Laikos
         private FullscreenQuad fsq;
         private GraphicsDevice device;
         private LightManager lights;
+        private Water water;
 
         private RenderTarget2D colorRT;
         private RenderTarget2D normalRT;
@@ -40,10 +42,14 @@ namespace Laikos
         private Vector2 halfPixel;
         private GameTime gameTime;
         private SpriteFont font;
-        public static bool debug = true;
+        public static bool debug = false;
+
+        public ParticleSystem explosionParticles;
+        public ParticleSystem explosionSmokeParticles;
+        public ParticleSystem SmokePlumeParticles;
         #endregion
 
-        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font)
+        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font, Game game)
         {
             #region Initialize Variables
             this.device = device;
@@ -66,6 +72,10 @@ namespace Laikos
             normalRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
             depthRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Single, DepthFormat.None);
             lightRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
+
+            explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
+            explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
+            SmokePlumeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
             #endregion
 
             #region Load Content
@@ -80,7 +90,11 @@ namespace Laikos
             spotLight = content.Load<Effect>("Effects/SpotLight");
             spotLightGeometry = content.Load<Model>("SpotLightGeometry");
             spotCookie = content.Load<Texture2D>("SpotCookie");
+            water = new Water(device, content, GBuffer);
+            explosionSmokeParticles.LoadContent(device);
+            explosionParticles.LoadContent(device);
             #endregion
+
         }
 
         private void SetGBuffer()
@@ -98,7 +112,7 @@ namespace Laikos
             clearBuffer.Techniques[0].Passes[0].Apply();
             fsq.Render(Vector2.One * -1, Vector2.One);
         }
-        void RenderSceneTo3Targets(List<GameObject> objects, Terrain terrain)
+        void RenderSceneTo3Targets(List<GameObject> objects, Terrain terrain, float time)
         {
             device.BlendState = BlendState.Opaque;
             device.DepthStencilState = DepthStencilState.Default;
@@ -116,28 +130,45 @@ namespace Laikos
                     Decoration decoration = (Decoration)obj;
                     decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
+                if (obj is Building)
+                {
+                    Building building = (Building)obj;
+                    building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                }
             }
+            water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
-
+            water.DrawWater(time);
             device.SetRenderTarget(null);
         }
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
+            List<Model> models = new List<Model>();
+            foreach (GameObject obj in objects)
+                models.Add(obj.currentModel.Model);
+            float time = (float)GameTime.TotalGameTime.TotalMilliseconds / 100.0f;
+            float waterTime = (float)GameTime.TotalGameTime.TotalMilliseconds / 300.0f;
+            water.DrawRefractionMap(terrain, objects, normals, speculars);
+            water.DrawReflectionMap(terrain, objects, normals, speculars);
             gameTime = GameTime;
             CreateLights(objects);
             SetGBuffer();
             ClearGBuffer();
-            RenderSceneTo3Targets(objects, terrain);
+            RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
-            List<Model> models = new List<Model>();
-            foreach (GameObject obj in objects)
-                models.Add(obj.currentModel.Model);
+
+            //List<Model> models = new List<Model>();
+            // foreach (GameObject obj in objects)
+            //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
+
             DrawLights(objects);
-            if(debug)
+            explosionSmokeParticles.Draw(gameTime, device);
+            explosionParticles.Draw(gameTime, device);
+            if (debug)
                 Debug();
-            
+
         }
 
         private void Debug()
@@ -146,13 +177,13 @@ namespace Laikos
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
 
             //Width + Height
-            int width = 128;
-            int height = 128;
+            int width = Terrain.width / 3;
+            int height = Terrain.height / 3;
 
             //Set up Drawing Rectangle
             Rectangle rect = new Rectangle(0, 0, width, height);
 
-            //Draw GBuffer 0
+            /*//Draw GBuffer 0
             spriteBatch.Draw((Texture2D)colorRT, rect, Color.White);
 
             //Draw GBuffer 1
@@ -168,9 +199,12 @@ namespace Laikos
             spriteBatch.Draw((Texture2D)lightRT, rect, Color.White);
 
             rect.X += width;
-            spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);
+            spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);*/
 
-            spriteBatch.DrawString(font, "FPS: " + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(10.0f, 20.0f), Color.White);
+            //rect.X += width;
+            spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
+
+            spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
             //End SpriteBatch
             spriteBatch.End();
         }
@@ -212,7 +246,7 @@ namespace Laikos
             PointLight.Initialize(pointLightEffect, colorRT, normalRT, depthRT, halfPixel, fsq, device, sphereModel);
             SpotLight.Initialize(device, spotLight, spotCookie, spotLightGeometry, colorRT, normalRT, depthRT);
 
-            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.6f));
+            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.5f));
 
             foreach (GameObject obj in objects)
             {
@@ -224,6 +258,5 @@ namespace Laikos
                 }
             }
         }
-
-    }
+    }     
 }

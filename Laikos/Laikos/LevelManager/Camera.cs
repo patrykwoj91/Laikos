@@ -14,6 +14,7 @@ namespace Laikos
         //View and projection matrix
         public static Matrix viewMatrix;
         public static Matrix projectionMatrix;
+        public static Matrix reflectionViewMatrix;
 
         //Basic camera settings
         private float viewAngle;
@@ -23,8 +24,8 @@ namespace Laikos
 
         //Camera settings used to move 
         public static Vector3 cameraPosition;
-        public float leftRightRot;
-        public float upDownRot;
+        public static float leftRightRot;
+        public static float upDownRot;
         private float zoom;
 
         //***************************//
@@ -62,11 +63,11 @@ namespace Laikos
             viewAngle = MathHelper.PiOver4;
             aspectRatio = device.Viewport.AspectRatio;
             nearPlane = 1.0f;
-            farPlane = 200.0f;
+            farPlane = 2000.0f;
             zoom = 10.0f;
-            cameraPosition = new Vector3(30, 80, 100);
+            Camera.upDownRot = MathHelper.ToRadians(-45);
+            Camera.cameraPosition = new Vector3(30, 80, 100);
             leftRightRot = MathHelper.ToRadians(0.0f);
-            upDownRot = MathHelper.ToRadians(-45);
             //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
             base.Initialize();
@@ -92,6 +93,15 @@ namespace Laikos
             Vector3 cameraRotatedTarget = Vector3.Transform(cameraOriginalTarget, cameraRotation);
             //cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateFromAxisAngle(axis, angle)) + cameraTarget;
             Vector3 cameraFinalTarget = cameraPosition + cameraRotatedTarget;
+
+            Vector3 reflCameraPosition = cameraPosition;
+            reflCameraPosition.Y = -cameraPosition.Y + Water.waterHeight * 2;
+            Vector3 reflTargetPosition = cameraFinalTarget;
+            reflTargetPosition.Y = -cameraFinalTarget.Y + Water.waterHeight * 2;
+
+            Vector3 cameraRight = Vector3.Transform(new Vector3(1, 0, 0), cameraRotation);
+            Vector3 invUpVector = Vector3.Cross(cameraRight, reflTargetPosition - reflCameraPosition);
+            reflectionViewMatrix = Matrix.CreateLookAt(reflCameraPosition, reflTargetPosition, invUpVector);
 
             viewMatrix = Matrix.CreateLookAt(cameraPosition, cameraFinalTarget, Vector3.Forward);
         }

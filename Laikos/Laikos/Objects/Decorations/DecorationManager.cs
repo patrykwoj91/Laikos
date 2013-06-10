@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Animation;
+
 using MyDataTypes;
 
 namespace Laikos
@@ -40,7 +41,7 @@ namespace Laikos
         {
             DecorationTypes = Game.Content.Load<DecorationType[]>("DecorationTypes").ToDictionary(t => t.name);
              
-            DecorationList.Add(new Decoration(game, DecorationTypes["Ruins1"], new Vector3(30, 25, 150), 1.5f));
+           // DecorationList.Add(new Decoration(game, DecorationTypes["Ruins1"], new Vector3(30, 25, 150), 1.5f));
 
         }
 

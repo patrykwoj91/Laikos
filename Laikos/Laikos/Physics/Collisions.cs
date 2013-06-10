@@ -34,17 +34,17 @@ namespace Laikos
                 Unit unit1 = (Unit)object1;
                 List<BoundingSphere> boundingList1 = new List<BoundingSphere>();
             }
-            else if (object1 is Decoration)
+            else if (object1 is Building)
             {
-                Decoration decoration1 = (Decoration)object1;
+                Building decoration1 = (Building)object1;
             }
             if (object2 is Unit)
             {
                 Unit unit2 = (Unit)object2;
             }
-            else if (object2 is Decoration)
+            else if (object2 is Building)
             {
-                Decoration decoration2 = (Decoration)object2;
+                Building decoration2 = (Building)object2;
             }
             return false;
         }
@@ -142,7 +142,7 @@ namespace Laikos
        //It checks if there is collision for each mesh of model
        public static bool DetailedDecorationCollisionCheck(GameObject unit, GameObject deco)
        {
-           Decoration decoration = (Decoration)deco;
+           Building decoration = (Building)deco;
            //first we check if there is general collision between two models
            //If method returns false we dont have to perform detailed check
            if (!GeneralDecorationCollisionCheck(unit, decoration))

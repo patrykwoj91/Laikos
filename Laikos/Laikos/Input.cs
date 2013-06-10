@@ -14,7 +14,7 @@ namespace Laikos
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
         /// </summary>
-        public static void HandleKeyboard(List<Unit> unitlist)
+        public static void HandleKeyboard(List<Unit> unitlist, Game game)
         {
             foreach (Unit unit in unitlist)
             {
@@ -67,22 +67,28 @@ namespace Laikos
                         unit.currentModel.player.PlayClip("Alert", false);
                         //unit.player.Looping = false;
                     }
-                    /*
+                    
                     if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
-                        unit.currentModel.player.PlayClip("Transform", false);
-                        //unit.player.Looping = false;
+                        unit.HP = 0;
                     }
-                    if (currentKeyboardState.IsKeyDown(Keys.D6))
+                   /* if (currentKeyboardState.IsKeyDown(Keys.D6))
                     {
                         unit.currentModel.player.PlayClip("Rotate", false);
                         //unit.player.Looping = false;
                     }*/
                 }
+                // Allows the game to exit
+                if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
+                    game.Exit();
 
                 if (currentKeyboardState.IsKeyDown(Keys.F1) && oldKeyboardState.IsKeyUp(Keys.F1))
                 {
-                    DefferedRenderer.debug = !DefferedRenderer.debug;
+                    DefferedRenderer.debug = false;
+                }
+                if (currentKeyboardState.IsKeyDown(Keys.F2) && oldKeyboardState.IsKeyUp(Keys.F2))
+                {
+                    DefferedRenderer.debug = true;
                 }
             }
         }
@@ -152,12 +158,29 @@ namespace Laikos
                     {
                         selected = Collisions.RayModelCollision(clippedRay, obj.currentModel.Model, obj.GetWorldMatrix());
 
-                        if (selected && (obj is Unit || obj is Decoration))
+                        if (selected && (obj is Unit || obj is Building))
+                        {
                             foreach (GameObject reciever in allObjects)
+                            {
                                 if (reciever.selected)
+                                {
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, reciever, obj)); //interaction Event unit - unit , unit-decoration , unit-buiding itp.
-                        if(!selected)
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                                }
+                            }
+                        }
+
+                        if ((!selected) && (obj.GetType() == typeof(Unit)))
+                        {
+                            Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne ((int)((Unit)obj).Position.X, (int)((Unit)obj).Position.Z);
+                            Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne ((int)pointerPosition.X, (int) pointerPosition.Z);
+                            
+                            ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
+
+                            if (((Unit)obj).destinyPoints.Count > 0)
+                            {
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                            }
+                        }
                     }
 
                 }
@@ -195,7 +218,7 @@ namespace Laikos
             }
 
             //add created earlier vector to camera position
-            Matrix cameraRotation = Matrix.CreateRotationX(cam.upDownRot) * Matrix.CreateRotationY(cam.leftRightRot);
+            Matrix cameraRotation = Matrix.CreateRotationX(Camera.upDownRot) * Matrix.CreateRotationY(Camera.leftRightRot);
             Vector3 rotatedVector = Vector3.Transform(moveVector * amount, cameraRotation);
             Camera.cameraPosition += cam.moveSpeed * rotatedVector;
         }
@@ -203,7 +226,7 @@ namespace Laikos
         /// <summary>
         /// Handling Inputs: Camera Movement, Keyboard, Mouse Buttons 
         /// </summary>
-        public static void Update(GameTime gameTime, GraphicsDevice device, Camera camera, List<Unit> unitlist, List<Decoration> decorationlist)
+        public static void Update(Game game,GameTime gameTime, GraphicsDevice device, Camera camera, List<Unit> unitlist, List<Decoration> decorationlist)
         {
             float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
 
@@ -212,7 +235,7 @@ namespace Laikos
 
             HandleCamera(timeDifference, camera);
             HandleMouse(unitlist,decorationlist, device);
-            HandleKeyboard(unitlist);
+            HandleKeyboard(unitlist,game);
 
             oldMouseState = currentMouseState;
             oldKeyboardState = currentKeyboardState;

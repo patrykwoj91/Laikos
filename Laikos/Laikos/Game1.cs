@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -25,20 +26,26 @@ namespace Laikos
         Camera camera;
         Terrain terrain;
         DecorationManager decorations;
+        BuildingManager buildings;
         DefferedRenderer defferedRenderer;
         List<GameObject> objects;
+        Minimap minimap;
+        bool noob = true;
 
         Dictionary<String, UnitType> UnitTypes;
         Player player;
         //Player enemy;
 
+        System.Drawing.Bitmap bitmapTmp;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -55,11 +62,15 @@ namespace Laikos
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
-
+            buildings = new BuildingManager(this, device, graphics);
+        //    explosionParticles = new ParticleSystem(this, Content, "ExplosionSettings");
+        //    smokePlumeParticles = new ParticleSystem(this, Content, "SmokePlumeSettings");
+         
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
-
+            Components.Add(buildings);
+            minimap = new Minimap(device, terrain, Content);
             base.Initialize();
         }
 
@@ -71,11 +82,14 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Georgia");
-            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap3"));
+        //    explosionParticles.LoadContent(device);
 
             player = new Player(this, UnitTypes);
+            
         }
 
         /// <summary>
@@ -95,14 +109,14 @@ namespace Laikos
         protected override void Update(GameTime gameTime)
         {
             player.Update(gameTime);
-            EventManager.Update();
 
-            // Allows the game to exit
-          if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
+            Input.Update(this, gameTime, device, camera, player.UnitList,decorations.DecorationList);
+
+            EventManager.Update();
+            base.Update(gameTime);
 
             // TODO: Add your update logic here
-            
+
             //bool collision;
 
 
@@ -121,30 +135,74 @@ namespace Laikos
                 units.UnitList[1].Position = units.UnitList[1].lastPosition;
             }*/
 
-
-            Input.Update(gameTime, device, camera, player.UnitList,decorations.DecorationList);
-            base.Update(gameTime);
         }
 
+       
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            device.Clear(Color.CornflowerBlue);
             //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
+            defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+                        //if (noob)
+            //{
 
-            GraphicsDevice.Clear(Color.Black);
+                //minimap.CreateMiniMap();
+                //noob = false;
+            //}
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
-
+            objects.AddRange(buildings.BuildingList);
+            
             defferedRenderer.Draw(objects, terrain, gameTime);
+            //smokePlumeParticles.Draw(gameTime, device);
+            //explosionParticles.Draw(gameTime, device);
+  
             objects.Clear();
             base.Draw(gameTime);
 
             
         }
+
+         void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+        {
+
+            for (int i = objects.Count - 1; i >= 0; i--)
+            {
+                if (objects[i] is Unit)
+                {
+                    Unit unit = (Unit)objects[i];
+                    if (unit.HP == 0)
+                    {
+                        defferedRenderer.explosionParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                        defferedRenderer.explosionSmokeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                    }
+                }
+                defferedRenderer.explosionParticles.Update(gameTime);
+            }
+        }
+
+        void UpdateSmokePlume(GameTime gameTime, List<GameObject> objects)
+        {
+            for (int i = objects.Count - 1; i >= 0; i--)
+            {
+                if (objects[i] is Unit)
+                {
+                    Unit unit = (Unit)objects[i];
+                    if (100*unit.HP/unit.maxHP <= 5)
+                    {
+                        defferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                    }
+                }
+                defferedRenderer.explosionSmokeParticles.Update(gameTime);
+            }    
+        }
     }
 }
+
