@@ -126,7 +126,17 @@ namespace Laikos
                     if (!selected)
                         foreach (GameObject unit in unitlist)
                             EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
-                }                             
+                }
+            }
+
+            if (currentMouseState.LeftButton == ButtonState.Pressed)
+            {
+
+                if (currentMouseState.X < 200 && currentMouseState.Y < 200 && currentMouseState.X > 0 && currentMouseState.Y > 0)
+                {
+                    Camera.cameraPosition.X = currentMouseState.X * 3;
+                    Camera.cameraPosition.Z = currentMouseState.Y * 3;
+                }
             }
             #endregion
 

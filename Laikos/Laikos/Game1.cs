@@ -181,7 +181,7 @@ namespace Laikos
             //device.RasterizerState = rs;
             defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-                        //if (noob)
+            //if (noob)
             //{
 
                 //minimap.CreateMiniMap();
