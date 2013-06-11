@@ -46,7 +46,7 @@ namespace Laikos
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen =false;
         }
 
         /// <summary>

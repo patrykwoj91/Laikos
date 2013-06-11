@@ -139,7 +139,7 @@ namespace Laikos
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
-            water.DrawWater(time);
+           // water.DrawWater(time);
             device.SetRenderTarget(null);
         }
 
@@ -150,8 +150,8 @@ namespace Laikos
                 models.Add(obj.currentModel.Model);
             float time = (float)GameTime.TotalGameTime.TotalMilliseconds / 100.0f;
             float waterTime = (float)GameTime.TotalGameTime.TotalMilliseconds / 300.0f;
-            water.DrawRefractionMap(terrain, objects, normals, speculars);
-            water.DrawReflectionMap(terrain, objects, normals, speculars);
+            //water.DrawRefractionMap(terrain, objects, normals, speculars);
+            //water.DrawReflectionMap(terrain, objects, normals, speculars);
             gameTime = GameTime;
             CreateLights(objects);
             SetGBuffer();

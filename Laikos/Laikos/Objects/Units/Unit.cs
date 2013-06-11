@@ -52,6 +52,11 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             HandleEvent(gameTime);
+              for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages[i].Done == true)
+                    messages.RemoveAt(i);
+            }
             base.Update(gameTime);
 
 
@@ -60,23 +65,26 @@ namespace Laikos
         public override void HandleEvent(GameTime gameTime)
         {
             EventManager.FindMessagesByDestination(this, messages);
-            // Console.WriteLine(messages.Count); 
+             
             for (int i = 0; i < messages.Count; i++)
             {
                 switch (messages[i].Type)
                 {
                     case (int)EventManager.Events.Selected:
                         selected = true;
+                        messages[i].Done = true;
                         break;
 
                     case (int)EventManager.Events.Unselected:
                         selected = false;
+                        messages[i].Done = true;
                         break;
 
                     case (int)EventManager.Events.Interaction:
 
                         Console.WriteLine("Jednostka - interakcja z" + messages[i].Payload.ToString());
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, this, messages[i].Payload, null));
+                        messages[i].Done = true;
                         break;
 
                     case (int)EventManager.Events.MoveUnit: //nakladajace sie komunikaty powoduja problem z kolejnymi ruchami 
@@ -112,6 +120,11 @@ namespace Laikos
                                     direction = vecTmp - Position;
                                 }
                             }
+                        }
+                        if (Position == (Vector3)messages[i].Payload) //tu ma byc kurwa warunek stopu!
+                        {
+                            
+                            messages[i].Done = true;
                         }
                         break;
                 }

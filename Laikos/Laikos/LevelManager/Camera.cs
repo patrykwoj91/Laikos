@@ -24,17 +24,27 @@ namespace Laikos
 
         //Camera settings used to move 
         public static Vector3 cameraPosition;
+        public Vector3 cameraFront;
         public static float leftRightRot;
         public static float upDownRot;
         private float zoom;
+        private MouseState ms;
+        public static Vector3 cameraFinalTarget;
+        //******************************//
 
+        //Additional features
+        private bool shake;
+        private float shakeTime;
+        private int intensity;
         //***************************//
+
         //Variables to control camera//
         public float bezTime = 1.0f;
         static Vector3 bezStartPosition;
         static Vector3 bezMidPosition;
         static Vector3 bezEndPosition;
         public float moveSpeed = 60.0f;
+
         //***************************//
 
         //Constant variables that describe camera parameters
@@ -67,9 +77,11 @@ namespace Laikos
             zoom = 10.0f;
             Camera.upDownRot = MathHelper.ToRadians(-45);
             Camera.cameraPosition = new Vector3(30, 80, 100);
+            cameraFront = new Vector3(0.5848334f, -0.7775874f, -0.230928f);
             leftRightRot = MathHelper.ToRadians(0.0f);
             //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
+            cameraFinalTarget = cameraPosition;
             base.Initialize();
         }
 
@@ -78,9 +90,38 @@ namespace Laikos
             UpdateViewMatrix(ref viewMatrix, cameraPosition, upDownRot, leftRightRot);
             UpdateBezier(ref cameraPosition);
             //Checking for collision with terrain if camera is within range of our terrain
-            if (cameraPosition.X < Terrain.width -1 && cameraPosition.Z < Terrain.height - 1)
+
+            ms = Mouse.GetState();
+
+            // check if mouse is not out of window
+            if (ms.X < 3) Mouse.SetPosition(3, ms.Y);
+            if (ms.X > backBufferWidth - 3) Mouse.SetPosition((int)backBufferWidth - 3, ms.Y);
+
+            if (ms.Y < 3) Mouse.SetPosition(ms.X, 3);
+            if (ms.Y > backBufferHeight - 3) Mouse.SetPosition(ms.X, (int)backBufferHeight - 3);
+
+
+            if (cameraPosition.Z < Terrain.width -1 && cameraPosition.Z < Terrain.height - 1)
             {
                 Collisions.CheckWithTerrain(ref cameraPosition, zoom);
+            }
+            if (shake)
+            {
+                int sign;
+
+                sign = MathUtils.RandomNumber(0, intensity);
+                if (sign % 2 == 0) cameraPosition.X += MathUtils.RandomNumber(0, intensity);
+                else cameraPosition.X -= MathUtils.RandomNumber(0, intensity);
+
+                sign = MathUtils.RandomNumber(0, intensity);
+                if (sign % 2 == 0) cameraPosition.Z += MathUtils.RandomNumber(0, intensity);
+                else cameraPosition.Z -= MathUtils.RandomNumber(0, intensity);
+
+                shakeTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (shakeTime <= 0)
+                {
+                    shake = false;
+                }
             }
             base.Update(gameTime);
         }
@@ -92,7 +133,7 @@ namespace Laikos
             Vector3 cameraOriginalTarget = new Vector3(0, 0, -1);
             Vector3 cameraRotatedTarget = Vector3.Transform(cameraOriginalTarget, cameraRotation);
             //cameraPosition = Vector3.Transform(cameraPosition - cameraTarget, Matrix.CreateFromAxisAngle(axis, angle)) + cameraTarget;
-            Vector3 cameraFinalTarget = cameraPosition + cameraRotatedTarget;
+            cameraFinalTarget = cameraPosition + cameraRotatedTarget;
 
             Vector3 reflCameraPosition = cameraPosition;
             reflCameraPosition.Y = -cameraPosition.Y + Water.waterHeight * 2;
@@ -146,5 +187,16 @@ namespace Laikos
             return result;
         }
 
+        public void CameraShake(float _seconds, int _intensity)
+        {
+            if (_seconds > 10) _seconds = 10;
+            if (_seconds < 0) _seconds = 1;
+            if (_intensity < 0) _intensity = 1;
+            if (_intensity > 10) _intensity = 10;
+
+            shake = true;
+            shakeTime = _seconds;
+            intensity = _intensity;
+        }
     }
 }

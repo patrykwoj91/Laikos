@@ -198,8 +198,11 @@ namespace Laikos
         /// <summary>
         /// Handling input from mouse and keyboard to move camera
         /// </summary>
-        public static void HandleCamera(float amount, Camera cam)
+        public static void HandleCamera(GameTime gameTime, Camera cam)
         {
+            float amount = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
+            var time = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
             Vector3 moveVector = new Vector3(0, 0, 0);
 
             //Simple zoom in
@@ -215,19 +218,69 @@ namespace Laikos
             {
                 //Moving camera if mouse is near edge of screen
                 if (Mouse.GetState().X > cam.backBufferWidth - 5.0f) //right
+                   if(Camera.cameraPosition.X + (Camera.cameraPosition.Y*6)/8 < Terrain.width-200)
                     moveVector += new Vector3(3, 0, 0);
                 if (Mouse.GetState().X < 5.0f)    //left
+                    if (Camera.cameraPosition.X - (Camera.cameraPosition.Y * 6) / 8 > 0 + 100)
                     moveVector += new Vector3(-3, 0, 0);
+
                 if (Mouse.GetState().Y > cam.backBufferHeight - 5.0f)   //down
+                    if (Camera.cameraPosition.Z < Terrain.height)
                     moveVector += new Vector3(0, -2, 2);
+              
                 if (Mouse.GetState().Y < 5.0f)    //up
+                    if (Camera.cameraPosition.Z - Camera.cameraPosition.Y > 0 + Camera.cameraPosition.Y*1.4)
+                  //  if (.Z > 0)
                     moveVector += new Vector3(0, 2, -2);
+
+          
             }
 
             //add created earlier vector to camera position
             Matrix cameraRotation = Matrix.CreateRotationX(Camera.upDownRot) * Matrix.CreateRotationY(Camera.leftRightRot);
             Vector3 rotatedVector = Vector3.Transform(moveVector * amount, cameraRotation);
             Camera.cameraPosition += cam.moveSpeed * rotatedVector;
+            
+            float pitch = 0.0f;
+            float turn = 0.0f;
+
+          /*  if (currentMouseState.MiddleButton == ButtonState.Pressed)
+            {
+                if (currentMouseState.Y > oldMouseState.Y)
+                    pitch += time * 0.0025f;
+
+                if (currentMouseState.Y < oldMouseState.Y)
+                    pitch -= time * 0.0025f;
+
+                if (currentMouseState.X < oldMouseState.X)
+                    turn += time * 0.0025f;
+
+                if (currentMouseState.X > oldMouseState.X)
+                    turn -= time * 0.0025f;
+
+                oldMouseState = currentMouseState;
+                Console.WriteLine("noob");
+            }
+
+            Vector3 cameraRight = Vector3.Cross(Vector3.Up, cam.cameraFront);
+            Vector3 flatFront = Vector3.Cross(cameraRight, Vector3.Up);
+
+            Matrix pitchMatrix = Matrix.CreateFromAxisAngle(cameraRight, pitch);
+            Matrix turnMatrix = Matrix.CreateFromAxisAngle(Vector3.Up, turn);
+
+            Vector3 tiltedFront = Vector3.TransformNormal(cam.cameraFront, pitchMatrix *
+                                                                       turnMatrix);
+
+            if (Vector3.Dot(tiltedFront, flatFront) > 0.1f && Vector3.Dot(tiltedFront, Vector3.Up) <= 0.2f)
+            {
+                cam.cameraFront = Vector3.Normalize(tiltedFront);
+            }*/
+
+            // camera shake
+            if (currentKeyboardState.IsKeyDown(Keys.Q) && oldKeyboardState.IsKeyUp(Keys.Q))
+            {
+                cam.CameraShake(0.8f, 3);
+            }
         }
 
         /// <summary>
@@ -235,12 +288,12 @@ namespace Laikos
         /// </summary>
         public static void Update(Game game,GameTime gameTime, GraphicsDevice device, Camera camera, Player player, List<Decoration> decorationlist)
         {
-            float timeDifference = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
+            
 
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
 
-            HandleCamera(timeDifference, camera);
+            HandleCamera(gameTime, camera);
             HandleMouse(player,decorationlist, device);
             HandleKeyboard(player,game, device);
 
