@@ -127,9 +127,11 @@ namespace Laikos
 
             collision = Collisions.DetailedCollisionCheck(player.UnitList[0].currentModel.Model, player.UnitList[0].GetWorldMatrix(),
                  player.UnitList[1].currentModel.Model, player.UnitList[1].GetWorldMatrix());
+
             
             if (collision)
             {
+                Console.WriteLine("Kolizja");
                 player.UnitList[0].Position = player.UnitList[0].lastPosition;
                 player.UnitList[1].Position = player.UnitList[1].lastPosition;
             }

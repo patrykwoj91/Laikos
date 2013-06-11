@@ -41,7 +41,6 @@ Content\Models\Buildings\Niebianie\Pałac_rady\texturaInne2.xnb
 Content\Models\SkyDome\cloudMap.xnb
 Content\waterbump.xnb
 Content\Models\Terrain\Heightmaps\heightmap3.xnb
-Content\selection.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb
@@ -123,11 +122,12 @@ Content\Models\Buildings\Niebianie\Pałac_rady\drewno_0.xnb
 Content\FBX\C88D2C8F\okoHigh.fbm\texturaInne_0.xnb
 Content\FBX\C88D2C8F\okoHigh.fbm\tekstura_0.xnb
 Content\FBX\828F2E69\trojnog.fbm\metalSzary_0.xnb
-Content\Models\Terrain\Heightmaps\heightmap4.xnb
+Content\selection.xnb
 Content\Models\Terrain\minimap.xnb
+Content\Models\Terrain\Heightmaps\heightmap4.xnb
 Content\Models\Buildings\Aliens\Nekropolis\drewno.xnb
 Content\Models\Buildings\Aliens\Nekropolis\mat3.xnb
 Content\Models\Buildings\Aliens\Nekropolis\nekropolis.xnb
 Content\Models\Buildings\Aliens\Nekropolis\nekropoli.xnb
-Content\FBX\9BF52ECA\nekropoli.fbm\mat3_0.xnb
-Content\FBX\9BF52ECA\nekropoli.fbm\drewno_0.xnb
+Content\FBX\9D2334E2\nekropoli.fbm\mat3_0.xnb
+Content\FBX\9D2334E2\nekropoli.fbm\drewno_0.xnb
