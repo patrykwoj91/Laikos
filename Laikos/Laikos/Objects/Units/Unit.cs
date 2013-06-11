@@ -110,9 +110,10 @@ namespace Laikos
                                 {
                                     destinyPoints = null;
                                     destinyPointer = null;
-                                    messages[i].Done = true;
+                                    
                                     direction.X = 0.0f;
                                     direction.Z = 0.0f;
+                                    messages[i].Done = true;
                                 }
                                 else
                                 {
