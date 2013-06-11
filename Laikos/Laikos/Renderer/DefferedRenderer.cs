@@ -42,7 +42,8 @@ namespace Laikos
         private Vector2 halfPixel;
         private GameTime gameTime;
         private SpriteFont font;
-        public static bool debug = true;
+        private bool minimap = true;
+        public static bool debug = false;
 
         public ParticleSystem explosionParticles;
         public ParticleSystem explosionSmokeParticles;
@@ -139,8 +140,17 @@ namespace Laikos
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
-            //water.DrawWater(time);
+            water.DrawWater(time);
             device.SetRenderTarget(null);
+            /*if (minimap)
+            {
+                Minimap.SetRenderTarget(device);
+                terrain.DrawTerrain(GBuffer);
+                water.DrawWater(time);
+                Minimap.ResolveRenderTarger(device);
+                Minimap.SaveMiniMap();
+                minimap = false;
+            }*/
         }
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
@@ -150,8 +160,8 @@ namespace Laikos
                 models.Add(obj.currentModel.Model);
             float time = (float)GameTime.TotalGameTime.TotalMilliseconds / 100.0f;
             float waterTime = (float)GameTime.TotalGameTime.TotalMilliseconds / 300.0f;
-            //water.DrawRefractionMap(terrain, objects, normals, speculars);
-            //water.DrawReflectionMap(terrain, objects, normals, speculars);
+            water.DrawRefractionMap(terrain, objects, normals, speculars);
+            water.DrawReflectionMap(terrain, objects, normals, speculars);
             gameTime = GameTime;
             CreateLights(objects);
             SetGBuffer();
@@ -181,10 +191,10 @@ namespace Laikos
         {
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
-
+            
             //Width + Height
-            int width = Terrain.width / 3;
-            int height = Terrain.height / 3;
+            int width = Terrain.width / 5;
+            int height = Terrain.height / 5;
 
             //Set up Drawing Rectangle
             Rectangle rect = new Rectangle(0, 0, width, height);
@@ -208,6 +218,7 @@ namespace Laikos
             spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);*/
 
             //rect.X += width;
+            if(debug)
             spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
 
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);

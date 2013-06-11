@@ -627,13 +627,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Terrain\minimap.jpg">
-      <Name>minimap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\Terrain\Heightmaps\heightmap3.jpg">
       <Name>heightmap3</Name>
       <Importer>TextureImporter</Importer>
@@ -667,6 +660,13 @@
     </Compile>
     <Compile Include="Models\Buildings\Aliens\Nekropolis\nekropolis.jpg">
       <Name>nekropolis</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Terrain\minimap.jpg">
+      <Name>minimap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -11,10 +11,10 @@ namespace Laikos
         static KeyboardState currentKeyboardState, oldKeyboardState;
         static MouseState currentMouseState, oldMouseState;
 
-        public static bool selectionbox, drawselectionbox;
+        public static bool selectionbox;
         private static SpriteBatch spriteBatch;
         private static SpriteFont spriteFont;
-        public static Vector2 startDrag = new Vector2(-99, -99);
+        public static Vector2 startDrag;
         public static Vector2 stopDrag;
         private static Texture2D pixel;
 
@@ -125,8 +125,6 @@ namespace Laikos
             if (currentMouseState.LeftButton == ButtonState.Pressed &&
                 oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                if (!MiniMapClicked(currentMouseState.X, currentMouseState.Y))
-                {
                     selectionbox = true;
 
                     if (startDrag.X < 0)
@@ -134,22 +132,26 @@ namespace Laikos
                         startDrag.X = currentMouseState.X;
                         startDrag.Y = currentMouseState.Y;
 
-                        drawselectionbox = true;
+                        selectionbox = true;
+                        Console.WriteLine("noob");
                         startDrag.X = stopDrag.X = currentMouseState.X;
                         startDrag.Y = stopDrag.Y = currentMouseState.Y;
                     }
                     else
                     {
+                        startDrag.X = startDrag.X;
+                        startDrag.Y = startDrag.Y;
+
                         stopDrag.X = currentMouseState.X;
                         stopDrag.Y = currentMouseState.Y;
                     }
-                }
+                
             } // MOUSE DRAG - STOP
             else if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
             {
                 Console.WriteLine("Left Button " + currentMouseState.LeftButton.ToString());
-                if (selectionbox && (!MiniMapClicked(currentMouseState.X, currentMouseState.Y)))
+                if (selectionbox)
                 {
 
                     if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
@@ -167,9 +169,10 @@ namespace Laikos
                         stopwatch.Stop();
                         Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
                     }
-                    drawselectionbox = selectionbox = false;
-                    startDrag.X = -9999;
-                    startDrag.Y = -9999;
+<<<<<<< HEAD
+                    if (!selected)
+                        foreach (GameObject unit in player.UnitList)
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
                 }
             }
 
@@ -178,17 +181,48 @@ namespace Laikos
 
                 if (currentMouseState.X < 200 && currentMouseState.Y < 200 && currentMouseState.X > 0 && currentMouseState.Y > 0)
                 {
-                    Camera.cameraPosition.X = currentMouseState.X * 5;
-                    Camera.cameraPosition.Z = currentMouseState.Y * 5 + 75;
+                    Camera.cameraPosition.X = currentMouseState.X * 3;
+                    Camera.cameraPosition.Z = currentMouseState.Y * 3;
+=======
+
+
+                    /* bool selected = false;
+                
+                     Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
+                     Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                     Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+
+                     for (int i = 0; i < allObjects.Count; i++)
+                     {
+                         selected = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
+                         if (selected)
+                         {
+                             if ((allObjects[i] is Unit) && !allObjects[i].selected)
+                             {
+                                 foreach (Unit unit in player.UnitList)
+                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+
+                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                                 break;
+                             }
+                         }
+                         if (!selected)
+                             foreach (GameObject unit in player.UnitList)
+                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+                     }*/
+                    selectionbox = false;
+                    startDrag.X = -9999;
+                    startDrag.Y = -9999;
+>>>>>>> 73e5b0438c2d6c79042bab67af12feccd4da1b77
                 }
             }
             #endregion
 
             #region Right Click (Moving and Interactions)
-             if (currentMouseState.RightButton == ButtonState.Pressed &&
+            if (currentMouseState.RightButton == ButtonState.Pressed &&
                 oldMouseState.RightButton == ButtonState.Released)
-             {
-                var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+            {
+                Console.WriteLine("Right Button " + currentMouseState.RightButton.ToString());
 
                 bool selected = false;
                 bool obj_selected = false;
@@ -219,7 +253,6 @@ namespace Laikos
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, reciever, obj)); //interaction Event unit - unit , unit-decoration , unit-buiding itp.
                                 }
                             }
-                            Console.WriteLine("SendCommand(...) : {0}", stopwatch.Elapsed);
                         }
 
                         if ((!selected) && (obj.GetType() == typeof(Unit)))
@@ -236,17 +269,11 @@ namespace Laikos
                             if (((Unit)obj).destinyPoints.Count > 0)
                             {
                                 EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
-                                Unit test = (Unit)obj;
-                                Console.WriteLine(test.messages.Count);
                             }
-                            stopwatch.Stop();
-                            Console.WriteLine("MoveCommand(...) : {0}", stopwatch.Elapsed);
                         }
                     }
 
                 }
-                
-                
             }
             #endregion
         }
@@ -409,8 +436,6 @@ namespace Laikos
                         {
                            DeselectAllUnits(player);
                            EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
-                           Unit test = (Unit)allObjects[i];
-                           Console.WriteLine(test.messages.Count);
                            break;
                         }
                     }
@@ -442,13 +467,7 @@ namespace Laikos
                     //break;
           }
             
-        private static bool MiniMapClicked(float X,float Y)
-        {
-            if (X < 200 && Y < 200)
-                return true;
-            else
-                return false;
-        }
+        
 
         private static void DeselectAllUnits(Player player)
         {

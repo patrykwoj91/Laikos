@@ -42,17 +42,15 @@ namespace Laikos
         private Vector2 halfPixel;
         private GameTime gameTime;
         private SpriteFont font;
-<<<<<<< HEAD
+        private bool minimap = true;
         public static bool debug = false;
-=======
-        public static bool debug = true;
 
-       public ParticleSystem explosionParticles;
-       public ParticleSystem explosionSmokeParticles;
->>>>>>> b2c26142efe66848d155a0d52065f3fade0ab16f
+        public ParticleSystem explosionParticles;
+        public ParticleSystem explosionSmokeParticles;
+        public ParticleSystem SmokePlumeParticles;
         #endregion
 
-        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font,Game game)
+        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font, Game game)
         {
             #region Initialize Variables
             this.device = device;
@@ -78,6 +76,7 @@ namespace Laikos
 
             explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
             explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
+            SmokePlumeParticles = new ParticleSystem(game, content, "SmokePlumeSettings");
             #endregion
 
             #region Load Content
@@ -92,15 +91,12 @@ namespace Laikos
             spotLight = content.Load<Effect>("Effects/SpotLight");
             spotLightGeometry = content.Load<Model>("SpotLightGeometry");
             spotCookie = content.Load<Texture2D>("SpotCookie");
-<<<<<<< HEAD
             water = new Water(device, content, GBuffer);
-=======
-
             explosionSmokeParticles.LoadContent(device);
             explosionParticles.LoadContent(device);
->>>>>>> b2c26142efe66848d155a0d52065f3fade0ab16f
+            SmokePlumeParticles.LoadContent(device);
             #endregion
-            
+
         }
 
         private void SetGBuffer()
@@ -144,8 +140,21 @@ namespace Laikos
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
+<<<<<<< HEAD
             water.DrawWater(time);
+=======
+            //water.DrawWater(time);
+>>>>>>> 87bc3bd5bf01aade60b37b514a58680d8fc33592
             device.SetRenderTarget(null);
+            /*if (minimap)
+            {
+                Minimap.SetRenderTarget(device);
+                terrain.DrawTerrain(GBuffer);
+                water.DrawWater(time);
+                Minimap.ResolveRenderTarger(device);
+                Minimap.SaveMiniMap();
+                minimap = false;
+            }*/
         }
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
@@ -161,43 +170,35 @@ namespace Laikos
             CreateLights(objects);
             SetGBuffer();
             ClearGBuffer();
-<<<<<<< HEAD
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
-=======
-           
-            RenderSceneTo3Targets(objects, terrain);
-            ResolveGBuffer();
-          
 
-            
-         
             //List<Model> models = new List<Model>();
-           // foreach (GameObject obj in objects)
-              //  models.Add(obj.currentModel.Model);
->>>>>>> b2c26142efe66848d155a0d52065f3fade0ab16f
+            // foreach (GameObject obj in objects)
+            //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
 
+            
+            
+            
+        
+            SmokePlumeParticles.Draw(gameTime, device);
             DrawLights(objects);
-<<<<<<< HEAD
-            
-=======
-            explosionSmokeParticles.Draw(gameTime, device);
             explosionParticles.Draw(gameTime, device);
->>>>>>> b2c26142efe66848d155a0d52065f3fade0ab16f
-            if(debug)
+            explosionSmokeParticles.Draw(gameTime, device);
+            if (debug)
                 Debug();
-            
+
         }
 
         private void Debug()
         {
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
-
+            
             //Width + Height
-            int width = Terrain.width / 3;
-            int height = Terrain.height / 3;
+            int width = Terrain.width / 5;
+            int height = Terrain.height / 5;
 
             //Set up Drawing Rectangle
             Rectangle rect = new Rectangle(0, 0, width, height);
@@ -221,9 +222,10 @@ namespace Laikos
             spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);*/
 
             //rect.X += width;
+            if(debug)
             spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
 
-            spriteBatch.DrawString(font, "FPS: " + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(10.0f, 20.0f), Color.White);
+            spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
             //End SpriteBatch
             spriteBatch.End();
         }
@@ -253,7 +255,7 @@ namespace Laikos
             finalComposition.Parameters["colorMap"].SetValue(colorRT);
             finalComposition.Parameters["lightMap"].SetValue(lightRT);
             finalComposition.Parameters["halfPixel"].SetValue(halfPixel);
-            
+
             finalComposition.Techniques[0].Passes[0].Apply();
             fsq.Render(Vector2.One * -1, Vector2.One);
 
@@ -265,11 +267,7 @@ namespace Laikos
             PointLight.Initialize(pointLightEffect, colorRT, normalRT, depthRT, halfPixel, fsq, device, sphereModel);
             SpotLight.Initialize(device, spotLight, spotCookie, spotLightGeometry, colorRT, normalRT, depthRT);
 
-<<<<<<< HEAD
             lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.5f));
-=======
-            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.2f));
->>>>>>> b2c26142efe66848d155a0d52065f3fade0ab16f
 
             foreach (GameObject obj in objects)
             {
@@ -281,5 +279,5 @@ namespace Laikos
                 }
             }
         }
-    }
+    }     
 }
