@@ -148,7 +148,6 @@ namespace Laikos
             else if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                Console.WriteLine("Left Button " + currentMouseState.LeftButton.ToString());
                 if (selectionbox && (!MiniMapClicked(currentMouseState.X, currentMouseState.Y)))
                 {
 

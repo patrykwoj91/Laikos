@@ -50,10 +50,11 @@ namespace Laikos
        public void Initialize()
        {
             Souls = 1000;
-            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(100, 30, 150), 0.05f));
-            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(10, 30, 100), 0.05f));
-           // UnitList.Add(new Unit(game, UnitTypes["Antigravity Tank"], new Vector3(10,30,50), 0.15f));
-            BuildingList.Add(new Building(game, BuildingTypes["Nekropolis"], new Vector3(10, 30, 50), BuildingTypes["Nekropolis"].Scale));
+            UnitList.Add(new Unit(game, UnitTypes["Antigravity Tank"], new Vector3(620, 20, 700), 0.15f));
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(620, 20, 750), 0.05f));
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(600, 20, 750), 0.05f));
+            
+            BuildingList.Add(new Building(game, BuildingTypes["Nekropolis"], new Vector3(650, 20, 750), BuildingTypes["Nekropolis"].Scale));
 
        }
 
