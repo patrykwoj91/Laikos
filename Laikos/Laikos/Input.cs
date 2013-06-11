@@ -11,6 +11,20 @@ namespace Laikos
         static KeyboardState currentKeyboardState, oldKeyboardState;
         static MouseState currentMouseState, oldMouseState;
 
+        public static bool selectionbox;
+        private static SpriteBatch spriteBatch;
+        private static SpriteFont spriteFont;
+        public static Vector2 startDrag;
+        public static Vector2 stopDrag;
+        private static Texture2D pixel;
+
+
+        public static void Init(GraphicsDeviceManager graphics, Game game)
+        {
+            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+            spriteFont = game.Content.Load<SpriteFont>("Georgia");
+            pixel = game.Content.Load<Texture2D>("selection");
+        }
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
         /// </summary>
@@ -106,8 +120,37 @@ namespace Laikos
             allObjects.AddRange(decorationlist);
 
             #region Left Click (Selecting)
-            if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+            // MOUSE DRAG - START
+            if (currentMouseState.LeftButton == ButtonState.Pressed &&
+                oldMouseState.LeftButton == ButtonState.Pressed)
             {
+                    //selectionbox = true;
+
+                    if (startDrag.X < 0)
+                    {
+                        startDrag.X = currentMouseState.X;
+                        startDrag.Y = currentMouseState.Y;
+
+                        selectionbox = true;
+                        Console.WriteLine("noob");
+                        startDrag.X = stopDrag.X = currentMouseState.X;
+                        startDrag.Y = stopDrag.Y = currentMouseState.Y;
+                    }
+                    else
+                    {
+                        startDrag.X = startDrag.X;
+                        startDrag.Y = startDrag.Y;
+
+                        stopDrag.X = currentMouseState.X;
+                        stopDrag.Y = currentMouseState.Y;
+                    }
+                
+            } // MOUSE DRAG - STOP
+              else if (currentMouseState.LeftButton == ButtonState.Released &&
+                     oldMouseState.LeftButton == ButtonState.Pressed)
+            {
+           // if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
+           // {
                 Console.WriteLine("Left Button " + currentMouseState.LeftButton.ToString());
                 bool selected = false;
                 
@@ -132,7 +175,10 @@ namespace Laikos
                     if (!selected)
                         foreach (GameObject unit in player.UnitList)
                             EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
-                }                             
+                }
+                selectionbox = false;
+                startDrag.X = -9999;
+                startDrag.Y = -9999;           
             }
             #endregion
 
@@ -301,6 +347,14 @@ namespace Laikos
             oldKeyboardState = currentKeyboardState;
         }
 
+        public static void Draw()
+        {
+            if (selectionbox)
+                DrawSelection();
+        }
+
+
+
        public static Vector3 GetPointerCoord(GraphicsDevice device)
         {
             Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
@@ -311,5 +365,22 @@ namespace Laikos
 
             return pointerPosition;
         }
+
+       private static void DrawSelection()
+       {
+           MathUtils.SafeSquare(ref startDrag, ref stopDrag);
+           spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+           spriteBatch.Draw(pixel, startDrag, null, Color.White, 0.0f, Vector2.Zero,
+                            new Vector2(stopDrag.X - startDrag.X, 1), SpriteEffects.None, 0);
+           spriteBatch.Draw(pixel, startDrag, null, Color.White, 0.0f, Vector2.Zero,
+                            new Vector2(1, stopDrag.Y - startDrag.Y), SpriteEffects.None, 0);
+           spriteBatch.Draw(pixel, new Vector2(startDrag.X + (stopDrag.X - startDrag.X), startDrag.Y), null,
+                            Color.White, 0.0f, Vector2.Zero, new Vector2(1, stopDrag.Y - startDrag.Y),
+                            SpriteEffects.None, 0);
+           spriteBatch.Draw(pixel, new Vector2(startDrag.X, startDrag.Y + (stopDrag.Y - startDrag.Y)), null,
+                            Color.White, 0.0f, Vector2.Zero, new Vector2(stopDrag.X - startDrag.X, 1),
+                            SpriteEffects.None, 0);
+           spriteBatch.End();
+       }
     }
 }

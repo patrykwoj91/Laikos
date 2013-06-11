@@ -59,7 +59,7 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-
+            Input.Init(graphics, this);
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
@@ -164,7 +164,7 @@ namespace Laikos
             objects.AddRange(player.BuildingList);
             
             defferedRenderer.Draw(objects, terrain, gameTime);
-
+            Input.Draw();
   
             objects.Clear();
             base.Draw(gameTime);
