@@ -28,8 +28,6 @@ namespace Laikos
         DecorationManager decorations;
         DefferedRenderer defferedRenderer;
         List<GameObject> objects;
-        Minimap minimap;
-        bool noob = true;
 
         Dictionary<String, UnitType> UnitTypes;
         Dictionary<String, BuildingType> BuildingTypes;
@@ -45,14 +43,12 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 <<<<<<< HEAD
-            graphics.PreferredBackBufferWidth = 600;
-            graphics.PreferredBackBufferHeight = 600;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferWidth = 1000;
 =======
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
+            graphics.PreferredBackBufferWidth = 800;
+>>>>>>> 87bc3bd5bf01aade60b37b514a58680d8fc33592
+            graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen =false;
->>>>>>> 73e5b0438c2d6c79042bab67af12feccd4da1b77
         }
 
         /// <summary>
@@ -124,23 +120,23 @@ namespace Laikos
 
             // TODO: Add your update logic here
 
-            //bool collision;
+            bool collision;
 
 
-            /*collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[2],
-                                      decorations.DecorationList[0]);
+            //collision = Collisions.DetailedDecorationCollisionCheck(player.UnitList[2],
+            //                          decorations.DecorationList[0]);
             //Console.WriteLine(collision);
-            if (collision)
-                units.UnitList[2].Position = units.UnitList[2].lastPosition;
+            //if (collision)
+                //player.UnitList[2].Position = player.UnitList[2].lastPosition;
 
-            collision = Collisions.DetailedCollisionCheck(units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix(),
-                 units.UnitList[2].currentModel.Model, units.UnitList[2].GetWorldMatrix());
+            collision = Collisions.DetailedCollisionCheck(player.UnitList[0].currentModel.Model, player.UnitList[0].GetWorldMatrix(),
+                 player.UnitList[1].currentModel.Model, player.UnitList[1].GetWorldMatrix());
             
             if (collision)
             {
-                units.UnitList[0].Position = units.UnitList[0].lastPosition;
-                units.UnitList[1].Position = units.UnitList[1].lastPosition;
-            }*/
+                player.UnitList[0].Position = player.UnitList[0].lastPosition;
+                player.UnitList[1].Position = player.UnitList[1].lastPosition;
+            }
 
         }
 
@@ -163,14 +159,9 @@ namespace Laikos
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
             objects.AddRange(player.BuildingList);
-<<<<<<< HEAD
 
             defferedRenderer.Draw(objects, terrain, gameTime);
-=======
-            
-            defferedRenderer.Draw(objects, terrain, gameTime);
             Input.Draw();
->>>>>>> 73e5b0438c2d6c79042bab67af12feccd4da1b77
   
             objects.Clear();
             base.Draw(gameTime);

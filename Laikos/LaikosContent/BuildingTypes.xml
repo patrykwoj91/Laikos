@@ -25,5 +25,13 @@
       <Souls>300</Souls>
       <Scale>0.2</Scale>
     </Item>
+
+    <Item>
+      <Name>Nekropolis</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Aliens/Nekropolis/nekropoli</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+    </Item>
   </Asset>
 </XnaContent>
