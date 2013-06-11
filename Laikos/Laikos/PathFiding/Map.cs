@@ -54,7 +54,7 @@ namespace Laikos.PathFiding
                         {
                             Color bitmapColor = Color.FromArgb(mapTexTmp[(widthTmp * SKALA * width + heightTmp * SKALA) + (i * width) + j]);
 
-                            if ((bitmapColor.R >= 0) && (bitmapColor.R < 20))
+                            if ((bitmapColor.R >= 15) && (bitmapColor.R < 60))
                             {
                                 //mapTmp[heightTmp, widthTmp] = 0;
                                 ++iloscDobrych;

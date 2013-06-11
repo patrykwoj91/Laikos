@@ -115,7 +115,7 @@ namespace Laikos
         /// </summary>
         public static void HandleMouse(Player player, List<Decoration> decorationlist, GraphicsDevice device)
         {
-            List<GameObject> allObjects = new List<GameObject>(player.UnitList.Count + decorationlist.Count); //ad building list later here
+            List<GameObject> allObjects = new List<GameObject>(); //ad building list later here
             allObjects.AddRange(player.UnitList);
             allObjects.AddRange(decorationlist);
             allObjects.AddRange(player.BuildingList);
@@ -154,8 +154,11 @@ namespace Laikos
                     if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
                         100)
                     {
+                        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
                         SelectUnitsInWindow(player, startDrag,
-                                            new Vector2(currentMouseState.X, currentMouseState.Y), allObjects, device);
+                            new Vector2(currentMouseState.X, currentMouseState.Y), allObjects, device);
+                        stopwatch.Stop();
+                        Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
                     }
                     else
                     {
@@ -165,6 +168,7 @@ namespace Laikos
 
                         stopwatch.Stop();
                         Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
+                        
                     }
                     drawselectionbox = selectionbox = false;
                     startDrag.X = -9999;
@@ -399,22 +403,22 @@ namespace Laikos
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
 
+                DeselectAllUnits(player);
+
                 for (int i = 0; i < allObjects.Count; i++)
                 {
                     object_clicked = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
                     if (object_clicked)
                     {
-                        if ((allObjects[i] is Unit) && !allObjects[i].selected)
+                        if (allObjects[i] is Unit)
                         {
-                           DeselectAllUnits(player);
                            EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
                            Unit test = (Unit)allObjects[i];
                            Console.WriteLine(test.messages.Count);
+                           Console.WriteLine(test.selected);
                            break;
                         }
                     }
-                    if (!object_clicked)
-                       DeselectAllUnits(player);
                 }
         }
 
@@ -438,7 +442,6 @@ namespace Laikos
                             }
                         }
             }
-                    //break;
           }
             
         private static bool MiniMapClicked(float X,float Y)
