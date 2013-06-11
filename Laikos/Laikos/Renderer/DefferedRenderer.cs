@@ -142,7 +142,7 @@ namespace Laikos
             terrain.DrawTerrain(GBuffer);
             water.DrawWater(time);
             device.SetRenderTarget(null);
-            if (minimap)
+            /*if (minimap)
             {
                 Minimap.SetRenderTarget(device);
                 terrain.DrawTerrain(GBuffer);
@@ -150,7 +150,7 @@ namespace Laikos
                 Minimap.ResolveRenderTarger(device);
                 Minimap.SaveMiniMap();
                 minimap = false;
-            }
+            }*/
         }
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
@@ -193,8 +193,8 @@ namespace Laikos
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
             
             //Width + Height
-            int width = Terrain.width / 3;
-            int height = Terrain.height / 3;
+            int width = Terrain.width / 5;
+            int height = Terrain.height / 5;
 
             //Set up Drawing Rectangle
             Rectangle rect = new Rectangle(0, 0, width, height);
@@ -219,7 +219,7 @@ namespace Laikos
 
             //rect.X += width;
             if(debug)
-            spriteBatch.Draw((Texture2D)Minimap.minimap, rect, Color.White);
+            spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
 
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
             //End SpriteBatch

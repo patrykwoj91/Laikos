@@ -169,6 +169,21 @@ namespace Laikos
                         stopwatch.Stop();
                         Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
                     }
+<<<<<<< HEAD
+                    if (!selected)
+                        foreach (GameObject unit in player.UnitList)
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+                }
+            }
+
+            if (currentMouseState.LeftButton == ButtonState.Pressed)
+            {
+
+                if (currentMouseState.X < 200 && currentMouseState.Y < 200 && currentMouseState.X > 0 && currentMouseState.Y > 0)
+                {
+                    Camera.cameraPosition.X = currentMouseState.X * 3;
+                    Camera.cameraPosition.Z = currentMouseState.Y * 3;
+=======
 
 
                     /* bool selected = false;
@@ -198,16 +213,7 @@ namespace Laikos
                     selectionbox = false;
                     startDrag.X = -9999;
                     startDrag.Y = -9999;
-                }
-            }
-
-            if (currentMouseState.LeftButton == ButtonState.Pressed)
-            {
-
-                if (currentMouseState.X < 200 && currentMouseState.Y < 200 && currentMouseState.X > 0 && currentMouseState.Y > 0)
-                {
-                    Camera.cameraPosition.X = currentMouseState.X * 5;
-                    Camera.cameraPosition.Z = currentMouseState.Y * 5 + 75;
+>>>>>>> 73e5b0438c2d6c79042bab67af12feccd4da1b77
                 }
             }
             #endregion

@@ -44,9 +44,15 @@ namespace Laikos
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+<<<<<<< HEAD
+            graphics.PreferredBackBufferWidth = 600;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.IsFullScreen = false;
+=======
             graphics.PreferredBackBufferWidth = 1600;
             graphics.PreferredBackBufferHeight = 900;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen =false;
+>>>>>>> 73e5b0438c2d6c79042bab67af12feccd4da1b77
         }
 
         /// <summary>
@@ -59,15 +65,14 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-
+            Input.Init(graphics, this);
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
-         
+            Minimap.Initialize(device);
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
-            minimap = new Minimap(device, terrain, Content);
             base.Initialize();
         }
 
@@ -86,7 +91,7 @@ namespace Laikos
             BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.Name);
              
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
-
+            Minimap.LoadMiniMap(Content);
 
             player = new Player(this, UnitTypes, BuildingTypes);
             
@@ -152,23 +157,20 @@ namespace Laikos
             //device.RasterizerState = rs;
             defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-<<<<<<< HEAD
-            //if (noob)
-=======
             defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-                        //if (noob)
->>>>>>> 5276c7d79f68f913de5d57d94a9f4720b3c2f634
-            //{
+            
 
-                //minimap.CreateMiniMap();
-                //noob = false;
-            //}
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
             objects.AddRange(player.BuildingList);
+<<<<<<< HEAD
+
+            defferedRenderer.Draw(objects, terrain, gameTime);
+=======
             
             defferedRenderer.Draw(objects, terrain, gameTime);
-
+            Input.Draw();
+>>>>>>> 73e5b0438c2d6c79042bab67af12feccd4da1b77
   
             objects.Clear();
             base.Draw(gameTime);
