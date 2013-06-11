@@ -417,6 +417,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
+    <Compile Include="Models\Buildings\Aliens\Nekropolis\nekropoli.FBX">
+      <Name>nekropoli</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
     <None Include="Models\Units\Alien\alien.FBX">
       <Name>alien</Name>
       <Importer>FbxImporter</Importer>
@@ -636,15 +641,32 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Terrain\Heightmaps\heightmap4.jpg">
+    <Compile Include="selection.png">
+      <Name>selection</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Terrain\Heightmaps\heightmap4.bmp">
       <Name>heightmap4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="selection.png">
-      <Name>selection</Name>
+    <Compile Include="Models\Buildings\Aliens\Nekropolis\drewno.jpg">
+      <Name>drewno</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Aliens\Nekropolis\mat3.jpg">
+      <Name>mat3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Aliens\Nekropolis\nekropolis.jpg">
+      <Name>nekropolis</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -110,7 +110,7 @@ namespace Laikos
                                 {
                                     destinyPoints = null;
                                     destinyPointer = null;
-
+                                    messages[i].Done = true;
                                     direction.X = 0.0f;
                                     direction.Z = 0.0f;
                                 }
@@ -120,11 +120,6 @@ namespace Laikos
                                     direction = vecTmp - Position;
                                 }
                             }
-                        }
-                        if (Position == (Vector3)messages[i].Payload) //tu ma byc kurwa warunek stopu!
-                        {
-                            
-                            messages[i].Done = true;
                         }
                         break;
                 }

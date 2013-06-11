@@ -139,7 +139,7 @@ namespace Laikos
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
-           // water.DrawWater(time);
+            //water.DrawWater(time);
             device.SetRenderTarget(null);
         }
 
