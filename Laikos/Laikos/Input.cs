@@ -118,13 +118,14 @@ namespace Laikos
             List<GameObject> allObjects = new List<GameObject>(player.UnitList.Count + decorationlist.Count); //ad building list later here
             allObjects.AddRange(player.UnitList);
             allObjects.AddRange(decorationlist);
+            allObjects.AddRange(player.BuildingList);
 
             #region Left Click (Selecting)
             // MOUSE DRAG - START
             if (currentMouseState.LeftButton == ButtonState.Pressed &&
                 oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                    //selectionbox = true;
+                    selectionbox = true;
 
                     if (startDrag.X < 0)
                     {
@@ -146,44 +147,64 @@ namespace Laikos
                     }
                 
             } // MOUSE DRAG - STOP
-              else if (currentMouseState.LeftButton == ButtonState.Released &&
-                     oldMouseState.LeftButton == ButtonState.Pressed)
+            else if (currentMouseState.LeftButton == ButtonState.Released &&
+                   oldMouseState.LeftButton == ButtonState.Pressed)
             {
-           // if (currentMouseState.LeftButton == ButtonState.Pressed && oldMouseState.LeftButton == ButtonState.Released)
-           // {
                 Console.WriteLine("Left Button " + currentMouseState.LeftButton.ToString());
-                bool selected = false;
-                
-                Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
-                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
-                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
-
-                for (int i = 0; i < allObjects.Count; i++)
+                if (selectionbox)
                 {
-                    selected = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
-                    if (selected)
-                    {
-                        if ((allObjects[i] is Unit) && !allObjects[i].selected)
-                        {
-                            foreach (Unit unit in player.UnitList)
-                                EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
 
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
-                            break;
-                        }
+                    if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
+                        100)
+                    {
+                        SelectUnitsInWindow(player, startDrag,
+                                            new Vector2(currentMouseState.X, currentMouseState.Y), allObjects, device);
                     }
-                    if (!selected)
-                        foreach (GameObject unit in player.UnitList)
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+                    else
+                    {
+                        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+                        SelectSingleUnit(player, device, allObjects);
+
+                        stopwatch.Stop();
+                        Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
+                    }
+
+
+                    /* bool selected = false;
+                
+                     Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
+                     Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                     Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+
+                     for (int i = 0; i < allObjects.Count; i++)
+                     {
+                         selected = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
+                         if (selected)
+                         {
+                             if ((allObjects[i] is Unit) && !allObjects[i].selected)
+                             {
+                                 foreach (Unit unit in player.UnitList)
+                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+
+                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                                 break;
+                             }
+                         }
+                         if (!selected)
+                             foreach (GameObject unit in player.UnitList)
+                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+                     }*/
+                    selectionbox = false;
+                    startDrag.X = -9999;
+                    startDrag.Y = -9999;
                 }
-                selectionbox = false;
-                startDrag.X = -9999;
-                startDrag.Y = -9999;           
             }
             #endregion
 
             #region Right Click (Moving and Interactions)
-            if (currentMouseState.RightButton == ButtonState.Pressed && oldMouseState.RightButton == ButtonState.Released)
+            if (currentMouseState.RightButton == ButtonState.Pressed &&
+                oldMouseState.RightButton == ButtonState.Released)
             {
                 Console.WriteLine("Right Button " + currentMouseState.RightButton.ToString());
 
@@ -382,5 +403,61 @@ namespace Laikos
                             SpriteEffects.None, 0);
            spriteBatch.End();
        }
+
+        private static void SelectSingleUnit(Player player,GraphicsDevice device, List<GameObject> allObjects)
+        {
+                bool object_clicked;
+                Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+
+                for (int i = 0; i < allObjects.Count; i++)
+                {
+                    object_clicked = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
+                    if (object_clicked)
+                    {
+                        if ((allObjects[i] is Unit) && !allObjects[i].selected)
+                        {
+                           DeselectAllUnits(player);
+                           EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                           break;
+                        }
+                    }
+                    if (!object_clicked)
+                       DeselectAllUnits(player);
+                }
+        }
+
+        private static void SelectUnitsInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, List<GameObject> allObjects,GraphicsDevice device)
+        {
+            DeselectAllUnits(player);
+
+            MathUtils.SafeSquare(ref startDrag, ref stopDrag);
+
+            for (int i = 0; i < allObjects.Count; i++)
+                {
+                       if (allObjects[i] is Unit)
+                       {
+                            Vector3 pos = device.Viewport.Project(allObjects[i].Position, Camera.projectionMatrix,
+                                                                                   Camera.viewMatrix,
+                                                                                   Matrix.CreateTranslation(Vector3.Zero));
+                            if (pos.X >= startDrag.X && pos.X <= stopDrag.X && pos.Y >= startDrag.Y &&
+                                pos.Y <= stopDrag.Y)
+                            {
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                            }
+                        }
+            }
+                    //break;
+          }
+            
+        
+
+        private static void DeselectAllUnits(Player player)
+        {
+             foreach (Unit unit in player.UnitList)
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+        }
     }
 }
+
