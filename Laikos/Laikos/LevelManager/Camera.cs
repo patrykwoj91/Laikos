@@ -65,8 +65,8 @@ namespace Laikos
             nearPlane = 1.0f;
             farPlane = 2000.0f;
             zoom = 10.0f;
-            Camera.upDownRot = MathHelper.ToRadians(-45);
-            Camera.cameraPosition = new Vector3(30, 80, 100);
+            Camera.upDownRot = MathHelper.ToRadians(-90);
+            Camera.cameraPosition = new Vector3(500, 1000, 500);
             leftRightRot = MathHelper.ToRadians(0.0f);
             //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);

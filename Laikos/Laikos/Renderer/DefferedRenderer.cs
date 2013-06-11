@@ -42,13 +42,15 @@ namespace Laikos
         private Vector2 halfPixel;
         private GameTime gameTime;
         private SpriteFont font;
+        private bool minimap = true;
         public static bool debug = false;
 
-       public ParticleSystem explosionParticles;
-       public ParticleSystem explosionSmokeParticles;
+        public ParticleSystem explosionParticles;
+        public ParticleSystem explosionSmokeParticles;
+        public ParticleSystem SmokePlumeParticles;
         #endregion
 
-        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font,Game game)
+        public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font, Game game)
         {
             #region Initialize Variables
             this.device = device;
@@ -74,6 +76,7 @@ namespace Laikos
 
             explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
             explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
+            SmokePlumeParticles = new ParticleSystem(game, content, "SmokePlumeSettings");
             #endregion
 
             #region Load Content
@@ -91,8 +94,9 @@ namespace Laikos
             water = new Water(device, content, GBuffer);
             explosionSmokeParticles.LoadContent(device);
             explosionParticles.LoadContent(device);
+            SmokePlumeParticles.LoadContent(device);
             #endregion
-            
+
         }
 
         private void SetGBuffer()
@@ -138,6 +142,15 @@ namespace Laikos
             terrain.DrawTerrain(GBuffer);
             water.DrawWater(time);
             device.SetRenderTarget(null);
+            if (minimap)
+            {
+                Minimap.SetRenderTarget(device);
+                terrain.DrawTerrain(GBuffer);
+                water.DrawWater(time);
+                Minimap.ResolveRenderTarger(device);
+                Minimap.SaveMiniMap();
+                minimap = false;
+            }
         }
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
@@ -155,25 +168,30 @@ namespace Laikos
             ClearGBuffer();
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
-         
+
             //List<Model> models = new List<Model>();
-           // foreach (GameObject obj in objects)
-              //  models.Add(obj.currentModel.Model);
+            // foreach (GameObject obj in objects)
+            //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
 
-            DrawLights(objects);
-            explosionSmokeParticles.Draw(gameTime, device);
-            explosionParticles.Draw(gameTime, device);
-            if(debug)
-                Debug();
             
+            
+            
+        
+            SmokePlumeParticles.Draw(gameTime, device);
+            DrawLights(objects);
+            explosionParticles.Draw(gameTime, device);
+            explosionSmokeParticles.Draw(gameTime, device);
+            if (debug)
+                Debug();
+
         }
 
         private void Debug()
         {
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
-
+            
             //Width + Height
             int width = Terrain.width / 3;
             int height = Terrain.height / 3;
@@ -200,9 +218,10 @@ namespace Laikos
             spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);*/
 
             //rect.X += width;
-            spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
+            if(debug)
+            spriteBatch.Draw((Texture2D)Minimap.minimap, rect, Color.White);
 
-            spriteBatch.DrawString(font, "FPS: " + (1000 / gameTime.ElapsedGameTime.Milliseconds), new Vector2(10.0f, 20.0f), Color.White);
+            spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
             //End SpriteBatch
             spriteBatch.End();
         }
@@ -232,7 +251,7 @@ namespace Laikos
             finalComposition.Parameters["colorMap"].SetValue(colorRT);
             finalComposition.Parameters["lightMap"].SetValue(lightRT);
             finalComposition.Parameters["halfPixel"].SetValue(halfPixel);
-            
+
             finalComposition.Techniques[0].Passes[0].Apply();
             fsq.Render(Vector2.One * -1, Vector2.One);
 
@@ -256,5 +275,5 @@ namespace Laikos
                 }
             }
         }
-    }
+    }     
 }

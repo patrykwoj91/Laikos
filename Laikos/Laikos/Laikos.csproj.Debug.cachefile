@@ -41,6 +41,8 @@ Content\Models\Buildings\Niebianie\Pałac_rady\texturaInne2.xnb
 Content\Models\SkyDome\cloudMap.xnb
 Content\waterbump.xnb
 Content\Models\Terrain\minimap.xnb
+Content\Models\Terrain\Heightmaps\heightmap3.xnb
+Content\Models\Terrain\Heightmaps\heightmap4.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb

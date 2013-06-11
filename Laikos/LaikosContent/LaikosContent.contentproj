@@ -622,8 +622,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Terrain\minimap.jpg">
-      <Name>minimap</Name>
+    <Compile Include="Models\Terrain\Heightmaps\heightmap3.jpg">
+      <Name>heightmap3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Terrain\Heightmaps\heightmap4.jpg">
+      <Name>heightmap4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
