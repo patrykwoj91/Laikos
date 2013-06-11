@@ -55,7 +55,11 @@ namespace Laikos
               for (int i = 0; i < messages.Count; i++)
             {
                 if (messages[i].Done == true)
+                {
+                 
+                    Console.WriteLine("Usuwam " + (EventManager.Events)messages[i].Type);
                     messages.RemoveAt(i);
+                }
             }
             base.Update(gameTime);
 

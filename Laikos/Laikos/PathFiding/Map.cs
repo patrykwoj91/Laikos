@@ -10,7 +10,7 @@ namespace Laikos.PathFiding
 {
     public static class Map
     {
-        private const int SKALA = 10;
+        private const int SKALA = 5;
 
         private static int[,] map;
         public static int[,] WalkMeshMap
@@ -54,7 +54,7 @@ namespace Laikos.PathFiding
                         {
                             Color bitmapColor = Color.FromArgb(mapTexTmp[(widthTmp * SKALA * width + heightTmp * SKALA) + (i * width) + j]);
 
-                            if ((bitmapColor.R >= 15) && (bitmapColor.R < 60))
+                            if ((bitmapColor.R >= 15) && (bitmapColor.R < 150))
                             {
                                 //mapTmp[heightTmp, widthTmp] = 0;
                                 ++iloscDobrych;
@@ -81,10 +81,10 @@ namespace Laikos.PathFiding
 
                     ++licznik;
                 }
-                Console.Out.Write(".");
+                //Console.Out.Write(".");
             }
 
-            Console.Out.WriteLine();
+            //Console.Out.WriteLine();
 
             WalkMeshMap = mapTmp;
         }

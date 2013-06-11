@@ -119,12 +119,12 @@ namespace Laikos
             bool collision;
 
 
-            //collision = Collisions.DetailedDecorationCollisionCheck(player.UnitList[2],
-            //                          decorations.DecorationList[0]);
-            //Console.WriteLine(collision);
-            //if (collision)
-                //player.UnitList[2].Position = player.UnitList[2].lastPosition;
-
+            /*collision = Collisions.DetailedDecorationCollisionCheck(player.UnitList[1],
+                                      decorations.DecorationList[0]);
+           ) Console.WriteLine(collision);
+            if (collision)
+                player.UnitList[2].Position = player.UnitList[2].lastPosition;
+            */
             collision = Collisions.DetailedCollisionCheck(player.UnitList[0].currentModel.Model, player.UnitList[0].GetWorldMatrix(),
                  player.UnitList[1].currentModel.Model, player.UnitList[1].GetWorldMatrix());
 
