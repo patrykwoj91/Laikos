@@ -92,8 +92,8 @@ namespace Laikos
                         break;
 
                     case (int)EventManager.Events.MoveUnit: //nakladajace sie komunikaty powoduja problem z kolejnymi ruchami 
-                        if (selected)
-                        {
+                        //if (selected)
+                        //{
                             if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
                             {
                                 destinyPointer = destinyPoints.GetEnumerator();
@@ -117,6 +117,7 @@ namespace Laikos
                                     
                                     direction.X = 0.0f;
                                     direction.Z = 0.0f;
+
                                     messages[i].Done = true;
                                 }
                                 else
@@ -125,7 +126,7 @@ namespace Laikos
                                     direction = vecTmp - Position;
                                 }
                             }
-                        }
+                        //}
                         break;
                 }
             }
