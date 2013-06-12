@@ -59,7 +59,7 @@ namespace Laikos.PathFiding
 
             //Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
             //Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
-            
+
             if (mapa[_koniec.X, _koniec.Y] == 1)
             {
                 return new List<Wspolrzedne>();
@@ -343,19 +343,19 @@ namespace Laikos.PathFiding
             switch (_ruch)
             {
                 case KOLEJNOSC.GORA:
-                    return !((_obecny.Y - 1 >= 0));
+                    return !((_obecny.Y - 1 >= 0) && (mapa[_obecny.X, _obecny.Y - 1] == 0));
                 case KOLEJNOSC.GORA_PRAWO:
                     return !((_obecny.Y - 1 >= 0) && (_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y - 1] == 0));
                 case KOLEJNOSC.PRAWO:
-                    return !((_obecny.X + 1 < wymiarX));
+                    return !((_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y] == 0));
                 case KOLEJNOSC.DOL_PRAWO:
                     return !((_obecny.Y + 1 < wymiarY) && (_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.DOL:
-                    return !((_obecny.Y + 1 < wymiarY));
+                    return !((_obecny.Y + 1 < wymiarY) && (mapa[_obecny.X, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.DOL_LEWO:
                     return !((_obecny.Y + 1 < wymiarY) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.LEWO:
-                    return !((_obecny.X - 1 >= 0));
+                    return !((_obecny.X - 1 >= 0) && (mapa[_obecny.X + 1, _obecny.Y] == 0));
                 case KOLEJNOSC.GORA_LEWO:
                     return !((_obecny.Y - 1 >= 0) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
             }
