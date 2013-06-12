@@ -32,8 +32,7 @@ namespace Laikos
                 var m = lastFrame_messages[i];
                 if (m.Destination != null && m.Destination.Equals(destination))
                 {
-                    result.Add(m);
-                    
+                    result.Add(m);    
                 }
             }
         }

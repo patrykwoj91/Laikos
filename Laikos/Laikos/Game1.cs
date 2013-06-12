@@ -18,6 +18,7 @@ namespace Laikos
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        public static TimeSpan time;
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
@@ -40,6 +41,7 @@ namespace Laikos
 
         public Game1()
         {
+            time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 800;
@@ -105,6 +107,7 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            time = gameTime.TotalGameTime;
             player.Update(gameTime);
 
             Input.Update(this, gameTime, device, camera, player,decorations.DecorationList);
