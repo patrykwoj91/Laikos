@@ -25,7 +25,7 @@ namespace Laikos
         public float temp_position = 0.0f;
 
         public bool selected = false;
-       
+        public List<Message> messages;
         
         public Matrix GetWorldMatrix()
         {
@@ -38,13 +38,14 @@ namespace Laikos
         }
 
         public GameObject()
-        {    
+        {
+            this.messages = new List<Message>();
         }
 
         public GameObject(Game game, String path)
             
         {
-
+            this.messages = new List<Message>();
             if ((File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "High" + ".xnb"))) &&
                 (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "Mid" + ".xnb"))) &&
                 (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "Low" + ".xnb"))))
@@ -68,7 +69,6 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            
             if (exists)
             {
                 if (Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) + 
@@ -108,6 +108,33 @@ namespace Laikos
 
         public virtual void HandleEvent(GameTime gameTime)
         {
+        }
+
+        protected void CleanMessages()
+        {
+            for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages[i].Done == true)
+                {
+                    Console.WriteLine("Usuwam " + (EventManager.Events)messages[i].Type);
+                    messages.RemoveAt(i);
+                }
+            }
+        }
+
+        protected void FindDoubledMessages()
+        {
+            for (int i = 0; i < messages.Count - 1; i++)
+                for (int j = i + 1; j < messages.Count; j++)
+                {
+                    if (messages[i].CompareTo(messages[j]) == 0)
+                    {
+                        if (messages[i].time.CompareTo(messages[j].time) > 0)
+                            messages[j].Done = true;
+                        else
+                            messages[i].Done = true;
+                    }
+                }
         }
     }
 }

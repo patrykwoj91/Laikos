@@ -13,7 +13,7 @@ namespace Laikos
     public class Unit : GameObject
     {
         public bool walk;
-        public List<Message> messages;
+        //public List<Message> messages;
         public UnitType type;
         public double HP;
         public double maxHP;
@@ -31,7 +31,6 @@ namespace Laikos
             : base()
         {
             walk = false;
-            this.messages = new List<Message>();
         }
 
         public Unit(Game game, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
@@ -40,7 +39,6 @@ namespace Laikos
             this.Position = position;
             this.Rotation = rotation;
             this.Scale = scale;
-            this.messages = new List<Message>();
             this.type = (UnitType)type.Clone();
             maxHP = this.type.maxhp;
             HP = maxHP;
@@ -124,33 +122,6 @@ namespace Laikos
                         break;
                 }
             }
-        }
-
-        private void CleanMessages()
-        {
-            for (int i = 0; i < messages.Count; i++)
-            {
-                if (messages[i].Done == true)
-                {
-                    Console.WriteLine("Usuwam " + (EventManager.Events)messages[i].Type);
-                    messages.RemoveAt(i);
-                }
-            }
-        }
-
-        private void FindDoubledMessages()
-        {
-            for (int i = 0; i < messages.Count-1; i++)
-                for (int j = i+1; j < messages.Count; j++)
-                {
-                    if (messages[i].CompareTo(messages[j]) == 0)
-                    {
-                        if (messages[i].time.CompareTo(messages[j].time) > 0)
-                            messages[j].Done = true;
-                        else
-                            messages[i].Done = true;
-                    }
-                }
         }
     }
 }

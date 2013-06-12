@@ -43,6 +43,7 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             HandleEvent(gameTime);
+            CleanMessages();
             base.Update(gameTime);
         }
 
@@ -72,12 +73,14 @@ namespace Laikos
         public override void HandleEvent(GameTime gameTime)
         {
             EventManager.FindMessagesByDestination(this, messages);
+            FindDoubledMessages();
+
             for (int i = 0; i < messages.Count; i++)
             {
                 switch (messages[i].Type)
                 {
                     case (int)EventManager.Events.Interaction:
-                        Console.WriteLine("Dekoracja - obsluga interakcji");
+                        Console.WriteLine("Budynek - obsluga interakcji");
                         break;
                 }
             }
