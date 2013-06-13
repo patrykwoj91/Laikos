@@ -13,7 +13,7 @@ namespace Laikos
     public class Unit : GameObject
     {
         public bool walk;
-        public List<Message> messages;
+        //public List<Message> messages;
         public UnitType type;
         public double HP;
         public double maxHP;
@@ -31,7 +31,6 @@ namespace Laikos
             : base()
         {
             walk = false;
-            this.messages = new List<Message>();
         }
 
         public Unit(Game game, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
@@ -40,7 +39,6 @@ namespace Laikos
             this.Position = position;
             this.Rotation = rotation;
             this.Scale = scale;
-            this.messages = new List<Message>();
             this.type = (UnitType)type.Clone();
             maxHP = this.type.maxhp;
             HP = maxHP;
@@ -52,15 +50,7 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             HandleEvent(gameTime);
-              for (int i = 0; i < messages.Count; i++)
-            {
-                if (messages[i].Done == true)
-                {
-                 
-                    Console.WriteLine("Usuwam " + (EventManager.Events)messages[i].Type);
-                    messages.RemoveAt(i);
-                }
-            }
+            CleanMessages();
             base.Update(gameTime);
 
 
@@ -69,9 +59,12 @@ namespace Laikos
         public override void HandleEvent(GameTime gameTime)
         {
             EventManager.FindMessagesByDestination(this, messages);
-             
+            FindDoubledMessages();
+
+
             for (int i = 0; i < messages.Count; i++)
             {
+                if (messages[i].Done == false)
                 switch (messages[i].Type)
                 {
                     case (int)EventManager.Events.Selected:
@@ -86,14 +79,12 @@ namespace Laikos
 
                     case (int)EventManager.Events.Interaction:
 
-                        Console.WriteLine("Jednostka - interakcja z" + messages[i].Payload.ToString());
+                        Console.WriteLine("Jednostka - interakcja z" + messages[i].Destination.ToString());
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, this, messages[i].Payload, null));
                         messages[i].Done = true;
                         break;
 
-                    case (int)EventManager.Events.MoveUnit: //nakladajace sie komunikaty powoduja problem z kolejnymi ruchami 
-                        //if (selected)
-                        //{
+                    case (int)EventManager.Events.MoveUnit:
                             if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
                             {
                                 destinyPointer = destinyPoints.GetEnumerator();
@@ -119,6 +110,7 @@ namespace Laikos
                                     direction.Z = 0.0f;
 
                                     messages[i].Done = true;
+                                    Console.WriteLine("done");
                                 }
                                 else
                                 {
@@ -126,11 +118,10 @@ namespace Laikos
                                     direction = vecTmp - Position;
                                 }
                             }
-                        //}
+                        
                         break;
                 }
             }
         }
-
     }
 }
