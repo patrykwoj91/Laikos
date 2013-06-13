@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelManager\SelectingGUI.cs" />
     <Compile Include="LevelManager\Terrain\Water.cs" />
     <Compile Include="Lights\SpotLight.cs" />
     <Compile Include="MathUtils.cs" />

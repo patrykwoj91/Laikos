@@ -59,7 +59,7 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-            Input.Init(graphics, this);
+            
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
@@ -81,13 +81,14 @@ namespace Laikos
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
 
-            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.Name);
+            UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
              
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
             Minimap.LoadMiniMap(Content);
 
             player = new Player(this, UnitTypes, BuildingTypes);
+            SelectingGUI.Init(device, graphics, this,player.UnitList,player.BuildingList);
             
         }
 
@@ -162,7 +163,7 @@ namespace Laikos
             objects.AddRange(player.BuildingList);
 
             defferedRenderer.Draw(objects, terrain, gameTime);
-            Input.Draw();
+            SelectingGUI.Draw();
   
             objects.Clear();
             base.Draw(gameTime);

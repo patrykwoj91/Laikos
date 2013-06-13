@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MyDataTypes.BuildingType[]">
+
+    <Item>
+      <Name>Obserwatorium</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Niebianie/Obserwatorium/obserwatorium</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+    </Item>
+
+    <Item>
+      <Name>Pałac rady</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+    </Item>
+
+    <Item>
+      <Name>Strażnica</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Niebianie/Strażnica/strażnica</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+    </Item>
+
+    <Item>
+      <Name>Nekropolis</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Aliens/Nekropolis/nekropoli</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+    </Item>
+  </Asset>
+</XnaContent>

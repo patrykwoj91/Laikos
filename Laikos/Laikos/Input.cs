@@ -8,23 +8,13 @@ namespace Laikos
 {
     static class Input
     {
-        static KeyboardState currentKeyboardState, oldKeyboardState;
-        static MouseState currentMouseState, oldMouseState;
+        public static KeyboardState currentKeyboardState, oldKeyboardState;
+        public static MouseState currentMouseState, oldMouseState;
 
-        public static bool selectionbox, drawselectionbox;
-        private static SpriteBatch spriteBatch;
-        private static SpriteFont spriteFont;
+        public static bool selectionbox;
         public static Vector2 startDrag = new Vector2(-99, -99);
         public static Vector2 stopDrag;
-        private static Texture2D pixel;
-
-
-        public static void Init(GraphicsDeviceManager graphics, Game game)
-        {
-            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-            spriteFont = game.Content.Load<SpriteFont>("Georgia");
-            pixel = game.Content.Load<Texture2D>("selection");
-        }
+   
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
         /// </summary>
@@ -125,7 +115,7 @@ namespace Laikos
             if (currentMouseState.LeftButton == ButtonState.Pressed &&
                 oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                if (!MiniMapClicked(currentMouseState.X, currentMouseState.Y))
+                if (!SelectingGUI.MiniMapClicked(currentMouseState.X, currentMouseState.Y))
                 {
                     selectionbox = true;
 
@@ -134,21 +124,24 @@ namespace Laikos
                         startDrag.X = currentMouseState.X;
                         startDrag.Y = currentMouseState.Y;
 
-                        drawselectionbox = true;
-                        startDrag.X = stopDrag.X = currentMouseState.X;
-                        startDrag.Y = stopDrag.Y = currentMouseState.Y;
+                        SelectingGUI.selectionbox = true;
+                        SelectingGUI.startDrag.X = SelectingGUI.stopDrag.X = currentMouseState.X;
+                        SelectingGUI.startDrag.Y = SelectingGUI.stopDrag.Y = currentMouseState.Y;
                     }
                     else
                     {
-                        stopDrag.X = currentMouseState.X;
-                        stopDrag.Y = currentMouseState.Y;
+                        SelectingGUI.startDrag.X = startDrag.X;
+                        SelectingGUI.startDrag.Y = startDrag.Y;
+
+                        SelectingGUI.stopDrag.X = currentMouseState.X;
+                        SelectingGUI.stopDrag.Y = currentMouseState.Y;
                     }
                 }
             } // MOUSE DRAG - STOP
             else if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                if (selectionbox && (!MiniMapClicked(currentMouseState.X, currentMouseState.Y)))
+                if (selectionbox && (!SelectingGUI.MiniMapClicked(currentMouseState.X, currentMouseState.Y)))
                 {
 
                     if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
@@ -170,7 +163,7 @@ namespace Laikos
                         Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
 
                     }
-                    drawselectionbox = selectionbox = false;
+                    SelectingGUI.selectionbox = selectionbox = false;
                     startDrag.X = -9999;
                     startDrag.Y = -9999;
                 }
@@ -367,14 +360,6 @@ namespace Laikos
             oldKeyboardState = currentKeyboardState;
         }
 
-        public static void Draw()
-        {
-            if (selectionbox)
-                DrawSelection();
-        }
-
-
-
         public static Vector3 GetPointerCoord(GraphicsDevice device)
         {
             Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
@@ -385,24 +370,7 @@ namespace Laikos
 
             return pointerPosition;
         }
-
-        private static void DrawSelection()
-        {
-            MathUtils.SafeSquare(ref startDrag, ref stopDrag);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
-            spriteBatch.Draw(pixel, startDrag, null, Color.White, 0.0f, Vector2.Zero,
-                             new Vector2(stopDrag.X - startDrag.X, 1), SpriteEffects.None, 0);
-            spriteBatch.Draw(pixel, startDrag, null, Color.White, 0.0f, Vector2.Zero,
-                             new Vector2(1, stopDrag.Y - startDrag.Y), SpriteEffects.None, 0);
-            spriteBatch.Draw(pixel, new Vector2(startDrag.X + (stopDrag.X - startDrag.X), startDrag.Y), null,
-                             Color.White, 0.0f, Vector2.Zero, new Vector2(1, stopDrag.Y - startDrag.Y),
-                             SpriteEffects.None, 0);
-            spriteBatch.Draw(pixel, new Vector2(startDrag.X, startDrag.Y + (stopDrag.Y - startDrag.Y)), null,
-                             Color.White, 0.0f, Vector2.Zero, new Vector2(stopDrag.X - startDrag.X, 1),
-                             SpriteEffects.None, 0);
-            spriteBatch.End();
-        }
-
+    
         private static void SelectSingleUnit(Player player, GraphicsDevice device, List<GameObject> allObjects)
         {
             bool object_clicked;
@@ -448,14 +416,6 @@ namespace Laikos
                     }
                 }
             }
-        }
-
-        private static bool MiniMapClicked(float X, float Y)
-        {
-            if (X < 200 && Y < 200)
-                return true;
-            else
-                return false;
         }
 
         private static void DeselectAllUnits(Player player)

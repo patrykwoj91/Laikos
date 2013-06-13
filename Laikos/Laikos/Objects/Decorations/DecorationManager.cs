@@ -39,7 +39,7 @@ namespace Laikos
 
         protected override void LoadContent()
         {
-            DecorationTypes = Game.Content.Load<DecorationType[]>("DecorationTypes").ToDictionary(t => t.name);
+            DecorationTypes = Game.Content.Load<DecorationType[]>("ObjectTypes/DecorationTypes").ToDictionary(t => t.name);
              
            // DecorationList.Add(new Decoration(game, DecorationTypes["Ruins1"], new Vector3(30, 25, 150), 1.5f));
 

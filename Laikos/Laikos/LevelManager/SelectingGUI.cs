@@ -1,0 +1,142 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Laikos
+{
+    public static class SelectingGUI
+    {
+        public static bool selectionbox;
+        public static Vector2 startDrag;
+        public static Vector2 stopDrag;
+        private static SpriteBatch spriteBatch;
+        private static SpriteFont spriteFont;
+        private static Texture2D pixel;
+        private static Texture2D mmap_units;
+        private static Texture2D healthbar;
+        private static Texture2D mmap_buildings;
+        private static List<Unit> Units;
+        private static List<Building> Buildings;
+        private static Vector2 tmp = new Vector2( );
+        private static GraphicsDevice Device;
+        private static GraphicsDeviceManager Graphics;
+
+        public static void Init(GraphicsDevice device, GraphicsDeviceManager graphics, Game game, List<Unit> units, List<Building> buildings)
+        {
+            Graphics = graphics;
+            Device = device;
+            spriteBatch = new SpriteBatch(Graphics.GraphicsDevice);
+
+            spriteFont = game.Content.Load<SpriteFont>("Georgia");
+            pixel = game.Content.Load<Texture2D>("selection");
+            mmap_units = game.Content.Load<Texture2D>("mmap_units");
+            mmap_buildings = game.Content.Load<Texture2D>("mmap_buildings");
+            healthbar = game.Content.Load<Texture2D>("healthbar");
+            Units = units;
+            Buildings = buildings;
+        }
+
+        public static bool MiniMapClicked(float X, float Y)
+        {
+            if (X < 200 && Y < 200)
+                return true;
+            else
+                return false;
+        }
+
+        private static void DrawSelection(SpriteBatch spriteBatch)
+        {
+            MathUtils.SafeSquare(ref startDrag, ref stopDrag);
+            spriteBatch.Draw(pixel, startDrag, null, Color.White, 0.0f, Vector2.Zero,
+                             new Vector2(stopDrag.X - startDrag.X, 1), SpriteEffects.None, 0);
+            spriteBatch.Draw(pixel, startDrag, null, Color.White, 0.0f, Vector2.Zero,
+                             new Vector2(1, stopDrag.Y - startDrag.Y), SpriteEffects.None, 0);
+            spriteBatch.Draw(pixel, new Vector2(startDrag.X + (stopDrag.X - startDrag.X), startDrag.Y), null,
+                             Color.White, 0.0f, Vector2.Zero, new Vector2(1, stopDrag.Y - startDrag.Y),
+                             SpriteEffects.None, 0);
+            spriteBatch.Draw(pixel, new Vector2(startDrag.X, startDrag.Y + (stopDrag.Y - startDrag.Y)), null,
+                             Color.White, 0.0f, Vector2.Zero, new Vector2(stopDrag.X - startDrag.X, 1),
+                             SpriteEffects.None, 0);
+            
+        }
+
+        private static void DrawOnMiniMap(SpriteBatch spriteBatch)
+        {
+
+            foreach (Unit unit in Units)
+            {
+                    tmp.X = unit.Position.X / 5;
+                    tmp.Y = unit.Position.Z / 5;
+                if (unit.selected ==false)
+                    spriteBatch.Draw(mmap_units, tmp, Color.CornflowerBlue);
+                else
+                    spriteBatch.Draw(mmap_units, tmp, Color.White);
+            }
+            foreach (Building building in Buildings)
+            {
+                tmp.X = building.Position.X / 5;
+                tmp.Y = building.Position.Z / 5;
+                if (building.selected == false)
+                    spriteBatch.Draw(mmap_buildings, tmp, Color.CornflowerBlue);
+                else
+                    spriteBatch.Draw(mmap_buildings, tmp, Color.White);
+            }
+        }
+
+        private static void DrawUnitInfo(SpriteBatch spriteBatch)
+        {
+            foreach (Unit unit in Units)
+            {
+                // Project the 3d position first
+                Vector3 screenPos3D = Device.Viewport.Project(unit.Position, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
+                // Just to make it easier to use we create a Vector2 from screenPos3D
+                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-30);
+               
+                if (unit.selected == true)
+                {
+                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red);
+                }
+                else
+                {
+                    // Draw the healthbar
+                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red * 0.5f);
+                }
+            }
+            foreach (Building building in Buildings)
+            {
+                // Project the 3d position first
+                Vector3 screenPos3D = Device.Viewport.Project(building.Position, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
+                // Just to make it easier to use we create a Vector2 from screenPos3D
+                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-30);
+                if (building.selected == true)
+                {
+                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red);
+                }
+                else
+                {
+                    // Draw the healthbar
+                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red * 0.5f);
+                }
+            }
+        }
+
+        public static void Draw()
+        {
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+            
+            DrawOnMiniMap(spriteBatch);
+            if (selectionbox)
+                DrawSelection(spriteBatch);
+
+            DrawUnitInfo(spriteBatch);
+
+            //tu moglobytez byc drawminimap
+
+            spriteBatch.End();
+        }
+
+    }
+}

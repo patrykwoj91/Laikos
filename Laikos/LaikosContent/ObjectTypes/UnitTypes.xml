@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MyDataTypes.UnitType[]">
+
+    <Item>
+      <race>Niebianie</race>
+      <name>Reconnaissance Eye</name>
+      <maxhp>50.0</maxhp>
+      <mp>50.0</mp>
+      <model>Models/Units/Niebianie/Eye/oko</model>
+    </Item>
+
+    <Item>
+      <race>Niebianie</race>
+      <name>Antigravity Tank</name>
+      <maxhp>50.0</maxhp>
+      <mp>0.0</mp>
+      <model>Models/Units/Niebianie/Tank/czolg</model>
+    </Item>
+
+    <Item>
+      <race>Aliens</race>
+      <name>Alien Worker</name>
+      <maxhp>50.0</maxhp>
+      <mp>0.0</mp>
+      <model>Models/Units/Aliens/Alien_Worker/alien_worker</model>
+    </Item>
+    
+    <Item>
+      <race>Aliens</race>
+      <name>Alien Melee</name>
+      <maxhp>50.0</maxhp>
+      <mp>0.0</mp>
+      <model>Models/Units/Aliens/Alien</model>
+    </Item>
+
+    <Item>
+      <race>Aliens</race>
+      <name>Alien Rider</name>
+      <maxhp>50.0</maxhp>
+      <mp>0.0</mp>
+      <model>Models/Units/Aliens/Alien_Rider/alien_rider</model>
+    </Item>
+    
+    
+
+  </Asset>
+</XnaContent>
