@@ -24,8 +24,8 @@ namespace Laikos
         public ZnajdzSciezke pathFiding;
         public List<Wspolrzedne> destinyPoints;
         public IEnumerator<Wspolrzedne> destinyPointer;
+        public BoundingSphere boundingSphere;
         Vector3 direction;
-
 
         public Unit()
             : base()

@@ -1,3 +1,14 @@
+Content\Textures\UI_Null.xnb
+Content\Debug\Debug_Menu.xnb
+Content\Effects\UI_GrayScale.xnb
+Content\Effects\UI_IntensityAsAlpha.xnb
+Content\Effects\UI_IntensityAsAlphaTexture.xnb
+Content\Effects\UI_IntensityAsAlphaTexture_PMA.xnb
+Content\Effects\UI_IntensityAsAlpha_PMA.xnb
+Content\Effects\UI_MultiTexture1.xnb
+Content\Effects\UI_MultiTexture2.xnb
+Content\Effects\UI_MultiTexture3.xnb
+Content\Debug\Debug_Font.xnb
 Content\Models\Terrain\Textures\grass.xnb
 Content\Models\Terrain\Heightmaps\heightmap.xnb
 Content\Models\Terrain\Heightmaps\heightmap1.xnb

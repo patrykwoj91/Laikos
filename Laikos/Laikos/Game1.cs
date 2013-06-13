@@ -44,8 +44,8 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 800;
             graphics.IsFullScreen =false;
         }
 
@@ -120,26 +120,22 @@ namespace Laikos
 
             // TODO: Add your update logic here
 
-            bool collision;
+            bool collision = false;
 
 
-            /*collision = Collisions.DetailedDecorationCollisionCheck(player.UnitList[1],
-                                      decorations.DecorationList[0]);
-           ) Console.WriteLine(collision);
-            if (collision)
-                player.UnitList[2].Position = player.UnitList[2].lastPosition;
-            */
-            collision = Collisions.DetailedCollisionCheck(player.UnitList[0].currentModel.Model, player.UnitList[0].GetWorldMatrix(),
-                 player.UnitList[1].currentModel.Model, player.UnitList[1].GetWorldMatrix());
-
-            
-            if (collision)
+            foreach(Unit unit1 in player.UnitList)
             {
-                Console.WriteLine("Kolizja");
-                player.UnitList[0].Position = player.UnitList[0].lastPosition;
-                player.UnitList[1].Position = player.UnitList[1].lastPosition;
+                foreach (Unit unit2 in player.UnitList)
+                {
+                    collision = Collisions.GeneralCollisionCheck(unit1, unit2);
+                    if (collision)
+                    {
+                        Console.WriteLine("Kolizja");
+                        player.UnitList[0].Position = player.UnitList[0].lastPosition;
+                        player.UnitList[1].Position = player.UnitList[1].lastPosition;
+                    }
+                }
             }
-
         }
 
        

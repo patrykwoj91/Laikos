@@ -51,20 +51,22 @@ namespace Laikos
 
         //This method is performing basic collision detection between two models
         //Whole model is surrounded by BoundingBox stored in model.Tag info
-       public static bool GeneralCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+       public static bool GeneralCollisionCheck(Unit unit1, Unit unit2)
         {
             //Retrieving data about BoundingBox from model.Tag for first model
-            ModelExtra modelExtra = model1.Tag as ModelExtra;
+            ModelExtra modelExtra = unit1.currentModel.Model.Tag as ModelExtra;
             BoundingSphere originalSphere1 = modelExtra.boundingSphere;
-            BoundingSphere Sphere1 = XNAUtils.TransformBoundingSphere(originalSphere1, world1);
+            unit1.boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere1, unit1.GetWorldMatrix());
 
+            Console.WriteLine("Sfera 1: " + unit1.boundingSphere.Center + " Radius: " + unit1.boundingSphere.Radius);
             //Doing the same thing for second model
-            ModelExtra modelExtra1 = model2.Tag as ModelExtra;
-            BoundingSphere originalSphere2 = modelExtra.boundingSphere;
-            BoundingSphere Sphere2 = XNAUtils.TransformBoundingSphere(originalSphere2, world2);
+            ModelExtra modelExtra1 = unit2.currentModel.Model.Tag as ModelExtra;
+            BoundingSphere originalSphere2 = modelExtra1.boundingSphere;
+            unit2.boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere2, unit2.GetWorldMatrix());
 
+            Console.WriteLine("Sfera 2: " + unit2.boundingSphere.Center + " Radius: " + unit2.boundingSphere.Radius);
             //Checking if global bounding Box(surronds whole model) intersects another Box
-            bool collision = Sphere1.Intersects(Sphere2);
+            bool collision = unit1.boundingSphere.Intersects(unit2.boundingSphere);
             
             return collision;
         }
@@ -75,8 +77,8 @@ namespace Laikos
         {
             //first we check if there is general collision between two models
             //If method returns false we dont have to perform detailed check
-            if (!GeneralCollisionCheck(model1, world1, model2, world2))
-                return false;
+            //if (!GeneralCollisionCheck(model1, world1, model2, world2))
+                //return false;
 
             //Here we are creating BoundingBox for each mesh for model1
             Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
