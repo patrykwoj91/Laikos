@@ -14,6 +14,8 @@ namespace Laikos
        public BuildingType type;
        public List<Message> messages;
        public List<BoundingBox> meshBoundingBoxes;
+       public double HP;
+       public double maxHP;
 
        public Building()
            :base()
@@ -28,6 +30,8 @@ namespace Laikos
            this.Scale = scale;
            this.messages = new List<Message>();
            this.meshBoundingBoxes = new List<BoundingBox>();
+           maxHP = this.type.maxhp;
+           HP = maxHP;
 
            Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
            currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
@@ -43,6 +47,7 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             HandleEvent(gameTime);
+            HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             CleanMessages();
             base.Update(gameTime);
         }

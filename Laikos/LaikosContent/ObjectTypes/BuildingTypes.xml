@@ -4,7 +4,7 @@
 
     <Item>
       <Name>Obserwatorium</Name>
-      <HP>1000.0</HP>
+      <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Obserwatorium/obserwatorium</Model>
       <Souls>300</Souls>
       <Scale>0.2</Scale>
@@ -12,7 +12,7 @@
 
     <Item>
       <Name>Pałac rady</Name>
-      <HP>1000.0</HP>
+      <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</Model>
       <Souls>300</Souls>
       <Scale>0.2</Scale>
@@ -20,7 +20,7 @@
 
     <Item>
       <Name>Strażnica</Name>
-      <HP>1000.0</HP>
+      <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Strażnica/strażnica</Model>
       <Souls>300</Souls>
       <Scale>0.2</Scale>
@@ -28,7 +28,7 @@
 
     <Item>
       <Name>Nekropolis</Name>
-      <HP>1000.0</HP>
+      <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Aliens/Nekropolis/nekropoli</Model>
       <Souls>300</Souls>
       <Scale>0.2</Scale>

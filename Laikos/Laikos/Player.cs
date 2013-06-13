@@ -52,6 +52,7 @@ namespace Laikos
             Souls = 1000;
             //UnitList.Add(new Unit(game, UnitTypes["Alien Worker"], new Vector3(620, 20, 700), 0.1f));
             UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(620, 20, 750), 0.05f));
+            UnitList.Add(new Unit(game, UnitTypes["Reconnaissance Eye"], new Vector3(620, 20, 700), 0.05f));
             //UnitList.Add(new Unit(game, UnitTypes["Alien Rider"], new Vector3(600, 25, 750), 0.03f));
             
             BuildingList.Add(new Building(game, BuildingTypes["Nekropolis"], new Vector3(650, 20, 750), BuildingTypes["Nekropolis"].Scale));

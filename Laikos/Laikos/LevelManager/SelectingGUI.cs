@@ -91,18 +91,20 @@ namespace Laikos
             foreach (Unit unit in Units)
             {
                 // Project the 3d position first
-                Vector3 screenPos3D = Device.Viewport.Project(unit.Position, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
+                Vector3 screenPos3D = Device.Viewport.Project(unit.boundingSphere.Center, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
                 // Just to make it easier to use we create a Vector2 from screenPos3D
-                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-30);
+                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-unit.boundingSphere.Radius*7);
                
                 if (unit.selected == true)
                 {
-                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height/2), healthbar.Width, healthbar.Height), null, Color.Red);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)unit.HP / unit.maxHP)), healthbar.Height), null, Color.ForestGreen);
                 }
                 else
                 {
                     // Draw the healthbar
-                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red * 0.5f);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, healthbar.Width, healthbar.Height), null, Color.Red*0.5f);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, (int)(healthbar.Width * ((double)unit.HP / unit.maxHP)), healthbar.Height), null, Color.ForestGreen*0.5f);
                 }
             }
             foreach (Building building in Buildings)
@@ -110,17 +112,51 @@ namespace Laikos
                 // Project the 3d position first
                 Vector3 screenPos3D = Device.Viewport.Project(building.Position, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
                 // Just to make it easier to use we create a Vector2 from screenPos3D
-                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-30);
-                if (building.selected == true)
+               // Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y - building.boundingSphere.Radius * 7);
+
+               /* if (building.selected == true)
                 {
-                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), healthbar.Width, healthbar.Height), null, Color.Red);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)building.HP / building.maxHP)), healthbar.Height), null, Color.ForestGreen);
                 }
                 else
                 {
                     // Draw the healthbar
-                    spriteBatch.Draw(healthbar, screenPos2D - new Vector2(Device.Viewport.X, Device.Viewport.Y) - new Vector2(healthbar.Width / 2f, healthbar.Height / 2f), Color.Red * 0.5f);
-                }
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, healthbar.Width, healthbar.Height), null, Color.Red * 0.5f);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, (int)(healthbar.Width * ((double)building.HP / building.maxHP)), healthbar.Height), null, Color.ForestGreen * 0.5f);
+                }*/
             }
+
+
+
+
+
+        /*    //Draw the negative space for the health bar
+
+            mBatch.Draw(mHealthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - mHealthBar.Width / 2,
+
+            30, mHealthBar.Width, 44), new Rectangle(0, 45, mHealthBar.Width, 44), Color.Gray);
+
+
+
+            //Draw the current health level based on the current Health
+
+            mBatch.Draw(mHealthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - mHealthBar.Width / 2,
+
+                 30, (int)(mHealthBar.Width * ((double)mCurrentHealth / 100)), 44),
+
+                 new Rectangle(0, 45, mHealthBar.Width, 44), Color.Red);
+
+
+
+            //Draw the box around the health bar
+
+            mBatch.Draw(mHealthBar, new Rectangle(this.Window.ClientBounds.Width / 2 - mHealthBar.Width / 2,
+
+            30, mHealthBar.Width, 44), new Rectangle(0, 0, mHealthBar.Width, 44), Color.White);*/
+
+
+
         }
 
         public static void Draw()
@@ -133,7 +169,7 @@ namespace Laikos
 
             DrawUnitInfo(spriteBatch);
 
-            //tu moglobytez byc drawminimap
+            
 
             spriteBatch.End();
         }
