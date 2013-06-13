@@ -155,6 +155,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="LevelManager\Terrain\Terrain.cs" />
     <Compile Include="Physics\XNAUtils.cs" />
+    <Compile Include="ScreenTest.cs" />
     <Compile Include="VertexHelper.cs" />
   </ItemGroup>
   <ItemGroup>

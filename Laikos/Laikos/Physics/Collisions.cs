@@ -57,14 +57,16 @@ namespace Laikos
             ModelExtra modelExtra = unit1.currentModel.Model.Tag as ModelExtra;
             BoundingSphere originalSphere1 = modelExtra.boundingSphere;
             unit1.boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere1, unit1.GetWorldMatrix());
-
+            
             Console.WriteLine("Sfera 1: " + unit1.boundingSphere.Center + " Radius: " + unit1.boundingSphere.Radius);
+            Console.WriteLine(unit1.Position);
             //Doing the same thing for second model
             ModelExtra modelExtra1 = unit2.currentModel.Model.Tag as ModelExtra;
             BoundingSphere originalSphere2 = modelExtra1.boundingSphere;
             unit2.boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere2, unit2.GetWorldMatrix());
 
             Console.WriteLine("Sfera 2: " + unit2.boundingSphere.Center + " Radius: " + unit2.boundingSphere.Radius);
+            Console.WriteLine(unit2.Position);
             //Checking if global bounding Box(surronds whole model) intersects another Box
             bool collision = unit1.boundingSphere.Intersects(unit2.boundingSphere);
             
@@ -73,39 +75,39 @@ namespace Laikos
 
         //This method performs much more detailed collision check.
         //It checks if there is collision for each mesh of model
-       public static bool DetailedCollisionCheck(Model model1, Matrix world1, Model model2, Matrix world2)
+       public static bool DetailedCollisionCheck(Unit unit1, Unit unit2)
         {
             //first we check if there is general collision between two models
             //If method returns false we dont have to perform detailed check
-            //if (!GeneralCollisionCheck(model1, world1, model2, world2))
-                //return false;
+            if (!GeneralCollisionCheck(unit1, unit2))
+                return false;
 
             //Here we are creating BoundingBox for each mesh for model1
-            Matrix[] model1Transforms = new Matrix[model1.Bones.Count];
-            model1.CopyAbsoluteBoneTransformsTo(model1Transforms);
-            BoundingBox[] model1Boxs = new BoundingBox[model1.Meshes.Count];
-            
-            for (int i = 0; i < model1.Meshes.Count; i++)
+            Matrix[] model1Transforms = new Matrix[unit1.currentModel.Model.Bones.Count];
+            unit1.currentModel.Model.CopyAbsoluteBoneTransformsTo(model1Transforms);
+            BoundingBox[] model1Boxs = new BoundingBox[unit1.currentModel.Model.Meshes.Count];
+
+            for (int i = 0; i < unit1.currentModel.Model.Meshes.Count; i++)
             {
-                ModelMesh mesh = model1.Meshes[i];
+                ModelMesh mesh = unit1.currentModel.Model.Meshes[i];
                 BoundingSphere origSphere = mesh.BoundingSphere;
                 BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
-                Matrix trans = model1Transforms[mesh.ParentBone.Index] * world1;
+                Matrix trans = model1Transforms[mesh.ParentBone.Index] * unit1.GetWorldMatrix();
                 BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
                 model1Boxs[i] = transBox;
             }
 
             //and here for second model
-            Matrix[] model2Transforms = new Matrix[model2.Bones.Count];
-            model2.CopyAbsoluteBoneTransformsTo(model2Transforms);
-            BoundingBox[] model2Boxs = new BoundingBox[model2.Meshes.Count];
-            
-            for (int i = 0; i < model2.Meshes.Count; i++)
+            Matrix[] model2Transforms = new Matrix[unit2.currentModel.Model.Bones.Count];
+            unit2.currentModel.Model.CopyAbsoluteBoneTransformsTo(model2Transforms);
+            BoundingBox[] model2Boxs = new BoundingBox[unit2.currentModel.Model.Meshes.Count];
+
+            for (int i = 0; i < unit2.currentModel.Model.Meshes.Count; i++)
             {
-                ModelMesh mesh = model2.Meshes[i];
+                ModelMesh mesh = unit2.currentModel.Model.Meshes[i];
                 BoundingSphere origSphere = mesh.BoundingSphere;
                 BoundingBox origBox = BoundingBox.CreateFromSphere(origSphere);
-                Matrix trans = model2Transforms[mesh.ParentBone.Index] * world2;
+                Matrix trans = model2Transforms[mesh.ParentBone.Index] * unit2.GetWorldMatrix();
                 BoundingBox transBox = XNAUtils.TransformBoundingBox(origBox, trans);
                 model2Boxs[i] = transBox;
             }

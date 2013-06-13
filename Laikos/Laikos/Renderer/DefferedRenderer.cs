@@ -168,21 +168,13 @@ namespace Laikos
             ClearGBuffer();
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
-
-            //List<Model> models = new List<Model>();
-            // foreach (GameObject obj in objects)
-            //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
-
-            
-            
-            
-        
             SmokePlumeParticles.Draw(gameTime, device);
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-                Debug();
+            _UI.Sprite.Render(0);
+            Debug();
 
         }
 
