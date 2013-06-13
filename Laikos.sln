@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laikos", "Laikos\Laikos\Laikos.csproj", "{F755E4A4-0EBF-4B3E-B43D-6CCD7D3E7138}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaikosContent", "Laikos\LaikosContent\LaikosContent.contentproj", "{976AB03C-50A7-4836-BA42-5AF015AEED37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimationPipeline", "AnimationProcessor\AnimationPipeline.csproj", "{6401ECED-B836-4A18-B85F-94B4577A1589}"
@@ -21,12 +19,6 @@ Global
 		Release|Xbox 360 = Release|Xbox 360
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F755E4A4-0EBF-4B3E-B43D-6CCD7D3E7138}.Debug|x86.ActiveCfg = Debug|x86
-		{F755E4A4-0EBF-4B3E-B43D-6CCD7D3E7138}.Debug|x86.Build.0 = Debug|x86
-		{F755E4A4-0EBF-4B3E-B43D-6CCD7D3E7138}.Debug|Xbox 360.ActiveCfg = Debug|x86
-		{F755E4A4-0EBF-4B3E-B43D-6CCD7D3E7138}.Release|x86.ActiveCfg = Release|x86
-		{F755E4A4-0EBF-4B3E-B43D-6CCD7D3E7138}.Release|x86.Build.0 = Release|x86
-		{F755E4A4-0EBF-4B3E-B43D-6CCD7D3E7138}.Release|Xbox 360.ActiveCfg = Release|x86
 		{976AB03C-50A7-4836-BA42-5AF015AEED37}.Debug|x86.ActiveCfg = Debug|x86
 		{976AB03C-50A7-4836-BA42-5AF015AEED37}.Debug|Xbox 360.ActiveCfg = Debug|x86
 		{976AB03C-50A7-4836-BA42-5AF015AEED37}.Release|x86.ActiveCfg = Release|x86

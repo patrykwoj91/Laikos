@@ -25,7 +25,7 @@ namespace Laikos
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
-        SpriteFont font;
+        private SpriteFont Times;
 
         Vector3 pointerPosition = new Vector3(0, 0, 0);
 
@@ -50,7 +50,6 @@ namespace Laikos
         Terrain terrain;
 
         DecorationManager decorations;
-        BuildingManager buildings;
         DefferedRenderer defferedRenderer;
 
         List<GameObject> objects;
@@ -84,12 +83,10 @@ namespace Laikos
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
-            buildings = new BuildingManager(this, device, graphics);
 
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
-            Components.Add(buildings);
 
             base.Initialize();
         }
@@ -101,11 +98,12 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("Georgia");
-            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font);
+            Times = Content.Load<SpriteFont>("Georgia");
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, Times);
             objects = new List<GameObject>();
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.name);
+
+            Times = Content.Load<SpriteFont>("Times");
 
             player = new Player(this, UnitTypes);
 
@@ -490,7 +488,6 @@ namespace Laikos
                         if ((creationOption < 6) && (!objectsSchema.buildingsGroups[creationType].buildings[creationOption - 1].name.StartsWith("Building_")))
                         {
                             //player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.05f));
-                            buildings.BuildingList.Add (new Building (player.game, BuildingTypes[objectsSchema.buildingsGroups[creationType].buildings[creationOption - 1].name], new Vector3 (positionWidth, 30, positionHeight), 0.05f));
                         }
                     }
                 }
@@ -517,7 +514,6 @@ namespace Laikos
             GraphicsDevice.Clear(Color.Black);
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
-            objects.AddRange(buildings.BuildingList);
 
             defferedRenderer.Draw(objects, terrain, gameTime);
             objects.Clear();
@@ -552,49 +548,49 @@ namespace Laikos
             switch (creationMode)
             {
                 case CREATION_MODE.TERRAIN_UP:
-                    spriteBatch.DrawString(font, "Podnoszenie terenu", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "Rozmiar pedzla: " + pencilSize, new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "Moc pedzla: " + pencilPower, new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "9. Obnizanie terenu.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Podnoszenie terenu", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Rozmiar pedzla: " + pencilSize, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Moc pedzla: " + pencilPower, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Obnizanie terenu.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
                 case CREATION_MODE.TERRAIN_DOWN:
-                    spriteBatch.DrawString(font, "Obnizanie terenu", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "Rozmiar pedzla: " + pencilSize, new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "Moc pedzla: " + pencilPower, new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "9. Podnoszenie terenu.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Obnizanie terenu", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Rozmiar pedzla: " + pencilSize, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Moc pedzla: " + pencilPower, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Podnoszenie terenu.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
                 case CREATION_MODE.BUILDING_BUILD:
-                    spriteBatch.DrawString(font, "Budynki: " + objectsSchema.buildingsGroups[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Budynki: " + objectsSchema.buildingsGroups[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
                     for (int i = 0; i < objectsSchema.buildingsGroups[creationType].buildings.Count; ++i)
                     {
-                        spriteBatch.DrawString(font, (i + 1) + ". " + objectsSchema.buildingsGroups[creationType].buildings[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                        spriteBatch.DrawString(Times, (i + 1) + ". " + objectsSchema.buildingsGroups[creationType].buildings[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
                     }
-                    spriteBatch.DrawString(font, "8. Zmiana grupy.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "9. Przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "8. Zmiana grupy.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
                 case CREATION_MODE.BUILDING_MOVE:
-                    spriteBatch.DrawString(font, "Budynki przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "9. Budowanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Budynki przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Budowanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
                     break;
                 case CREATION_MODE.UNITS_BUILD:
-                    spriteBatch.DrawString(font, "Jednostki: " + objectsSchema.unitGroups[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Jednostki: " + objectsSchema.unitGroups[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
                     for (int i = 0; i < objectsSchema.unitGroups[creationType].units.Count; ++i)
                     {
-                        spriteBatch.DrawString(font, (i + 1) + ". " + objectsSchema.unitGroups[creationType].units[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                        spriteBatch.DrawString(Times, (i + 1) + ". " + objectsSchema.unitGroups[creationType].units[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
                     }
-                    spriteBatch.DrawString(font, "8. Zmiana grupy.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "9. Przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "8. Zmiana grupy.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
                 case CREATION_MODE.UNITS_MOVE:
-                    spriteBatch.DrawString(font, "Jednostki przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "9. Budowanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
-                    spriteBatch.DrawString(font, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "Jednostki przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Budowanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
             }
             spriteBatch.End();
@@ -603,7 +599,7 @@ namespace Laikos
         private void DrawHelp()
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "F2 - zapisz bitmape" + pencilSize, new Vector2(0, 215), Color.Green);
+            spriteBatch.DrawString(Times, "F2 - zapisz bitmape" + pencilSize, new Vector2(0, 215), Color.Green);
             spriteBatch.End();
         }
     }
