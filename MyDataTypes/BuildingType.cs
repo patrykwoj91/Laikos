@@ -13,10 +13,11 @@ namespace MyDataTypes
 {
     public class BuildingType : ICloneable
     {
-        public String race;
-        public String name;
-        public Double hp;
-        public String model;
+        public String Name;
+        public Double HP;
+        public String Model;
+        public int Souls;
+        public float Scale;
 
         public object Clone()
         {

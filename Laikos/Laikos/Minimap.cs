@@ -12,34 +12,38 @@ namespace Laikos
 {
     class Minimap
     {
-        private RenderTarget2D minimap;
+        public static RenderTarget2D minimap;
         public static Texture2D miniMap;
-        private Effect GBuffer;
-        private Terrain terrain;
-        private GraphicsDevice device;
 
-        public Minimap(GraphicsDevice device, Terrain terrain, ContentManager content)
+        public static void Initialize(GraphicsDevice device)
         {
             PresentationParameters pp = device.PresentationParameters;
-            minimap = new RenderTarget2D(device, 600, 600, false, SurfaceFormat.Color, DepthFormat.Depth24);
-            this.device = device;
-            this.terrain = terrain;
-            GBuffer = content.Load<Effect>("Effects/GBuffer");
+            minimap = new RenderTarget2D(device, 1000, 1000, false, SurfaceFormat.Color, DepthFormat.Depth24);
+        }
+
+        public static void SetRenderTarget(GraphicsDevice device)
+        {
+            device.SetRenderTarget(minimap);
+        }
+
+        public static void ResolveRenderTarger(GraphicsDevice device)
+        {
+            device.SetRenderTarget(null);
+            miniMap = minimap;
+            Camera.upDownRot = MathHelper.ToRadians(-45);
+            Camera.cameraPosition = new Vector3(30, 80, 100);
+        }
+
+        public static void LoadMiniMap(ContentManager content)
+        {
             miniMap = content.Load<Texture2D>("Models/Terrain/minimap");
         }
 
-        public void CreateMiniMap()
+        public static void SaveMiniMap()
         {
-            device.SetRenderTarget(minimap);
-            //device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-            terrain.DrawTerrain(GBuffer);
-            device.SetRenderTarget(null);
-            miniMap = minimap;
             FileStream stream = new FileStream("minimap.jpg", FileMode.OpenOrCreate);
             miniMap.SaveAsPng(stream, miniMap.Width, miniMap.Height);
             stream.Close();
-            Camera.upDownRot = MathHelper.ToRadians(-45);
-            Camera.cameraPosition = new Vector3(30, 80, 100);
         }
     }
 }

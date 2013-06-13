@@ -1,3 +1,14 @@
+Content\Textures\UI_Null.xnb
+Content\Debug\Debug_Menu.xnb
+Content\Effects\UI_GrayScale.xnb
+Content\Effects\UI_IntensityAsAlpha.xnb
+Content\Effects\UI_IntensityAsAlphaTexture.xnb
+Content\Effects\UI_IntensityAsAlphaTexture_PMA.xnb
+Content\Effects\UI_IntensityAsAlpha_PMA.xnb
+Content\Effects\UI_MultiTexture1.xnb
+Content\Effects\UI_MultiTexture2.xnb
+Content\Effects\UI_MultiTexture3.xnb
+Content\Debug\Debug_Font.xnb
 Content\Models\Terrain\Textures\grass.xnb
 Content\Models\Terrain\Heightmaps\heightmap.xnb
 Content\Models\Terrain\Heightmaps\heightmap1.xnb
@@ -40,8 +51,13 @@ Content\Models\Buildings\Niebianie\Pałac_rady\texturaInne.xnb
 Content\Models\Buildings\Niebianie\Pałac_rady\texturaInne2.xnb
 Content\Models\SkyDome\cloudMap.xnb
 Content\waterbump.xnb
-Content\Models\Terrain\minimap.xnb
 Content\Models\Terrain\Heightmaps\heightmap3.xnb
+Content\selection.xnb
+Content\Models\Terrain\Heightmaps\heightmap4.xnb
+Content\Models\Buildings\Aliens\Nekropolis\drewno.xnb
+Content\Models\Buildings\Aliens\Nekropolis\mat3.xnb
+Content\Models\Buildings\Aliens\Nekropolis\nekropolis.xnb
+Content\Models\Terrain\minimap.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb
@@ -62,6 +78,7 @@ Content\Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p1.xnb
 Content\Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p2.xnb
 Content\Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p3.xnb
 Content\Models\Buildings\Niebianie\Pałac_rady\pałac_rady_p4.xnb
+Content\Models\Buildings\Aliens\Nekropolis\nekropoli.xnb
 Content\Models\Units\Eye\okoHigh.xnb
 Content\Models\Units\Trojnog\trojnog.xnb
 Content\Effects\Clear.xnb
@@ -120,6 +137,8 @@ Content\drewno_0.xnb
 Content\Models\Buildings\Niebianie\Pałac_rady\texturaInne_0.xnb
 Content\Models\Buildings\Niebianie\Pałac_rady\texturaInne2_0.xnb
 Content\Models\Buildings\Niebianie\Pałac_rady\drewno_0.xnb
+Content\FBX\77A834B1\nekropoli.fbm\mat3_0.xnb
+Content\FBX\77A834B1\nekropoli.fbm\drewno_0.xnb
 Content\FBX\A6E62C5E\okoHigh.fbm\texturaInne_0.xnb
 Content\FBX\A6E62C5E\okoHigh.fbm\tekstura_0.xnb
 Content\FBX\60242E38\trojnog.fbm\metalSzary_0.xnb

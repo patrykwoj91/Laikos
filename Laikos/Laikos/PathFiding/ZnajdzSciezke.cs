@@ -13,7 +13,7 @@ namespace Laikos.PathFiding
 {
     public class ZnajdzSciezke
     {
-        private const int SKALA = 10;
+        private const int SKALA = 5;
 
         private int[,] mapa;
 
@@ -57,9 +57,9 @@ namespace Laikos.PathFiding
             _koniec.X = _koniec.X / SKALA;
             _koniec.Y = _koniec.Y / SKALA;
 
-            Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
-            Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
-            
+            //Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
+            //Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
+
             if (mapa[_koniec.X, _koniec.Y] == 1)
             {
                 return new List<Wspolrzedne>();
@@ -147,7 +147,7 @@ namespace Laikos.PathFiding
                             )
                             &&
                             (
-                                sciezkaPrzeszukiwana[idNajlepszegoWezla].Waga >= sciezkaPrzeszukiwana[najlepszy].Waga
+                                sciezkaPrzeszukiwana[idNajlepszegoWezla].Waga > sciezkaPrzeszukiwana[najlepszy].Waga
                             )
                            )
                         {
@@ -171,11 +171,6 @@ namespace Laikos.PathFiding
 
             return sciezka;
         }
-
-        //private static void wyrysujPlansze(Wspolrzedne _obecny)
-        //{
-        //    for (int i = 0; i < 
-        //}
 
         private KOLEJNOSC odwrocRuch(KOLEJNOSC _ruch)
         {
@@ -360,7 +355,7 @@ namespace Laikos.PathFiding
                 case KOLEJNOSC.DOL_LEWO:
                     return !((_obecny.Y + 1 < wymiarY) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.LEWO:
-                    return !((_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y] == 0));
+                    return !((_obecny.X - 1 >= 0) && (mapa[_obecny.X + 1, _obecny.Y] == 0));
                 case KOLEJNOSC.GORA_LEWO:
                     return !((_obecny.Y - 1 >= 0) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
             }

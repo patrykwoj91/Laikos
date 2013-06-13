@@ -3,24 +3,35 @@
   <Asset Type="MyDataTypes.BuildingType[]">
 
     <Item>
-      <race>Niebianin</race>
-      <name>Obserwatorium</name>
-      <hp>1000.0</hp>
-      <model>Models/Buildings/Niebianie/Obserwatorium/obserwatorium</model>
+      <Name>Obserwatorium</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Niebianie/Obserwatorium/obserwatorium</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
     </Item>
 
     <Item>
-      <race>Niebianin</race>
-      <name>Pałac rady</name>
-      <hp>1000.0</hp>
-      <model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</model>
+      <Name>Pałac rady</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
     </Item>
 
     <Item>
-      <race>Niebianin</race>
-      <name>Strażnica</name>
-      <hp>1000.0</hp>
-      <model>Models/Buildings/Niebianie/Strażnica/strażnica</model>
+      <Name>Strażnica</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Niebianie/Strażnica/strażnica</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+    </Item>
+
+    <Item>
+      <Name>Nekropolis</Name>
+      <HP>1000.0</HP>
+      <Model>Models/Buildings/Aliens/Nekropolis/nekropoli</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
     </Item>
   </Asset>
 </XnaContent>

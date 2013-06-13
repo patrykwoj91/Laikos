@@ -26,15 +26,14 @@ namespace Laikos
         Camera camera;
         Terrain terrain;
         DecorationManager decorations;
-        BuildingManager buildings;
         DefferedRenderer defferedRenderer;
         List<GameObject> objects;
-        Minimap minimap;
-        bool noob = true;
 
         Dictionary<String, UnitType> UnitTypes;
+        Dictionary<String, BuildingType> BuildingTypes;
+
         Player player;
-        //Player enemy;
+        Player enemy;
 
         System.Drawing.Bitmap bitmapTmp;
 
@@ -44,8 +43,8 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 900;
-            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.IsFullScreen =false;
         }
 
         /// <summary>
@@ -58,19 +57,14 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-
+            Input.Init(graphics, this);
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
-            buildings = new BuildingManager(this, device, graphics);
-        //    explosionParticles = new ParticleSystem(this, Content, "ExplosionSettings");
-        //    smokePlumeParticles = new ParticleSystem(this, Content, "SmokePlumeSettings");
-         
+            Minimap.Initialize(device);
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
-            Components.Add(buildings);
-            minimap = new Minimap(device, terrain, Content);
             base.Initialize();
         }
 
@@ -84,11 +78,14 @@ namespace Laikos
             font = Content.Load<SpriteFont>("Georgia");
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
-            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap3"));
-        //    explosionParticles.LoadContent(device);
 
-            player = new Player(this, UnitTypes);
+            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.Name);
+             
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
+            Minimap.LoadMiniMap(Content);
+
+            player = new Player(this, UnitTypes, BuildingTypes);
             
         }
 
@@ -110,7 +107,7 @@ namespace Laikos
         {
             player.Update(gameTime);
 
-            Input.Update(this, gameTime, device, camera, player.UnitList,decorations.DecorationList);
+            Input.Update(this, gameTime, device, camera, player,decorations.DecorationList);
 
             EventManager.Update();
             UpdateExplosions(gameTime, objects);
@@ -119,24 +116,22 @@ namespace Laikos
 
             // TODO: Add your update logic here
 
-            //bool collision;
+            bool collision = false;
 
 
-            /*collision = Collisions.DetailedDecorationCollisionCheck(units.UnitList[2],
-                                      decorations.DecorationList[0]);
-            //Console.WriteLine(collision);
-            if (collision)
-                units.UnitList[2].Position = units.UnitList[2].lastPosition;
-
-            collision = Collisions.DetailedCollisionCheck(units.UnitList[1].currentModel.Model, units.UnitList[1].GetWorldMatrix(),
-                 units.UnitList[2].currentModel.Model, units.UnitList[2].GetWorldMatrix());
-            
-            if (collision)
+            foreach(Unit unit1 in player.UnitList)
             {
-                units.UnitList[0].Position = units.UnitList[0].lastPosition;
-                units.UnitList[1].Position = units.UnitList[1].lastPosition;
-            }*/
-
+                foreach (Unit unit2 in player.UnitList)
+                {
+                    collision = Collisions.GeneralCollisionCheck(unit1, unit2);
+                    if (collision)
+                    {
+                        Console.WriteLine("Kolizja");
+                        player.UnitList[0].Position = player.UnitList[0].lastPosition;
+                        player.UnitList[1].Position = player.UnitList[1].lastPosition;
+                    }
+                }
+            }
         }
 
        
@@ -153,18 +148,14 @@ namespace Laikos
             defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-                        //if (noob)
-            //{
+            
 
-                //minimap.CreateMiniMap();
-                //noob = false;
-            //}
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
-            objects.AddRange(buildings.BuildingList);
-            
-            defferedRenderer.Draw(objects, terrain, gameTime);
+            objects.AddRange(player.BuildingList);
 
+            defferedRenderer.Draw(objects, terrain, gameTime);
+            Input.Draw();
   
             objects.Clear();
             base.Draw(gameTime);

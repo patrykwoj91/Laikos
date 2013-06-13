@@ -7,7 +7,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MapEditor</RootNamespace>
+    <RootNamespace>Laikos</RootNamespace>
     <AssemblyName>Laikos</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -113,9 +113,9 @@
   <ItemGroup>
     <Compile Include="LevelManager\Terrain\Water.cs" />
     <Compile Include="Lights\SpotLight.cs" />
+    <Compile Include="MathUtils.cs" />
     <Compile Include="Minimap.cs" />
     <Compile Include="Objects\Buildings\Building.cs" />
-    <Compile Include="Objects\Buildings\BuildingManager.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleEmitter.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleSystem.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleVertex.cs" />
@@ -161,6 +161,15 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Downloads\XUI v0.2\XUI\XUIContent\XUIContent.contentproj">
+      <Project>{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}</Project>
+      <Name>XUIContent %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\Downloads\XUI v0.2\XUI\XUI\XUI.csproj">
+      <Project>{2F953A14-0E2F-4670-8D82-866020E8DE7B}</Project>
+      <Name>XUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Animation\Animation.csproj">
       <Project>{87091037-1D53-43A9-BCCA-D869B9B1162D}</Project>
       <Name>Animation</Name>
