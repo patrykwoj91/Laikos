@@ -14,7 +14,7 @@ namespace MyDataTypes
     public class BuildingType : ICloneable
     {
         public String Name;
-        public Double HP;
+        public Double maxhp;
         public String Model;
         public int Souls;
         public float Scale;

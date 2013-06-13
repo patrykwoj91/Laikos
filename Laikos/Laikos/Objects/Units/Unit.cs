@@ -49,7 +49,9 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
+            
             HandleEvent(gameTime);
+            HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             CleanMessages();
             base.Update(gameTime);
 
