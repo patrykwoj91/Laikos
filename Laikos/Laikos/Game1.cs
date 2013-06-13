@@ -60,7 +60,7 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-            Input.Init(graphics, this);
+            
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
@@ -82,18 +82,19 @@ namespace Laikos
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
 
-            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.Name);
+            UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
              
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
             Minimap.LoadMiniMap(Content);
 
             player = new Player(this, UnitTypes, BuildingTypes);
+            SelectingGUI.Init(device, graphics, this,player.UnitList,player.BuildingList);
 
             gameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
             _UI.SetupControls(gameInput);
             _UI.Startup(this, gameInput);
-            //_UI.Screen.AddScreen(new 
+            _UI.Screen.AddScreen(new UI.ScreenTest());
             
         }
 
@@ -104,6 +105,7 @@ namespace Laikos
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+            _UI.Shutdown();
         }
 
         /// <summary>
@@ -113,6 +115,15 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // update the GameInput
+            gameInput.Update(frameTime);
+
+            // update the UI
+            _UI.Sprite.BeginUpdate();
+            _UI.Screen.Update(frameTime);
+
             time = gameTime.TotalGameTime;
             player.Update(gameTime);
 
@@ -153,6 +164,7 @@ namespace Laikos
             //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
+            
             defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
@@ -163,8 +175,8 @@ namespace Laikos
             objects.AddRange(player.BuildingList);
 
             defferedRenderer.Draw(objects, terrain, gameTime);
-            Input.Draw();
-  
+            SelectingGUI.Draw();
+            
             objects.Clear();
             base.Draw(gameTime);
 

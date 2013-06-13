@@ -168,22 +168,13 @@ namespace Laikos
             ClearGBuffer();
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
-
-            //List<Model> models = new List<Model>();
-            // foreach (GameObject obj in objects)
-            //  models.Add(obj.currentModel.Model);
             lights.CreateShadowMap(objects, terrain);
-
-            
-            
-            
-        
             SmokePlumeParticles.Draw(gameTime, device);
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            if (debug)
-                Debug();
+            _UI.Sprite.Render(0);
+            Debug();
 
         }
 
@@ -218,9 +209,11 @@ namespace Laikos
             spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);*/
 
             //rect.X += width;
-            if(debug)
-            spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
-
+            if (SelectingGUI.MiniMapClicked(Input.currentMouseState.X,Input.currentMouseState.Y))
+                spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
+            else
+                spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White*0.7f);
+            if (debug)
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
             //End SpriteBatch
             spriteBatch.End();

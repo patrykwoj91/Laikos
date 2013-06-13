@@ -18,6 +18,8 @@ namespace Laikos
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        public static TimeSpan time;
+        private GameInput gameInput;
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
@@ -40,14 +42,11 @@ namespace Laikos
 
         public Game1()
         {
+            time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-<<<<<<< HEAD
-            graphics.PreferredBackBufferWidth = 1000;
-=======
-            graphics.PreferredBackBufferWidth = 800;
->>>>>>> 87bc3bd5bf01aade60b37b514a58680d8fc33592
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 800;
             graphics.IsFullScreen =false;
         }
 
@@ -61,7 +60,7 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-            Input.Init(graphics, this);
+            
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
@@ -83,13 +82,22 @@ namespace Laikos
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
             objects = new List<GameObject>();
 
-            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.Name);
+            UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
              
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
             Minimap.LoadMiniMap(Content);
 
             player = new Player(this, UnitTypes, BuildingTypes);
+<<<<<<< HEAD
+
+            gameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
+            _UI.SetupControls(gameInput);
+            _UI.Startup(this, gameInput);
+            //_UI.Screen.AddScreen(new 
+=======
+            SelectingGUI.Init(device, graphics, this,player.UnitList,player.BuildingList);
+>>>>>>> 8e10116f3ecedc7596c6c4f727610bd850635ff6
             
         }
 
@@ -109,6 +117,7 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            time = gameTime.TotalGameTime;
             player.Update(gameTime);
 
             Input.Update(this, gameTime, device, camera, player,decorations.DecorationList);
@@ -120,24 +129,21 @@ namespace Laikos
 
             // TODO: Add your update logic here
 
-            bool collision;
-
-
-            //collision = Collisions.DetailedDecorationCollisionCheck(player.UnitList[2],
-            //                          decorations.DecorationList[0]);
-            //Console.WriteLine(collision);
-            //if (collision)
-                //player.UnitList[2].Position = player.UnitList[2].lastPosition;
-
-            collision = Collisions.DetailedCollisionCheck(player.UnitList[0].currentModel.Model, player.UnitList[0].GetWorldMatrix(),
-                 player.UnitList[1].currentModel.Model, player.UnitList[1].GetWorldMatrix());
-            
-            if (collision)
+            bool collision = false;
+            for (int i = 0; i < player.UnitList.Count; i++)
             {
-                player.UnitList[0].Position = player.UnitList[0].lastPosition;
-                player.UnitList[1].Position = player.UnitList[1].lastPosition;
-            }
+                for (int j = i + 1; j < player.UnitList.Count; j++)
+                {
+                    collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
 
+                    if (collision)
+                    {
+                        Console.WriteLine("Kolizja");
+                        player.UnitList[i].Position = player.UnitList[i].lastPosition;
+                        player.UnitList[j].Position = player.UnitList[j].lastPosition;
+                    }
+                }
+            }
         }
 
        
@@ -161,7 +167,7 @@ namespace Laikos
             objects.AddRange(player.BuildingList);
 
             defferedRenderer.Draw(objects, terrain, gameTime);
-            Input.Draw();
+            SelectingGUI.Draw();
   
             objects.Clear();
             base.Draw(gameTime);

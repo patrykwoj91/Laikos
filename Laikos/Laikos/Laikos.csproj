@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelManager\SelectingGUI.cs" />
     <Compile Include="LevelManager\Terrain\Water.cs" />
     <Compile Include="Lights\SpotLight.cs" />
     <Compile Include="MathUtils.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="LevelManager\Terrain\Terrain.cs" />
     <Compile Include="Physics\XNAUtils.cs" />
+    <Compile Include="ScreenTest.cs" />
     <Compile Include="VertexHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,15 +163,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Downloads\XUI v0.2\XUI\XUIContent\XUIContent.contentproj">
-      <Project>{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}</Project>
-      <Name>XUIContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\Downloads\XUI v0.2\XUI\XUI\XUI.csproj">
-      <Project>{2F953A14-0E2F-4670-8D82-866020E8DE7B}</Project>
-      <Name>XUI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Animation\Animation.csproj">
       <Project>{87091037-1D53-43A9-BCCA-D869B9B1162D}</Project>
       <Name>Animation</Name>
@@ -177,6 +170,15 @@
     <ProjectReference Include="..\..\MyDataTypes\MyDataTypes.csproj">
       <Project>{8231A90D-00A8-413C-A06E-EE99B0545D5A}</Project>
       <Name>MyDataTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XUI\XUIContent\XUIContent.contentproj">
+      <Project>{D78EAE4D-281B-4EBA-91A2-37B0C2D34967}</Project>
+      <Name>XUIContent %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XUI\XUI\XUI.csproj">
+      <Project>{2F953A14-0E2F-4670-8D82-866020E8DE7B}</Project>
+      <Name>XUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\LaikosContent\LaikosContent.contentproj">
       <Name>LaikosContent %28Content%29</Name>

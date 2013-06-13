@@ -161,28 +161,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Test_model\test_model.FBX">
-      <Name>test_model</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.02</ProcessorParameters_Scale>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Test_model\test_model_Anims.xml">
-      <Name>test_model_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Test_model\test_m.jpg">
-      <Name>test_m</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\Decorations\test_ruins2\test_ruins2.FBX">
       <Name>test_ruins2</Name>
       <Importer>FbxImporter</Importer>
@@ -210,7 +188,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTypes.xml">
+    <Compile Include="ObjectTypes\UnitTypes.xml">
       <Name>UnitTypes</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
@@ -218,7 +196,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DecorationTypes.xml">
+    <Compile Include="ObjectTypes\DecorationTypes.xml">
       <Name>DecorationTypes</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
@@ -278,104 +256,104 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Eye\okoLow_Anims.xml">
+    <Compile Include="Models\Units\Niebianie\Eye\okoLow_Anims.xml">
       <Name>okoLow_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Eye\tekstura.bmp">
+    <Compile Include="Models\Units\Niebianie\Eye\tekstura.bmp">
       <Name>tekstura</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Eye\texturaInne.bmp">
+    <Compile Include="Models\Units\Niebianie\Eye\texturaInne.bmp">
       <Name>texturaInne</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Eye\okoMid_Anims.xml">
+    <Compile Include="Models\Units\Niebianie\Eye\okoMid_Anims.xml">
       <Name>okoMid_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Eye\okoHigh_Anims.xml">
+    <Compile Include="Models\Units\Niebianie\Eye\okoHigh_Anims.xml">
       <Name>okoHigh_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Tank\czolgLow_Anims.xml">
+    <Compile Include="Models\Units\Niebianie\Tank\czolgLow_Anims.xml">
       <Name>czolgLow_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Tank\texturaInne.bmp">
+    <Compile Include="Models\Units\Niebianie\Tank\texturaInne.bmp">
       <Name>texturaInne</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Tank\texturaInne2.bmp">
+    <Compile Include="Models\Units\Niebianie\Tank\texturaInne2.bmp">
       <Name>texturaInne2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Tank\czolgHigh_Anims.xml">
+    <Compile Include="Models\Units\Niebianie\Tank\czolgHigh_Anims.xml">
       <Name>czolgHigh_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Tank\czolgMid_Anims.xml">
+    <Compile Include="Models\Units\Niebianie\Tank\czolgMid_Anims.xml">
       <Name>czolgMid_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Tank\deksturaDol.jpg">
+    <Compile Include="Models\Units\Niebianie\Tank\deksturaDol.jpg">
       <Name>deksturaDol</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Tank\czolgHigh.FBX">
+    <Compile Include="Models\Units\Niebianie\Tank\czolgHigh.FBX">
       <Name>czolgHigh</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Tank\czolgLow.FBX">
+    <Compile Include="Models\Units\Niebianie\Tank\czolgLow.FBX">
       <Name>czolgLow</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Tank\czolgMid.FBX">
+    <Compile Include="Models\Units\Niebianie\Tank\czolgMid.FBX">
       <Name>czolgMid</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Eye\okoLow.FBX">
+    <Compile Include="Models\Units\Niebianie\Eye\okoLow.FBX">
       <Name>okoLow</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Eye\okoMid.FBX">
+    <Compile Include="Models\Units\Niebianie\Eye\okoMid.FBX">
       <Name>okoMid</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
@@ -422,17 +400,22 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <None Include="Models\Units\Alien\alien.FBX">
-      <Name>alien</Name>
+    <Compile Include="Models\Units\Aliens\Alien\alienHigh.FBX">
+      <Name>alienHigh</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <None Include="Models\Units\Aliens\Alien\alienLow.FBX">
+      <Name>alienLow</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </None>
-    <None Include="Models\Units\Alien_Spider_Rider\alien_spider_rider.FBX">
-      <Name>alien_spider_rider</Name>
+    <None Include="Models\Units\Aliens\Alien\alienMid.FBX">
+      <Name>alienMid</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </None>
-    <Compile Include="Models\Units\Eye\okoHigh.FBX">
+    <Compile Include="Models\Units\Niebianie\Eye\okoHigh.FBX">
       <Name>okoHigh</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
@@ -442,44 +425,39 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Trojnog\trojnog.FBX">
-      <Name>trojnog</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Alien\4706.jpg">
+    <Compile Include="Models\Units\Aliens\Alien\4706.jpg">
       <Name>4706</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Alien\images.jpg">
+    <Compile Include="Models\Units\Aliens\Alien\images.jpg">
       <Name>images</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Alien\obcy.png">
+    <Compile Include="Models\Units\Aliens\Alien\obcy.png">
       <Name>obcy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Alien_Spider_Rider\4706.jpg">
+    <Compile Include="Models\Units\Aliens\Alien_Rider\4706.jpg">
       <Name>4706</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Alien_Spider_Rider\obcy.png">
+    <Compile Include="Models\Units\Aliens\Alien_Rider\obcy.png">
       <Name>obcy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Alien\alien_Anims.xml">
-      <Name>alien_Anims</Name>
+    <Compile Include="Models\Units\Aliens\Alien\alienLow_Anims.xml">
+      <Name>alienLow_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
@@ -538,20 +516,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Trojnog\metalSzary.bmp">
-      <Name>metalSzary</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Trojnog\trojnog_Anims.xml">
-      <Name>trojnog_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\Buildings\Niebianie\Obserwatorium\blekit.jpg">
       <Name>blekit</Name>
       <Importer>TextureImporter</Importer>
@@ -591,7 +555,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildingTypes.xml">
+    <Compile Include="ObjectTypes\BuildingTypes.xml">
       <SubType>Designer</SubType>
       <Name>BuildingTypes</Name>
       <Importer>XmlImporter</Importer>
@@ -669,6 +633,115 @@
       <Name>minimap</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="mmap_buildings.jpg">
+      <Name>mmap_buildings</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="mmap_units.jpg">
+      <Name>mmap_units</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="healthbar.jpg">
+      <Name>healthbar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderHigh.FBX">
+      <Name>alien_RiderHigh</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderLow.FBX">
+      <Name>alien_RiderLow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderMid.FBX">
+      <Name>alien_RiderMid</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien\alienHigh_Anims.xml">
+      <Name>alienHigh_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien\alienMid_Anims.xml">
+      <Name>alienMid_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderMid_Anims.xml">
+      <Name>alien_RiderMid_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderLow_Anims.xml">
+      <Name>alien_RiderLow_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderHigh_Anims.xml">
+      <Name>alien_RiderHigh_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerHigh.FBX">
+      <Name>alien_workerHigh</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerMid.FBX">
+      <Name>alien_workerMid</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerLow.FBX">
+      <Name>alien_workerLow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerHigh_Anims.xml">
+      <Name>alien_workerHigh_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerLow_Anims.xml">
+      <Name>alien_workerLow_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerMid_Anims.xml">
+      <Name>alien_workerMid_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
