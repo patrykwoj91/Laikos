@@ -295,7 +295,7 @@ PSO MultiTexturedPS(MTVertexToPixel PSIn)
 
 	 float4 specularAttributes = tex2D(specularSampler, PSIn.TextureCoords);
      float blendDistance = 0.99f;
-     float blendWidth = 0.01f;
+     float blendWidth = 0.005f;
      float blendFactor = clamp((PSIn.Depth-blendDistance)/blendWidth, 0, 1);
          
      float4 farColor;
@@ -312,7 +312,7 @@ PSO MultiTexturedPS(MTVertexToPixel PSIn)
      nearColor += tex2D(TextureSampler3, nearTextureCoords)*PSIn.TextureWeights.w;
  
      Output.Color = lerp(nearColor, farColor, blendFactor);
-	 Output.Color.a = 1/*specularAttributes.r*/;
+	 Output.Color.a = 0/*specularAttributes.r*/;
 
 	 Output.Normals.rgb = PSIn.Normal / 3.0f+0.5f;
 	 Output.Normals.a = 1 /*specularAttributes.a*/;

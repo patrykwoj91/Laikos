@@ -19,6 +19,7 @@ namespace Laikos
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         public static TimeSpan time;
+        private GameInput gameInput;
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
@@ -88,6 +89,11 @@ namespace Laikos
             Minimap.LoadMiniMap(Content);
 
             player = new Player(this, UnitTypes, BuildingTypes);
+
+            gameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
+            _UI.SetupControls(gameInput);
+            _UI.Startup(this, gameInput);
+            //_UI.Screen.AddScreen(new 
             
         }
 
@@ -120,18 +126,17 @@ namespace Laikos
             // TODO: Add your update logic here
 
             bool collision = false;
-
-
-            foreach(Unit unit1 in player.UnitList)
+            for (int i = 0; i < player.UnitList.Count; i++)
             {
-                foreach (Unit unit2 in player.UnitList)
+                for (int j = i + 1; j < player.UnitList.Count; j++)
                 {
-                    collision = Collisions.GeneralCollisionCheck(unit1, unit2);
+                    collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
+
                     if (collision)
                     {
                         Console.WriteLine("Kolizja");
-                        player.UnitList[0].Position = player.UnitList[0].lastPosition;
-                        player.UnitList[1].Position = player.UnitList[1].lastPosition;
+                        player.UnitList[i].Position = player.UnitList[i].lastPosition;
+                        player.UnitList[j].Position = player.UnitList[j].lastPosition;
                     }
                 }
             }
