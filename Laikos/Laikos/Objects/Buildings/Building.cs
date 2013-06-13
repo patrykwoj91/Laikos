@@ -28,6 +28,7 @@ namespace Laikos
            this.Position = position;
            this.Rotation = rotation;
            this.Scale = scale;
+           this.type = (BuildingType)type.Clone();
            this.messages = new List<Message>();
            this.meshBoundingBoxes = new List<BoundingBox>();
            maxHP = this.type.maxhp;
