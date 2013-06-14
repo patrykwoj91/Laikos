@@ -188,7 +188,7 @@ namespace Laikos
             int height = Terrain.height / 5;
 
             //Set up Drawing Rectangle
-            Rectangle rect = new Rectangle(0, 0, width, height);
+            Rectangle rect = new Rectangle(15, 15, width, height);
 
             /*//Draw GBuffer 0
             spriteBatch.Draw((Texture2D)colorRT, rect, Color.White);

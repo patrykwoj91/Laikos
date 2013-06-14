@@ -145,10 +145,18 @@ namespace Laikos
 
                     if (collision)
                     {
-                        Console.WriteLine("Kolizja");
                         player.UnitList[i].Position = player.UnitList[i].lastPosition;
                         player.UnitList[j].Position = player.UnitList[j].lastPosition;
                     }
+                }
+            }
+            foreach (Unit unit in player.UnitList)
+            {
+                foreach (Building building in player.BuildingList)
+                {
+                    collision = Collisions.DetailedDecorationCollisionCheck(unit, building);
+                    if (collision)
+                        unit.Position = unit.lastPosition;
                 }
             }
         }

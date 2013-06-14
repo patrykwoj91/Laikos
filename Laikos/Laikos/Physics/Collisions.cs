@@ -58,15 +58,11 @@ namespace Laikos
             BoundingSphere originalSphere1 = modelExtra.boundingSphere;
             unit1.boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere1, unit1.GetWorldMatrix());
             
-            //Console.WriteLine("Sfera 1: " + unit1.boundingSphere.Center + " Radius: " + unit1.boundingSphere.Radius);
-            //Console.WriteLine(unit1.Position);
             //Doing the same thing for second model
             ModelExtra modelExtra1 = unit2.currentModel.Model.Tag as ModelExtra;
             BoundingSphere originalSphere2 = modelExtra1.boundingSphere;
             unit2.boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere2, unit2.GetWorldMatrix());
 
-            Console.WriteLine("Sfera 2: " + unit2.boundingSphere.Center + " Radius: " + unit2.boundingSphere.Radius);
-            Console.WriteLine(unit2.Position);
             //Checking if global bounding Box(surronds whole model) intersects another Box
             bool collision = unit1.boundingSphere.Intersects(unit2.boundingSphere);
             
@@ -131,12 +127,15 @@ namespace Laikos
            ModelExtra animationData1 = unit.currentModel.Model.Tag as ModelExtra;
            BoundingSphere originalBox1 = animationData1.boundingSphere;
            BoundingSphere Box1 = XNAUtils.TransformBoundingSphere(originalBox1, unit.GetWorldMatrix());
-           
+    
+
            //Doing the same thing for second model
            ModelExtra animationData2 = decoration.currentModel.Model.Tag as ModelExtra;
            BoundingBox originalBox2 = animationData2.boundingBox;
            BoundingBox Box2 = XNAUtils.TransformBoundingBox(originalBox2, decoration.GetWorldMatrix());
-           
+           Building deco = (Building)decoration;
+           deco.boundingBox = Box2;
+
            //Checking if global bounding Box(surronds whole model) intersects another Box
            bool collision = Box1.Intersects(Box2);
            return collision;
