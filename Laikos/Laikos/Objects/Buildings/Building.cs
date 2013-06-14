@@ -85,6 +85,16 @@ namespace Laikos
             {
                 switch (messages[i].Type)
                 {
+                    case (int)EventManager.Events.Selected:
+                        selected = true;
+                        messages[i].Done = true;
+                        break;
+
+                    case (int)EventManager.Events.Unselected:
+                        selected = false;
+                        messages[i].Done = true;
+                        break;
+
                     case (int)EventManager.Events.Interaction:
                         Console.WriteLine("Budynek - obsluga interakcji");
                         break;

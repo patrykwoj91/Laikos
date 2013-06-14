@@ -143,7 +143,7 @@ namespace Laikos
                         100)
                     {
                         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                        SelectUnitsInWindow(player, startDrag,
+                        SelectInWindow(player, startDrag,
                             new Vector2(currentMouseState.X, currentMouseState.Y), allObjects, device);
                         stopwatch.Stop();
                         Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
@@ -152,7 +152,7 @@ namespace Laikos
                     {
                         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                        SelectSingleUnit(player, device, allObjects);
+                        SelectSingle(player, device, allObjects);
 
                         stopwatch.Stop();
                         Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
@@ -366,34 +366,32 @@ namespace Laikos
             return pointerPosition;
         }
     
-        private static void SelectSingleUnit(Player player, GraphicsDevice device, List<GameObject> allObjects)
+        private static void SelectSingle(Player player, GraphicsDevice device, List<GameObject> allObjects)
         {
             bool object_clicked;
             Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
             Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
             Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
 
-            DeselectAllUnits(player);
+            DeselectAll(player);
 
             for (int i = 0; i < allObjects.Count; i++)
             {
                 object_clicked = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
                 if (object_clicked)
                 {
-                    if (allObjects[i] is Unit)
+                    if (allObjects[i] is Unit || allObjects[i] is Building)
                     {
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
-                        Unit test = (Unit)allObjects[i];
-                        //Console.WriteLine(test.messages.Count);
                         break;
                     }
                 }
             }
         }
 
-        private static void SelectUnitsInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, List<GameObject> allObjects, GraphicsDevice device)
+        private static void SelectInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, List<GameObject> allObjects, GraphicsDevice device)
         {
-            DeselectAllUnits(player);
+            DeselectAll(player);
 
             MathUtils.SafeSquare(ref startDrag, ref stopDrag);
 
@@ -413,10 +411,13 @@ namespace Laikos
             }
         }
 
-        private static void DeselectAllUnits(Player player)
+        private static void DeselectAll(Player player)
         {
             foreach (Unit unit in player.UnitList)
                 EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+
+            foreach (Building building in player.BuildingList)
+                EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, building, null));
         }
     }
 }

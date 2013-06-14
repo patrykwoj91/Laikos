@@ -58,8 +58,8 @@ namespace Laikos
             BoundingSphere originalSphere1 = modelExtra.boundingSphere;
             unit1.boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere1, unit1.GetWorldMatrix());
             
-            Console.WriteLine("Sfera 1: " + unit1.boundingSphere.Center + " Radius: " + unit1.boundingSphere.Radius);
-            Console.WriteLine(unit1.Position);
+            //Console.WriteLine("Sfera 1: " + unit1.boundingSphere.Center + " Radius: " + unit1.boundingSphere.Radius);
+            //Console.WriteLine(unit1.Position);
             //Doing the same thing for second model
             ModelExtra modelExtra1 = unit2.currentModel.Model.Tag as ModelExtra;
             BoundingSphere originalSphere2 = modelExtra1.boundingSphere;
