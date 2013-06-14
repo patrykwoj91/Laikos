@@ -63,13 +63,8 @@ namespace Laikos
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.D3))
                     {
-                        unit.currentModel.player.PlayClip("Run", true);
+                        unit.currentModel.player.PlayClip("Attack", true);
                         // unit.player.Looping = false;
-                    }
-                    if (currentKeyboardState.IsKeyDown(Keys.D4))
-                    {
-                        unit.currentModel.player.PlayClip("Alert", false);
-                        //unit.player.Looping = false;
                     }
 
                     if (currentKeyboardState.IsKeyDown(Keys.D5))

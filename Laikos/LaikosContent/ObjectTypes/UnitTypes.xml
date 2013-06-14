@@ -4,6 +4,14 @@
 
     <Item>
       <race>Niebianie</race>
+      <name>Droid Worker</name>
+      <maxhp>50.0</maxhp>
+      <mp>0.0</mp>
+      <model>Models/Units/Niebianie/Droid_worker/Droid</model>
+    </Item>
+    
+    <Item>
+      <race>Niebianie</race>
       <name>Reconnaissance Eye</name>
       <maxhp>50.0</maxhp>
       <mp>50.0</mp>
