@@ -13,7 +13,7 @@
     <Item>
       <Name>Pałac rady</Name>
       <maxhp>1000.0</maxhp>
-      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</Model>
+      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p3</Model>
       <Souls>300</Souls>
       <Scale>0.2</Scale>
     </Item>
@@ -33,5 +33,22 @@
       <Souls>300</Souls>
       <Scale>0.2</Scale>
     </Item>
+
+    <Item>
+      <Name>Prison</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Prison/prison</Model>
+      <Souls>300</Souls>
+      <Scale>0.003</Scale>
+    </Item>
+
+    <Item>
+      <Name>Cementary</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/Cmentarz/cmentarz</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+    </Item>
+    
   </Asset>
 </XnaContent>

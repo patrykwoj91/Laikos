@@ -111,29 +111,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Decorations\test_ruins1\DiffuseMap.tga">
-      <Name>DiffuseMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\test_ruins1\NormalMap.tga">
-      <Name>NormalMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\test_ruins1\SpecMap.tga">
-      <Name>SpecMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\test_ruins1\test_ruins1.FBX">
-      <Name>test_ruins1</Name>
-      <Processor>AnimationProcessor</Processor>
-      <Importer>FbxImporter</Importer>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
-    </Compile>
     <Compile Include="Effects\Clear.fx">
       <Name>Clear</Name>
       <Importer>EffectImporter</Importer>
@@ -158,14 +135,6 @@
       <Name>SpotLightGeometry</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\test_ruins2\test_ruins2.FBX">
-      <Name>test_ruins2</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.01</ProcessorParameters_Scale>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -365,8 +334,23 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\obserwatorium.FBX">
-      <Name>obserwatorium</Name>
+    <Compile Include="Models\Buildings\Aliens\Nekropolis\nekropoli.FBX">
+      <Name>nekropoli</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Aliens\Alien\alienHigh.FBX">
+      <Name>alienHigh</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\prison.FBX">
+      <Name>prison</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Cmentarz\cmentarz.FBX">
+      <Name>cmentarz</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
@@ -395,13 +379,43 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Aliens\Nekropolis\nekropoli.FBX">
-      <Name>nekropoli</Name>
+    <Compile Include="Models\Buildings\Niebianie\Obserwatorium\obserwatorium.FBX">
+      <Name>obserwatorium</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Aliens\Alien\alienHigh.FBX">
-      <Name>alienHigh</Name>
+    <Compile Include="Models\Decorations\Drzewa\drzewo1.FBX">
+      <Name>drzewo1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Drzewa\drzewo2.FBX">
+      <Name>drzewo2</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Drzewa\drzewo3.FBX">
+      <Name>drzewo3</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Drzewa\drzewo4.FBX">
+      <Name>drzewo4</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Ruiny\ruiny1.FBX">
+      <Name>ruiny1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Ruiny\ruiny2.FBX">
+      <Name>ruiny2</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Ruiny\ruiny3.FBX">
+      <Name>ruiny3</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
@@ -424,6 +438,21 @@
       <Name>grid</Name>
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidHigh.FBX">
+      <Name>DroidHigh</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidLow.FBX">
+      <Name>DroidLow</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidMid.FBX">
+      <Name>DroidMid</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -740,6 +769,120 @@
   <ItemGroup>
     <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerMid_Anims.xml">
       <Name>alien_workerMid_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Buildings\Prison\antenna_01_01_01_01.jpg">
+      <Name>antenna_01_01_01_01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\mat3.jpg">
+      <Name>mat3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\metal.jpg">
+      <Name>metal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\metal2.bmp">
+      <Name>metal2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\rdza.jpg">
+      <Name>rdza</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\sciana.jpg">
+      <Name>sciana</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\Stonepack_1 texture_1_diffuse1.jpg">
+      <Name>Stonepack_1 texture_1_diffuse1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\Stonepack_1 texture_2_diffuse1.jpg">
+      <Name>Stonepack_1 texture_2_diffuse1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\texturaInne.bmp">
+      <Name>texturaInne</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\wiezienie.jpg">
+      <Name>wiezienie</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Buildings\Niebianie\Cmentarz\drewno.jpg">
+      <Name>drewno</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Cmentarz\mat3.jpg">
+      <Name>mat3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Niebianie\Cmentarz\sciana.jpg">
+      <Name>sciana</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Ruiny\sciana.jpg">
+      <Name>sciana</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\tekstura1.jpg">
+      <Name>tekstura1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\tekstura2.jpg">
+      <Name>tekstura2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\tekstura3.jpg">
+      <Name>tekstura3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidHigh_Anims.xml">
+      <Name>DroidHigh_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidLow_Anims.xml">
+      <Name>DroidLow_Anims</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidMid_Anims.xml">
+      <Name>DroidMid_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>

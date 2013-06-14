@@ -173,7 +173,7 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            _UI.Sprite.Render(0);
+            //_UI.Sprite.Render(0);
             Debug();
 
         }
