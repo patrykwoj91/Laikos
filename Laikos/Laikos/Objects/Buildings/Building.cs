@@ -16,6 +16,7 @@ namespace Laikos
        public List<BoundingBox> meshBoundingBoxes;
        public double HP;
        public double maxHP;
+       public BoundingBox boundingBox;
 
        public Building()
            :base()
