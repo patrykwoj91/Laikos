@@ -923,7 +923,14 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="GUI\soul.jpg">
+      <Name>soul</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="GUI\GIFS\Drone_Worker.gif">
       <Name>Drone_Worker</Name>

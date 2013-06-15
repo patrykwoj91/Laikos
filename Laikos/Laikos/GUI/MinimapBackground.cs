@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Laikos
 {
-    class MinimapBackground
+    static class MinimapBackground
     {
         private static Texture2D minimapBackground;
         private static Rectangle position;

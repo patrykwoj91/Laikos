@@ -28,6 +28,7 @@ namespace Laikos
             UpperBackground.Initialize(content);
             UnitBackground.Initialize(content);
             LowerBackground.Initialize(content);
+            SourcesButton.Initialize(content);
         }
 
         public static void Draw()
@@ -38,6 +39,7 @@ namespace Laikos
             UpperBackground.Create(spriteBatch);
             LowerBackground.Create(spriteBatch);
             UnitBackground.Create(spriteBatch);
+            SourcesButton.Create(spriteBatch);
             spriteBatch.End();
         }
 

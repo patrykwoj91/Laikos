@@ -22,7 +22,7 @@ namespace Laikos
 
         public List<Message> messages;
        
-        public int Souls;
+        public static int Souls;
  
         public Player(Game game, Dictionary<String, UnitType> UnitTypes, Dictionary<String, BuildingType> BuildingTypes)
         {
@@ -54,8 +54,6 @@ namespace Laikos
             UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 680), 0.05f));
             UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 670), 0.05f));
             BuildingList.Add(new Building(game, BuildingTypes["Pałac rady2"], new Vector3(720, 0, 650), BuildingTypes["Pałac rady2"].Scale,true));
-            
-
        }
 
        public bool Build(BuildingType building, Vector3 position)
