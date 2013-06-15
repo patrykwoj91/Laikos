@@ -12,7 +12,8 @@ namespace Laikos
             Selected,
             Unselected,
             Interaction,
-            MoveUnit
+            MoveUnit,
+            Build
         };
 
         static List<Message> lastFrame_messages = new List<Message>();

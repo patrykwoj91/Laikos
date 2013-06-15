@@ -17,13 +17,15 @@ namespace Laikos
        public double HP;
        public double maxHP;
        public BoundingBox boundingBox;
+       public bool selectable;
+       public TimeSpan buildtime;
 
        public Building()
            :base()
        {
        }
 
-       public Building(Game game, BuildingType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
+       public Building(Game game, BuildingType type, Vector3 position, float scale = 1.0f, bool selectable = false, Vector3 rotation = default(Vector3))
             : base(game, type.Model)
         {
            this.Position = position;
@@ -34,6 +36,8 @@ namespace Laikos
            this.meshBoundingBoxes = new List<BoundingBox>();
            maxHP = this.type.maxhp;
            HP = maxHP;
+           this.selectable = selectable;
+           buildtime = this.type.buildtime;
 
            Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
            currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
@@ -48,6 +52,7 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
+
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             CleanMessages();

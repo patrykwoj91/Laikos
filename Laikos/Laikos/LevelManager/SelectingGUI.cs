@@ -110,9 +110,9 @@ namespace Laikos
             foreach (Building building in Buildings)
             {
                 // Project the 3d position first
-                Vector3 screenPos3D = Device.Viewport.Project(building.boundingSphere.Center, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
+                Vector3 screenPos3D = Device.Viewport.Project(BoundingSphere.CreateFromBoundingBox(building.boundingBox).Center, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
                 // Just to make it easier to use we create a Vector2 from screenPos3D
-                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-building.boundingSphere.Radius*7);
+                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-BoundingSphere.CreateFromBoundingBox(building.boundingBox).Radius*2);
                
                 if (building.selected == true)
                 {

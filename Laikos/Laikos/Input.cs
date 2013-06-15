@@ -14,6 +14,7 @@ namespace Laikos
         public static bool selectionbox;
         public static Vector2 startDrag = new Vector2(-99, -99);
         public static Vector2 stopDrag;
+        public static bool building_mode = false;
    
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
@@ -77,7 +78,8 @@ namespace Laikos
 
                 if (currentKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
                 {
-                    player.Build(player.BuildingTypes["Pałac rady"], GetPointerCoord(device));
+                    building_mode = true;
+                    //i zwraca nazwe budynku na podstawie miniaturki
                 }
 
                 // Allows the game to exit
@@ -133,6 +135,8 @@ namespace Laikos
                     }
                 }
             } // MOUSE DRAG - STOP
+
+                
             else if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
             {
@@ -164,7 +168,8 @@ namespace Laikos
                 }
             }
 
-            if (currentMouseState.LeftButton == ButtonState.Pressed)
+            if (currentMouseState.LeftButton == ButtonState.Released &&
+                   oldMouseState.LeftButton == ButtonState.Pressed)
             {
 
                 if (currentMouseState.X < 200 && currentMouseState.Y < 200 && currentMouseState.X > 0 && currentMouseState.Y > 0)
@@ -172,7 +177,35 @@ namespace Laikos
                     Camera.cameraPosition.X = currentMouseState.X * 5;
                     Camera.cameraPosition.Z = currentMouseState.Y * 5 + 75;
                 }
+
+                if (building_mode == true)
+                {
+                     foreach (Unit unit in player.UnitList)
+                         if (unit.selected == true && unit.budowniczy == true)
+                         {
+                             Vector3 pointerPosition = GetPointerCoord(device);
+                             Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)unit.Position.X, (int)unit.Position.Z);
+                             Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
+
+                             DateTime tp0 = DateTime.Now;
+                             unit.destinyPoints = unit.pathFiding.obliczSciezke(wspBegin, wspEnd);
+                             unit.destinyPointer = null;
+                             DateTime tp1 = DateTime.Now;
+                          
+                             if (unit.destinyPoints.Count > 0)
+                             {
+                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Build, null, unit, pointerPosition)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
+                                 unit.walk = true;
+                             }
+                             building_mode = false;
+                         }
+                }
+
             }
+
+            
+
+
             #endregion
 
             #region Right Click (Moving and Interactions)
@@ -237,8 +270,7 @@ namespace Laikos
                                 if (((Unit)obj).destinyPoints.Count > 0)
                                 {
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
-                                    Unit test = (Unit)obj;
-                                    Console.WriteLine(test.messages.Count);
+                                    ((Unit)obj).walk = true;
                                 }
                                 stopwatch.Stop();
                                 Console.WriteLine("MoveCommand(...) : {0}", stopwatch.Elapsed);
@@ -380,10 +412,17 @@ namespace Laikos
                 object_clicked = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
                 if (object_clicked)
                 {
-                    if (allObjects[i] is Unit || allObjects[i] is Building)
+                    if (allObjects[i] is Unit)
                     {
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
                         break;
+                    }
+                    if (allObjects[i] is Building)
+                    {
+                        Building building = (Building)allObjects[i];
+                        if (building.selectable == true)
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                        break;          
                     }
                 }
             }
