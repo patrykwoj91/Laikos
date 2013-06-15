@@ -443,11 +443,6 @@
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidHigh.FBX">
-      <Name>DroidHigh</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
     <Compile Include="Models\Units\Niebianie\Droid_worker\DroidLow.FBX">
       <Name>DroidLow</Name>
       <Importer>FbxImporter</Importer>
@@ -455,6 +450,11 @@
     </Compile>
     <Compile Include="Models\Units\Niebianie\Droid_worker\DroidMid.FBX">
       <Name>DroidMid</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidHigh.FBX">
+      <Name>DroidHigh</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>

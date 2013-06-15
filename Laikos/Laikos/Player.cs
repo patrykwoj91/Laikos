@@ -31,7 +31,6 @@ namespace Laikos
             UnitList = new List<Unit>();
             this.BuildingTypes = BuildingTypes;
             BuildingList = new List<Building>();
-            Initialize();
         }
 
         public void Update(GameTime gameTime)

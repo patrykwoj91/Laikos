@@ -68,6 +68,7 @@ Content\GUI\desen.xnb
 Content\GUI\tab.xnb
 Content\GUI\tlo.xnb
 Content\GUI\tlo_minimapa.xnb
+Content\GUI\soul.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb
@@ -106,9 +107,9 @@ Content\Models\Decorations\Ruiny\ruiny1.xnb
 Content\Models\Decorations\Ruiny\ruiny2.xnb
 Content\Models\Decorations\Ruiny\ruiny3.xnb
 Content\Models\Units\Niebianie\Eye\okoHigh.xnb
-Content\Models\Units\Niebianie\Droid_worker\DroidHigh.xnb
 Content\Models\Units\Niebianie\Droid_worker\DroidLow.xnb
 Content\Models\Units\Niebianie\Droid_worker\DroidMid.xnb
+Content\Models\Units\Niebianie\Droid_worker\DroidHigh.xnb
 Content\Models\Units\Aliens\Alien_Rider\alien_RiderHigh.xnb
 Content\Models\Units\Aliens\Alien_Rider\alien_RiderLow.xnb
 Content\Models\Units\Aliens\Alien_Rider\alien_RiderMid.xnb
@@ -188,10 +189,6 @@ Content\FBX\9E0138E6\obserwatorium.fbm\rftq1_0.xnb
 Content\Models\Decorations\Ruiny\sciana_0.xnb
 Content\FBX\795B305E\okoHigh.fbm\texturaInne_0.xnb
 Content\FBX\795B305E\okoHigh.fbm\tekstura_0.xnb
-Content\FBX\AC1E34EF\DroidHigh.fbm\texturaInne_0.xnb
-Content\FBX\AC1E34EF\DroidHigh.fbm\tekstura3_0.xnb
-Content\FBX\AC1E34EF\DroidHigh.fbm\tekstura2_0.xnb
-Content\FBX\AC1E34EF\DroidHigh.fbm\tekstura1_0.xnb
 Content\FBX\778D34A1\DroidLow.fbm\texturaInne_0.xnb
 Content\FBX\778D34A1\DroidLow.fbm\tekstura3_0.xnb
 Content\FBX\778D34A1\DroidLow.fbm\tekstura2_0.xnb
@@ -200,6 +197,9 @@ Content\FBX\77113489\DroidMid.fbm\texturaInne_0.xnb
 Content\FBX\77113489\DroidMid.fbm\tekstura3_0.xnb
 Content\FBX\77113489\DroidMid.fbm\tekstura2_0.xnb
 Content\FBX\77113489\DroidMid.fbm\tekstura1_0.xnb
+Content\FBX\AC1E34EF\DroidHigh.fbm\texturaInne_0.xnb
+Content\FBX\AC1E34EF\DroidHigh.fbm\tekstura1_0.xnb
+Content\FBX\AC1E34EF\DroidHigh.fbm\tekstura2_0.xnb
 Content\FBX\15AD35A6\alien_RiderHigh.fbm\4706_0.xnb
 Content\FBX\15AD35A6\alien_RiderHigh.fbm\Chrysanthemum_0.xnb
 Content\FBX\15AD35A6\alien_RiderHigh.fbm\Furr (5)_0.xnb
@@ -221,4 +221,3 @@ Content\FBX\4FE73648\alien_workerMid.fbm\BARK5_0.xnb
 Content\FBX\50633660\alien_workerLow.fbm\obcy_0.xnb
 Content\FBX\50633660\alien_workerLow.fbm\4706_0.xnb
 Content\FBX\50633660\alien_workerLow.fbm\BARK5_0.xnb
-Content\GUI\soul.xnb

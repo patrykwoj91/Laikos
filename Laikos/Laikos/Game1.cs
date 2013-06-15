@@ -63,6 +63,7 @@ namespace Laikos
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
+            
             Minimap.Initialize(device);
             Components.Add(camera);
             Components.Add(terrain);
@@ -83,11 +84,11 @@ namespace Laikos
 
             UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
             BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
-             
+            player = new Player(this, UnitTypes, BuildingTypes);
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
             Minimap.LoadMiniMap(Content);
 
-            player = new Player(this, UnitTypes, BuildingTypes);
+            player.Initialize();
             SelectingGUI.Init(device, graphics, this,player.UnitList,player.BuildingList);
             GUI.Initialize(device, spriteBatch, Content);
         }

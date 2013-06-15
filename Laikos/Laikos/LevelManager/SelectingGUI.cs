@@ -94,17 +94,38 @@ namespace Laikos
 
         private static void DrawUnitInfo(SpriteBatch spriteBatch)
         {
-            foreach (Unit unit in Units)
+           
+            foreach (Building building in Buildings)
+            {
+                // Project the 3d position first
+                Vector3 screenPos3D = Device.Viewport.Project(BoundingSphere.CreateFromBoundingBox(building.boundingBox).Center, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
+                // Just to make it easier to use we create a Vector2 from screenPos3D
+                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y - BoundingSphere.CreateFromBoundingBox(building.boundingBox).Radius * 2);
+
+                if (building.selected == true)
+                {
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), healthbar.Width, healthbar.Height), null, Color.Red);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)building.HP / building.maxHP)), healthbar.Height), null, Color.ForestGreen);
+                }
+                /* else
+                 {
+                     // Draw the healthbar
+                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, healthbar.Width, healthbar.Height), null, Color.Red * 0.5f);
+                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, (int)(healthbar.Width * ((double)building.HP / building.maxHP)), healthbar.Height), null, Color.ForestGreen * 0.5f);
+                 }*/
+            }
+
+             foreach (Unit unit in Units)
             {
                 // Project the 3d position first
                 Vector3 screenPos3D = Device.Viewport.Project(unit.boundingSphere.Center, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
                 // Just to make it easier to use we create a Vector2 from screenPos3D
-                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-unit.boundingSphere.Radius*7);
-               
+                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y - unit.boundingSphere.Radius * 7);
+
                 if (unit.selected == true)
                 {
                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height/2), healthbar.Width, healthbar.Height), null, Color.Red);
-                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)unit.HP / unit.maxHP)), healthbar.Height), null, Color.ForestGreen);
+                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)unit.HP / unit.maxHP)), healthbar.Height), null, Color.ForestGreen);        
                 }
                /* else
                 {
@@ -113,25 +134,7 @@ namespace Laikos
                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, (int)(healthbar.Width * ((double)unit.HP / unit.maxHP)), healthbar.Height), null, Color.ForestGreen*0.5f);
                 }*/
             }
-            foreach (Building building in Buildings)
-            {
-                // Project the 3d position first
-                Vector3 screenPos3D = Device.Viewport.Project(BoundingSphere.CreateFromBoundingBox(building.boundingBox).Center, Camera.projectionMatrix, Camera.viewMatrix, Matrix.Identity);
-                // Just to make it easier to use we create a Vector2 from screenPos3D
-                Vector2 screenPos2D = new Vector2(screenPos3D.X, screenPos3D.Y-BoundingSphere.CreateFromBoundingBox(building.boundingBox).Radius*2);
-               
-                if (building.selected == true)
-                {
-                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height/2), healthbar.Width, healthbar.Height), null, Color.Red);
-                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)building.HP / building.maxHP)), healthbar.Height), null, Color.ForestGreen);
-                }
-               /* else
-                {
-                    // Draw the healthbar
-                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, healthbar.Width, healthbar.Height), null, Color.Red * 0.5f);
-                    spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)screenPos2D.Y - healthbar.Height / 2, (int)(healthbar.Width * ((double)building.HP / building.maxHP)), healthbar.Height), null, Color.ForestGreen * 0.5f);
-                }*/
-            }
+            
         }
 
         public static void Draw()

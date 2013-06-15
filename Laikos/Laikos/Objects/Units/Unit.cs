@@ -13,7 +13,6 @@ namespace Laikos
     public class Unit : GameObject
     {
         public bool walk, idle, attack;
-        //public List<Message> messages;
         public UnitType type;
         public double HP;
         public double maxHP;
@@ -49,7 +48,6 @@ namespace Laikos
 
             maxHP = this.type.maxhp;
             HP = maxHP;
-
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
         }
@@ -72,13 +70,13 @@ namespace Laikos
             if (attack)
             {
                 this.currentModel.player.PlayClip("Attack", true);
-                idle = false;
+                attack = false;
             }
 
 
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
-            CleanMessages();
+            this.CleanMessages();
             base.Update(gameTime);
 
 
@@ -86,47 +84,30 @@ namespace Laikos
 
         public override void HandleEvent(GameTime gameTime)
         {
+
             EventManager.FindMessagesByDestination(this, messages);
             FindDoubledMessages();
 
 
-            for (int i = 0; i < messages.Count; i++)
+            //for (int i = 0; i < 0; i++)
+            if(messages.Count > 0)
             {
+                int i = 0;
                 if (messages[i].Done == false)
                 switch (messages[i].Type)
                 {
                     case (int)EventManager.Events.Selected:
                         selected = true;
                         messages[i].Done = true;
-                        if (UnitBackground.upTime > 1.0f && LowerBackground.upTime > 1.0f)
-                        {
-                            if (UnitBackground.isUp)
-                                break;
-                            UnitBackground.upTime = 0;
-                            LowerBackground.upTime = 0;
-                        }
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.GuiUP, this,null , null));
                         break;
 
                     case (int)EventManager.Events.Unselected:
-                        if (!selected)
-                        {
-                            messages[i].Done = true;
-                            break;
-                        }
-                        else
-                        {
-                            selected = false;
-                            messages[i].Done = true;
-                            if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
-                            {
-                                if (!UnitBackground.isUp)
-                                    break;
-                                UnitBackground.downTime = 0;
-                                LowerBackground.downTime = 0;
-                            }
-                        }
+                        selected = false;
+                        messages[i].Done = true;
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.GuiDOWN, this, null, null));
                         break;
-
+                    
                     case (int)EventManager.Events.Interaction:
 
                         Console.WriteLine("Jednostka - interakcja z" + messages[i].Destination.ToString());
@@ -174,9 +155,11 @@ namespace Laikos
                         
                         break;
 
-                    case (int)EventManager.Events.Build:
+                    case (int)EventManager.Events.MoveToBuild:
+                        
                         if (budowniczy == true)
                         {
+                           
                             if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
                             {
                                 destinyPointer = destinyPoints.GetEnumerator();
@@ -189,10 +172,11 @@ namespace Laikos
 
                             Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                             Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-
+                           
                             if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                             {
-                                // Next step walk.
+                                // Next step walk. 
+                                
                                 if (!destinyPointer.MoveNext())
                                 {
                                     destinyPoints = null;
@@ -201,26 +185,34 @@ namespace Laikos
                                     direction.X = 0.0f;
                                     direction.Z = 0.0f;
 
-                                    timeSpan -= gameTime.ElapsedGameTime;
-	                                if (timeSpan < TimeSpan.Zero)
-	                                {
-                                        //Player.Build(typ i pozycja);
-                                        messages[i].Done = true;
-                                       
-	                                }
-                                    
-                                    
-
+                                    messages[i].Done = true;
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Build, this, this, messages[i].Payload));
+                                    timeSpan = TimeSpan.FromMilliseconds(Player.BuildingTypes["Cementary"].buildtime); //czas budowania zmienic
+                                    attack = true;
                                 }
                                 else
                                 {
                                     Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
                                     direction = vecTmp - Position;
-                                    timeSpan = TimeSpan.FromMilliseconds(3000.0f); //czas budowania zmienic
                                 }
                             }
+    
                         }
 
+                        break;
+
+                    case (int)EventManager.Events.Build:
+
+                        if (budowniczy == true)
+                        {
+                           timeSpan -= gameTime.ElapsedGameTime;
+                            if (timeSpan < TimeSpan.Zero)
+                            {
+                                Player.Build(Player.BuildingTypes["Cementary"], (Vector3)(messages[i].Payload));
+                                messages[i].Done = true;
+                                idle = true;
+                            }   
+                        }
                         break;
                 }
             }

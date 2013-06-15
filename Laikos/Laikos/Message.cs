@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Laikos
 {
-    public class Message
+    public class Message 
     {
         public int Type;
         public Object Sender; //nadawca
@@ -50,5 +50,10 @@ namespace Laikos
 
             return 0;
         }
+
+
     }
 }
+
+
+
