@@ -39,12 +39,18 @@ namespace Laikos
             Buildings = buildings;
         }
 
-        public static bool MiniMapClicked(float X, float Y)
+        public static bool GUIClicked(float X, float Y)
         {
-            if (X < Minimap.height + Minimap.diff && Y < Minimap.width + Minimap.diff)
-                return true;
-            else
+            if (UnitBackground.isUp && (Input.currentMouseState.Y < GUI.screenHeight - UnitBackground.height ||
+                (Input.currentMouseState.Y < GUI.screenHeight - LowerBackground.height && Input.currentMouseState.X > UnitBackground.width)) &&
+                Input.currentMouseState.Y > MinimapBackground.height ||
+                (Input.currentMouseState.Y < MinimapBackground.height && Input.currentMouseState.X > MinimapBackground.width && Input.currentMouseState.Y > UpperBackground.height) ||
+                !UnitBackground.isUp && Input.currentMouseState.X < GUI.screenWidth && Input.currentMouseState.Y < GUI.screenHeight &&
+                Input.currentMouseState.Y > MinimapBackground.height ||
+                (Input.currentMouseState.Y < MinimapBackground.height && Input.currentMouseState.X > MinimapBackground.width && Input.currentMouseState.Y > UpperBackground.height))
                 return false;
+            else
+                return true;
         }
 
         private static void DrawSelection(SpriteBatch spriteBatch)

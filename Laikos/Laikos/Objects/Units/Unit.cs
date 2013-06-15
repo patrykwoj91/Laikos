@@ -99,11 +99,33 @@ namespace Laikos
                     case (int)EventManager.Events.Selected:
                         selected = true;
                         messages[i].Done = true;
+                        if (UnitBackground.upTime > 1.0f && LowerBackground.upTime > 1.0f)
+                        {
+                            if (UnitBackground.isUp)
+                                break;
+                            UnitBackground.upTime = 0;
+                            LowerBackground.upTime = 0;
+                        }
                         break;
 
                     case (int)EventManager.Events.Unselected:
-                        selected = false;
-                        messages[i].Done = true;
+                        if (!selected)
+                        {
+                            messages[i].Done = true;
+                            break;
+                        }
+                        else
+                        {
+                            selected = false;
+                            messages[i].Done = true;
+                            if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
+                            {
+                                if (!UnitBackground.isUp)
+                                    break;
+                                UnitBackground.downTime = 0;
+                                LowerBackground.downTime = 0;
+                            }
+                        }
                         break;
 
                     case (int)EventManager.Events.Interaction:

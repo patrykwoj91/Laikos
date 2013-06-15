@@ -109,10 +109,11 @@ namespace Laikos
 
             #region Left Click (Selecting)
             // MOUSE DRAG - START
+
             if (currentMouseState.LeftButton == ButtonState.Pressed &&
                 oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                if (!SelectingGUI.MiniMapClicked(currentMouseState.X, currentMouseState.Y))
+                if (!SelectingGUI.GUIClicked(currentMouseState.X, currentMouseState.Y))
                 {
                     selectionbox = true;
 
@@ -140,7 +141,7 @@ namespace Laikos
             else if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                if (selectionbox && (!SelectingGUI.MiniMapClicked(currentMouseState.X, currentMouseState.Y)))
+                if (selectionbox && (!SelectingGUI.GUIClicked(currentMouseState.X, currentMouseState.Y)))
                 {
 
                     if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
@@ -403,6 +404,7 @@ namespace Laikos
                 if (object_clicked)
                 {
                     EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
+                        Console.WriteLine("lol");
                         break;
                 }
             }

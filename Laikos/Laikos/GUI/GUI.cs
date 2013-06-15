@@ -45,12 +45,12 @@ namespace Laikos
         {
             UnitBackground.UpdateAnimation(gameTime);
 
-            if (UnitBackground.isUp && UnitBackground.time <= 1.0f)
+            if (UnitBackground.upTime <= 1.0f)
             {
                 UnitBackground.MoveUp();
                 LowerBackground.MoveUp();
             }
-            else if (!UnitBackground.isUp && UnitBackground.time <= 1.0f)
+            else if (UnitBackground.downTime <= 1.0f)
             {
                 UnitBackground.MoveDown();
                 LowerBackground.MoveDown();
@@ -61,16 +61,10 @@ namespace Laikos
         {
             if (Input.currentMouseState.LeftButton == ButtonState.Pressed)
             {
-
                 if (Input.currentMouseState.X < Minimap.width + Minimap.diff && Input.currentMouseState.Y < Minimap.height + Minimap.diff)
                 {
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
-                }
-                if (UnitBackground.time > 1.0f && LowerBackground.time > 1.0f)
-                {
-                    UnitBackground.time = 0;
-                    LowerBackground.time = 0;
                 }
             }
         }
