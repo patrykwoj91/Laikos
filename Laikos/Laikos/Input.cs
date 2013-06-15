@@ -143,57 +143,55 @@ namespace Laikos
             {
                 if (selectionbox && (!SelectingGUI.GUIClicked(currentMouseState.X, currentMouseState.Y)))
                 {
-
-                    if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
-                        100)
+                    if (building_mode == true)
                     {
-                        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                        SelectInWindow(player, startDrag,
-                            new Vector2(currentMouseState.X, currentMouseState.Y), device);
-                        stopwatch.Stop();
-                        Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
+                        foreach (Unit unit in player.UnitList)
+                            if (unit.selected == true && unit.budowniczy == true)
+                            {
+                                Vector3 pointerPosition = GetPointerCoord(device);
+                                Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)unit.Position.X, (int)unit.Position.Z);
+                                Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
+
+                                DateTime tp0 = DateTime.Now;
+                                unit.destinyPoints = unit.pathFiding.obliczSciezke(wspBegin, wspEnd);
+                                unit.destinyPointer = null;
+                                DateTime tp1 = DateTime.Now;
+
+                                if (unit.destinyPoints.Count > 0)
+                                {
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, pointerPosition)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
+                                    unit.walk = true;
+                                }
+                                building_mode = false;
+                            }
+
                     }
                     else
                     {
-                        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                        if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
+                            100)
+                        {
+                            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                            SelectInWindow(player, startDrag,
+                                new Vector2(currentMouseState.X, currentMouseState.Y), device);
+                            stopwatch.Stop();
+                            Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
+                        }
+                        else
+                        {
+                            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                        SelectSingle(player, device);
+                            SelectSingle(player, device);
 
-                        stopwatch.Stop();
-                        Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
+                            stopwatch.Stop();
+                            Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
 
+                        }
+                        SelectingGUI.selectionbox = selectionbox = false;
+                        startDrag.X = -9999;
+                        startDrag.Y = -9999;
                     }
-                    SelectingGUI.selectionbox = selectionbox = false;
-                    startDrag.X = -9999;
-                    startDrag.Y = -9999;
                 }
-            }
-            if (currentMouseState.LeftButton == ButtonState.Released &&
-                   oldMouseState.LeftButton == ButtonState.Pressed)
-            {
-                if (building_mode == true)
-                {
-                     foreach (Unit unit in player.UnitList)
-                         if (unit.selected == true && unit.budowniczy == true)
-                         {
-                             Vector3 pointerPosition = GetPointerCoord(device);
-                             Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)unit.Position.X, (int)unit.Position.Z);
-                             Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
-
-                             DateTime tp0 = DateTime.Now;
-                             unit.destinyPoints = unit.pathFiding.obliczSciezke(wspBegin, wspEnd);
-                             unit.destinyPointer = null;
-                             DateTime tp1 = DateTime.Now;
-                          
-                             if (unit.destinyPoints.Count > 0)
-                             {
-                                 EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, pointerPosition)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
-                                 unit.walk = true;
-                             }
-                             building_mode = false;
-                         }
-                }
-
             }
             GUI.ProcessInput();
             #endregion

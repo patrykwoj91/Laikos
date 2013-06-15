@@ -208,7 +208,7 @@ namespace Laikos
                            timeSpan -= gameTime.ElapsedGameTime;
                             if (timeSpan < TimeSpan.Zero)
                             {
-                                Player.Build(Player.BuildingTypes["Cementary"], (Vector3)(messages[i].Payload));
+                                Player.Build(Player.BuildingTypes["Prison"], (Vector3)(messages[i].Payload));
                                 messages[i].Done = true;
                                 idle = true;
                             }   
