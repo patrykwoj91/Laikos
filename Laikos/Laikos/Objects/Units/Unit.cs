@@ -194,7 +194,7 @@ namespace Laikos
                                 {
                                     Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
                                     direction = vecTmp - Position;
-                                    timeSpan = TimeSpan.FromMilliseconds(3000); //czas budowania zmienic
+                                    timeSpan = TimeSpan.FromMilliseconds(3000.0f); //czas budowania zmienic
                                 }
                             }
                         }

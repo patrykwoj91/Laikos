@@ -62,6 +62,12 @@ Content\Models\Decorations\Ruiny\sciana.xnb
 Content\Models\Units\Niebianie\Droid_worker\tekstura1.xnb
 Content\Models\Units\Niebianie\Droid_worker\tekstura2.xnb
 Content\Models\Units\Niebianie\Droid_worker\tekstura3.xnb
+Content\GUI\button.xnb
+Content\GUI\chain.xnb
+Content\GUI\desen.xnb
+Content\GUI\tab.xnb
+Content\GUI\tlo.xnb
+Content\GUI\tlo_minimapa.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb
@@ -215,9 +221,3 @@ Content\FBX\5C983061\alien_workerMid.fbm\BARK5_0.xnb
 Content\FBX\5D143079\alien_workerLow.fbm\obcy_0.xnb
 Content\FBX\5D143079\alien_workerLow.fbm\4706_0.xnb
 Content\FBX\5D143079\alien_workerLow.fbm\BARK5_0.xnb
-Content\GUI\button.xnb
-Content\GUI\chain.xnb
-Content\GUI\desen.xnb
-Content\GUI\tab.xnb
-Content\GUI\tlo.xnb
-Content\GUI\tlo_minimapa.xnb

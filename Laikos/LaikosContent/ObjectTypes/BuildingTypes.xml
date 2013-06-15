@@ -8,7 +8,7 @@
       <Model>Models/Buildings/Niebianie/Obserwatorium/obserwatorium</Model>
       <Souls>300</Souls>
       <Scale>0.2</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -17,7 +17,7 @@
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</Model>
       <Souls>10000</Souls>
       <Scale>0.5</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -26,7 +26,7 @@
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p2</Model>
       <Souls>300</Souls>
       <Scale>0.5</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -35,7 +35,7 @@
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p3</Model>
       <Souls>400</Souls>
       <Scale>0.5</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -44,7 +44,7 @@
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p4</Model>
       <Souls>500</Souls>
       <Scale>0.5</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -53,7 +53,7 @@
       <Model>Models/Buildings/Niebianie/Strażnica/strażnica</Model>
       <Souls>200</Souls>
       <Scale>0.2</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -62,7 +62,7 @@
       <Model>Models/Buildings/Aliens/Nekropolis/nekropoli</Model>
       <Souls>150</Souls>
       <Scale>0.2</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -71,7 +71,7 @@
       <Model>Models/Buildings/Prison/prison</Model>
       <Souls>10000</Souls>
       <Scale>0.003</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
 
     <Item>
@@ -80,7 +80,7 @@
       <Model>Models/Buildings/Niebianie/Cmentarz/cmentarz</Model>
       <Souls>150</Souls>
       <Scale>0.3</Scale>
-      <buildtime>5000</buildtime>
+      <buildtime>5000.0</buildtime>
     </Item>
     
   </Asset>

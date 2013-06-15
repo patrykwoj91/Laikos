@@ -167,11 +167,9 @@ namespace Laikos
                     startDrag.Y = -9999;
                 }
             }
-		GUI.ProcessInput();
-
             if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
-
+            {
                 if (building_mode == true)
                 {
                      foreach (Unit unit in player.UnitList)
@@ -196,10 +194,7 @@ namespace Laikos
                 }
 
             }
-
-            
-
-
+            GUI.ProcessInput();
             #endregion
 
             #region Right Click (Moving and Interactions)
@@ -274,6 +269,7 @@ namespace Laikos
             }
             #endregion
         }
+
 
         /// <summary>
         /// Handling input from mouse and keyboard to move camera
@@ -454,4 +450,5 @@ namespace Laikos
         }
     }
 }
+
 

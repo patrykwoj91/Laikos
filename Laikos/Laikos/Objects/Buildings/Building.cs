@@ -18,7 +18,7 @@ namespace Laikos
        public double maxHP;
        public BoundingBox boundingBox;
        public bool selectable;
-       public TimeSpan buildtime;
+       public float buildtime;
 
        public Building()
            :base()

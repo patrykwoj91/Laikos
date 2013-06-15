@@ -18,7 +18,7 @@ namespace MyDataTypes
         public String Model;
         public int Souls;
         public float Scale;
-        public TimeSpan buildtime;
+        public float buildtime;
 
         public object Clone()
         {
