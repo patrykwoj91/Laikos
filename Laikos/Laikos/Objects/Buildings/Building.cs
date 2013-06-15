@@ -85,8 +85,10 @@ namespace Laikos
             EventManager.FindMessagesByDestination(this, messages);
             FindDoubledMessages();
 
-            for (int i = 0; i < messages.Count; i++)
+            if (messages.Count > 0)
             {
+                int i = 0;
+                if (messages[i].Done == false)
                 switch (messages[i].Type)
                 {
                     case (int)EventManager.Events.Selected:

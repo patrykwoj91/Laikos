@@ -17,6 +17,7 @@ namespace Laikos
         public static int screenWidth;
         public static int screenHeight;
         private static SpriteBatch spriteBatch;
+        private static List<Message> messages;
 
 
         public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content)
@@ -24,6 +25,7 @@ namespace Laikos
             screenWidth = Device.PresentationParameters.BackBufferWidth;
             screenHeight = Device.PresentationParameters.BackBufferHeight;
             spriteBatch = SpriteBatch;
+            messages = new List<Message>();
             MinimapBackground.Initialize(content);
             UpperBackground.Initialize(content);
             UnitBackground.Initialize(content);
@@ -44,7 +46,7 @@ namespace Laikos
         public static void Update(GameTime gameTime)
         {
             UnitBackground.UpdateAnimation(gameTime);
-
+            HandleEvent();
             if (UnitBackground.upTime <= 1.0f)
             {
                 UnitBackground.MoveUp();
@@ -55,6 +57,7 @@ namespace Laikos
                 UnitBackground.MoveDown();
                 LowerBackground.MoveDown();
             }
+            CleanMessages();
         }
 
         public static void ProcessInput()
@@ -67,6 +70,77 @@ namespace Laikos
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
             }
+        }
+
+        public static void HandleEvent()
+        {
+            EventManager.FindMessage(delegate(Message e) { return e.Type > 6; }, messages);
+            FindDoubledMessages();
+
+            if (messages.Count > 0)
+            {
+                int i = 0;
+                if (messages[i].Done == false)
+                switch (messages[i].Type)
+                {
+                    case (int)EventManager.Events.GuiUP:
+                     
+                        if (UnitBackground.upTime > 1.0f && LowerBackground.upTime > 1.0f)
+                        {
+                            if (UnitBackground.isUp)
+                            {
+                                messages[i].Done = true;
+                                break;
+                            }
+                            UnitBackground.upTime = 0;
+                            LowerBackground.upTime = 0;
+                        }
+                    
+                        break;
+
+                    case (int)EventManager.Events.GuiDOWN:
+                    
+                        if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
+                        {
+                            if (!UnitBackground.isUp)
+                            {
+                                messages[i].Done = true;
+                                break;
+                            }
+                                UnitBackground.downTime = 0;
+                                LowerBackground.downTime = 0;
+                        }
+                        
+                        break;
+                }
+            }
+        }
+
+        public static void CleanMessages()
+        {
+            for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages[i].Done == true)
+                {
+                    Console.WriteLine("Usuwam " + (EventManager.Events)messages[i].Type);
+                    messages.RemoveAt(i);
+                }
+            }
+        }
+
+        public static void FindDoubledMessages()
+        {
+            for (int i = 0; i < messages.Count - 1; i++)
+                for (int j = i + 1; j < messages.Count; j++)
+                {
+                    if (messages[i].CompareTo(messages[j]) == 0)
+                    {
+                        if (messages[i].time.CompareTo(messages[j].time) > 0)
+                            messages[j].Done = true;
+                        else
+                            messages[i].Done = true;
+                    }
+                }
         }
     }
 }

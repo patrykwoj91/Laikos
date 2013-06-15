@@ -14,7 +14,11 @@ namespace Laikos
             Interaction,
             Build,
             MoveUnit,
-            MoveToBuild
+            MoveToBuild,
+            GuiUP,
+            GuiDOWN
+            
+            
         };
 
         static List<Message> lastFrame_messages = new List<Message>();
@@ -53,6 +57,18 @@ namespace Laikos
                 }
             }
             result.Sort((x,y) => x.Type.CompareTo(y.Type));
+        }
+
+        public static void FindMessage(Predicate<Message> criteria, List<Message> result)
+        {
+            for (int i = 0; i < lastFrame_messages.Count; i++)
+            {
+                Message m = lastFrame_messages[i];
+                if (criteria.Invoke(m))
+                {
+                    result.Add(m);
+                }
+            }
         }
 
         public static void Update()
