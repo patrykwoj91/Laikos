@@ -12,11 +12,14 @@ namespace Laikos
 {
     public class Unit : GameObject
     {
-        public bool walk;
+        public bool walk, idle, attack;
         //public List<Message> messages;
         public UnitType type;
         public double HP;
         public double maxHP;
+        public bool budowniczy = false;
+        TimeSpan timeSpan;
+        Player Player;
 
         //////////////////////////////////
         // PathFiding Variables
@@ -33,13 +36,17 @@ namespace Laikos
             walk = false;
         }
 
-        public Unit(Game game, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
+        public Unit(Game game, Player player, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
             : base(game, type.model)
         {
+            this.Player = player;
             this.Position = position;
             this.Rotation = rotation;
             this.Scale = scale;
             this.type = (UnitType)type.Clone();
+            if (this.type.name.Contains("Worker"))
+                budowniczy = true;
+
             maxHP = this.type.maxhp;
             HP = maxHP;
 
@@ -49,7 +56,26 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            
+
+            if (walk)
+            {
+                this.currentModel.player.PlayClip("Walk", true);
+                walk = false;
+            }
+
+            if (idle)
+            {
+                this.currentModel.player.PlayClip("Idle", true);
+                idle = false;
+            }
+
+            if (attack)
+            {
+                this.currentModel.player.PlayClip("Attack", true);
+                idle = false;
+            }
+
+
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             CleanMessages();
@@ -87,6 +113,48 @@ namespace Laikos
                         break;
 
                     case (int)EventManager.Events.MoveUnit:
+                        
+                            if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
+                            {
+                                destinyPointer = destinyPoints.GetEnumerator();
+                                destinyPointer.MoveNext();
+                                Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                direction = vecTmp - Position;
+                            }
+
+                            direction.Normalize();
+
+                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+
+                            if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
+                            {
+                                
+                                // Next step walk.
+                                if (!destinyPointer.MoveNext())
+                                {
+                                    destinyPoints = null;
+                                    destinyPointer = null;
+                                    
+                                    direction.X = 0.0f;
+                                    direction.Z = 0.0f;
+
+                                    messages[i].Done = true;
+                                    idle = true;
+                                    Console.WriteLine("done");
+                                }
+                                else
+                                {
+                                    Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                    direction = vecTmp - Position;
+                                }
+                            }
+                        
+                        break;
+
+                    case (int)EventManager.Events.Build:
+                        if (budowniczy == true)
+                        {
                             if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
                             {
                                 destinyPointer = destinyPoints.GetEnumerator();
@@ -107,20 +175,30 @@ namespace Laikos
                                 {
                                     destinyPoints = null;
                                     destinyPointer = null;
-                                    
+
                                     direction.X = 0.0f;
                                     direction.Z = 0.0f;
 
-                                    messages[i].Done = true;
-                                    Console.WriteLine("done");
+                                    timeSpan -= gameTime.ElapsedGameTime;
+	                                if (timeSpan < TimeSpan.Zero)
+	                                {
+                                        //Player.Build(typ i pozycja);
+                                        messages[i].Done = true;
+                                       
+	                                }
+                                    
+                                    
+
                                 }
                                 else
                                 {
                                     Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
                                     direction = vecTmp - Position;
+                                    timeSpan = TimeSpan.FromMilliseconds(3000.0f); //czas budowania zmienic
                                 }
                             }
-                        
+                        }
+
                         break;
                 }
             }

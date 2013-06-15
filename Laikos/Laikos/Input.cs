@@ -14,6 +14,7 @@ namespace Laikos
         public static bool selectionbox;
         public static Vector2 startDrag = new Vector2(-99, -99);
         public static Vector2 stopDrag;
+        public static bool building_mode = false;
    
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
@@ -77,7 +78,8 @@ namespace Laikos
 
                 if (currentKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
                 {
-                    player.Build(player.BuildingTypes["Pałac rady"], GetPointerCoord(device));
+                    building_mode = true;
+                    //i zwraca nazwe budynku na podstawie miniaturki
                 }
 
                 // Allows the game to exit
@@ -133,6 +135,8 @@ namespace Laikos
                     }
                 }
             } // MOUSE DRAG - STOP
+
+                
             else if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
             {
@@ -143,7 +147,7 @@ namespace Laikos
                         100)
                     {
                         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                        SelectUnitsInWindow(player, startDrag,
+                        SelectInWindow(player, startDrag,
                             new Vector2(currentMouseState.X, currentMouseState.Y), allObjects, device);
                         stopwatch.Stop();
                         Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
@@ -152,7 +156,7 @@ namespace Laikos
                     {
                         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                        SelectSingleUnit(player, device, allObjects);
+                        SelectSingle(player, device, allObjects);
 
                         stopwatch.Stop();
                         Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
@@ -163,7 +167,33 @@ namespace Laikos
                     startDrag.Y = -9999;
                 }
             }
+            if (currentMouseState.LeftButton == ButtonState.Released &&
+                   oldMouseState.LeftButton == ButtonState.Pressed)
+            {
+                if (building_mode == true)
+                {
+                     foreach (Unit unit in player.UnitList)
+                         if (unit.selected == true && unit.budowniczy == true)
+                         {
+                             Vector3 pointerPosition = GetPointerCoord(device);
+                             Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)unit.Position.X, (int)unit.Position.Z);
+                             Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
 
+                             DateTime tp0 = DateTime.Now;
+                             unit.destinyPoints = unit.pathFiding.obliczSciezke(wspBegin, wspEnd);
+                             unit.destinyPointer = null;
+                             DateTime tp1 = DateTime.Now;
+                          
+                             if (unit.destinyPoints.Count > 0)
+                             {
+                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Build, null, unit, pointerPosition)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
+                                 unit.walk = true;
+                             }
+                             building_mode = false;
+                         }
+                }
+
+            }
             GUI.ProcessInput();
             #endregion
 
@@ -229,8 +259,7 @@ namespace Laikos
                                 if (((Unit)obj).destinyPoints.Count > 0)
                                 {
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
-                                    Unit test = (Unit)obj;
-                                    Console.WriteLine(test.messages.Count);
+                                    ((Unit)obj).walk = true;
                                 }
                                 stopwatch.Stop();
                                 Console.WriteLine("MoveCommand(...) : {0}", stopwatch.Elapsed);
@@ -240,6 +269,7 @@ namespace Laikos
             }
             #endregion
         }
+
 
         /// <summary>
         /// Handling input from mouse and keyboard to move camera
@@ -358,14 +388,14 @@ namespace Laikos
             return pointerPosition;
         }
     
-        private static void SelectSingleUnit(Player player, GraphicsDevice device, List<GameObject> allObjects)
+        private static void SelectSingle(Player player, GraphicsDevice device, List<GameObject> allObjects)
         {
             bool object_clicked;
             Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
             Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
             Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
 
-            DeselectAllUnits(player);
+            DeselectAll(player);
 
             for (int i = 0; i < allObjects.Count; i++)
             {
@@ -375,17 +405,22 @@ namespace Laikos
                     if (allObjects[i] is Unit)
                     {
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
-                        Unit test = (Unit)allObjects[i];
-                        //Console.WriteLine(test.messages.Count);
                         break;
+                    }
+                    if (allObjects[i] is Building)
+                    {
+                        Building building = (Building)allObjects[i];
+                        if (building.selectable == true)
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                        break;          
                     }
                 }
             }
         }
 
-        private static void SelectUnitsInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, List<GameObject> allObjects, GraphicsDevice device)
+        private static void SelectInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, List<GameObject> allObjects, GraphicsDevice device)
         {
-            DeselectAllUnits(player);
+            DeselectAll(player);
 
             MathUtils.SafeSquare(ref startDrag, ref stopDrag);
 
@@ -405,11 +440,15 @@ namespace Laikos
             }
         }
 
-        private static void DeselectAllUnits(Player player)
+        private static void DeselectAll(Player player)
         {
             foreach (Unit unit in player.UnitList)
                 EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
+
+            foreach (Building building in player.BuildingList)
+                EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, building, null));
         }
     }
 }
+
 
