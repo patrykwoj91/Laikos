@@ -9,11 +9,12 @@ namespace Laikos
         public enum Events
         {
             FixCollisions,
-            Selected,
             Unselected,
+            Selected,
             Interaction,
+            Build,
             MoveUnit,
-            Build
+            MoveToBuild
         };
 
         static List<Message> lastFrame_messages = new List<Message>();
@@ -28,6 +29,7 @@ namespace Laikos
 
         public static void FindMessagesByDestination(GameObject destination, List<Message> result)
         {
+
             for (var i = 0; i < lastFrame_messages.Count; i++)
             {
                 var m = lastFrame_messages[i];
@@ -36,6 +38,8 @@ namespace Laikos
                     result.Add(m);    
                 }
             }
+
+            result.Sort((x, y) => x.Type.CompareTo(y.Type));
         }
 
         public static void FindMessagesBySender(GameObject sender, List<Message> result)
@@ -48,6 +52,7 @@ namespace Laikos
                     result.Add(m);
                 }
             }
+            result.Sort((x,y) => x.Type.CompareTo(y.Type));
         }
 
         public static void Update()

@@ -12,7 +12,6 @@ namespace Laikos
    public class Building : GameObject
     {
        public BuildingType type;
-       public List<Message> messages;
        public List<BoundingBox> meshBoundingBoxes;
        public double HP;
        public double maxHP;
@@ -52,10 +51,9 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
-            CleanMessages();
+            this.CleanMessages();
             base.Update(gameTime);
         }
 

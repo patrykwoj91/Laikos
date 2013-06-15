@@ -148,7 +148,7 @@ namespace Laikos
                     {
                         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
                         SelectInWindow(player, startDrag,
-                            new Vector2(currentMouseState.X, currentMouseState.Y), allObjects, device);
+                            new Vector2(currentMouseState.X, currentMouseState.Y), device);
                         stopwatch.Stop();
                         Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
                     }
@@ -156,7 +156,7 @@ namespace Laikos
                     {
                         var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                        SelectSingle(player, device, allObjects);
+                        SelectSingle(player, device);
 
                         stopwatch.Stop();
                         Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
@@ -186,7 +186,7 @@ namespace Laikos
                           
                              if (unit.destinyPoints.Count > 0)
                              {
-                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Build, null, unit, pointerPosition)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
+                                 EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, pointerPosition)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
                                  unit.walk = true;
                              }
                              building_mode = false;
@@ -388,7 +388,7 @@ namespace Laikos
             return pointerPosition;
         }
     
-        private static void SelectSingle(Player player, GraphicsDevice device, List<GameObject> allObjects)
+        private static void SelectSingle(Player player, GraphicsDevice device)
         {
             bool object_clicked;
             Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
@@ -397,46 +397,45 @@ namespace Laikos
 
             DeselectAll(player);
 
-            for (int i = 0; i < allObjects.Count; i++)
+            for (int i = 0; i < player.UnitList.Count; i++)
             {
-                object_clicked = Collisions.RayModelCollision(clippedRay, allObjects[i].currentModel.Model, allObjects[i].GetWorldMatrix());
+                object_clicked = Collisions.RayModelCollision(clippedRay, player.UnitList[i].currentModel.Model, player.UnitList[i].GetWorldMatrix());
                 if (object_clicked)
                 {
-                    if (allObjects[i] is Unit)
-                    {
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                    EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
                         break;
-                    }
-                    if (allObjects[i] is Building)
-                    {
-                        Building building = (Building)allObjects[i];
-                        if (building.selectable == true)
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
-                        break;          
-                    }
                 }
             }
-        }
 
-        private static void SelectInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, List<GameObject> allObjects, GraphicsDevice device)
+            for (int i = 0; i < player.BuildingList.Count; i++)
+            {
+                object_clicked = Collisions.RayModelCollision(clippedRay, player.BuildingList[i].currentModel.Model, player.BuildingList[i].GetWorldMatrix());
+                if (object_clicked)
+                {
+                    EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.BuildingList[i], null));
+                        break;          
+                }
+             }
+        }
+        
+
+        private static void SelectInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, GraphicsDevice device)
         {
             DeselectAll(player);
 
             MathUtils.SafeSquare(ref startDrag, ref stopDrag);
 
-            for (int i = 0; i < allObjects.Count; i++)
+            for (int i = 0; i < player.UnitList.Count; i++)
             {
-                if (allObjects[i] is Unit)
-                {
-                    Vector3 pos = device.Viewport.Project(allObjects[i].Position, Camera.projectionMatrix,
+                    Vector3 pos = device.Viewport.Project(player.UnitList[i].Position, Camera.projectionMatrix,
                                                                            Camera.viewMatrix,
                                                                            Matrix.CreateTranslation(Vector3.Zero));
                     if (pos.X >= startDrag.X && pos.X <= stopDrag.X && pos.Y >= startDrag.Y &&
                         pos.Y <= stopDrag.Y)
                     {
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
                     }
-                }
+                
             }
         }
 
