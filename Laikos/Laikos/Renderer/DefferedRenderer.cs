@@ -155,6 +155,7 @@ namespace Laikos
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
+            
             List<Model> models = new List<Model>();
             foreach (GameObject obj in objects)
                 models.Add(obj.currentModel.Model);
@@ -173,9 +174,9 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            //_UI.Sprite.Render(0);
             Debug();
-
+            GUI.Draw();
+            GUI.Update(gameTime);
         }
 
         private void Debug()
@@ -183,39 +184,9 @@ namespace Laikos
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
             
-            //Width + Height
-            int width = Terrain.width / 5;
-            int height = Terrain.height / 5;
-
-            //Set up Drawing Rectangle
-            Rectangle rect = new Rectangle(15, 15, width, height);
-
-            /*//Draw GBuffer 0
-            spriteBatch.Draw((Texture2D)colorRT, rect, Color.White);
-
-            //Draw GBuffer 1
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)normalRT, rect, Color.White);
-
-            //Draw GBuffer 2
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)depthRT, rect, Color.White);
-
-            //Draw LightMap
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)lightRT, rect, Color.White);
-
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);*/
-
-            //rect.X += width;
-            if (SelectingGUI.MiniMapClicked(Input.currentMouseState.X,Input.currentMouseState.Y))
-                spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
-            else
-                spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White*0.7f);
             if (debug)
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
-            //End SpriteBatch
+
             spriteBatch.End();
         }
 

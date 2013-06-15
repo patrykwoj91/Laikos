@@ -167,16 +167,10 @@ namespace Laikos
                     startDrag.Y = -9999;
                 }
             }
+		GUI.ProcessInput();
 
             if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
-            {
-
-                if (currentMouseState.X < 200 && currentMouseState.Y < 200 && currentMouseState.X > 0 && currentMouseState.Y > 0)
-                {
-                    Camera.cameraPosition.X = currentMouseState.X * 5;
-                    Camera.cameraPosition.Z = currentMouseState.Y * 5 + 75;
-                }
 
                 if (building_mode == true)
                 {

@@ -19,7 +19,6 @@ namespace Laikos
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         public static TimeSpan time;
-        private GameInput gameInput;
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
@@ -45,9 +44,9 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.IsFullScreen =false;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -90,12 +89,7 @@ namespace Laikos
 
             player = new Player(this, UnitTypes, BuildingTypes);
             SelectingGUI.Init(device, graphics, this,player.UnitList,player.BuildingList);
-
-            gameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
-            _UI.SetupControls(gameInput);
-            _UI.Startup(this, gameInput);
-            _UI.Screen.AddScreen(new UI.ScreenTest());
-            
+            GUI.Initialize(device, spriteBatch, Content);
         }
 
         /// <summary>
@@ -105,7 +99,6 @@ namespace Laikos
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
-            _UI.Shutdown();
         }
 
         /// <summary>
@@ -116,13 +109,6 @@ namespace Laikos
         protected override void Update(GameTime gameTime)
         {
             float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // update the GameInput
-            gameInput.Update(frameTime);
-
-            // update the UI
-            _UI.Sprite.BeginUpdate();
-            _UI.Screen.Update(frameTime);
 
             time = gameTime.TotalGameTime;
             player.Update(gameTime);
@@ -159,6 +145,7 @@ namespace Laikos
                         unit.Position = unit.lastPosition;
                 }
             }
+            
         }
 
        
@@ -184,7 +171,7 @@ namespace Laikos
 
             defferedRenderer.Draw(objects, terrain, gameTime);
             SelectingGUI.Draw();
-            
+
             objects.Clear();
             base.Draw(gameTime);
 

@@ -1,14 +1,3 @@
-Content\Textures\UI_Null.xnb
-Content\Debug\Debug_Menu.xnb
-Content\Effects\UI_GrayScale.xnb
-Content\Effects\UI_IntensityAsAlpha.xnb
-Content\Effects\UI_IntensityAsAlphaTexture.xnb
-Content\Effects\UI_IntensityAsAlphaTexture_PMA.xnb
-Content\Effects\UI_IntensityAsAlpha_PMA.xnb
-Content\Effects\UI_MultiTexture1.xnb
-Content\Effects\UI_MultiTexture2.xnb
-Content\Effects\UI_MultiTexture3.xnb
-Content\Debug\Debug_Font.xnb
 Content\Models\Terrain\Textures\grass.xnb
 Content\Models\Terrain\Heightmaps\heightmap.xnb
 Content\Models\Terrain\Heightmaps\heightmap1.xnb
@@ -147,6 +136,7 @@ Content\Models\Units\Niebianie\Droid_worker\DroidHigh_Anims.xnb
 Content\Models\Units\Niebianie\Droid_worker\DroidLow_Anims.xnb
 Content\Models\Units\Niebianie\Droid_worker\DroidMid_Anims.xnb
 Content\Georgia.xnb
+Content\GUI\GIFS\Drone_Worker.xnb
 Content\Models\Terrain\cloudMap_0.xnb
 Content\Particles\checker_0.xnb
 Content\Models\SkyDome\cloudMap_0.xnb

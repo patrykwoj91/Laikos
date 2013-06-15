@@ -10,10 +10,13 @@ using System.IO;
 
 namespace Laikos
 {
-    class Minimap
+    static class Minimap
     {
         public static RenderTarget2D minimap;
         public static Texture2D miniMap;
+        public static int width = 200;
+        public static int height = 200;
+        public static int diff = 15;
 
         public static void Initialize(GraphicsDevice device)
         {
