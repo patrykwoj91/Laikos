@@ -14,8 +14,8 @@ namespace Laikos
 {
     static class LowerBackground
     {
-        private static int width;
-        private static int height;
+        public static int width;
+        public static int height;
         private static Texture2D lowerBackground;
         private static Rectangle position;
         private static Rectangle source;
@@ -26,7 +26,7 @@ namespace Laikos
             lowerBackground = content.Load<Texture2D>("GUI/desen");
             width = GUI.screenWidth - UnitBackground.width;
             height = 100;
-            position = new Rectangle(UnitBackground.width, GUI.screenHeight - height, width, height);
+            position = new Rectangle(UnitBackground.width, GUI.screenHeight, width, height);
             source = new Rectangle(0, 0, lowerBackground.Width, lowerBackground.Height);
             time = 1.0f;
         }

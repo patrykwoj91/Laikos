@@ -67,10 +67,11 @@ namespace Laikos
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
+
                 if (UnitBackground.time > 1.0f && LowerBackground.time > 1.0f)
                 {
-                    UnitBackground.time = 0;
-                    LowerBackground.time = 0;
+                        UnitBackground.time = 0;
+                        LowerBackground.time = 0;
                 }
             }
         }

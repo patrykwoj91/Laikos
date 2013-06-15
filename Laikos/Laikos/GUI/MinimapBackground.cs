@@ -16,9 +16,13 @@ namespace Laikos
     {
         private static Texture2D minimapBackground;
         private static Rectangle position;
+        public static int width;
+        public static int height;
 
         public static void Initialize(ContentManager content)
         {
+            width = Minimap.height + 2 * Minimap.diff;
+            height = Minimap.height + 2 * Minimap.diff;
             minimapBackground = content.Load<Texture2D>("GUI/tlo_minimapa");
             position = new Rectangle(Minimap.diff, Minimap.diff, Minimap.width, Minimap.height);
         }
@@ -31,7 +35,7 @@ namespace Laikos
 
             position = new Rectangle(Minimap.diff, Minimap.diff, Minimap.width, Minimap.height);
 
-            if (SelectingGUI.MiniMapClicked(Input.currentMouseState.X, Input.currentMouseState.Y))
+            if (SelectingGUI.GUIClicked(Input.currentMouseState.X, Input.currentMouseState.Y))
                 spriteBatch.Draw((Texture2D)Minimap.miniMap, position, Color.White);
             else
                 spriteBatch.Draw((Texture2D)Minimap.miniMap, position, Color.White * 0.7f);

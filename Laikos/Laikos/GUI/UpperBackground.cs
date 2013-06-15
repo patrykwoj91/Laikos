@@ -14,8 +14,8 @@ namespace Laikos
 {
     class UpperBackground
     {
-        private static int width;
-        private static int height;
+        public static int width;
+        public static int height;
         private static Texture2D upperBackground;
         private static Rectangle position;
         private static Rectangle source;

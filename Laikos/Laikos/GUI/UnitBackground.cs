@@ -26,7 +26,7 @@ namespace Laikos
         {
             width = 150;
             height = 150;
-            position = new Rectangle(0, GUI.screenHeight - width, width, height);
+            position = new Rectangle(0, GUI.screenHeight, width, height);
             unitBackground = content.Load<Texture2D>("GUI/tlo");
             animation = content.Load<GifAnimation.GifAnimation>("GUI/GIFS/Drone_Worker");
             isUp = true;
