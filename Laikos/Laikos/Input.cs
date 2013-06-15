@@ -404,7 +404,6 @@ namespace Laikos
                 if (object_clicked)
                 {
                     EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
-                        Console.WriteLine("lol");
                         break;
                 }
             }

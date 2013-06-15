@@ -74,7 +74,7 @@ namespace Laikos
 
         public static void HandleEvent()
         {
-            EventManager.FindMessage(delegate(Message e) { return e.Type > 6; }, messages);
+            EventManager.FindMessage(delegate(Message e) { return ((EventManager.Events)e.Type).ToString().Contains("Gui") ; }, messages);
             FindDoubledMessages();
 
             if (messages.Count > 0)
