@@ -155,6 +155,7 @@ namespace Laikos
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
+            
             List<Model> models = new List<Model>();
             foreach (GameObject obj in objects)
                 models.Add(obj.currentModel.Model);
@@ -173,7 +174,7 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            //_UI.Sprite.Render(0);
+            _UI.Sprite.Render(0);
             Debug();
 
         }

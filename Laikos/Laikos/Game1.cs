@@ -45,9 +45,9 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1600;
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.IsFullScreen =false;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Laikos
             gameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
             _UI.SetupControls(gameInput);
             _UI.Startup(this, gameInput);
-            _UI.Screen.AddScreen(new UI.ScreenTest());
+            _UI.Screen.AddScreen(new UI.ScreenTest(device, player));
             
         }
 
@@ -184,7 +184,8 @@ namespace Laikos
 
             defferedRenderer.Draw(objects, terrain, gameTime);
             SelectingGUI.Draw();
-            
+
+            objects[0].currentModel.Model.Draw(Matrix.Identity, Camera.viewMatrix, Camera.projectionMatrix);
             objects.Clear();
             base.Draw(gameTime);
 
