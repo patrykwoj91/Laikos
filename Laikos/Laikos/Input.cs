@@ -109,6 +109,7 @@ namespace Laikos
 
             #region Left Click (Selecting)
             // MOUSE DRAG - START
+
             if (currentMouseState.LeftButton == ButtonState.Pressed &&
                 oldMouseState.LeftButton == ButtonState.Pressed)
             {
@@ -404,6 +405,7 @@ namespace Laikos
                 {
                     if (allObjects[i] is Unit)
                     {
+                        Console.WriteLine("lol");
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
                         break;
                     }
