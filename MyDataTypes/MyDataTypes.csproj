@@ -97,6 +97,8 @@
     <Compile Include="ParticleSettingsType.cs" />
     <Compile Include="Serialization\BuildingGroup.cs" />
     <Compile Include="Serialization\BuildingSchema.cs" />
+    <Compile Include="Serialization\DecoarationGroup.cs" />
+    <Compile Include="Serialization\DecorationSchema.cs" />
     <Compile Include="Serialization\ObjectsSchema.cs" />
     <Compile Include="Serialization\UnitGroup.cs" />
     <Compile Include="Serialization\UnitSchema.cs" />

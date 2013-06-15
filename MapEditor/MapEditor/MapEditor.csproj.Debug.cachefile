@@ -90,8 +90,8 @@ Content\Particles\ProjectileTrailSettings.xnb
 Content\Particles\SmokePlumeSettings.xnb
 Content\Models\Units\Trojnog\trojnog_Anims.xnb
 Content\BuildingTypes.xnb
-Content\ObjectsSchema.xnb
 Content\Georgia.xnb
+Content\Times.xnb
 Content\Models\Terrain\cloudMap_0.xnb
 Content\Particles\checker_0.xnb
 Content\Models\SkyDome\cloudMap_0.xnb
@@ -124,3 +124,4 @@ Content\Models\Buildings\Niebianie\Pałac_rady\drewno_0.xnb
 Content\FBX\480E2417\okoHigh.fbm\texturaInne_0.xnb
 Content\FBX\480E2417\okoHigh.fbm\tekstura_0.xnb
 Content\FBX\E02125F1\trojnog.fbm\metalSzary_0.xnb
+Content\ObjectsSchema.xnb
