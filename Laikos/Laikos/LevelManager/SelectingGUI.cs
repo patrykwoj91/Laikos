@@ -41,7 +41,7 @@ namespace Laikos
 
         public static bool MiniMapClicked(float X, float Y)
         {
-            if (X < 200 && Y < 200)
+            if (X < Minimap.height + Minimap.diff && Y < Minimap.width + Minimap.diff)
                 return true;
             else
                 return false;

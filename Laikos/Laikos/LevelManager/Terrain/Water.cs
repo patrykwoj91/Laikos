@@ -17,7 +17,7 @@ namespace Laikos
         public Texture2D refractionMap;
         private Texture2D waterBump;
         private GraphicsDevice device;
-        public static float waterHeight = -2.0f;
+        public static float waterHeight = 6.0f;
 
         private Effect waterEffect;
         private Model skyDome;

@@ -67,6 +67,10 @@
       <Project>{6401ECED-B836-4A18-B85F-94B4577A1589}</Project>
       <Name>AnimationPipeline</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\GifAnimation.Pipeline\GifAnimation.Pipeline.csproj">
+      <Project>{9C683759-D9CF-423E-87B1-153097BE2820}</Project>
+      <Name>GifAnimation.Pipeline</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\MyDataTypes\MyDataTypes.csproj">
       <Project>{8231A90D-00A8-413C-A06E-EE99B0545D5A}</Project>
       <Name>MyDataTypes</Name>
@@ -917,6 +921,14 @@
       <Name>tlo_minimapa</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="GUI\GIFS\Drone_Worker.gif">
+      <Name>Drone_Worker</Name>
+      <Importer>GifAminationImporter</Importer>
+      <Processor>GifAnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
