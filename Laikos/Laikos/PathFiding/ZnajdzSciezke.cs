@@ -240,7 +240,7 @@ namespace Laikos.PathFiding
             for (int _kolejny = 0; _kolejny < 8; ++_kolejny)
             {
                 //Pominięcie drogi, którą się przyszło.
-                if ((_obecny.Ojciec != null) && (KOLEJNOSC)_kolejny == odwrocRuch(_obecny.OstatniRuch))
+                if ((_obecny.Ojciec != null) && ((KOLEJNOSC)_kolejny == odwrocRuch(_obecny.OstatniRuch)))
                 {
                     continue;
                 }

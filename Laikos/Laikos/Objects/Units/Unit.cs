@@ -52,6 +52,7 @@ namespace Laikos
 
             maxHP = this.type.maxhp;
             HP = maxHP;
+            
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
 
@@ -83,8 +84,6 @@ namespace Laikos
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
             base.Update(gameTime);
-
-
         }
 
         public override void HandleEvent(GameTime gameTime)

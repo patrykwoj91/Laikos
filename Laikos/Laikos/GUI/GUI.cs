@@ -18,10 +18,11 @@ namespace Laikos
         public static int screenHeight;
         private static SpriteBatch spriteBatch;
         private static List<Message> messages;
-
+        private static bool block;
 
         public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content)
         {
+            block = false;
             screenWidth = Device.PresentationParameters.BackBufferWidth;
             screenHeight = Device.PresentationParameters.BackBufferHeight;
             spriteBatch = SpriteBatch;
@@ -31,17 +32,19 @@ namespace Laikos
             UnitBackground.Initialize(content);
             LowerBackground.Initialize(content);
             SourcesButton.Initialize(content);
+            LowerOptionPanel.Initialize(content);
         }
 
         public static void Draw()
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
             //Minimap
             MinimapBackground.Create(spriteBatch);
             UpperBackground.Create(spriteBatch);
             LowerBackground.Create(spriteBatch);
             UnitBackground.Create(spriteBatch);
             SourcesButton.Create(spriteBatch);
+            LowerOptionPanel.Create(spriteBatch);
             spriteBatch.End();
         }
 
@@ -53,11 +56,13 @@ namespace Laikos
             {
                 UnitBackground.MoveUp();
                 LowerBackground.MoveUp();
+                LowerOptionPanel.MoveUp();
             }
             else if (UnitBackground.downTime <= 1.0f)
             {
                 UnitBackground.MoveDown();
                 LowerBackground.MoveDown();
+                LowerOptionPanel.MoveDown();
             }
             CleanMessages();
         }
@@ -71,6 +76,8 @@ namespace Laikos
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
+                if (insideRectangle(LowerOptionPanel.cementaryPosition) && UnitBackground.whichUnit == 0)
+                    Console.WriteLine("true");
             }
         }
 
@@ -83,38 +90,69 @@ namespace Laikos
             {
                 int i = 0;
                 if (messages[i].Done == false)
-                switch (messages[i].Type)
-                {
-                    case (int)EventManager.Events.GuiUP:
-                     
-                        if (UnitBackground.upTime > 1.0f && LowerBackground.upTime > 1.0f)
-                        {
-                            if (UnitBackground.isUp)
+                    switch (messages[i].Type)
+                    {
+                        case (int)EventManager.Events.GuiUP:
+                            if (messages[i].Sender is Unit)
                             {
-                                messages[i].Done = true;
-                                break;
+                                UnitBackground.animated = true;
+                                Unit unit = (Unit)messages[i].Sender;
+                                    switch (unit.type.name)
+                                    {
+                                        case "Droid Worker":
+                                            UnitBackground.whichUnit = 0;
+                                            break;
+                                        case "Reconnaissance Eye":
+                                            UnitBackground.whichUnit = 1;
+                                            break;
+                                    }
+                                if (CheckIfMultipleSelected())
+                                {
+                                    UnitBackground.animated = false;
+                                    UnitBackground.whichUnit = 2;
+                                    messages.RemoveAll(DeleteMessages);
+                                }
                             }
-                            UnitBackground.upTime = 0;
-                            LowerBackground.upTime = 0;
-                        }
-                    
-                        break;
-
-                    case (int)EventManager.Events.GuiDOWN:
-                    
-                        if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
-                        {
-                            if (!UnitBackground.isUp)
+                            else if (messages[i].Sender is Building)
                             {
-                                messages[i].Done = true;
-                                break;
+                                UnitBackground.animated = false;
+                                Building building = (Building)messages[i].Sender;
+                                switch (building.type.Name)
+                                {
+                                    case "Cementary":
+                                        UnitBackground.whichUnit = 0;
+                                        break;
+                                    case "Pałac rady2":
+                                        UnitBackground.whichUnit = 1;
+                                        break;
+                                }
                             }
+                            if (UnitBackground.upTime > 1.0f && LowerBackground.upTime > 1.0f)
+                            {
+                                if (UnitBackground.isUp)
+                                {
+                                    messages[i].Done = true;
+                                    break;
+                                }
+                                UnitBackground.upTime = 0;
+                                LowerBackground.upTime = 0;
+                                LowerOptionPanel.upTime = 0;
+                            }
+                            break;
+                        case (int)EventManager.Events.GuiDOWN:
+                            if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
+                            {
+                                if (!UnitBackground.isUp)
+                                {
+                                    messages[i].Done = true;
+                                    break;
+                                }
                                 UnitBackground.downTime = 0;
                                 LowerBackground.downTime = 0;
-                        }
-                        
-                        break;
-                }
+                                LowerOptionPanel.downTime = 0;
+                            }
+                            break;
+                    }
             }
         }
 
@@ -130,6 +168,28 @@ namespace Laikos
             }
         }
 
+        private static bool DeleteMessages(Message message)
+        {
+            if (message.Type == (int)EventManager.Events.GuiUP)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool CheckIfMultipleSelected()
+        {
+            int counter = 0;
+            for (int i = 0; i < messages.Count; i++)
+            {
+                if (messages[i].Type == (int)EventManager.Events.GuiUP)
+                    counter++;
+            }
+            if (counter > 1)
+                return true;
+            else
+                return false;
+        }
+
         public static void FindDoubledMessages()
         {
             for (int i = 0; i < messages.Count - 1; i++)
@@ -143,6 +203,16 @@ namespace Laikos
                             messages[i].Done = true;
                     }
                 }
+        }
+
+        private static bool insideRectangle(Rectangle button)
+        {
+            bool isIn = false;
+            Rectangle mouseRectangle = new Rectangle(Input.currentMouseState.X, Input.currentMouseState.Y, 5, 5);
+            if (button.Intersects(mouseRectangle))
+                return true;
+            else
+                return false;
         }
     }
 }
