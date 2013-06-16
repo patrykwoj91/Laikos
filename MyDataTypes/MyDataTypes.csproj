@@ -92,9 +92,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildingGroup.cs" />
+    <Compile Include="BuildingSchema.cs" />
     <Compile Include="BuildingType.cs" />
+    <Compile Include="DecoarationGroup.cs" />
+    <Compile Include="DecorationSchema.cs" />
     <Compile Include="DecorationType.cs" />
+    <Compile Include="ObjectsSchema.cs" />
     <Compile Include="ParticleSettingsType.cs" />
+    <Compile Include="UnitGroup.cs" />
+    <Compile Include="UnitSchema.cs" />
     <Compile Include="UnitType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

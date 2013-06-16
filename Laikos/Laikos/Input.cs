@@ -238,21 +238,13 @@ namespace Laikos
                         foreach (GameObject obj in allObjects)
                             if (obj.selected == true && obj is Unit)
                             {
-                              /*  for (int i = 0; i < ((Unit)obj).messages.Count; ++i)
-                                {
-                                    if (((Unit)obj).messages[i].Type == (int)EventManager.Events.MoveUnit)
-                                    {
-                                        ((Unit)obj).messages.Remove (((Unit)obj).messages[i]);
-                                    }
-                                }*/
-
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)((Unit)obj).Position.X, (int)((Unit)obj).Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
 
-                                DateTime tp0 = DateTime.Now;
+                                //DateTime tp0 = DateTime.Now;
                                 ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
                                 ((Unit)obj).destinyPointer = null;
-                                DateTime tp1 = DateTime.Now;
+                                //DateTime tp1 = DateTime.Now;
                                 //Console.WriteLine(tp1 - tp0);
 
                                 if (((Unit)obj).destinyPoints.Count > 0)
