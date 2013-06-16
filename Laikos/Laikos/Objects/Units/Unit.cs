@@ -48,6 +48,7 @@ namespace Laikos
 
             maxHP = this.type.maxhp;
             HP = maxHP;
+            
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
         }
@@ -78,8 +79,6 @@ namespace Laikos
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
             base.Update(gameTime);
-
-
         }
 
         public override void HandleEvent(GameTime gameTime)
@@ -208,7 +207,7 @@ namespace Laikos
                            timeSpan -= gameTime.ElapsedGameTime;
                             if (timeSpan < TimeSpan.Zero)
                             {
-                                Player.Build(Player.BuildingTypes["Cementary"], (Vector3)(messages[i].Payload));
+                                Player.Build(Player.BuildingTypes["Prison"], (Vector3)(messages[i].Payload));
                                 messages[i].Done = true;
                                 idle = true;
                             }   

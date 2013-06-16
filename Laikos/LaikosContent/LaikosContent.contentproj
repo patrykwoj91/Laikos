@@ -348,11 +348,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\prison.FBX">
-      <Name>prison</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
     <Compile Include="Models\Buildings\Niebianie\Cmentarz\cmentarz.FBX">
       <Name>cmentarz</Name>
       <Importer>FbxImporter</Importer>
@@ -420,6 +415,11 @@
     </Compile>
     <Compile Include="Models\Decorations\Ruiny\ruiny3.FBX">
       <Name>ruiny3</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Buildings\Prison\prison.FBX">
+      <Name>prison</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +9,9 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 using MyDataTypes;
+using MyDataTypes.Serialization;
 
 namespace Laikos
 {
@@ -59,11 +61,11 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-            
+
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
-            
+
             Minimap.Initialize(device);
             Components.Add(camera);
             Components.Add(terrain);
@@ -79,17 +81,24 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Georgia");
-            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font, this);
             objects = new List<GameObject>();
 
             UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
             BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
             player = new Player(this, UnitTypes, BuildingTypes);
-            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
+            enemy = new Player(this, UnitTypes, BuildingTypes);
+
+            LoadMap(@"Mapa\Objects.xml");
+
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"), decorations);
+
+            InitializeMapAfterLoad();
+
             Minimap.LoadMiniMap(Content);
 
             player.Initialize();
-            SelectingGUI.Init(device, graphics, this,player.UnitList,player.BuildingList);
+            SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList);
             GUI.Initialize(device, spriteBatch, Content);
         }
 
@@ -114,7 +123,7 @@ namespace Laikos
             time = gameTime.TotalGameTime;
             player.Update(gameTime);
 
-            Input.Update(this, gameTime, device, camera, player,decorations.DecorationList);
+            Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
 
             EventManager.Update();
             UpdateExplosions(gameTime, objects);
@@ -146,10 +155,10 @@ namespace Laikos
                         unit.Position = unit.lastPosition;
                 }
             }
-            
+
         }
 
-       
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -160,11 +169,11 @@ namespace Laikos
             //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
-            
+
             defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            
+
 
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
@@ -176,10 +185,60 @@ namespace Laikos
             objects.Clear();
             base.Draw(gameTime);
 
-            
+
         }
 
-         void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+        private void LoadMap(String _name)
+        {
+            ObjectsSchema tmp = new ObjectsSchema();
+            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
+            System.IO.StreamReader file = new System.IO.StreamReader(_name);
+            tmp = (ObjectsSchema)reader.Deserialize(file);
+
+            #region Player_1
+            foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
+            {
+                player.UnitList.Add(new Unit(player.game, player, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+            }
+
+            foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
+            {
+                player.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+            }
+            #endregion Player_1
+
+            #region Player_2
+            foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
+            {
+                enemy.UnitList.Add(new Unit(player.game, enemy, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+            }
+
+            foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
+            {
+                enemy.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+            }
+            #endregion Player_2
+
+            foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
+            {
+                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), 0.05f));
+            }
+        }
+
+        private void InitializeMapAfterLoad()
+        {
+            foreach (Unit _unit in player.UnitList)
+            {
+                _unit.pathFiding.mapaUstaw();
+            }
+
+            foreach (Unit _unit in enemy.UnitList)
+            {
+                _unit.pathFiding.mapaUstaw();
+            }
+        }
+
+        void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
         {
 
             for (int i = player.UnitList.Count - 1; i >= 0; i--)
@@ -187,12 +246,12 @@ namespace Laikos
 
 
                 if (player.UnitList[i].HP == 0)
-                    {
-                        defferedRenderer.explosionParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                        defferedRenderer.explosionSmokeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                        player.UnitList[i].HP = 10;
-                    }
-                
+                {
+                    defferedRenderer.explosionParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
+                    defferedRenderer.explosionSmokeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
+                    player.UnitList[i].HP = 10;
+                }
+
                 defferedRenderer.explosionParticles.Update(gameTime);
             }
         }
@@ -204,13 +263,13 @@ namespace Laikos
                 if (objects[i] is Unit)
                 {
                     Unit unit = (Unit)objects[i];
-                    if (100*unit.HP/unit.maxHP <= 5)
+                    if (100 * unit.HP / unit.maxHP <= 5)
                     {
                         defferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
                     }
                 }
                 defferedRenderer.explosionSmokeParticles.Update(gameTime);
-            }    
+            }
         }
     }
 }
