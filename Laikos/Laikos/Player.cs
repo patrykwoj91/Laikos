@@ -51,7 +51,7 @@ namespace Laikos
             Souls = 1000;
 
             UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 680), 0.05f));
-            UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 670), 0.05f));
+            UnitList.Add(new Unit(game, this, UnitTypes["Reconnaissance Eye"], new Vector3(680, 0, 670), 0.05f));
             BuildingList.Add(new Building(game, BuildingTypes["Pałac rady2"], new Vector3(720, 0, 650), BuildingTypes["Pałac rady2"].Scale,true));
        }
 
