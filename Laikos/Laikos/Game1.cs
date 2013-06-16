@@ -89,7 +89,7 @@ namespace Laikos
             player = new Player(this, UnitTypes, BuildingTypes);
             enemy = new Player(this, UnitTypes, BuildingTypes);
 
-            LoadMap(@"Mapa\Objects.xml");
+            //LoadMap(@"Mapa\Objects.xml");
 
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"), decorations);
 
@@ -202,7 +202,7 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
             {
-                player.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                player.BuildingList.Add(new Building(player.game,player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
             }
             #endregion Player_1
 
@@ -214,7 +214,7 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
             {
-                enemy.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                enemy.BuildingList.Add(new Building(enemy.game,enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
             }
             #endregion Player_2
 
