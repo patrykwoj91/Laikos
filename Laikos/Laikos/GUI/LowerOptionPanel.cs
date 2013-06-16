@@ -21,16 +21,16 @@ namespace Laikos
         public static float upTime;
         public static float downTime;
         private static Rectangle position;
-        private static Rectangle cementaryPosition;
+        public static Rectangle cementaryPosition;
 
         public static void Initialize(ContentManager content)
         {
             optionPanel = content.Load<Texture2D>("GUI/tab");
-            cmentarz = content.Load<Texture2D>("GUI/buildings/cmentarz");
+            cmentarz = content.Load<Texture2D>("GUI/option_panel/buildings/cmentarz");
             width = LowerBackground.width / 2;
             height = 75;
             position = new Rectangle(UnitBackground.width + 50, GUI.screenHeight , width, height);
-            cementaryPosition = new Rectangle(UnitBackground.width + 55, GUI.screenHeight, 150, 70);
+            cementaryPosition = new Rectangle(UnitBackground.width + 55, GUI.screenHeight, 120, 70);
             upTime = 1.0f;
             downTime = 1.0f;
         }
@@ -38,7 +38,8 @@ namespace Laikos
         public static void Create(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(optionPanel, position, Color.White);
-            spriteBatch.Draw(cmentarz, cementaryPosition, Color.White);
+            if (UnitBackground.whichUnit == 0)
+                spriteBatch.Draw(cmentarz, cementaryPosition, Color.White);
         }
 
         public static void MoveUp()
@@ -52,7 +53,7 @@ namespace Laikos
             }
 
             int x = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - (LowerBackground.height + height) / 2, upTime);
-            int y = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - 75, upTime);
+            int y = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - 85, upTime);
             position.Y = x;
             cementaryPosition.Y = y;
         }
@@ -67,7 +68,7 @@ namespace Laikos
             }
 
             int x = (int)MathHelper.SmoothStep(GUI.screenHeight - (LowerBackground.height + height) / 2, GUI.screenHeight, downTime);
-            int y = (int)MathHelper.SmoothStep(GUI.screenHeight - 75, GUI.screenHeight, downTime);
+            int y = (int)MathHelper.SmoothStep(GUI.screenHeight - 85, GUI.screenHeight, downTime);
             position.Y = x;
             cementaryPosition.Y = y;
         }

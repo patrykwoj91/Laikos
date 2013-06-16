@@ -76,6 +76,8 @@ namespace Laikos
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
+                if (insideRectangle(LowerOptionPanel.cementaryPosition) && UnitBackground.whichUnit == 0)
+                    Console.WriteLine("true");
             }
         }
 
@@ -201,6 +203,16 @@ namespace Laikos
                             messages[i].Done = true;
                     }
                 }
+        }
+
+        private static bool insideRectangle(Rectangle button)
+        {
+            bool isIn = false;
+            Rectangle mouseRectangle = new Rectangle(Input.currentMouseState.X, Input.currentMouseState.Y, 5, 5);
+            if (button.Intersects(mouseRectangle))
+                return true;
+            else
+                return false;
         }
     }
 }
