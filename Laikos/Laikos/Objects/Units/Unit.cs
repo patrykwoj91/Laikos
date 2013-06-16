@@ -103,13 +103,13 @@ namespace Laikos
                     case (int)EventManager.Events.Selected:
                         selected = true;
                         messages[i].Done = true;
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.GuiUP, this,null , null));
+                        GUI.CreateMessage(new Message((int)EventManager.Events.GuiUP, this,null , null));
                         break;
 
                     case (int)EventManager.Events.Unselected:
                         selected = false;
                         messages[i].Done = true;
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.GuiDOWN, this, null, null));
+                        GUI.CreateMessage(new Message((int)EventManager.Events.GuiDOWN, this, null, null));
                         break;
                     
                     case (int)EventManager.Events.Interaction:
@@ -280,7 +280,7 @@ namespace Laikos
                            timeSpan -= gameTime.ElapsedGameTime;
                             if (timeSpan < TimeSpan.Zero)
                             {
-                                player.Build(((WhereToBuild)messages[i].Payload).building, ((WhereToBuild)messages[i].Payload).position);
+                                player.Build(((WhereToBuild)messages[i].Payload).building.type, ((WhereToBuild)messages[i].Payload).position);
                                 messages[i].Done = true;
                                 idle = true;
                             }   

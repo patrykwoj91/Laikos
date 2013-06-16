@@ -14,6 +14,14 @@ namespace Laikos
 {
     static class GUI
     {
+        public enum Events
+        {
+            GuiCLICK,
+            GuiUP,
+            GuiDOWN
+        };
+
+
         public static int screenWidth;
         public static int screenHeight;
         private static SpriteBatch spriteBatch;
@@ -67,7 +75,7 @@ namespace Laikos
             CleanMessages();
         }
 
-        public static void ProcessInput()
+        public static void ProcessInput(Game1 game)
         {
             if (Input.oldMouseState.LeftButton == ButtonState.Pressed && Input.currentMouseState.LeftButton == ButtonState.Released)
             {
@@ -77,7 +85,10 @@ namespace Laikos
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
                 if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0)
-                    Console.WriteLine("true");
+                {
+                    CreateMessage(new Message((int)EventManager.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+
+                }
             }
         }
 
@@ -154,6 +165,23 @@ namespace Laikos
                                 LowerOptionPanel.downTime = 0;
                             }
                             break;
+
+                        case (int)EventManager.Events.GuiCLICK:
+                            if ((int)messages[i].Destination == 0)//to dron worker
+                                if((int)messages[i].Sender == 1) //to 1 przycisk na workerze
+                                {
+                                    Console.WriteLine("GUI CLICKED");
+                                    if (Player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Souls)
+                                    {
+                                        messages[i].Done = true;
+                                        break;
+                                    }
+                                    //dodac renderowanie za myszka
+                                    Input.next_build = new WhereToBuild(new Building((Game)messages[i].Payload, ((Game1)messages[i].Payload).player, ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"], new Vector3(720, 0, 650), ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Scale, false));
+                                    Input.building_mode = true;
+                                    messages[i].Done = true;
+                                }
+                            break;
                     }
             }
         }
@@ -215,6 +243,12 @@ namespace Laikos
                 return true;
             else
                 return false;
+        }
+
+        public static void CreateMessage(Message message)
+        {
+            if (!messages.Contains(message))
+                messages.Add(message);
         }
     }
 }

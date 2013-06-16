@@ -16,7 +16,7 @@ namespace Laikos
         public TimeSpan time;
         public TimeSpan timer;
 
-        public Message(int type, Object sender, Object destination, Object payload)
+        public Message(int type, Object sender , Object destination , Object payload)
         {
             Type = type;
             Sender = sender;

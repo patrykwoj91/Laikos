@@ -16,6 +16,7 @@ namespace Laikos
             MoveToBuild,
             Build,
             Gathering,
+            GuiCLICK,
             GuiUP,
             GuiDOWN
             
@@ -40,7 +41,8 @@ namespace Laikos
                 var m = lastFrame_messages[i];
                 if (m.Destination != null && m.Destination.Equals(destination))
                 {
-                    result.Add(m);    
+                    result.Add(m);
+
                 }
             }
 
@@ -55,6 +57,7 @@ namespace Laikos
                 if (m.Sender.Equals(sender))
                 {
                     result.Add(m);
+
                 }
             }
             result.Sort((x,y) => x.Type.CompareTo(y.Type));
@@ -68,6 +71,7 @@ namespace Laikos
                 if (criteria.Invoke(m))
                 {
                     result.Add(m);
+
                 }
             }
         }
@@ -78,6 +82,7 @@ namespace Laikos
             lastFrame_messages = currentFrame_messages;
             currentFrame_messages = t;
             currentFrame_messages.Clear();
+
         }
 
         public static bool MessageToOld(GameTime gameTime, Message message, int milliseconds)

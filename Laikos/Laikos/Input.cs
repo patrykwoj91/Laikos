@@ -15,6 +15,7 @@ namespace Laikos
         public static Vector2 startDrag = new Vector2(-99, -99);
         public static Vector2 stopDrag;
         public static bool building_mode = false;
+        public static WhereToBuild next_build;
    
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
@@ -75,13 +76,6 @@ namespace Laikos
                     }
 
                 }
-
-                if (currentKeyboardState.IsKeyDown(Keys.B) && oldKeyboardState.IsKeyUp(Keys.B))
-                {
-                    building_mode = true;
-                    //i zwraca nazwe budynku na podstawie miniaturki
-                }
-
                 // Allows the game to exit
                 if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
                     game.Exit();
@@ -139,17 +133,15 @@ namespace Laikos
                 #region Building
                 if (building_mode == true)
                 {
+                    next_build.position = GetPointerCoord(device);
                     foreach (Unit unit in player.UnitList)
                         if (unit.selected == true && unit.budowniczy == true)
                         {
-                            Vector3 pointerPosition = GetPointerCoord(device);
-
-                            WhereToBuild b = new WhereToBuild(player.BuildingTypes["Pałac rady2"], pointerPosition);
-
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, b)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
-                            unit.walk = true;
-                            building_mode = false;
+                           EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, next_build)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
+                           unit.walk = true;
+                           building_mode = false;
                         }
+
                 }
                 #endregion
                 #region Selections
@@ -181,7 +173,7 @@ namespace Laikos
                 #endregion            
             }
 
-            GUI.ProcessInput();
+            GUI.ProcessInput((Game1)game);
 
             #endregion
 
@@ -432,18 +424,16 @@ namespace Laikos
             return 0;
 
         }
-
     }
 
     public class WhereToBuild
     {
-        public BuildingType building;
-        public Vector3 position;
+        public Building building;
+        public Vector3 position = Vector3.Zero;
 
-            public WhereToBuild(BuildingType building, Vector3 position)
+            public WhereToBuild(Building building)
             {
                 this.building = building;
-                this.position = position;
             }
     }
 
