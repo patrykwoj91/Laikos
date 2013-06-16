@@ -71,7 +71,6 @@ Content\GUI\tlo_minimapa.xnb
 Content\GUI\soul.xnb
 Content\GUI\buildings\cementary.xnb
 Content\GUI\buildings\palac.xnb
-Content\GUI\buildings\cmentarz.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb
@@ -220,3 +219,11 @@ Content\FBX\4FE73648\alien_workerMid.fbm\BARK5_0.xnb
 Content\FBX\50633660\alien_workerLow.fbm\obcy_0.xnb
 Content\FBX\50633660\alien_workerLow.fbm\4706_0.xnb
 Content\FBX\50633660\alien_workerLow.fbm\BARK5_0.xnb
+Content\GUI\option_panel\buildings\cmentarz.xnb
+Content\GUI\option_panel\buildings\obserwatorium.xnb
+Content\GUI\option_panel\buildings\palacp1.xnb
+Content\GUI\option_panel\buildings\palacp3.xnb
+Content\GUI\option_panel\buildings\straznica.xnb
+Content\GUI\option_panel\units\czolg.xnb
+Content\GUI\option_panel\units\dron_worker.xnb
+Content\GUI\option_panel\units\oko.xnb

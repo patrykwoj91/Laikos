@@ -69,14 +69,14 @@ namespace Laikos
 
         public static void ProcessInput()
         {
-            if (Input.currentMouseState.LeftButton == ButtonState.Pressed)
+            if (Input.oldMouseState.LeftButton == ButtonState.Pressed && Input.currentMouseState.LeftButton == ButtonState.Released)
             {
                 if (Input.currentMouseState.X < Minimap.width + Minimap.diff && Input.currentMouseState.Y < Minimap.height + Minimap.diff)
                 {
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
-                if (insideRectangle(LowerOptionPanel.cementaryPosition) && UnitBackground.whichUnit == 0)
+                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0)
                     Console.WriteLine("true");
             }
         }
@@ -96,6 +96,7 @@ namespace Laikos
                             if (messages[i].Sender is Unit)
                             {
                                 UnitBackground.animated = true;
+                                LowerOptionPanel.isUnit = true;
                                 Unit unit = (Unit)messages[i].Sender;
                                     switch (unit.type.name)
                                     {
@@ -116,6 +117,7 @@ namespace Laikos
                             else if (messages[i].Sender is Building)
                             {
                                 UnitBackground.animated = false;
+                                LowerOptionPanel.isUnit = false;
                                 Building building = (Building)messages[i].Sender;
                                 switch (building.type.Name)
                                 {
