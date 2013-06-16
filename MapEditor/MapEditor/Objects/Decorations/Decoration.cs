@@ -63,7 +63,7 @@ namespace Laikos
             }
 
             Console.WriteLine(lowestPoint + " " + highestPoint);
-            if (highestPoint - lowestPoint < 1)
+            if (highestPoint - lowestPoint < 3)
                 return true;
             else
                 return false;

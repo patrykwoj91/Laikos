@@ -73,6 +73,7 @@ Content\Effects\GBuffer.xnb
 Content\Effects\SpotLight.xnb
 Content\Effects\ParticleEffect.xnb
 Content\Effects\Water.xnb
+Content\ObjectsSchema.xnb
 Content\Models\Units\Test_model\test_model_Anims.xnb
 Content\UnitTypes.xnb
 Content\DecorationTypes.xnb
@@ -124,4 +125,3 @@ Content\Models\Buildings\Niebianie\Pałac_rady\drewno_0.xnb
 Content\FBX\480E2417\okoHigh.fbm\texturaInne_0.xnb
 Content\FBX\480E2417\okoHigh.fbm\tekstura_0.xnb
 Content\FBX\E02125F1\trojnog.fbm\metalSzary_0.xnb
-Content\ObjectsSchema.xnb

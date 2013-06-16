@@ -58,7 +58,9 @@ namespace Laikos
         Dictionary<String, BuildingType> BuildingTypes;
 
         Player player;
-        //Player enemy;
+        Player enemy;
+
+        int activePlayer = 0;
 
         public Game1()
         {
@@ -100,14 +102,16 @@ namespace Laikos
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Times = Content.Load<SpriteFont>("Georgia");
-            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, Times);
-            objects = new List<GameObject>();
-            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-
             Times = Content.Load<SpriteFont>("Times");
 
-            player = new Player(this, UnitTypes);
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, Times);
+            objects = new List<GameObject>();
+
+            UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.name);
+
+            player = new Player(this, UnitTypes, BuildingTypes);
+            enemy = new Player(this, UnitTypes, BuildingTypes);
 
             System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
 
@@ -117,43 +121,43 @@ namespace Laikos
         private void GenerateSchema()
         {
             ObjectsSchema schemat = new ObjectsSchema();
-            schemat.unitGroups.Add(new UnitGroup("Demons"));
-            schemat.unitGroups[0].units.Add(new UnitSchema("Alien"));
-            schemat.unitGroups[0].units.Add(new UnitSchema("Unit_2"));
-            schemat.unitGroups[0].units.Add(new UnitSchema("Unit_3"));
-            schemat.unitGroups[0].units.Add(new UnitSchema("Unit_4"));
-            schemat.unitGroups[0].units.Add(new UnitSchema("Unit_5"));
-            schemat.unitGroups.Add(new UnitGroup("Angels"));
-            schemat.unitGroups[1].units.Add(new UnitSchema("Reconnaissance Eye"));
-            schemat.unitGroups[1].units.Add(new UnitSchema("Antigravity Tank"));
-            schemat.unitGroups[1].units.Add(new UnitSchema("Unit_3"));
-            schemat.unitGroups[1].units.Add(new UnitSchema("Unit_4"));
-            schemat.unitGroups[1].units.Add(new UnitSchema("Unit_5"));
-            schemat.unitGroups.Add(new UnitGroup("The Oldest"));
-            schemat.unitGroups[2].units.Add(new UnitSchema("Unit_1"));
-            schemat.unitGroups[2].units.Add(new UnitSchema("Unit_2"));
-            schemat.unitGroups[2].units.Add(new UnitSchema("Unit_3"));
-            schemat.unitGroups[2].units.Add(new UnitSchema("Unit_4"));
-            schemat.unitGroups[2].units.Add(new UnitSchema("Unit_5"));
+            schemat.unitGroups_1.Add(new UnitGroup("Demons"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Alien"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_2"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_3"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_4"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_5"));
+            schemat.unitGroups_1.Add(new UnitGroup("Angels"));
+            schemat.unitGroups_1[1].units.Add(new UnitSchema("Reconnaissance Eye"));
+            schemat.unitGroups_1[1].units.Add(new UnitSchema("Antigravity Tank"));
+            schemat.unitGroups_1[1].units.Add(new UnitSchema("Unit_3"));
+            schemat.unitGroups_1[1].units.Add(new UnitSchema("Unit_4"));
+            schemat.unitGroups_1[1].units.Add(new UnitSchema("Unit_5"));
+            schemat.unitGroups_1.Add(new UnitGroup("The Oldest"));
+            schemat.unitGroups_1[2].units.Add(new UnitSchema("Unit_1"));
+            schemat.unitGroups_1[2].units.Add(new UnitSchema("Unit_2"));
+            schemat.unitGroups_1[2].units.Add(new UnitSchema("Unit_3"));
+            schemat.unitGroups_1[2].units.Add(new UnitSchema("Unit_4"));
+            schemat.unitGroups_1[2].units.Add(new UnitSchema("Unit_5"));
 
-            schemat.buildingsGroups.Add(new BuildingGroup("Demons"));
-            schemat.buildingsGroups[0].buildings.Add(new BuildingSchema("Building_1"));
-            schemat.buildingsGroups[0].buildings.Add(new BuildingSchema("Building_2"));
-            schemat.buildingsGroups[0].buildings.Add(new BuildingSchema("Building_3"));
-            schemat.buildingsGroups[0].buildings.Add(new BuildingSchema("Building_4"));
-            schemat.buildingsGroups[0].buildings.Add(new BuildingSchema("Building_5"));
-            schemat.buildingsGroups.Add(new BuildingGroup("Angels"));
-            schemat.buildingsGroups[1].buildings.Add(new BuildingSchema("Building_1"));
-            schemat.buildingsGroups[1].buildings.Add(new BuildingSchema("Building_2"));
-            schemat.buildingsGroups[1].buildings.Add(new BuildingSchema("Building_3"));
-            schemat.buildingsGroups[1].buildings.Add(new BuildingSchema("Building_4"));
-            schemat.buildingsGroups[1].buildings.Add(new BuildingSchema("Building_5"));
-            schemat.buildingsGroups.Add(new BuildingGroup("The Oldest"));
-            schemat.buildingsGroups[2].buildings.Add(new BuildingSchema("Building_1"));
-            schemat.buildingsGroups[2].buildings.Add(new BuildingSchema("Building_2"));
-            schemat.buildingsGroups[2].buildings.Add(new BuildingSchema("Building_3"));
-            schemat.buildingsGroups[2].buildings.Add(new BuildingSchema("Building_4"));
-            schemat.buildingsGroups[2].buildings.Add(new BuildingSchema("Building_5"));
+            schemat.buildingsGroups_1.Add(new BuildingGroup("Demons"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_1"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_2"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_3"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_4"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_5"));
+            schemat.buildingsGroups_1.Add(new BuildingGroup("Angels"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_1"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_2"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_3"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_4"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_5"));
+            schemat.buildingsGroups_1.Add(new BuildingGroup("The Oldest"));
+            schemat.buildingsGroups_1[2].buildings.Add(new BuildingSchema("Building_1"));
+            schemat.buildingsGroups_1[2].buildings.Add(new BuildingSchema("Building_2"));
+            schemat.buildingsGroups_1[2].buildings.Add(new BuildingSchema("Building_3"));
+            schemat.buildingsGroups_1[2].buildings.Add(new BuildingSchema("Building_4"));
+            schemat.buildingsGroups_1[2].buildings.Add(new BuildingSchema("Building_5"));
 
             schemat.decorationsGroups.Add(new DecoarationGroup("Ruins"));
             schemat.decorationsGroups[0].decorations.Add(new DecorationSchema("Ruins_1"));
@@ -299,7 +303,9 @@ namespace Laikos
                 }
                 else if (keyboardState.IsKeyDown(Keys.F2))
                 {
-                    String directoryName = @"C:\Users\Zielu\Documents\GitHub\Mapa\";
+                    String directoryName = @"Mapa\";
+
+                    Console.Out.WriteLine("Zapisywanie mapy w lokalizacji: " + directoryName);
 
                     if (!Directory.Exists(directoryName))
                     {
@@ -311,11 +317,38 @@ namespace Laikos
                     ObjectsSchema schemat = new ObjectsSchema();
                     System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
 
-                    schemat.unitGroups.Add(new UnitGroup("Units"));
-
+                    #region Player_1
+                    schemat.unitGroups_1.Add(new UnitGroup("Units"));
                     foreach (Unit unit in player.UnitList)
                     {
-                        schemat.unitGroups[0].units.Add(new UnitSchema(unit.type.name, unit.Position.X, unit.Position.Z));
+                        schemat.unitGroups_1[0].units.Add(new UnitSchema(unit.type.name, unit.Position.X, unit.Position.Z));
+                    }
+
+                    schemat.buildingsGroups_1.Add(new BuildingGroup("Buildings"));
+                    foreach (Building building in player.BuildingList)
+                    {
+                        schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema(building.type.name, building.Position.X, building.Position.Z));
+                    }
+                    #endregion Player_1
+
+                    #region Player_2
+                    schemat.unitGroups_2.Add(new UnitGroup("Units"));
+                    foreach (Unit unit in enemy.UnitList)
+                    {
+                        schemat.unitGroups_2[0].units.Add(new UnitSchema(unit.type.name, unit.Position.X, unit.Position.Z));
+                    }
+
+                    schemat.buildingsGroups_2.Add(new BuildingGroup("Buildings"));
+                    foreach (Building building in enemy.BuildingList)
+                    {
+                        schemat.buildingsGroups_2[0].buildings.Add(new BuildingSchema(building.type.name, building.Position.X, building.Position.Z));
+                    }
+                    #endregion Player_2
+
+                    schemat.decorationsGroups.Add(new DecoarationGroup("Decorations"));
+                    foreach (Decoration decoration in decorations.DecorationList)
+                    {
+                        schemat.decorationsGroups[0].decorations.Add(new DecorationSchema(decoration.type.name, decoration.Position.X, decoration.Position.Z));
                     }
 
                     System.IO.StreamWriter file = new System.IO.StreamWriter(directoryName + "Objects.xml");
@@ -328,17 +361,47 @@ namespace Laikos
                 {
                     ObjectsSchema tmp = new ObjectsSchema();
                     System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
-                    System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\Zielu\Documents\GitHub\Mapa\Objects.xml");
+                    System.IO.StreamReader file = new System.IO.StreamReader(@"Mapa\Objects.xml");
                     tmp = (ObjectsSchema)reader.Deserialize(file);
 
-                    foreach (UnitSchema unit in tmp.unitGroups[0].units)
+                    #region Player_1
+                    foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
                     {
-                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y)));
+                    }
+
+                    foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
+                    {
+                        player.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y)));
+                    }
+                    #endregion Player_1
+
+                    #region Player_2
+                    foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
+                    {
+                        enemy.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y)));
+                    }
+
+                    foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
+                    {
+                        enemy.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y)));
+                    }
+                    #endregion Player_2
+
+                    foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
+                    {
+                        decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y)));
                     }
 
                     Console.Out.WriteLine("Odczytano mapê.");
                 }
-                else if (keyboardState.IsKeyDown(Keys.D8) && ((creationMode == CREATION_MODE.BUILDINGS_BUILD) || (creationMode == CREATION_MODE.UNITS_BUILD) && (creationMode == CREATION_MODE.DECORATIONS_BUILD)))
+                else if (keyboardState.IsKeyDown(Keys.D8) &&
+                        (
+                            (creationMode == CREATION_MODE.BUILDINGS_BUILD) ||
+                            (creationMode == CREATION_MODE.UNITS_BUILD) ||
+                            (creationMode == CREATION_MODE.DECORATIONS_BUILD)
+                        )
+                    )
                 {
                     ++creationType;
                     if (creationType > 2)
@@ -452,15 +515,24 @@ namespace Laikos
 
                     terrain.ReloadTerrainMap();
                 }
+                #region Units
                 else if (creationMode == CREATION_MODE.UNITS_BUILD)
                 {
                     if (!oneMouseClickDetected)
                     {
                         oneMouseClickDetected = true;
 
-                        if ((creationOption < 6) && (!objectsSchema.unitGroups[creationType].units[creationOption - 1].name.StartsWith("Unit_")))
+                        if ((creationOption < 6) && (!objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name.StartsWith("Unit_")))
                         {
-                            player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.05f));
+                            switch (activePlayer)
+                            {
+                                case 0:
+                                    player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight)));
+                                    break;
+                                case 1:
+                                    enemy.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight)));
+                                    break;
+                            }
                         }
                     }
                 }
@@ -497,23 +569,128 @@ namespace Laikos
                         }
                     }
                 }
+                #endregion Units
+                #region Buildings
                 else if (creationMode == CREATION_MODE.BUILDINGS_BUILD)
                 {
                     if (!oneMouseClickDetected)
                     {
                         oneMouseClickDetected = true;
 
-                        if ((creationOption < 6) && (!objectsSchema.buildingsGroups[creationType].buildings[creationOption - 1].name.StartsWith("Building_")))
+                        if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Building_")))
                         {
-                            //player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.05f));
-                            
+                            Building building = new Building(player.game, BuildingTypes[objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight));
+
+                            if (building.checkIfPossible(pointerPosition))
+                            {
+                                switch (activePlayer)
+                                {
+                                    case 0:
+                                        player.BuildingList.Add(building);
+                                        break;
+                                    case 1:
+                                        enemy.BuildingList.Add(building);
+                                        break;
+                                }
+                            }
                         }
                     }
                 }
                 else if (creationMode == CREATION_MODE.BUILDINGS_MOVE)
                 {
+                    Building buildingSelected = null;
+                    foreach (Building building in player.BuildingList)
+                    {
+                        if (building.selected)
+                        {
+                            buildingSelected = building;
+                            break;
+                        }
+                    }
 
+                    if (buildingSelected.checkIfPossible(pointerPosition))
+                    {
+                        for (int i = 0; i < player.BuildingList.Count; i++)
+                        {
+                            bool selected = Collisions.RayModelCollision(clippedRay, player.BuildingList[i].currentModel.Model, player.BuildingList[i].GetWorldMatrix());
+                            if (selected)
+                            {
+                                if ((player.BuildingList[i] is Building) && !player.BuildingList[i].selected)
+                                {
+                                    foreach (Building building in player.BuildingList)
+                                        EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, building, null));
+
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.BuildingList[i], null));
+                                    break;
+                                }
+                            }
+                            if ((!selected) && (buildingSelected != null))
+                            {
+                                buildingSelected.Position.Z = pointerPosition.Z;
+                                buildingSelected.Position.X = pointerPosition.X;
+                            }
+                        }
+                    }
                 }
+                #endregion Building
+                #region Decorations
+                else if (creationMode == CREATION_MODE.DECORATIONS_BUILD)
+                {
+                    if (!oneMouseClickDetected)
+                    {
+                        oneMouseClickDetected = true;
+
+                        if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Decorations_")))
+                        {
+                            Decoration decoration = new Decoration(player.game, decorations.DecorationTypes[objectsSchema.decorationsGroups[creationType].decorations[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight));
+
+                            if (decoration.checkIfPossible(pointerPosition))
+                            {
+                                decorations.DecorationList.Add(decoration);
+                            }
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.DECORATIONS_MOVE)
+                {
+                    if (CheckGroundForBuilding(new Vector2(pointerPosition.Z, pointerPosition.X)))
+                    {
+                        Decoration decorationSelected = null;
+                        foreach (Decoration decoration in decorations.DecorationList)
+                        {
+                            if (decoration.selected)
+                            {
+                                decorationSelected = decoration;
+                                break;
+                            }
+                        }
+
+                        if (decorationSelected.checkIfPossible(pointerPosition))
+                        {
+                            for (int i = 0; i < decorations.DecorationList.Count; i++)
+                            {
+                                bool selected = Collisions.RayModelCollision(clippedRay, decorations.DecorationList[i].currentModel.Model, decorations.DecorationList[i].GetWorldMatrix());
+                                if (selected)
+                                {
+                                    if ((decorations.DecorationList[i] is Decoration) && !decorations.DecorationList[i].selected)
+                                    {
+                                        foreach (Decoration decoration in decorations.DecorationList)
+                                            EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, decoration, null));
+
+                                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, decorations.DecorationList[i], null));
+                                        break;
+                                    }
+                                }
+                                if ((!selected) && (decorationSelected != null))
+                                {
+                                    decorationSelected.Position.Z = pointerPosition.Z;
+                                    decorationSelected.Position.X = pointerPosition.X;
+                                }
+                            }
+                        }
+                    }
+                }
+                #endregion Decorations
             }
             else if (mouseState.LeftButton == ButtonState.Released)
             {
@@ -521,7 +698,30 @@ namespace Laikos
             }
 
             Input.Update(gameTime, device, camera, player.UnitList, decorations.DecorationList);
+
             base.Update(gameTime);
+        }
+
+        private bool CheckGroundForBuilding(Vector2 _position)
+        {
+            Color[] data = new Color[terrain.TerrainMap.Height * terrain.TerrainMap.Width];
+            terrain.TerrainMap.GetData<Color>(data);
+
+            int max = 20;
+            int standardHeight = data[(int)(_position.X * terrain.TerrainMap.Height + _position.Y)].R;
+
+            for (int i = 0; i < max; ++i)
+            {
+                for (int j = max; j < max; ++j)
+                {
+                    if (Math.Abs(data[((int)_position.X - max / 2 + i) * terrain.TerrainMap.Height + ((int)_position.Y - max / 2 + j)].R - standardHeight) > 100)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -532,7 +732,9 @@ namespace Laikos
         {
             GraphicsDevice.Clear(Color.Black);
             objects.AddRange(player.UnitList);
+
             objects.AddRange(decorations.DecorationList);
+            objects.AddRange(player.BuildingList);
 
             defferedRenderer.Draw(objects, terrain, gameTime);
             objects.Clear();
@@ -564,6 +766,9 @@ namespace Laikos
             const int heightOfText = 20;
 
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+
+            spriteBatch.DrawString(Times, "Budowanie dla gracza nr " + (activePlayer + 1), new Vector2(0, positionOfText += heightOfText), Color.White);
+
             switch (creationMode)
             {
                 case CREATION_MODE.TERRAIN_UP:
@@ -581,10 +786,10 @@ namespace Laikos
                     spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
                 case CREATION_MODE.BUILDINGS_BUILD:
-                    spriteBatch.DrawString(Times, "Budynki: " + objectsSchema.buildingsGroups[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
-                    for (int i = 0; i < objectsSchema.buildingsGroups[creationType].buildings.Count; ++i)
+                    spriteBatch.DrawString(Times, "Budynki: " + objectsSchema.buildingsGroups_1[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    for (int i = 0; i < objectsSchema.buildingsGroups_1[creationType].buildings.Count; ++i)
                     {
-                        spriteBatch.DrawString(Times, (i + 1) + ". " + objectsSchema.buildingsGroups[creationType].buildings[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                        spriteBatch.DrawString(Times, (i + 1) + ". " + objectsSchema.buildingsGroups_1[creationType].buildings[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
                     }
                     spriteBatch.DrawString(Times, "8. Zmiana grupy.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     spriteBatch.DrawString(Times, "9. Przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
@@ -595,12 +800,11 @@ namespace Laikos
                     spriteBatch.DrawString(Times, "9. Budowanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;
-                    break;
                 case CREATION_MODE.UNITS_BUILD:
-                    spriteBatch.DrawString(Times, "Jednostki: " + objectsSchema.unitGroups[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
-                    for (int i = 0; i < objectsSchema.unitGroups[creationType].units.Count; ++i)
+                    spriteBatch.DrawString(Times, "Jednostki: " + objectsSchema.unitGroups_1[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    for (int i = 0; i < objectsSchema.unitGroups_1[creationType].units.Count; ++i)
                     {
-                        spriteBatch.DrawString(Times, (i + 1) + ". " + objectsSchema.unitGroups[creationType].units[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                        spriteBatch.DrawString(Times, (i + 1) + ". " + objectsSchema.unitGroups_1[creationType].units[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
                     }
                     spriteBatch.DrawString(Times, "8. Zmiana grupy.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     spriteBatch.DrawString(Times, "9. Przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
@@ -608,6 +812,21 @@ namespace Laikos
                     break;
                 case CREATION_MODE.UNITS_MOVE:
                     spriteBatch.DrawString(Times, "Jednostki przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Budowanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    break;
+                case CREATION_MODE.DECORATIONS_BUILD:
+                    spriteBatch.DrawString(Times, "Dekoracje: " + objectsSchema.decorationsGroups[creationType].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    for (int i = 0; i < objectsSchema.decorationsGroups[creationType].decorations.Count; ++i)
+                    {
+                        spriteBatch.DrawString(Times, (i + 1) + ". " + objectsSchema.decorationsGroups[creationType].decorations[i].name, new Vector2(0, positionOfText += heightOfText), Color.White);
+                    }
+                    spriteBatch.DrawString(Times, "8. Zmiana grupy.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "9. Przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
+                    break;
+                case CREATION_MODE.DECORATIONS_MOVE:
+                    spriteBatch.DrawString(Times, "Dekoracje przemieszczanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     spriteBatch.DrawString(Times, "9. Budowanie.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     spriteBatch.DrawString(Times, "0. Zmien tryb.", new Vector2(0, positionOfText += heightOfText), Color.White);
                     break;

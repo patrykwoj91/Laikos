@@ -85,11 +85,9 @@ namespace Laikos
         /// <param name="content"></param>
         public void LoadContent(ContentManager content)
         {
-    
             this.model = content.Load<Model>(assetName);
             modelExtra = model.Tag as ModelExtra;
             
-
             ObtainBones();
             player = new AnimationPlayer(Clips, this);
         }
