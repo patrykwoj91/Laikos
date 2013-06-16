@@ -976,13 +976,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="GUI\option_panel\buildings\pałac_rady_p1.png">
-      <Name>pałac_rady_p1</Name>
+    <Compile Include="GUI\option_panel\buildings\palacp1.png">
+      <Name>palacp1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="GUI\option_panel\buildings\pałac_rady_p3.png">
-      <Name>pałac_rady_p3</Name>
+    <Compile Include="GUI\option_panel\buildings\palacp3.png">
+      <Name>palacp3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
