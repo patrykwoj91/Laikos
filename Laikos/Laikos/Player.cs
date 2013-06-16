@@ -52,14 +52,15 @@ namespace Laikos
 
             UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 680), 0.05f));
             UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 670), 0.05f));
-            BuildingList.Add(new Building(game, BuildingTypes["Pałac rady2"], new Vector3(720, 0, 650), BuildingTypes["Pałac rady2"].Scale,true));
+            BuildingList.Add(new Building(game,this, BuildingTypes["Pałac rady2"], new Vector3(720, 0, 650), BuildingTypes["Pałac rady2"].Scale,true));
+            BuildingList.Add(new Building(game,this, BuildingTypes["Cementary"], new Vector3(640, 0, 730), BuildingTypes["Cementary"].Scale, true));
        }
 
        public bool Build(BuildingType building, Vector3 position)
        {
            if (Souls >= building.Souls)
            {
-               BuildingList.Add(new Building(game, building, position, building.Scale));
+               BuildingList.Add(new Building(game,this, building, position, building.Scale));
                Souls -= building.Souls;
                Console.WriteLine(Souls);
                return true;

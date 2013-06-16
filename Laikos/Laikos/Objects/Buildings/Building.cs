@@ -18,15 +18,21 @@ namespace Laikos
        public BoundingBox boundingBox;
        public bool selectable;
        public float buildtime;
+       public int Souls;
+       float timer;         //Initialize a 10 second timer
+       const float TIMER = 10;
+
 
        public Building()
            :base()
        {
        }
 
-       public Building(Game game, BuildingType type, Vector3 position, float scale = 1.0f, bool selectable = false, Vector3 rotation = default(Vector3))
-            : base(game, type.Model)
+       public Building(Game game,Player player, BuildingType type, Vector3 position, float scale = 1.0f, bool selectable = false, Vector3 rotation = default(Vector3))
+            : base(game,player, type.Model)
         {
+            timer = 10;
+            Souls = 0;
            this.Position = position;
            this.Rotation = rotation;
            this.Scale = scale;
@@ -37,7 +43,7 @@ namespace Laikos
            HP = maxHP;
            this.selectable = selectable;
            buildtime = this.type.buildtime;
-
+      
            Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
            currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
            foreach (ModelMesh mesh in currentModel.Model.Meshes)
@@ -51,8 +57,20 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
+            if (this.type.Name.Equals("Cementary") || this.type.Name.Equals("Nekropolis"))
+            {
+                float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                    timer -= elapsed;
+                        if (timer < 0)
+                        {
+                            if (Souls <= 598)
+                                Souls += 2;
+                            timer = TIMER;   //Reset Timer
+                        }
+            }
+
+            HandleEvent(gameTime);
             this.CleanMessages();
             base.Update(gameTime);
         }
@@ -102,7 +120,12 @@ namespace Laikos
                         break;
 
                     case (int)EventManager.Events.Interaction:
-                        Console.WriteLine("Budynek - obsluga interakcji");
+                        if (this.type.Name.Equals("Cementary"))
+                            foreach (Unit unit in player.UnitList)
+                                if (unit.selected && unit.budowniczy)
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Gathering, this, unit,null));
+
+                        messages[i].Done = true;
                         break;
                 }
             }

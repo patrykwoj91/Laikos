@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using MyDataTypes;
 
 namespace Laikos
 {
@@ -10,7 +11,6 @@ namespace Laikos
     {
         public static KeyboardState currentKeyboardState, oldKeyboardState;
         public static MouseState currentMouseState, oldMouseState;
-
         public static bool selectionbox;
         public static Vector2 startDrag = new Vector2(-99, -99);
         public static Vector2 stopDrag;
@@ -100,16 +100,11 @@ namespace Laikos
         /// <summary>
         /// Handles mouse Left click and Right Click actions
         /// </summary>
-        public static void HandleMouse(Player player, List<Decoration> decorationlist, GraphicsDevice device)
+        public static void HandleMouse(Player player,Game game, List<Decoration> decorationlist, GraphicsDevice device)
         {
-            List<GameObject> allObjects = new List<GameObject>(); //ad building list later here
-            allObjects.AddRange(player.UnitList);
-            allObjects.AddRange(decorationlist);
-            allObjects.AddRange(player.BuildingList);
-
-            #region Left Click (Selecting)
-            // MOUSE DRAG - START
-
+            #region Left Click
+            
+            #region SelectionBox
             if (currentMouseState.LeftButton == ButtonState.Pressed &&
                 oldMouseState.LeftButton == ButtonState.Pressed)
             {
@@ -135,39 +130,31 @@ namespace Laikos
                         SelectingGUI.stopDrag.Y = currentMouseState.Y;
                     }
                 }
-            } // MOUSE DRAG - STOP
+            }
+            #endregion
 
-                
             else if (currentMouseState.LeftButton == ButtonState.Released &&
                    oldMouseState.LeftButton == ButtonState.Pressed)
             {
-                if (selectionbox && (!SelectingGUI.GUIClicked(currentMouseState.X, currentMouseState.Y)))
+                #region Building
+                if (building_mode == true)
                 {
-                    if (building_mode == true)
-                    {
-                        foreach (Unit unit in player.UnitList)
-                            if (unit.selected == true && unit.budowniczy == true)
-                            {
-                                Vector3 pointerPosition = GetPointerCoord(device);
-                                Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)unit.Position.X, (int)unit.Position.Z);
-                                Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
+                    foreach (Unit unit in player.UnitList)
+                        if (unit.selected == true && unit.budowniczy == true)
+                        {
+                            Vector3 pointerPosition = GetPointerCoord(device);
 
-                                DateTime tp0 = DateTime.Now;
-                                unit.destinyPoints = unit.pathFiding.obliczSciezke(wspBegin, wspEnd);
-                                unit.destinyPointer = null;
-                                DateTime tp1 = DateTime.Now;
+                            WhereToBuild b = new WhereToBuild(player.BuildingTypes["Pałac rady2"], pointerPosition);
 
-                                if (unit.destinyPoints.Count > 0)
-                                {
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, pointerPosition)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
-                                    unit.walk = true;
-                                }
-                                building_mode = false;
-                            }
-
-                    }
-                    else
-                    {
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, b)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
+                            unit.walk = true;
+                            building_mode = false;
+                        }
+                }
+                #endregion
+                #region Selections
+                else if (selectionbox && (!SelectingGUI.GUIClicked(currentMouseState.X, currentMouseState.Y)))
+                {
                         if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
                             100)
                         {
@@ -190,81 +177,56 @@ namespace Laikos
                         SelectingGUI.selectionbox = selectionbox = false;
                         startDrag.X = -9999;
                         startDrag.Y = -9999;
-                    }
                 }
+                #endregion            
             }
+
             GUI.ProcessInput();
+
             #endregion
 
-            #region Right Click (Moving and Interactions)
+            #region Right Click 
             if (currentMouseState.RightButton == ButtonState.Pressed &&
                oldMouseState.RightButton == ButtonState.Released)
             {
                 var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                bool selected = false;
-                bool obj_selected = false;
                 Vector2 pointerPos = new Vector2(currentMouseState.X, currentMouseState.Y);
                 Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 Vector3 pointerPosition = Collisions.BinarySearch(shorterRay);
+                Object clicked = WhatClicked((Game1)game, clippedRay);
 
-                foreach (GameObject obj in allObjects) //random right click?
-                    if (obj.selected == true)
-                    {
-                        obj_selected = true;
-                    }
-                if (obj_selected) //if not random right click
+                if (clicked is Unit || clicked is Building)
                 {
-                    foreach (GameObject obj in allObjects)
-                    {
-                        selected = Collisions.RayModelCollision(clippedRay, obj.currentModel.Model, obj.GetWorldMatrix());
-
-                        if (selected && (obj is Unit || obj is Building))
-                        {
-                            foreach (GameObject sender in allObjects)
-                            {
-                                if (sender.selected)
-                                {
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, sender, obj, null)); //interaction Event unit - unit , unit-decoration , unit-buiding itp.
-                                }
-                            }
-                            Console.WriteLine("SendCommand(...) : {0}", stopwatch.Elapsed);
-                        }
-                    }
-                    if (!selected)
-                    {
-                        foreach (GameObject obj in allObjects)
-                            if (obj.selected == true && obj is Unit)
-                            {
-                              /*  for (int i = 0; i < ((Unit)obj).messages.Count; ++i)
-                                {
-                                    if (((Unit)obj).messages[i].Type == (int)EventManager.Events.MoveUnit)
-                                    {
-                                        ((Unit)obj).messages.Remove (((Unit)obj).messages[i]);
-                                    }
-                                }*/
-
-                                Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)((Unit)obj).Position.X, (int)((Unit)obj).Position.Z);
-                                Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
-
-                                DateTime tp0 = DateTime.Now;
-                                ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
-                                ((Unit)obj).destinyPointer = null;
-                                DateTime tp1 = DateTime.Now;
-                                //Console.WriteLine(tp1 - tp0);
-
-                                if (((Unit)obj).destinyPoints.Count > 0)
-                                {
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
-                                    ((Unit)obj).walk = true;
-                                }
-                                stopwatch.Stop();
-                                Console.WriteLine("MoveCommand(...) : {0}", stopwatch.Elapsed);
-                            }
-                    }
+                    EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null)); //interaction Event unit - unit , unit-buiding itp.
+                    stopwatch.Stop();
+                    Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
                 }
+                else if (clicked is Decoration)
+                {
+                }
+                else
+                    foreach (Unit obj in ((Game1)game).player.UnitList)
+                        if (obj.selected)
+                        {
+                            /*   Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)((Unit)obj).Position.X, (int)((Unit)obj).Position.Z);
+                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
+                                 DateTime tp0 = DateTime.Now;
+                                 ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
+                                 ((Unit)obj).destinyPointer = null;
+                                 DateTime tp1 = DateTime.Now;
+                                 //Console.WriteLine(tp1 - tp0);
+                                 if (((Unit)obj).destinyPoints.Count > 0)
+                                 {*/
+                            obj.destinyPoints = null;
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
+                            ((Unit)obj).walk = true;
+                            //}
+                            stopwatch.Stop();
+                            Console.WriteLine("MoveCommand(...) : {0}", stopwatch.Elapsed);
+                        }
             }
             #endregion
         }
@@ -369,7 +331,7 @@ namespace Laikos
             currentMouseState = Mouse.GetState();
 
             HandleCamera(gameTime, camera);
-            HandleMouse(player, decorationlist, device);
+            HandleMouse(player,game, decorationlist, device);
             HandleKeyboard(player, game, device);
 
             oldMouseState = currentMouseState;
@@ -417,7 +379,6 @@ namespace Laikos
              }
         }
         
-
         private static void SelectInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, GraphicsDevice device)
         {
             DeselectAll(player);
@@ -446,7 +407,47 @@ namespace Laikos
             foreach (Building building in player.BuildingList)
                 EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, building, null));
         }
+
+        public static Object WhatClicked(Game1 game, Ray clippedRay)
+        {
+            bool selected = false;
+            foreach (Unit unit in game.player.UnitList)
+            {
+                selected = Collisions.RayModelCollision(clippedRay, unit.currentModel.Model, unit.GetWorldMatrix());
+                if (selected)
+                    return unit;
+            }
+            foreach (Building building in game.player.BuildingList)
+            {
+                selected = Collisions.RayModelCollision(clippedRay, building.currentModel.Model, building.GetWorldMatrix());
+                if (selected)
+                    return building;
+            }
+            foreach (Decoration decoration in game.decorations.DecorationList)
+            {
+                selected = Collisions.RayModelCollision(clippedRay, decoration.currentModel.Model, decoration.GetWorldMatrix());
+                if (selected)
+                    return decoration;
+            }
+            return 0;
+
+        }
+
     }
+
+    public class WhereToBuild
+    {
+        public BuildingType building;
+        public Vector3 position;
+
+            public WhereToBuild(BuildingType building, Vector3 position)
+            {
+                this.building = building;
+                this.position = position;
+            }
+    }
+
+
 }
 
 

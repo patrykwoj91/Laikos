@@ -21,7 +21,7 @@ namespace Laikos
        }
 
        public Decoration(Game game, DecorationType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
-            : base(game, type.model)
+            : base(game,null, type.model)
         {
            this.Position = position;
            this.Rotation = rotation;

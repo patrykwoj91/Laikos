@@ -11,7 +11,7 @@ using MyDataTypes;
 
 namespace Laikos
 {
-    class DecorationManager : DrawableGameComponent
+   public class DecorationManager : DrawableGameComponent
     {
         public Dictionary<String,DecorationType> DecorationTypes;
         public List<Decoration> DecorationList;

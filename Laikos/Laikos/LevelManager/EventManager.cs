@@ -12,9 +12,10 @@ namespace Laikos
             Unselected,
             Selected,
             Interaction,
-            Build,
             MoveUnit,
             MoveToBuild,
+            Build,
+            Gathering,
             GuiUP,
             GuiDOWN
             
@@ -77,6 +78,22 @@ namespace Laikos
             lastFrame_messages = currentFrame_messages;
             currentFrame_messages = t;
             currentFrame_messages.Clear();
+        }
+
+        public static bool MessageToOld(GameTime gameTime, Message message, int milliseconds)
+        {
+            if (message.timer == TimeSpan.Zero)
+            {
+            }
+            else
+            {
+                float difference = (float)gameTime.TotalGameTime.TotalMilliseconds - (float)message.timer.TotalMilliseconds;
+                if (difference > milliseconds)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

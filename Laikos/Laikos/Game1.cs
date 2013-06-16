@@ -26,15 +26,15 @@ namespace Laikos
         Vector3 pointerPosition = new Vector3(0, 0, 0);
         Camera camera;
         Terrain terrain;
-        DecorationManager decorations;
+        public DecorationManager decorations;
         DefferedRenderer defferedRenderer;
-        List<GameObject> objects;
+        public static List<GameObject> objects;
 
         Dictionary<String, UnitType> UnitTypes;
         Dictionary<String, BuildingType> BuildingTypes;
 
-        Player player;
-        Player enemy;
+        public Player player;
+        public Player enemy;
 
         System.Drawing.Bitmap bitmapTmp;
 
@@ -169,7 +169,6 @@ namespace Laikos
             objects.AddRange(player.UnitList);
             objects.AddRange(decorations.DecorationList);
             objects.AddRange(player.BuildingList);
-
             defferedRenderer.Draw(objects, terrain, gameTime);
             SelectingGUI.Draw();
 
