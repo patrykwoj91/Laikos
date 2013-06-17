@@ -85,7 +85,7 @@ namespace Laikos.PathFiding
 
                     if (obecny == null)
                     {
-                        Console.Out.WriteLine("Nie znaleziono drogi.");
+                        Console.WriteLine("Nie znaleziono drogi.");
 
                         return new List<Wspolrzedne>();
                     }

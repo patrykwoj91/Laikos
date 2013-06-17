@@ -14,8 +14,9 @@ namespace Laikos
         public Object Payload; // dodatkowy obiekt np. przeniesienie zasobu od jednostki do budynku
         public bool Done; // czy akcja sie wykonala?
         public TimeSpan time;
+        public TimeSpan timer;
 
-        public Message(int type, Object sender, Object destination, Object payload)
+        public Message(int type, Object sender , Object destination , Object payload)
         {
             Type = type;
             Sender = sender;
@@ -23,6 +24,7 @@ namespace Laikos
             Payload = payload;
             Done = false;
             time = Game1.time;
+            timer = TimeSpan.Zero;
         }
 
 

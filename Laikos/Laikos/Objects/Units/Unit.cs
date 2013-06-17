@@ -16,9 +16,12 @@ namespace Laikos
         public UnitType type;
         public double HP;
         public double maxHP;
+        int Souls_owned;
+        const int Souls_cap = 50;
         public bool budowniczy = false;
         TimeSpan timeSpan;
-        Player Player;
+
+        
 
         //////////////////////////////////
         // PathFiding Variables
@@ -36,9 +39,10 @@ namespace Laikos
         }
 
         public Unit(Game game, Player player, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
-            : base(game, type.model)
+            : base(game,player, type.model)
         {
-            this.Player = player;
+            Souls_owned = 0;
+            this.player = player;
             this.Position = position;
             this.Rotation = rotation;
             this.Scale = scale;
@@ -51,6 +55,7 @@ namespace Laikos
             
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
+
         }
 
         public void Update(GameTime gameTime)
@@ -98,13 +103,13 @@ namespace Laikos
                     case (int)EventManager.Events.Selected:
                         selected = true;
                         messages[i].Done = true;
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.GuiUP, this,null , null));
+                        GUI.CreateMessage(new Message((int)EventManager.Events.GuiUP, this,null , null));
                         break;
 
                     case (int)EventManager.Events.Unselected:
                         selected = false;
                         messages[i].Done = true;
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.GuiDOWN, this, null, null));
+                        GUI.CreateMessage(new Message((int)EventManager.Events.GuiDOWN, this, null, null));
                         break;
                     
                     case (int)EventManager.Events.Interaction:
@@ -115,7 +120,19 @@ namespace Laikos
                         break;
 
                     case (int)EventManager.Events.MoveUnit:
-                        
+                        //////nowa wersja////////
+                        if (destinyPoints == null)
+                        {
+                            Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
+                            Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
+
+                            this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
+                            this.destinyPointer = null;
+                        }
+                        /////////nowa wersja///////////
+
+                        if (destinyPoints.Count > 0)
+                        {
                             if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
                             {
                                 destinyPointer = destinyPoints.GetEnumerator();
@@ -131,13 +148,13 @@ namespace Laikos
 
                             if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                             {
-                                
+
                                 // Next step walk.
                                 if (!destinyPointer.MoveNext())
                                 {
                                     destinyPoints = null;
                                     destinyPointer = null;
-                                    
+
                                     direction.X = 0.0f;
                                     direction.Z = 0.0f;
 
@@ -151,67 +168,190 @@ namespace Laikos
                                     direction = vecTmp - Position;
                                 }
                             }
+                        }
+                        else
+                        {
+                            messages[i].Done = true;
+                        }
                         
                         break;
 
                     case (int)EventManager.Events.MoveToBuild:
-                        
+
+                       if (EventManager.MessageToOld(gameTime,messages[i],4000))
+                       {
+                           messages[i].Done = true;
+                           break;
+                       }
                         if (budowniczy == true)
                         {
-                           
-                            if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
+                            //////nowa wersja////////
+                            if (destinyPoints == null)
                             {
-                                destinyPointer = destinyPoints.GetEnumerator();
-                                destinyPointer.MoveNext();
-                                Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
-                                direction = vecTmp - Position;
-                            }
+                                Vector3 stay_here = new Vector3(((WhereToBuild)messages[i].Payload).position.X, ((WhereToBuild)messages[i].Payload).position.Y, ((WhereToBuild)messages[i].Payload).position.Z);
 
-                            direction.Normalize();
-
-                            Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                            Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                           
-                            if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
-                            {
-                                // Next step walk. 
-                                
-                                if (!destinyPointer.MoveNext())
+                                if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
                                 {
-                                    destinyPoints = null;
-                                    destinyPointer = null;
+                                    //if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
+                                  //      stay_here.X += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
 
-                                    direction.X = 0.0f;
-                                    direction.Z = 0.0f;
+                                    //else
+                                   //     stay_here.X -= BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
 
-                                    messages[i].Done = true;
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Build, this, this, messages[i].Payload));
-                                    timeSpan = TimeSpan.FromMilliseconds(Player.BuildingTypes["Cementary"].buildtime); //czas budowania zmienic
-                                    attack = true;
+                                    //stay_here.Z += MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius - unit.boundingSphere.Radius - 0.1f),
+                                    //    (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f));
                                 }
                                 else
                                 {
+                                   // if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
+                                    //    stay_here.Z += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
+                                    //else
+                                    //    stay_here.Z -= BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
+
+                                    //stay_here.X += MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius - unit.boundingSphere.Radius - 0.1f),
+                                    // (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f));
+                                }
+
+
+                                Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
+                                Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((WhereToBuild)messages[i].Payload).position.X, (int)(((WhereToBuild)messages[i].Payload).position.Z));
+
+                                this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
+                                this.destinyPointer = null;
+                            }
+                            /////////nowa wersja///////////
+                            if (destinyPoints.Count > 0)
+                            {
+
+                                if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
+                                {
+                                    destinyPointer = destinyPoints.GetEnumerator();
+                                    destinyPointer.MoveNext();
                                     Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
                                     direction = vecTmp - Position;
                                 }
-                            }
-    
-                        }
 
+                                direction.Normalize();
+
+                                Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+
+                                if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
+                                {
+                                    // Next step walk. 
+
+                                    if (!destinyPointer.MoveNext())
+                                    {
+                                        destinyPoints = null;
+                                        destinyPointer = null;
+
+                                        direction.X = 0.0f;
+                                        direction.Z = 0.0f;
+
+                                        messages[i].Done = true;
+                                        EventManager.CreateMessage(new Message((int)EventManager.Events.Build, this, this, messages[i].Payload));
+
+                                        timeSpan = TimeSpan.FromMilliseconds(((WhereToBuild)messages[i].Payload).building.buildtime);
+                                        attack = true;
+                                    }
+                                    else
+                                    {
+                                        Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                        direction = vecTmp - Position;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                messages[i].Done = true;
+                            }
+                        }
+                        messages[i].timer = gameTime.TotalGameTime;
                         break;
 
                     case (int)EventManager.Events.Build:
-
+                        if (EventManager.MessageToOld(gameTime, messages[i], 100))
+                        {
+                            messages[i].Done = true;
+                            break;
+                        }
                         if (budowniczy == true)
                         {
                            timeSpan -= gameTime.ElapsedGameTime;
                             if (timeSpan < TimeSpan.Zero)
                             {
-                                Player.Build(Player.BuildingTypes["Prison"], (Vector3)(messages[i].Payload));
+                                player.Build(((WhereToBuild)messages[i].Payload).building.type, ((WhereToBuild)messages[i].Payload).position);
                                 messages[i].Done = true;
                                 idle = true;
                             }   
                         }
+                        messages[i].timer = gameTime.TotalGameTime;
+                        break;
+
+                    case (int)EventManager.Events.Gathering:
+                        if (EventManager.MessageToOld(gameTime, messages[i], 3000))
+                        {
+                            messages[i].Done = true;
+                            break;
+                        }
+                        if (budowniczy == true)
+                        {
+                            //////nowa wersja////////
+                            if (destinyPoints == null)
+                            {
+                                Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
+                                Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
+
+                                this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
+                                this.destinyPointer = null;
+                            }
+                            /////////nowa wersja///////////
+
+                            if (this.destinyPoints.Count > 0)
+                            {
+                                if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
+                                {
+                                    destinyPointer = destinyPoints.GetEnumerator();
+                                    destinyPointer.MoveNext();
+                                    Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                    direction = vecTmp - Position;
+                                }
+
+                                direction.Normalize();
+
+                                Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+
+                                if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
+                                {
+
+                                    // Next step walk.
+                                    if (!destinyPointer.MoveNext())
+                                    {
+                                        destinyPoints = null;
+                                        destinyPointer = null;
+
+                                        direction.X = 0.0f;
+                                        direction.Z = 0.0f;
+
+                                       
+                                        idle = true;
+                                        Console.WriteLine("asd");
+                                    }
+                                    else
+                                    {
+                                        Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                        direction = vecTmp - Position;
+                                    }
+                                }
+                                this.walk = true;
+                            }
+                            else
+                            {
+                                messages[i].Done = true;
+                            }
+                        }
+                        messages[i].timer = gameTime.TotalGameTime;
                         break;
                 }
             }
