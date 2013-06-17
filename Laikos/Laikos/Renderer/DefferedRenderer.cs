@@ -44,6 +44,7 @@ namespace Laikos
         private SpriteFont font;
         private bool minimap = true;
         public static bool debug = false;
+        public static float lightIntensity;
 
         public ParticleSystem explosionParticles;
         public ParticleSystem explosionSmokeParticles;
@@ -68,6 +69,7 @@ namespace Laikos
 
             int backbufferWidth = device.PresentationParameters.BackBufferWidth;
             int backbufferHeight = device.PresentationParameters.BackBufferHeight;
+            lightIntensity = 0.5f;
 
             colorRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.Depth24);
             normalRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
@@ -174,9 +176,10 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            Debug();
+            
             GUI.Draw();
             GUI.Update(gameTime);
+            Debug();
         }
 
         private void Debug()
@@ -184,7 +187,6 @@ namespace Laikos
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
             
-            if (debug)
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
 
             spriteBatch.End();
@@ -227,7 +229,7 @@ namespace Laikos
             PointLight.Initialize(pointLightEffect, colorRT, normalRT, depthRT, halfPixel, fsq, device, sphereModel);
             SpotLight.Initialize(device, spotLight, spotCookie, spotLightGeometry, colorRT, normalRT, depthRT);
 
-            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.5f));
+            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, lightIntensity));
 
             foreach (GameObject obj in objects)
             {

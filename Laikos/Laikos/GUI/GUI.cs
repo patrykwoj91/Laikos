@@ -28,7 +28,7 @@ namespace Laikos
         private static List<Message> messages;
         private static bool block;
 
-        public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content, int souls)
+        public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content, Player player)
         {
             block = false;
             screenWidth = Device.PresentationParameters.BackBufferWidth;
@@ -39,7 +39,7 @@ namespace Laikos
             UpperBackground.Initialize(content);
             UnitBackground.Initialize(content);
             LowerBackground.Initialize(content);
-            SourcesButton.Initialize(content, souls);
+            SourcesButton.Initialize(content, player);
             LowerOptionPanel.Initialize(content);
         }
 
@@ -77,17 +77,20 @@ namespace Laikos
 
         public static void ProcessInput(Game1 game)
         {
-            if (Input.oldMouseState.LeftButton == ButtonState.Pressed && Input.currentMouseState.LeftButton == ButtonState.Released)
+            if (Input.currentMouseState.LeftButton == ButtonState.Pressed)
             {
                 if (Input.currentMouseState.X < Minimap.width + Minimap.diff && Input.currentMouseState.Y < Minimap.height + Minimap.diff)
                 {
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
+            }
+
+            if (Input.oldMouseState.LeftButton == ButtonState.Pressed && Input.currentMouseState.LeftButton == ButtonState.Released)
+            {
                 if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                 {
                 	CreateMessage(new Message((int)EventManager.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
-
                 }
                 if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                     Console.WriteLine("obserwatorium");
@@ -147,6 +150,7 @@ namespace Laikos
                                 {
                                     case "Cementary":
                                         UnitBackground.whichUnit = 0;
+                                        LowerOptionPanel.soulNumbers = building.Souls;
                                         break;
                                     case "Pałac rady2":
                                         UnitBackground.whichUnit = 1;
@@ -166,6 +170,7 @@ namespace Laikos
                             }
                             break;
                         case (int)EventManager.Events.GuiDOWN:
+                            UnitBackground.whichUnit = int.MaxValue;
                             if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
                             {
                                 if (!UnitBackground.isUp)

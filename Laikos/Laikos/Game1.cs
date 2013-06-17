@@ -99,7 +99,7 @@ namespace Laikos
 
             player.Initialize();
             SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList);
-            GUI.Initialize(device, spriteBatch, Content, player.Souls);
+            GUI.Initialize(device, spriteBatch, Content, player);
         }
 
         /// <summary>
