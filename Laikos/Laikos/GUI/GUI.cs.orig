@@ -28,7 +28,7 @@ namespace Laikos
         private static List<Message> messages;
         private static bool block;
 
-        public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content, Player player)
+        public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content)
         {
             block = false;
             screenWidth = Device.PresentationParameters.BackBufferWidth;
@@ -39,7 +39,7 @@ namespace Laikos
             UpperBackground.Initialize(content);
             UnitBackground.Initialize(content);
             LowerBackground.Initialize(content);
-            SourcesButton.Initialize(content, player);
+            SourcesButton.Initialize(content);
             LowerOptionPanel.Initialize(content);
         }
 
@@ -77,21 +77,16 @@ namespace Laikos
 
         public static void ProcessInput(Game1 game)
         {
-            if (Input.currentMouseState.LeftButton == ButtonState.Pressed)
+            if (Input.oldMouseState.LeftButton == ButtonState.Pressed && Input.currentMouseState.LeftButton == ButtonState.Released)
             {
                 if (Input.currentMouseState.X < Minimap.width + Minimap.diff && Input.currentMouseState.Y < Minimap.height + Minimap.diff)
                 {
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
-            }
-
-            if (Input.oldMouseState.LeftButton == ButtonState.Pressed && Input.currentMouseState.LeftButton == ButtonState.Released)
-            {
+<<<<<<< HEAD
                 if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
-                {
-                	CreateMessage(new Message((int)EventManager.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
-                }
+                    Console.WriteLine("cmentarz");
                 if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                     Console.WriteLine("obserwatorium");
                 if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
@@ -105,6 +100,13 @@ namespace Laikos
                     Console.WriteLine("dron");
                 if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
                     Console.WriteLine("oko");
+=======
+                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0)
+                {
+                    CreateMessage(new Message((int)EventManager.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+
+                }
+>>>>>>> 68eb9431d3d9049766f825ffe394720044eee9de
             }
         }
 
@@ -150,7 +152,6 @@ namespace Laikos
                                 {
                                     case "Cementary":
                                         UnitBackground.whichUnit = 0;
-                                        LowerOptionPanel.soulNumbers = building.Souls;
                                         break;
                                     case "Pałac rady2":
                                         UnitBackground.whichUnit = 1;
@@ -170,7 +171,6 @@ namespace Laikos
                             }
                             break;
                         case (int)EventManager.Events.GuiDOWN:
-                            UnitBackground.whichUnit = int.MaxValue;
                             if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
                             {
                                 if (!UnitBackground.isUp)
@@ -189,7 +189,7 @@ namespace Laikos
                                 if((int)messages[i].Sender == 1) //to 1 przycisk na workerze
                                 {
                                     Console.WriteLine("GUI CLICKED");
-                                    if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Souls)
+                                    if (Player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Souls)
                                     {
                                         messages[i].Done = true;
                                         break;

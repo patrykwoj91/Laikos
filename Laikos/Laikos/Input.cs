@@ -80,13 +80,13 @@ namespace Laikos
                 if (currentKeyboardState.IsKeyDown(Keys.Escape) && oldKeyboardState.IsKeyUp(Keys.Escape))
                     game.Exit();
 
-                if (currentKeyboardState.IsKeyDown(Keys.F1) && oldKeyboardState.IsKeyUp(Keys.F1))
+                if (currentKeyboardState.IsKeyDown(Keys.F1))
                 {
-                    DefferedRenderer.debug = false;
+                    DefferedRenderer.lightIntensity += 0.01f;
                 }
-                if (currentKeyboardState.IsKeyDown(Keys.F2) && oldKeyboardState.IsKeyUp(Keys.F2))
+                if (currentKeyboardState.IsKeyDown(Keys.F2))
                 {
-                    DefferedRenderer.debug = true;
+                    DefferedRenderer.lightIntensity -= 0.01f;
                 }
             }
         }

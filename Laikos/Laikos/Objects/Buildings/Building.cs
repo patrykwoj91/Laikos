@@ -102,7 +102,7 @@ namespace Laikos
         {
             EventManager.FindMessagesByDestination(this, messages);
             FindDoubledMessages();
-
+            LowerOptionPanel.soulNumbers = Souls;
             if (messages.Count > 0)
             {
                 int i = 0;

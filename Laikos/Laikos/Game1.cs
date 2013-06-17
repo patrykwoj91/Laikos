@@ -106,7 +106,7 @@ namespace Laikos
             Console.WriteLine(enemy.UnitList.Count);
 
             SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList, enemy.UnitList, enemy.BuildingList);
-            GUI.Initialize(device, spriteBatch, Content);
+            GUI.Initialize(device, spriteBatch, Content, player);
         }
 
         /// <summary>
