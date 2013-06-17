@@ -1022,7 +1022,13 @@
       <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Models\Buildings\Generator\generator.FBX">
+      <Name>generator</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Buildings\Aliens\BJ\kamien.jpg">
       <Name>kamien</Name>

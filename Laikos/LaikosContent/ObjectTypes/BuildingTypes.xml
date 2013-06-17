@@ -173,6 +173,14 @@
       <Scale>0.3</Scale>
       <buildtime>5000.0</buildtime>
     </Item>
+    <Item>
+      <Name>Generator</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Generator/generator</Model>
+      <Souls>1000</Souls>
+      <Scale>0.3</Scale>
+      <buildtime>5000.0</buildtime>
+    </Item>
 
     
     
