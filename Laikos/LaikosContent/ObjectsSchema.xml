@@ -7,17 +7,17 @@
         <name>Demons</name>
         <units>
           <Item>
-            <name>Alien</name>
+            <name>Alien Worker</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Unit_2</name>
+            <name>Alien Melee</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Unit_3</name>
+            <name>Alien Rider</name>
             <x>0</x>
             <y>0</y>
           </Item>
@@ -47,7 +47,7 @@
             <y>0</y>
           </Item>
           <Item>
-            <name>Unit_3</name>
+            <name>Droid Worker</name>
             <x>0</x>
             <y>0</y>
           </Item>
@@ -101,22 +101,22 @@
         <name>Demons</name>
         <buildings>
           <Item>
-            <name>Building_1</name>
+            <name>Diabelny Dwór1</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Building_2</name>
+            <name>BJ Alienow1</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Building_3</name>
+            <name>Nekropolis</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Building_4</name>
+            <name>Wieża</name>
             <x>0</x>
             <y>0</y>
           </Item>
@@ -131,12 +131,12 @@
         <name>Angels</name>
         <buildings>
           <Item>
-            <name>Obserwatorium</name>
+            <name>Pałac rady2</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Pałac rady</name>
+            <name>BJ Niebian1</name>
             <x>0</x>
             <y>0</y>
           </Item>
@@ -146,7 +146,7 @@
             <y>0</y>
           </Item>
           <Item>
-            <name>Building_4</name>
+            <name>Cementary</name>
             <x>0</x>
             <y>0</y>
           </Item>
@@ -195,17 +195,17 @@
         <name>Ruins</name>
         <decorations>
           <Item>
-            <name>Ruins1</name>
+            <name>Ruiny1</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Ruins2</name>
+            <name>Ruiny2</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Ruins_3</name>
+            <name>Ruiny3</name>
             <x>0</x>
             <y>0</y>
           </Item>
@@ -215,17 +215,22 @@
         <name>Forests</name>
         <decorations>
           <Item>
-            <name>Forest_1</name>
+            <name>Drzewo1</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Forest_2</name>
+            <name>Drzewo2</name>
             <x>0</x>
             <y>0</y>
           </Item>
           <Item>
-            <name>Forest_3</name>
+            <name>Drzewo3</name>
+            <x>0</x>
+            <y>0</y>
+          </Item>
+          <Item>
+            <name>Drzewo4</name>
             <x>0</x>
             <y>0</y>
           </Item>
@@ -235,7 +240,7 @@
         <name>Else</name>
         <decorations>
           <Item>
-            <name>Obserwatorium</name>
+            <name>Prison</name>
             <x>0</x>
             <y>0</y>
           </Item>

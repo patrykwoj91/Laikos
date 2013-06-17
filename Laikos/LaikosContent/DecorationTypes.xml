@@ -3,19 +3,40 @@
   <Asset Type="MyDataTypes.DecorationType[]">
 
     <Item>
-      <name>Ruins2</name>
-      <model>Models/Decorations/test_ruins2/test_ruins2</model>
+      <name>Ruiny1</name>
+      <model>Models/Decorations/Ruiny/ruiny1</model>
     </Item>
 
     <Item>
-      <name>Ruins1</name>
-      <model>Models/Decorations/test_ruins1/test_ruins1</model>
+      <name>Ruiny2</name>
+      <model>Models/Decorations/Ruiny/ruiny2</model>
     </Item>
 
     <Item>
-      <name>Obserwatorium</name>
-      <model>Models/Buildings/Niebianie/Obserwatorium/obserwatorium</model>
+      <name>Ruiny3</name>
+      <model>Models/Decorations/Ruiny/ruiny3</model>
     </Item>
-    
+
+    <Item>
+      <name>Drzewo1</name>
+      <model>Models/Decorations/Drzewa/drzewo1</model>
+    </Item>
+
+    <Item>
+      <name>Drzewo2</name>
+      <model>Models/Decorations/Drzewa/drzewo2</model>
+    </Item>
+
+    <Item>
+      <name>Drzewo3</name>
+      <model>Models/Decorations/Drzewa/drzewo3</model>
+    </Item>
+
+    <Item>
+      <name>Drzewo4</name>
+      <model>Models/Decorations/Drzewa/drzewo4</model>
+    </Item>
+
+
   </Asset>
 </XnaContent>

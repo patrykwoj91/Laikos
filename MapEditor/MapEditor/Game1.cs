@@ -66,8 +66,8 @@ namespace Laikos
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 900;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
             graphics.IsFullScreen = false;
         }
 
@@ -108,7 +108,7 @@ namespace Laikos
             objects = new List<GameObject>();
 
             UnitTypes = Content.Load<UnitType[]>("UnitTypes").ToDictionary(t => t.name);
-            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.name);
+            BuildingTypes = Content.Load<BuildingType[]>("BuildingTypes").ToDictionary(t => t.Name);
 
             player = new Player(this, UnitTypes, BuildingTypes);
             enemy = new Player(this, UnitTypes, BuildingTypes);
@@ -122,15 +122,15 @@ namespace Laikos
         {
             ObjectsSchema schemat = new ObjectsSchema();
             schemat.unitGroups_1.Add(new UnitGroup("Demons"));
-            schemat.unitGroups_1[0].units.Add(new UnitSchema("Alien"));
-            schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_2"));
-            schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_3"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Alien Worker"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Alien Melee"));
+            schemat.unitGroups_1[0].units.Add(new UnitSchema("Alien Rider"));
             schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_4"));
             schemat.unitGroups_1[0].units.Add(new UnitSchema("Unit_5"));
             schemat.unitGroups_1.Add(new UnitGroup("Angels"));
             schemat.unitGroups_1[1].units.Add(new UnitSchema("Reconnaissance Eye"));
             schemat.unitGroups_1[1].units.Add(new UnitSchema("Antigravity Tank"));
-            schemat.unitGroups_1[1].units.Add(new UnitSchema("Unit_3"));
+            schemat.unitGroups_1[1].units.Add(new UnitSchema("Droid Worker"));
             schemat.unitGroups_1[1].units.Add(new UnitSchema("Unit_4"));
             schemat.unitGroups_1[1].units.Add(new UnitSchema("Unit_5"));
             schemat.unitGroups_1.Add(new UnitGroup("The Oldest"));
@@ -141,16 +141,16 @@ namespace Laikos
             schemat.unitGroups_1[2].units.Add(new UnitSchema("Unit_5"));
 
             schemat.buildingsGroups_1.Add(new BuildingGroup("Demons"));
-            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_1"));
-            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_2"));
-            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_3"));
-            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_4"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Diabelny Dwór1"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("BJ Alienow1"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Nekropolis"));
+            schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Wie¿a"));
             schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema("Building_5"));
             schemat.buildingsGroups_1.Add(new BuildingGroup("Angels"));
-            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_1"));
-            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_2"));
-            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_3"));
-            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_4"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Pa³ac rady2"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("BJ Niebian1"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Stra¿nica"));
+            schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Cementary"));
             schemat.buildingsGroups_1[1].buildings.Add(new BuildingSchema("Building_5"));
             schemat.buildingsGroups_1.Add(new BuildingGroup("The Oldest"));
             schemat.buildingsGroups_1[2].buildings.Add(new BuildingSchema("Building_1"));
@@ -160,14 +160,15 @@ namespace Laikos
             schemat.buildingsGroups_1[2].buildings.Add(new BuildingSchema("Building_5"));
 
             schemat.decorationsGroups.Add(new DecoarationGroup("Ruins"));
-            schemat.decorationsGroups[0].decorations.Add(new DecorationSchema("Ruins_1"));
-            schemat.decorationsGroups[0].decorations.Add(new DecorationSchema("Ruins_2"));
-            schemat.decorationsGroups[0].decorations.Add(new DecorationSchema("Ruins_3"));
+            schemat.decorationsGroups[0].decorations.Add(new DecorationSchema("Ruiny1"));
+            schemat.decorationsGroups[0].decorations.Add(new DecorationSchema("Ruiny2"));
+            schemat.decorationsGroups[0].decorations.Add(new DecorationSchema("Ruiny3"));
 
             schemat.decorationsGroups.Add(new DecoarationGroup("Forests"));
-            schemat.decorationsGroups[1].decorations.Add(new DecorationSchema("Forest_1"));
-            schemat.decorationsGroups[1].decorations.Add(new DecorationSchema("Forest_2"));
-            schemat.decorationsGroups[1].decorations.Add(new DecorationSchema("Forest_3"));
+            schemat.decorationsGroups[1].decorations.Add(new DecorationSchema("Drzewo1"));
+            schemat.decorationsGroups[1].decorations.Add(new DecorationSchema("Drzewo2"));
+            schemat.decorationsGroups[1].decorations.Add(new DecorationSchema("Drzewo3"));
+            schemat.decorationsGroups[1].decorations.Add(new DecorationSchema("Drzewo4"));
 
 
             System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
@@ -327,7 +328,7 @@ namespace Laikos
                     schemat.buildingsGroups_1.Add(new BuildingGroup("Buildings"));
                     foreach (Building building in player.BuildingList)
                     {
-                        schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema(building.type.name, building.Position.X, building.Position.Z));
+                        schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema(building.type.Name, building.Position.X, building.Position.Z));
                     }
                     #endregion Player_1
 
@@ -341,7 +342,7 @@ namespace Laikos
                     schemat.buildingsGroups_2.Add(new BuildingGroup("Buildings"));
                     foreach (Building building in enemy.BuildingList)
                     {
-                        schemat.buildingsGroups_2[0].buildings.Add(new BuildingSchema(building.type.name, building.Position.X, building.Position.Z));
+                        schemat.buildingsGroups_2[0].buildings.Add(new BuildingSchema(building.type.Name, building.Position.X, building.Position.Z));
                     }
                     #endregion Player_2
 
@@ -379,30 +380,30 @@ namespace Laikos
                     #region Player_1
                     foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
                     {
-                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y)));
+                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y),0.2f));
                     }
 
                     foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
                     {
-                        player.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y)));
+                        player.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
                     }
                     #endregion Player_1
 
                     #region Player_2
                     foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
                     {
-                        enemy.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y)));
+                        enemy.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y),0.2f));
                     }
 
                     foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
                     {
-                        enemy.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y)));
+                        enemy.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
                     }
                     #endregion Player_2
 
                     foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
                     {
-                        decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y)));
+                        decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y),0.5f));
                     }
 
                     Console.Out.WriteLine("Odczytano mapê.");
@@ -539,10 +540,10 @@ namespace Laikos
                             switch (activePlayer)
                             {
                                 case 0:
-                                    player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight)));
+                                    player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.1f));
                                     break;
                                 case 1:
-                                    enemy.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight)));
+                                    enemy.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.1f));
                                     break;
                             }
                         }
@@ -591,7 +592,7 @@ namespace Laikos
 
                         if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Building_")))
                         {
-                            Building building = new Building(player.game, BuildingTypes[objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight));
+                            Building building = new Building(player.game, BuildingTypes[objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.6f);
 
                             if (building.checkIfPossible(pointerPosition))
                             {
@@ -654,7 +655,7 @@ namespace Laikos
 
                         if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Decorations_")))
                         {
-                            Decoration decoration = new Decoration(player.game, decorations.DecorationTypes[objectsSchema.decorationsGroups[creationType].decorations[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight));
+                            Decoration decoration = new Decoration(player.game, decorations.DecorationTypes[objectsSchema.decorationsGroups[creationType].decorations[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.1f);
 
                             if (decoration.checkIfPossible(pointerPosition))
                             {

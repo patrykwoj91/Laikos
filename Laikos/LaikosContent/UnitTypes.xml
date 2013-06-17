@@ -3,59 +3,51 @@
   <Asset Type="MyDataTypes.UnitType[]">
 
     <Item>
-      <race>Niebianin</race>
+      <race>Niebianie</race>
+      <name>Droid Worker</name>
+      <maxhp>50.0</maxhp>
+      <mp>0.0</mp>
+      <model>Models/Units/Niebianie/Droid_worker/Droid</model>
+    </Item>
+
+    <Item>
+      <race>Niebianie</race>
       <name>Reconnaissance Eye</name>
       <maxhp>50.0</maxhp>
       <mp>50.0</mp>
-      <model>Models/Units/Eye/oko</model>
+      <model>Models/Units/Niebianie/Eye/oko</model>
     </Item>
 
     <Item>
-      <race>Niebianin</race>
-      <name>Dummy</name>
-      <maxhp>50.0</maxhp>
-      <mp>0.0</mp>
-      <model>Models/Units/Test_model/test_model</model>
-    </Item>
-
-    <Item>
-      <race>Niebianin</race>
+      <race>Niebianie</race>
       <name>Antigravity Tank</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
-      <model>Models/Units/tank/czolg</model>
+      <model>Models/Units/Niebianie/Tank/czolg</model>
     </Item>
 
     <Item>
-      <race>Niebianin</race>
-      <name>Trojnog Auto</name>
+      <race>Aliens</race>
+      <name>Alien Worker</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
-      <model>Models/Units/Trojnog/trojnog</model>
+      <model>Models/Units/Aliens/Alien_Worker/alien_worker</model>
     </Item>
 
     <Item>
-      <race>Alien</race>
-      <name>Alien</name>
+      <race>Aliens</race>
+      <name>Alien Melee</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
-      <model>Models/Units/Alien/alien</model>
+      <model>Models/Units/Aliens/Alien/alien</model>
     </Item>
 
     <Item>
-      <race>Alien</race>
-      <name>Spider Rider</name>
+      <race>Aliens</race>
+      <name>Alien Rider</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
-      <model>Models/Units/Alien_Spider_Rider/alien_spider_rider</model>
-    </Item>
-
-    <Item>
-      <race>Alien</race>
-      <name>asd</name>
-      <maxhp>50.0</maxhp>
-      <mp>0.0</mp>
-      <model>Models/Units/Broom/broom</model>
+      <model>Models/Units/Aliens/Alien_Rider/alien_rider</model>
     </Item>
 
   </Asset>
