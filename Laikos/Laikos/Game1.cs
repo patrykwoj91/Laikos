@@ -46,8 +46,8 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
         }
 
@@ -86,10 +86,11 @@ namespace Laikos
 
             UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
             BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
+
             player = new Player(this, UnitTypes, BuildingTypes);
             enemy = new Player(this, UnitTypes, BuildingTypes);
 
-            //LoadMap(@"Mapa\Objects.xml");
+            LoadMap(@"Mapa\Objects.xml");
 
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"), decorations);
 
@@ -98,6 +99,8 @@ namespace Laikos
             Minimap.LoadMiniMap(Content);
 
             player.Initialize();
+            enemy.Initialize();
+
             SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList);
             GUI.Initialize(device, spriteBatch, Content);
         }
@@ -121,13 +124,17 @@ namespace Laikos
             float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             time = gameTime.TotalGameTime;
+
             player.Update(gameTime);
+            enemy.Update(gameTime);
 
             Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
 
             EventManager.Update();
+
             UpdateExplosions(gameTime, objects);
             UpdateExplosionSmoke(gameTime, objects);
+
             base.Update(gameTime);
 
             // TODO: Add your update logic here
@@ -174,10 +181,14 @@ namespace Laikos
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
 
-
             objects.AddRange(player.UnitList);
-            objects.AddRange(decorations.DecorationList);
             objects.AddRange(player.BuildingList);
+
+            objects.AddRange(enemy.UnitList);
+            objects.AddRange(enemy.BuildingList);
+
+            objects.AddRange(decorations.DecorationList);
+            
             defferedRenderer.Draw(objects, terrain, gameTime);
             SelectingGUI.Draw();
 
@@ -239,16 +250,25 @@ namespace Laikos
 
         void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
         {
-
-            for (int i = player.UnitList.Count - 1; i >= 0; i--)
+            for (int i = /*player.UnitList.Count*/ objects.Count - 1; i >= 0; i--)
             {
-
-
-                if (player.UnitList[i].HP == 0)
+                if (objects[i] is Unit)
                 {
-                    defferedRenderer.explosionParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                    defferedRenderer.explosionSmokeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                    player.UnitList[i].HP = 10;
+                    if (((Unit)objects[i]).HP <= 0)
+                    {
+                        defferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        defferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        ((Unit)objects[i]).HP = 10;
+                    }
+                }
+                else if (objects[i] is Building)
+                {
+                    if (((Building)objects[i]).HP <= 0)
+                    {
+                        defferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        defferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        ((Building)objects[i]).HP  = 10;
+                    }
                 }
 
                 defferedRenderer.explosionParticles.Update(gameTime);

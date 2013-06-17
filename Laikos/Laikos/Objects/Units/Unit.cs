@@ -453,7 +453,7 @@ namespace Laikos
                             {
                                 ((Unit)messages[i].Destination).HP -= damage;
 
-                                if (((Unit)messages[i].Destination).HP == 0)
+                                if (((Unit)messages[i].Destination).HP <= 0)
                                 {
                                     messages[i].Done = true;
                                 }
@@ -462,7 +462,7 @@ namespace Laikos
                             {
                                 ((Building)messages[i].Destination).HP -= damage;
 
-                                if (((Building)messages[i].Destination).HP == 0)
+                                if (((Building)messages[i].Destination).HP <= 0)
                                 {
                                     messages[i].Done = true;
                                 }
