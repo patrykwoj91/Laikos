@@ -76,8 +76,21 @@ namespace Laikos
                     Camera.cameraPosition.X = Input.currentMouseState.X * 5;
                     Camera.cameraPosition.Z = Input.currentMouseState.Y * 5 + 75;
                 }
-                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0)
-                    Console.WriteLine("true");
+                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+                    Console.WriteLine("cmentarz");
+                if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+                    Console.WriteLine("obserwatorium");
+                if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+                    Console.WriteLine("Palac p1");
+                if (insideRectangle(LowerOptionPanel.fourthTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+                    Console.WriteLine("Wieza straznicza");
+
+                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
+                    Console.WriteLine("czolg");
+                if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
+                    Console.WriteLine("dron");
+                if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
+                    Console.WriteLine("oko");
             }
         }
 
