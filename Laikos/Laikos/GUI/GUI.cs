@@ -28,7 +28,7 @@ namespace Laikos
         private static List<Message> messages;
         private static bool block;
 
-        public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content)
+        public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content, int souls)
         {
             block = false;
             screenWidth = Device.PresentationParameters.BackBufferWidth;
@@ -39,7 +39,7 @@ namespace Laikos
             UpperBackground.Initialize(content);
             UnitBackground.Initialize(content);
             LowerBackground.Initialize(content);
-            SourcesButton.Initialize(content);
+            SourcesButton.Initialize(content, souls);
             LowerOptionPanel.Initialize(content);
         }
 
