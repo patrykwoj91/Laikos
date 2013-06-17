@@ -21,6 +21,7 @@ namespace Laikos
        public int Souls;
        float timer;         //Initialize a 10 second timer
        const float TIMER = 10;
+       public bool dead = false;
 
 
        public Building()
@@ -58,6 +59,12 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
+            if (this.HP <= 0)
+            {
+                dead = true;
+                return;
+            }
+
             if (this.type.Name.Equals("Cementary") || this.type.Name.Equals("Nekropolis"))
             {
                 float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -128,6 +135,7 @@ namespace Laikos
                                 {
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, this, unit, null));
                                     unit.timeSpan = TimeSpan.FromMilliseconds(3000);
+                                  
                                     unit.walk = true;
                                 }
 

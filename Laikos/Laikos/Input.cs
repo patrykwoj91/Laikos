@@ -72,7 +72,6 @@ namespace Laikos
                     if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
                         unit.HP = 0;
-                        Console.WriteLine(unit.HP);
                     }
 
                 }
@@ -205,12 +204,12 @@ namespace Laikos
                         {
                             EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, clicked, _unit, pointerPosition));
                         }
-
+                    }
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
 
                         stopwatch.Stop();
                         Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
-                    }
+                    
                 }
                 else if (clicked is Decoration)
                 {

@@ -43,15 +43,24 @@ namespace Laikos
             {
                 building.Update(gameTime);
             }
-        }
-       
 
-       public void Initialize()
+           // for (int i = UnitList.Count - 1; i >= 0; i--)
+               // if (UnitList[i].dead == true)
+                    //UnitList.RemoveAt(i);
+
+           // for (int i = BuildingList.Count - 1; i >= 0; i--)
+               // if (BuildingList[i].dead == true)
+                    //BuildingList.RemoveAt(i);
+
+        }
+
+
+        public void Initialize()
        {
             Souls = 1000;
 
-            UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 15, 680), 0.05f));
-           // UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 650), 0.05f));
+          //  UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 15, 680), 0.05f));
+          //  UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 650), 0.05f));
         //    BuildingList.Add(new Building(game,this, BuildingTypes["Pałac rady2"], new Vector3(720, 0, 650), BuildingTypes["Pałac rady2"].Scale,true));
          //   BuildingList.Add(new Building(game,this, BuildingTypes["Cementary"], new Vector3(640, 0, 730), BuildingTypes["Cementary"].Scale, true));
        }
