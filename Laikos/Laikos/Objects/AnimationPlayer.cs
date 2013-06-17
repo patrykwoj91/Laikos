@@ -394,7 +394,7 @@ namespace Laikos
 
          // System.Threading.Thread.Sleep(100000);
             
-            Console.WriteLine(blendAmount);
+           // Console.WriteLine(blendAmount);
             #endregion
         }
 

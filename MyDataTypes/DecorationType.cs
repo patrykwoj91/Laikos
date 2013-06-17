@@ -9,5 +9,10 @@ namespace MyDataTypes
     {
         public String name;
         public String model;
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
