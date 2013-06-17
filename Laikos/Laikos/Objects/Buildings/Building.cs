@@ -32,7 +32,7 @@ namespace Laikos
             : base(game,player, type.Model)
         {
             timer = 10;
-            Souls = 0;
+            Souls = 100;
            this.Position = position;
            this.Rotation = rotation;
            this.Scale = scale;
@@ -125,7 +125,11 @@ namespace Laikos
                         if (this.type.Name.Equals("Cementary"))
                             foreach (Unit unit in player.UnitList)
                                 if (unit.selected && unit.budowniczy)
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Gathering, this, unit,null));
+                                {
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, this, unit, null));
+                                    unit.timeSpan = TimeSpan.FromMilliseconds(3000);
+                                    unit.walk = true;
+                                }
 
                         messages[i].Done = true;
                         break;

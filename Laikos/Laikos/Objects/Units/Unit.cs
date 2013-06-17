@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,9 +19,7 @@ namespace Laikos
         int Souls_owned;
         const int Souls_cap = 50;
         public bool budowniczy = false;
-        TimeSpan timeSpan;
-
-
+        public TimeSpan timeSpan;
 
         //////////////////////////////////
         // PathFiding Variables
@@ -35,12 +33,12 @@ namespace Laikos
         //////////////////////////////////
         // Fight Variables
         //////////////////////////////////
-        public int range = 20;
         public int damage = 5;
-        public int ratio = 1;
+        public int range = 20;
+        public int ratio = 10;
 
-        private Unit destinyUnit;
-        private Building destinyBuilding;
+        Unit destinyUnit;
+        Building destinyBuilding;
 
         public Unit()
             : base()
@@ -110,6 +108,7 @@ namespace Laikos
                 if (messages[i].Done == false)
                     switch (messages[i].Type)
                     {
+                        #region HandleEvent.Selected/Unselected
                         case (int)EventManager.Events.Selected:
                             selected = true;
                             messages[i].Done = true;
@@ -121,16 +120,18 @@ namespace Laikos
                             messages[i].Done = true;
                             GUI.CreateMessage(new Message((int)EventManager.Events.GuiDOWN, this, null, null));
                             break;
+                        #endregion
 
+                        #region HandleEvent.Interaction
                         case (int)EventManager.Events.Interaction:
 
                             Console.WriteLine("Jednostka - interakcja z" + messages[i].Destination.ToString());
                             EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, this, messages[i].Payload, null));
-
                             messages[i].Done = true;
                             break;
+                        #endregion
 
-                        #region Move Unit
+                        #region HandleEvent.MoveUnit
                         case (int)EventManager.Events.MoveUnit:
                             //////nowa wersja////////
                             if (destinyPoints == null)
@@ -164,8 +165,13 @@ namespace Laikos
                                     // Next step walk.
                                     if (!destinyPointer.MoveNext())
                                     {
-                                        EndMove(messages[i]);
+                                        destinyPoints = null;
+                                        destinyPointer = null;
 
+                                        direction.X = 0.0f;
+                                        direction.Z = 0.0f;
+
+                                        messages[i].Done = true;
                                         idle = true;
                                         Console.WriteLine("done");
                                     }
@@ -182,9 +188,9 @@ namespace Laikos
                             }
 
                             break;
-                        #endregion Move Unit
+                        #endregion
 
-                        #region Move To Build
+                        #region HandleEvent.MoveToBuild
                         case (int)EventManager.Events.MoveToBuild:
 
                             if (EventManager.MessageToOld(gameTime, messages[i], 4000))
@@ -277,9 +283,9 @@ namespace Laikos
                             }
                             messages[i].timer = gameTime.TotalGameTime;
                             break;
-                        #endregion Move To Build
+                        #endregion
 
-                        #region Build
+                        #region HandleEvent.Build
                         case (int)EventManager.Events.Build:
                             if (EventManager.MessageToOld(gameTime, messages[i], 100))
                             {
@@ -298,28 +304,33 @@ namespace Laikos
                             }
                             messages[i].timer = gameTime.TotalGameTime;
                             break;
-                        #endregion Build
+                        #endregion
 
-                        #region Gathering
-                        case (int)EventManager.Events.Gathering:
+                        #region HandleEvent.Gathering
+                        case (int)EventManager.Events.Gather:
+                            ///////BREAK MESSAGE
                             if (EventManager.MessageToOld(gameTime, messages[i], 3000))
                             {
                                 messages[i].Done = true;
                                 break;
                             }
+                            /////////////////////
+
                             if (budowniczy == true)
                             {
-                                //////nowa wersja////////
+                                Vector3 poczatek_ruchu = Vector3.Zero;
+                                //////////MOVE
                                 if (destinyPoints == null)
                                 {
-                                    Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
-                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
 
+
+                                    Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
+                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Building)messages[i].Sender).Position.X, (int)((Building)messages[i].Sender).Position.Z);
+                                    poczatek_ruchu.X = this.Position.X;
+                                    poczatek_ruchu.Z = this.Position.Z;
                                     this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                     this.destinyPointer = null;
                                 }
-                                /////////nowa wersja///////////
-
                                 if (this.destinyPoints.Count > 0)
                                 {
                                     if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
@@ -338,18 +349,65 @@ namespace Laikos
                                     if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                     {
 
-                                        // Next step walk.
+                                        //JESTES U CELU
                                         if (!destinyPointer.MoveNext())
                                         {
                                             destinyPoints = null;
                                             destinyPointer = null;
-
                                             direction.X = 0.0f;
                                             direction.Z = 0.0f;
-
-
                                             idle = true;
-                                            Console.WriteLine("asd");
+
+                                            //OBSŁUGA ZBIERANIA
+                                            timeSpan -= gameTime.ElapsedGameTime;
+                                            if (((Building)messages[i].Sender).Souls > 0) //czy budynek ma narobione dusze
+                                            {
+                                                if (this.Souls_owned < Souls_cap) //czy mamy miejsce
+                                                {
+
+                                                    if (timeSpan < TimeSpan.Zero) //jesli czas pakowania minal dodajemy dusze
+                                                    {
+                                                        if (Souls_cap - this.Souls_owned >= ((Building)messages[i].Sender).Souls) //ilosc miejsca wieksza niz ilosc dusz w budynku
+                                                        {
+                                                            this.Souls_owned += ((Building)messages[i].Sender).Souls; //dodajemy wszystkie dusze z budynku
+                                                            ((Building)messages[i].Sender).Souls = 0;
+                                                        }
+                                                        else //ilosc miejsca mniejsza niz ilosc dusz w budynku
+                                                        {
+                                                            ((Building)messages[i].Sender).Souls -= Souls_cap - this.Souls_owned; //dobieramy tyle ile sie da
+                                                            this.Souls_owned += Souls_cap - this.Souls_owned;
+                                                        }
+                                                        foreach (Building building in player.BuildingList)
+                                                        {
+                                                            if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
+                                                            {
+
+                                                                EventManager.CreateMessage(new Message((int)EventManager.Events.Store, messages[i].Sender, this, building.Position));
+                                                                walk = true;
+                                                                messages[i].Done = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else //jak nie mamy miejsca to odnosimy
+                                                {
+                                                    foreach (Building building in player.BuildingList)
+                                                    {
+                                                        if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
+                                                        {
+                                                            EventManager.CreateMessage(new Message((int)EventManager.Events.Store, this, this, building.Position));
+                                                            messages[i].Done = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else //jak nie ma dusz to koniec zadania
+                                            {
+                                                messages[i].Done = true;
+                                                break;
+                                            }
                                         }
                                         else
                                         {
@@ -366,7 +424,79 @@ namespace Laikos
                             }
                             messages[i].timer = gameTime.TotalGameTime;
                             break;
-                        #endregion Gathering
+                        #endregion
+
+                        #region HandleEvent.Storing
+                        case (int)EventManager.Events.Store:
+                            ///////BREAK MESSAGE
+                            if (EventManager.MessageToOld(gameTime, messages[i], 3000))
+                            {
+                                messages[i].Done = true;
+                                break;
+                            }
+                            /////////////////////
+
+                            if (budowniczy == true)
+                            {
+                                //////////MOVE
+                                if (destinyPoints == null)
+                                {
+                                    Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
+                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)((Vector3)messages[i].Payload).Z);
+
+                                    this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
+                                    this.destinyPointer = null;
+                                }
+                                if (this.destinyPoints.Count > 0)
+                                {
+                                    if ((destinyPoints != null) && (destinyPoints.Count > 0) && (destinyPointer == null))
+                                    {
+                                        destinyPointer = destinyPoints.GetEnumerator();
+                                        destinyPointer.MoveNext();
+                                        Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                        direction = vecTmp - Position;
+                                    }
+
+                                    direction.Normalize();
+
+                                    Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+
+                                    if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
+                                    {
+
+                                        //JESTES U CELU
+                                        if (!destinyPointer.MoveNext())
+                                        {
+                                            destinyPoints = null;
+                                            destinyPointer = null;
+                                            direction.X = 0.0f;
+                                            direction.Z = 0.0f;
+                                            //OBSŁUGA ZBIERANIA
+                                            player.Souls += this.Souls_owned;
+                                            this.Souls_owned = 0;
+                                            EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
+                                            walk = true;
+                                            timeSpan = TimeSpan.FromMilliseconds(3000);
+                                            messages[i].Done = true;
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Vector3 vecTmp = new Vector3(destinyPointer.Current.X, 0.0f, destinyPointer.Current.Y);
+                                            direction = vecTmp - Position;
+                                        }
+                                    }
+                                    this.walk = true;
+                                }
+                                else
+                                {
+                                    messages[i].Done = true;
+                                }
+                            }
+                            messages[i].timer = gameTime.TotalGameTime;
+                            break;
+                        #endregion
 
                         #region Move To Attack
                         case (int)EventManager.Events.MoveToAttack:

@@ -38,7 +38,7 @@ namespace Laikos
             this.Scale = scale;
             this.messages = new List<Message>();
             this.meshBoundingBoxes = new List<BoundingBox>();
-
+            this.type = (DecorationType)type.Clone();
             Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
             currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
             foreach (ModelMesh mesh in currentModel.Model.Meshes)

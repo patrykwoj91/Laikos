@@ -22,7 +22,7 @@ namespace Laikos
 
         public List<Message> messages;
        
-        public static int Souls;
+        public int Souls;
  
         public Player(Game game, Dictionary<String, UnitType> UnitTypes, Dictionary<String, BuildingType> BuildingTypes)
         {

@@ -171,7 +171,7 @@ namespace Laikos
                                 if((int)messages[i].Sender == 1) //to 1 przycisk na workerze
                                 {
                                     Console.WriteLine("GUI CLICKED");
-                                    if (Player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Souls)
+                                    if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Souls)
                                     {
                                         messages[i].Done = true;
                                         break;
