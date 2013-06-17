@@ -16,7 +16,7 @@ namespace Laikos
         public static Vector2 stopDrag;
         public static bool building_mode = false;
         public static WhereToBuild next_build;
-   
+
         /// <summary>
         /// Handle Keyboard - temporary unit WSAD movement and Animation swap
         /// </summary>
@@ -94,10 +94,10 @@ namespace Laikos
         /// <summary>
         /// Handles mouse Left click and Right Click actions
         /// </summary>
-        public static void HandleMouse(Player player,Game game, List<Decoration> decorationlist, GraphicsDevice device)
+        public static void HandleMouse(Player player, Game game, List<Decoration> decorationlist, GraphicsDevice device)
         {
             #region Left Click
-            
+
             #region SelectionBox
             if (currentMouseState.LeftButton == ButtonState.Pressed &&
                 oldMouseState.LeftButton == ButtonState.Pressed)
@@ -137,9 +137,9 @@ namespace Laikos
                     foreach (Unit unit in player.UnitList)
                         if (unit.selected == true && unit.budowniczy == true)
                         {
-                           EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, next_build)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
-                           unit.walk = true;
-                           building_mode = false;
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, next_build)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
+                            unit.walk = true;
+                            building_mode = false;
                         }
 
                 }
@@ -147,37 +147,37 @@ namespace Laikos
                 #region Selections
                 else if (selectionbox && (!SelectingGUI.GUIClicked(currentMouseState.X, currentMouseState.Y)))
                 {
-                        if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
-                            100)
-                        {
-                            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
-                            SelectInWindow(player, startDrag,
-                                new Vector2(currentMouseState.X, currentMouseState.Y), device);
-                            stopwatch.Stop();
-                            Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
-                        }
-                        else
-                        {
-                            var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                    if ((Math.Abs(startDrag.X - currentMouseState.X) * Math.Abs(startDrag.Y - currentMouseState.Y)) >
+                        100)
+                    {
+                        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+                        SelectInWindow(player, startDrag,
+                            new Vector2(currentMouseState.X, currentMouseState.Y), device);
+                        stopwatch.Stop();
+                        Console.WriteLine("SelectMultipleUnits(...) : {0}", stopwatch.Elapsed);
+                    }
+                    else
+                    {
+                        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
 
-                            SelectSingle(player, device);
+                        SelectSingle(player, device);
 
-                            stopwatch.Stop();
-                            Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
+                        stopwatch.Stop();
+                        Console.WriteLine("SelectSingleUnit(...) : {0}", stopwatch.Elapsed);
 
-                        }
-                        SelectingGUI.selectionbox = selectionbox = false;
-                        startDrag.X = -9999;
-                        startDrag.Y = -9999;
+                    }
+                    SelectingGUI.selectionbox = selectionbox = false;
+                    startDrag.X = -9999;
+                    startDrag.Y = -9999;
                 }
-                #endregion            
+                #endregion
             }
 
             GUI.ProcessInput((Game1)game);
 
             #endregion
 
-            #region Right Click 
+            #region Right Click
             if (currentMouseState.RightButton == ButtonState.Pressed &&
                oldMouseState.RightButton == ButtonState.Released)
             {
@@ -192,26 +192,36 @@ namespace Laikos
 
                 if (clicked is Unit || clicked is Building)
                 {
-                    EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null)); //interaction Event unit - unit , unit-buiding itp.
-                    stopwatch.Stop();
-                    Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
+                    //interaction Event unit - unit , unit-buiding itp.
+
+                    foreach (Unit _unit in player.UnitList)
+                    {
+                        if
+                        (
+                            ((clicked is Unit) && (IsEnemy((Unit)clicked, (Game1)game)))
+                            ||
+                            ((clicked is Building) && (IsEnemy((Building)clicked, (Game1)game)))
+                        )
+                        {
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, clicked, _unit, pointerPosition));
+                        }
+
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
+
+                        stopwatch.Stop();
+                        Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
+                    }
                 }
                 else if (clicked is Decoration)
                 {
+
                 }
                 else
+                {
                     foreach (Unit obj in ((Game1)game).player.UnitList)
+                    {
                         if (obj.selected)
                         {
-                            /*   Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)((Unit)obj).Position.X, (int)((Unit)obj).Position.Z);
-                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)pointerPosition.X, (int)pointerPosition.Z);
-                                 DateTime tp0 = DateTime.Now;
-                                 ((Unit)obj).destinyPoints = ((Unit)obj).pathFiding.obliczSciezke(wspBegin, wspEnd);
-                                 ((Unit)obj).destinyPointer = null;
-                                 DateTime tp1 = DateTime.Now;
-                                 //Console.WriteLine(tp1 - tp0);
-                                 if (((Unit)obj).destinyPoints.Count > 0)
-                                 {*/
                             obj.destinyPoints = null;
                             EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
                             ((Unit)obj).walk = true;
@@ -219,6 +229,8 @@ namespace Laikos
                             stopwatch.Stop();
                             Console.WriteLine("MoveCommand(...) : {0}", stopwatch.Elapsed);
                         }
+                    }
+                }
             }
             #endregion
         }
@@ -317,13 +329,11 @@ namespace Laikos
         /// </summary>
         public static void Update(Game game, GameTime gameTime, GraphicsDevice device, Camera camera, Player player, List<Decoration> decorationlist)
         {
-
-
             currentKeyboardState = Keyboard.GetState();
             currentMouseState = Mouse.GetState();
 
             HandleCamera(gameTime, camera);
-            HandleMouse(player,game, decorationlist, device);
+            HandleMouse(player, game, decorationlist, device);
             HandleKeyboard(player, game, device);
 
             oldMouseState = currentMouseState;
@@ -340,7 +350,7 @@ namespace Laikos
 
             return pointerPosition;
         }
-    
+
         private static void SelectSingle(Player player, GraphicsDevice device)
         {
             bool object_clicked;
@@ -356,7 +366,7 @@ namespace Laikos
                 if (object_clicked)
                 {
                     EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
-                        break;
+                    break;
                 }
             }
 
@@ -366,11 +376,11 @@ namespace Laikos
                 if (object_clicked)
                 {
                     EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.BuildingList[i], null));
-                        break;          
+                    break;
                 }
-             }
+            }
         }
-        
+
         private static void SelectInWindow(Player player, Vector2 startDrag, Vector2 stopDrag, GraphicsDevice device)
         {
             DeselectAll(player);
@@ -379,15 +389,15 @@ namespace Laikos
 
             for (int i = 0; i < player.UnitList.Count; i++)
             {
-                    Vector3 pos = device.Viewport.Project(player.UnitList[i].Position, Camera.projectionMatrix,
-                                                                           Camera.viewMatrix,
-                                                                           Matrix.CreateTranslation(Vector3.Zero));
-                    if (pos.X >= startDrag.X && pos.X <= stopDrag.X && pos.Y >= startDrag.Y &&
-                        pos.Y <= stopDrag.Y)
-                    {
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
-                    }
-                
+                Vector3 pos = device.Viewport.Project(player.UnitList[i].Position, Camera.projectionMatrix,
+                                                                       Camera.viewMatrix,
+                                                                       Matrix.CreateTranslation(Vector3.Zero));
+                if (pos.X >= startDrag.X && pos.X <= stopDrag.X && pos.Y >= startDrag.Y &&
+                    pos.Y <= stopDrag.Y)
+                {
+                    EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
+                }
+
             }
         }
 
@@ -409,12 +419,28 @@ namespace Laikos
                 if (selected)
                     return unit;
             }
+
             foreach (Building building in game.player.BuildingList)
             {
                 selected = Collisions.RayModelCollision(clippedRay, building.currentModel.Model, building.GetWorldMatrix());
                 if (selected)
                     return building;
             }
+
+            foreach (Unit unit in game.enemy.UnitList)
+            {
+                selected = Collisions.RayModelCollision(clippedRay, unit.currentModel.Model, unit.GetWorldMatrix());
+                if (selected)
+                    return unit;
+            }
+
+            foreach (Building building in game.enemy.BuildingList)
+            {
+                selected = Collisions.RayModelCollision(clippedRay, building.currentModel.Model, building.GetWorldMatrix());
+                if (selected)
+                    return building;
+            }
+
             foreach (Decoration decoration in game.decorations.DecorationList)
             {
                 selected = Collisions.RayModelCollision(clippedRay, decoration.currentModel.Model, decoration.GetWorldMatrix());
@@ -424,6 +450,16 @@ namespace Laikos
             return 0;
 
         }
+
+        private static bool IsEnemy(Unit _unit, Game1 _game)
+        {
+            return _unit.player == _game.enemy;
+        }
+
+        private static bool IsEnemy(Building _building, Game1 _game)
+        {
+            return _building.player == _game.enemy;
+        }
     }
 
     public class WhereToBuild
@@ -431,10 +467,10 @@ namespace Laikos
         public Building building;
         public Vector3 position = Vector3.Zero;
 
-            public WhereToBuild(Building building)
-            {
-                this.building = building;
-            }
+        public WhereToBuild(Building building)
+        {
+            this.building = building;
+        }
     }
 
 
