@@ -15,7 +15,8 @@ namespace Laikos
             MoveUnit,
             MoveToBuild,
             Build,
-            Gathering,
+            Gather,
+            Store,
             GuiCLICK,
             GuiUP,
             GuiDOWN

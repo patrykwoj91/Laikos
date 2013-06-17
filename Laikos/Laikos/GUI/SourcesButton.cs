@@ -40,7 +40,7 @@ namespace Laikos
             spriteBatch.Draw(sourcesButton, position, Color.White);
             position = new Rectangle(GUI.screenWidth - 2 * width + 5, height / 4, iconWidth, iconHeight);
             spriteBatch.Draw(sourcesIcon, position, Color.White);
-            spriteBatch.DrawString(font, Player.Souls.ToString(), new Vector2(GUI.screenWidth - 2 * width + iconWidth + 10, height / 4), Color.White);
+            spriteBatch.DrawString(font, 1000.ToString(), new Vector2(GUI.screenWidth - 2 * width + iconWidth + 10, height / 4), Color.White);
         }
     }
 }
