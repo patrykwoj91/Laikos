@@ -15,13 +15,14 @@ namespace Laikos
             MoveUnit,
             MoveToBuild,
             Build,
+            MoveToAttack,
+            Attack,
+            Gathering,
             Gather,
             Store,
             GuiCLICK,
             GuiUP,
             GuiDOWN
-            
-            
         };
 
         static List<Message> lastFrame_messages = new List<Message>();
