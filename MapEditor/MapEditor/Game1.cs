@@ -359,6 +359,18 @@ namespace Laikos
                 }
                 else if (keyboardState.IsKeyDown(Keys.F3))
                 {
+
+                    Console.Out.WriteLine("Odczytywanie mapy...");
+
+                    System.Drawing.Bitmap b = new System.Drawing.Bitmap(@"Mapa\HighMap.jpg");
+                    using (MemoryStream s = new MemoryStream())
+                    {
+                        b.Save(s, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        s.Seek(0, SeekOrigin.Begin);
+                        terrain.TerrainMap = Texture2D.FromStream(device, s);
+                        terrain.ReloadTerrainMap();
+                    }
+
                     ObjectsSchema tmp = new ObjectsSchema();
                     System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
                     System.IO.StreamReader file = new System.IO.StreamReader(@"Mapa\Objects.xml");
