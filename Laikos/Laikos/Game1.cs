@@ -46,8 +46,8 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1600;
+            graphics.PreferredBackBufferHeight = 900;
             graphics.IsFullScreen = false;
         }
 
@@ -90,7 +90,11 @@ namespace Laikos
             player = new Player(this, UnitTypes, BuildingTypes);
             enemy = new Player(this, UnitTypes, BuildingTypes);
 
-            LoadMap(@"Mapa\Objects.xml");
+           
+            //LoadMap(@"Mapa\Objects.xml");
+
+            player.Initialize();
+            //enemy.Initialize();
 
             Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"), decorations);
 
@@ -98,10 +102,10 @@ namespace Laikos
 
             Minimap.LoadMiniMap(Content);
 
-            player.Initialize();
-            enemy.Initialize();
+            Console.WriteLine(player.UnitList.Count);
+            Console.WriteLine(enemy.UnitList.Count);
 
-            SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList);
+            SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList, enemy.UnitList, enemy.BuildingList);
             GUI.Initialize(device, spriteBatch, Content);
         }
 

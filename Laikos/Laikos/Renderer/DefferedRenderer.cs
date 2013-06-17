@@ -174,9 +174,9 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            Debug();
             GUI.Draw();
             GUI.Update(gameTime);
+            Debug();
         }
 
         private void Debug()
@@ -184,7 +184,6 @@ namespace Laikos
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
             
-            if (debug)
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
 
             spriteBatch.End();

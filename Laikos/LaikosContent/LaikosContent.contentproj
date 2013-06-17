@@ -721,8 +721,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderHigh_Anims.xml">
-      <Name>alien_RiderHigh_Anims</Name>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_Rider_Anims.xml">
+      <Name>alien_Rider_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>

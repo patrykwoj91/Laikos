@@ -105,7 +105,7 @@ namespace Laikos
             }
 
             currentModel.Update(gameTime);
-            Collisions.AddGravity(ref Position);
+          //  Collisions.AddGravity(ref Position);
             Collisions.CheckWithTerrain(ref Position, 0.5f);
         }
 
