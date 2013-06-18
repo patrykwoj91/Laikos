@@ -72,6 +72,7 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
 
+
             if (walk)
             {
                 this.currentModel.player.PlayClip("Walk", true);
@@ -94,8 +95,7 @@ namespace Laikos
             {
                 dead = true;
             }
-
-
+    
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
@@ -341,8 +341,6 @@ namespace Laikos
                                 //////////MOVE
                                 if (destinyPoints == null)
                                 {
-
-
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Building)messages[i].Sender).Position.X, (int)((Building)messages[i].Sender).Position.Z);
                                     poczatek_ruchu.X = this.Position.X;
@@ -371,11 +369,12 @@ namespace Laikos
                                         //JESTES U CELU
                                         if (!destinyPointer.MoveNext())
                                         {
+
                                             destinyPoints = null;
                                             destinyPointer = null;
                                             direction.X = 0.0f;
                                             direction.Z = 0.0f;
-                                            idle = true;
+                                            //idle = true;
 
                                             //OBSŁUGA ZBIERANIA
                                             timeSpan -= gameTime.ElapsedGameTime;
@@ -440,7 +439,7 @@ namespace Laikos
                                 {
                                     messages[i].Done = true;
                                 }
-                            }
+                    }
                             messages[i].timer = gameTime.TotalGameTime;
                             break;
                         #endregion

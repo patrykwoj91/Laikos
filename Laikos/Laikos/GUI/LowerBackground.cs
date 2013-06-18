@@ -41,7 +41,7 @@ namespace Laikos
         public static void MoveUp()
         {
 
-            upTime += 0.01f;
+            upTime += 0.03f;
             if (upTime >= 1.0f)
             {
                 UnitBackground.isUp = true;
@@ -54,7 +54,7 @@ namespace Laikos
 
         public static void MoveDown()
         {
-            downTime += 0.01f;
+            downTime += 0.03f;
             if (downTime >= 1.0f)
             {
                 UnitBackground.isUp = false;

@@ -154,8 +154,6 @@ Content\Models\Units\Aliens\Alien\alienHigh_Anims.xnb
 Content\Models\Units\Aliens\Alien\alienMid_Anims.xnb
 Content\Models\Units\Aliens\Alien_Rider\alien_RiderMid_Anims.xnb
 Content\Models\Units\Aliens\Alien_Rider\alien_RiderLow_Anims.xnb
-Content\Models\Units\Aliens\Alien_Rider\alien_RiderHigh_Anims.xnb
-Content\Models\Units\Aliens\Alien_Worker\alien_workerHigh_Anims.xnb
 Content\Models\Units\Aliens\Alien_Worker\alien_workerLow_Anims.xnb
 Content\Models\Units\Aliens\Alien_Worker\alien_workerMid_Anims.xnb
 Content\Models\Units\Niebianie\Droid_worker\DroidHigh_Anims.xnb
@@ -254,3 +252,5 @@ Content\FBX\199C2907\generator.fbm\metal_0.xnb
 Content\FBX\199C2907\generator.fbm\czarne_0.xnb
 Content\FBX\199C2907\generator.fbm\rdza_0.xnb
 Content\Sounds\Shot.xnb
+Content\Models\Units\Aliens\Alien_Rider\alien_Rider_Anims.xnb
+Content\Models\Units\Aliens\Alien_Worker\alien_worker_Anims.xnb

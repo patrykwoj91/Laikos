@@ -398,11 +398,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\prison.FBX">
-      <Name>prison</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
     <Compile Include="Models\Decorations\Drzewa\drzewo1.FBX">
       <Name>drzewo1</Name>
       <Importer>FbxImporter</Importer>
@@ -721,15 +716,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderHigh_Anims.xml">
-      <Name>alien_RiderHigh_Anims</Name>
+    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_Rider_Anims.xml">
+      <Name>alien_Rider_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerHigh_Anims.xml">
-      <Name>alien_workerHigh_Anims</Name>
+    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_worker_Anims.xml">
+      <Name>alien_worker_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
@@ -1051,6 +1046,13 @@
       <Name>Shot</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Buildings\Prison\prison.FBX">
+      <Name>prison</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

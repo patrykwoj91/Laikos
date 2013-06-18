@@ -20,15 +20,17 @@ namespace Laikos
         private static Rectangle position;
         public static int width;
         public static int height;
-        private static int iconWidth;
-        private static int iconHeight;
+        public static int iconWidth;
+        public static int iconHeight;
+        private static Player player;
 
-        public static void Initialize(ContentManager content)
+        public static void Initialize(ContentManager content, Player Player)
         {
             width = 100;
             height = 50;
             iconHeight = 32;
             iconWidth = 32;
+            player = Player;
             sourcesButton = content.Load<Texture2D>("GUI/button");
             sourcesIcon = content.Load<Texture2D>("GUI/soul");
             font = content.Load<SpriteFont>("Georgia");
@@ -37,10 +39,16 @@ namespace Laikos
         public static void Create(SpriteBatch spriteBatch)
         {
             position = new Rectangle(GUI.screenWidth - 2 * width, 0, width, height);
-            spriteBatch.Draw(sourcesButton, position, Color.White);
-            position = new Rectangle(GUI.screenWidth - 2 * width + 5, height / 4, iconWidth, iconHeight);
-            spriteBatch.Draw(sourcesIcon, position, Color.White);
-            spriteBatch.DrawString(font, 1000.ToString(), new Vector2(GUI.screenWidth - 2 * width + iconWidth + 10, height / 4), Color.White);
+            Rectangle iconPosition = new Rectangle(GUI.screenWidth - 2 * width + 5, height / 4, iconWidth, iconHeight);
+            Vector2 stringPosition = new Vector2(GUI.screenWidth - 2 * width + iconWidth + 10, height / 4);
+            DrawButton(spriteBatch, position, player.Souls, iconPosition, stringPosition);
+        }
+
+        public static void DrawButton(SpriteBatch spriteBatch, Rectangle buttonPosition, int souls, Rectangle iconPosition, Vector2 stringPosition)
+        {
+            spriteBatch.Draw(sourcesButton, buttonPosition, Color.White);
+            spriteBatch.Draw(sourcesIcon, iconPosition, Color.White);
+            spriteBatch.DrawString(font, souls.ToString(), stringPosition, Color.White);
         }
     }
 }
