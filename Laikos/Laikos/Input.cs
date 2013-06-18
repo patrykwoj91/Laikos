@@ -208,12 +208,10 @@ namespace Laikos
                                 EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, clicked, _unit, pointerPosition));
                             }
 
-                            
-
-                            stopwatch.Stop();
                             Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
                         }
                     }
+
                     EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
                 }
                 else if (clicked is Decoration)
