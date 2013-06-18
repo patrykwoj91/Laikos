@@ -10,6 +10,7 @@
       <damage>1</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Scale>0.05</Scale>
       <model>Models/Units/Niebianie/Droid_worker/Droid</model>
     </Item>
     
@@ -21,6 +22,7 @@
       <damage>2</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Scale>0.05</Scale>
       <model>Models/Units/Niebianie/Eye/oko</model>
     </Item>
 
@@ -32,6 +34,7 @@
       <damage>5</damage>
       <range>15</range>
       <ratio>1500</ratio>
+      <Scale>0.2</Scale>
       <model>Models/Units/Niebianie/Tank/czolg</model>
     </Item>
 
@@ -43,6 +46,7 @@
       <damage>1</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Scale>0.5</Scale>
       <model>Models/Units/Aliens/Alien_Worker/alien_worker</model>
     </Item>
     
@@ -54,6 +58,7 @@
       <damage>2</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Scale>0.5</Scale>
       <model>Models/Units/Aliens/Alien/alien</model>
     </Item>
 
@@ -65,6 +70,7 @@
       <damage>1</damage>
       <range>15</range>
       <ratio>1500</ratio>
+      <Scale>0.5</Scale>
       <model>Models/Units/Aliens/Alien_Rider/alien_rider</model>
     </Item>
     

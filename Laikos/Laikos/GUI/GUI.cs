@@ -158,6 +158,7 @@ namespace Laikos
                                 UnitBackground.animated = false;
                                 LowerOptionPanel.isUnit = false;
                                 Building building = (Building)messages[i].Sender;
+                                Console.WriteLine(building.type.Name);
                                 switch (building.type.Name)
                                 {
                                     case "Cementary":
@@ -166,6 +167,10 @@ namespace Laikos
                                         break;
                                     case "Pałac rady2":
                                         UnitBackground.whichUnit = 1;
+                                        break;
+                                    case "BJ Niebian2":
+                                        
+                                        UnitBackground.whichUnit = 2;
                                         break;
                                 }
                             }

@@ -48,8 +48,8 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = false;
         }
 
@@ -107,7 +107,7 @@ namespace Laikos
             Minimap.LoadMiniMap(Content);
 
             //Console.WriteLine(player.UnitList.Count);
-            //Console.WriteLine(enemy.UnitList.Count);
+            Console.WriteLine(enemy.UnitList.Count);
 
             SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList, enemy.UnitList, enemy.BuildingList);
             GUI.Initialize(device, spriteBatch, Content, player);
@@ -223,7 +223,7 @@ namespace Laikos
             #region Player_1
             foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
             {
-                player.UnitList.Add(new Unit(player.game, player, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+                player.UnitList.Add(new Unit(player.game, player, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), UnitTypes[unit.name].Scale));
             }
 
             foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
@@ -235,7 +235,7 @@ namespace Laikos
             #region Player_2
             foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
             {
-                enemy.UnitList.Add(new Unit(player.game, enemy, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+                enemy.UnitList.Add(new Unit(player.game, enemy, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), UnitTypes[unit.name].Scale));
             }
 
             foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
