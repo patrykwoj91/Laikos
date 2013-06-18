@@ -34,9 +34,9 @@ namespace Laikos
         //////////////////////////////////
         // Fight Variables
         //////////////////////////////////
-        public int damage = 5;
-        public int range = 20;
-        public int ratio = 1000;
+        public int damage;
+        public int range;
+        public int ratio;
 
         Unit destinyUnit;
         Building destinyBuilding;
@@ -58,11 +58,18 @@ namespace Laikos
             this.Rotation = rotation;
             this.Scale = scale;
             this.type = (UnitType)type.Clone();
-            if (this.type.name.Contains("Worker"))
-                budowniczy = true;
 
-            maxHP = this.type.maxhp;
-            HP = maxHP;
+            if (this.type.name.Contains("Worker"))
+            {
+                this.budowniczy = true;
+            }
+
+            this.maxHP = this.type.maxhp;
+            this.HP = this.maxHP;
+
+            this.damage = this.type.damage;
+            this.range = this.type.range;
+            this.ratio = this.type.ratio;
 
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
@@ -95,7 +102,7 @@ namespace Laikos
             {
                 dead = true;
             }
-    
+
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
@@ -170,6 +177,8 @@ namespace Laikos
                                 )
                                 {
                                     direction.Normalize();
+
+                                    Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
 
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
@@ -265,6 +274,8 @@ namespace Laikos
                                     )
                                     {
                                         direction.Normalize();
+
+                                        Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
 
                                         Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                         Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
@@ -439,7 +450,7 @@ namespace Laikos
                                 {
                                     messages[i].Done = true;
                                 }
-                    }
+                            }
                             messages[i].timer = gameTime.TotalGameTime;
                             break;
                         #endregion
@@ -572,6 +583,8 @@ namespace Laikos
                                 {
                                     direction.Normalize();
 
+                                    Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
+
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                 }
@@ -658,6 +671,17 @@ namespace Laikos
             direction.Z = 0.0f;
 
             _msg.Done = true;
+        }
+
+        private float ComputeRadian(Vector2 _beg, Vector2 _end)
+        {
+            Vector2 vecTmp = Vector2.Multiply(_beg, _end);
+
+            vecTmp.Normalize();
+
+            float dotProd = Vector2.Dot(vecTmp, new Vector2(0, 1));
+
+            return (float)(Math.Acos(dotProd) * (180.0f / Math.PI));
         }
     }
 }

@@ -7,6 +7,9 @@
       <name>Droid Worker</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
+      <damage>1</damage>
+      <range>5</range>
+      <ratio>1000</ratio>
       <model>Models/Units/Niebianie/Droid_worker/Droid</model>
     </Item>
     
@@ -15,6 +18,9 @@
       <name>Reconnaissance Eye</name>
       <maxhp>50.0</maxhp>
       <mp>50.0</mp>
+      <damage>2</damage>
+      <range>5</range>
+      <ratio>1000</ratio>
       <model>Models/Units/Niebianie/Eye/oko</model>
     </Item>
 
@@ -23,6 +29,9 @@
       <name>Antigravity Tank</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
+      <damage>5</damage>
+      <range>15</range>
+      <ratio>1500</ratio>
       <model>Models/Units/Niebianie/Tank/czolg</model>
     </Item>
 
@@ -31,6 +40,9 @@
       <name>Alien Worker</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
+      <damage>1</damage>
+      <range>5</range>
+      <ratio>1000</ratio>
       <model>Models/Units/Aliens/Alien_Worker/alien_worker</model>
     </Item>
     
@@ -39,6 +51,9 @@
       <name>Alien Melee</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
+      <damage>2</damage>
+      <range>5</range>
+      <ratio>1000</ratio>
       <model>Models/Units/Aliens/Alien/alien</model>
     </Item>
 
@@ -47,6 +62,9 @@
       <name>Alien Rider</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
+      <damage>1</damage>
+      <range>15</range>
+      <ratio>1500</ratio>
       <model>Models/Units/Aliens/Alien_Rider/alien_rider</model>
     </Item>
     

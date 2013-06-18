@@ -17,8 +17,11 @@ namespace MyDataTypes
         public String name;
         public Double maxhp;
         public Double mp;
+        public Int32 damage;
+        public Int32 range;
+        public Int32 ratio;
         public String model;
-
+        
         public object Clone()
         {
             return this.MemberwiseClone();
