@@ -88,23 +88,35 @@ namespace Laikos
 
             if (Input.oldMouseState.LeftButton == ButtonState.Pressed && Input.currentMouseState.LeftButton == ButtonState.Released)
             {
-                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+               if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                 {
-                	CreateMessage(new Message((int)EventManager.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
-                if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
-                    Console.WriteLine("obserwatorium");
-                if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
-                    Console.WriteLine("Palac p1");
-                if (insideRectangle(LowerOptionPanel.fourthTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
-                    Console.WriteLine("Wieza straznicza");
+                else if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+                {
+                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 2, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                }
+               else if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+                {
+                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 3, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                }
+               else if (insideRectangle(LowerOptionPanel.fourthTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
+                {
+                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 4, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                }
 
-                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
-                    Console.WriteLine("czolg");
-                if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
-                    Console.WriteLine("dron");
-                if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
-                    Console.WriteLine("oko");
+               else if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
+                {
+                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 1, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                }
+               else if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
+                {
+                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 2, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                }
+               else if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
+                {
+                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 3, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                }
             }
         }
 
@@ -184,9 +196,10 @@ namespace Laikos
                             }
                             break;
 
-                        case (int)EventManager.Events.GuiCLICK:
+                        case (int)GUI.Events.GuiCLICK:
                             if ((int)messages[i].Destination == 0)//to dron worker
-                                if((int)messages[i].Sender == 1) //to 1 przycisk na workerze
+                            {
+                                if ((int)messages[i].Sender == 1) //to 1 przycisk na workerze
                                 {
                                     Console.WriteLine("GUI CLICKED");
                                     if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Souls)
@@ -199,6 +212,46 @@ namespace Laikos
                                     Input.building_mode = true;
                                     messages[i].Done = true;
                                 }
+                                if ((int)messages[i].Sender == 2) //to 1 przycisk na workerze
+                                {
+                                    Console.WriteLine("GUI CLICKED");
+                                    if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["BJ Niebian2"].Souls)
+                                    {
+                                        messages[i].Done = true;
+                                        break;
+                                    }
+                                    //dodac renderowanie za myszka
+                                    Input.next_build = new WhereToBuild(new Building((Game)messages[i].Payload, ((Game1)messages[i].Payload).player, ((Game1)messages[i].Payload).player.BuildingTypes["BJ Niebian2"], new Vector3(720, 0, 650), ((Game1)messages[i].Payload).player.BuildingTypes["BJ Niebian2"].Scale, false));
+                                    Input.building_mode = true;
+                                    messages[i].Done = true;
+                                }
+                                if ((int)messages[i].Sender == 3) //to 1 przycisk na workerze
+                                {
+                                    Console.WriteLine("GUI CLICKED");
+                                    if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Pałac rady1"].Souls)
+                                    {
+                                        messages[i].Done = true;
+                                        break;
+                                    }
+                                    //dodac renderowanie za myszka
+                                    Input.next_build = new WhereToBuild(new Building((Game)messages[i].Payload, ((Game1)messages[i].Payload).player, ((Game1)messages[i].Payload).player.BuildingTypes["Pałac rady1"], new Vector3(720, 0, 650), ((Game1)messages[i].Payload).player.BuildingTypes["Pałac rady1"].Scale, false));
+                                    Input.building_mode = true;
+                                    messages[i].Done = true;
+                                }
+                                if ((int)messages[i].Sender == 4) //to 1 przycisk na workerze
+                                {
+                                    Console.WriteLine("GUI CLICKED");
+                                    if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Strażnica"].Souls)
+                                    {
+                                        messages[i].Done = true;
+                                        break;
+                                    }
+                                    //dodac renderowanie za myszka
+                                    Input.next_build = new WhereToBuild(new Building((Game)messages[i].Payload, ((Game1)messages[i].Payload).player, ((Game1)messages[i].Payload).player.BuildingTypes["Strażnica"], new Vector3(720, 0, 650), ((Game1)messages[i].Payload).player.BuildingTypes["Strażnica"].Scale, false));
+                                    Input.building_mode = true;
+                                    messages[i].Done = true;
+                                }
+                            }
                             break;
                     }
             }

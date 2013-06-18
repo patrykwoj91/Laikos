@@ -48,8 +48,8 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = false;
         }
 
@@ -153,21 +153,21 @@ namespace Laikos
 
             // TODO: Add your update logic here
 
-            bool collision = false;
-            for (int i = 0; i < player.UnitList.Count; i++)
-            {
-                for (int j = i + 1; j < player.UnitList.Count; j++)
-                {
-                    collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
+             bool collision = false;
+             for (int i = 0; i < player.UnitList.Count; i++)
+             {
+                 for (int j = i + 1; j < player.UnitList.Count; j++)
+                 {
+                     collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
 
-                    if (collision)
-                    {
-                        player.UnitList[i].Position = player.UnitList[i].lastPosition;
-                        player.UnitList[j].Position = player.UnitList[j].lastPosition;
-                    }
-                }
-            }
-            foreach (Unit unit in player.UnitList)
+                     if (collision)
+                     {
+                         player.UnitList[i].Position = player.UnitList[i].lastPosition;
+                         player.UnitList[j].Position = player.UnitList[j].lastPosition;
+                     }
+                 }
+             }
+           /* foreach (Unit unit in player.UnitList)
             {
                 foreach (Building building in player.BuildingList)
                 {
@@ -175,7 +175,7 @@ namespace Laikos
                     if (collision)
                         unit.Position = unit.lastPosition;
                 }
-            }
+            }*/
             base.Update(gameTime);
         }
 
