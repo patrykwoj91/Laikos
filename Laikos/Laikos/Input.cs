@@ -72,7 +72,6 @@ namespace Laikos
                     if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
                         unit.HP = 0;
-                        Console.WriteLine(unit.HP);
                     }
 
                 }
@@ -188,6 +187,7 @@ namespace Laikos
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 Vector3 pointerPosition = Collisions.BinarySearch(shorterRay);
+                
                 Object clicked = WhatClicked((Game1)game, clippedRay);
 
                 if (clicked is Unit || clicked is Building)
@@ -196,21 +196,23 @@ namespace Laikos
 
                     foreach (Unit _unit in player.UnitList)
                     {
-                        if
-                        (
-                            ((clicked is Unit) && (IsEnemy((Unit)clicked, (Game1)game)))
-                            ||
-                            ((clicked is Building) && (IsEnemy((Building)clicked, (Game1)game)))
-                        )
+                        if (_unit.selected)
                         {
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, clicked, _unit, pointerPosition));
+                            if
+                            (
+                                ((clicked is Unit) && (IsEnemy((Unit)clicked, (Game1)game)))
+                                ||
+                                ((clicked is Building) && (IsEnemy((Building)clicked, (Game1)game)))
+                            )
+                            {
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, _unit, clicked));
+                            }
+
+                            Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
                         }
-
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
-
-                        stopwatch.Stop();
-                        Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
                     }
+
+                    EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
                 }
                 else if (clicked is Decoration)
                 {
@@ -222,6 +224,24 @@ namespace Laikos
                     {
                         if (obj.selected)
                         {
+                            Unit _uni = (Unit)obj;
+
+                            foreach (Message _msg in _uni.messages)
+                            {
+                                if
+                                (
+                                    (
+                                        (_msg.Type == (int)EventManager.Events.Attack)
+                                        ||
+                                        (_msg.Type == (int)EventManager.Events.MoveToAttack)
+                                    )
+                                    &&
+                                    (!_msg.Done))
+                                {
+                                    _msg.Done = true;
+                                }
+                            }
+
                             obj.destinyPoints = null;
                             EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
                             ((Unit)obj).walk = true;

@@ -82,6 +82,9 @@ namespace Laikos
                     case 2:
                         unitBackground = defaultBackground;
                         break;
+                    default:
+                        unitBackground = defaultBackground;
+                        break;
                 }
                 spriteBatch.Draw(unitBackground, position, Color.White);
             }

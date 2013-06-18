@@ -80,9 +80,13 @@ namespace Laikos
             if (UnitBackground.whichUnit == 1 && !isUnit)
             {
                 spriteBatch.Draw(optionPanel, position, Color.White);
+                spriteBatch.Draw(dronWorker, firstTabPosition, Color.White);
+            }
+            if (UnitBackground.whichUnit == 2 && !isUnit)
+            {
+                spriteBatch.Draw(optionPanel, position, Color.White);
                 spriteBatch.Draw(tank, firstTabPosition, Color.White);
-                spriteBatch.Draw(dronWorker, secondTabPosition, Color.White);
-                spriteBatch.Draw(eye, thirdTabPosition, Color.White);
+                spriteBatch.Draw(eye, secondTabPosition, Color.White);
             }
             if (UnitBackground.whichUnit == 0 && !isUnit)
             {

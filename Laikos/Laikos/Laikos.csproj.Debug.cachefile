@@ -114,7 +114,6 @@ Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p2.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p3.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p4.xnb
 Content\Models\Buildings\Aliens\Wieża\wieza.xnb
-Content\Models\Buildings\Prison\prison.xnb
 Content\Models\Decorations\Drzewa\drzewo1.xnb
 Content\Models\Decorations\Drzewa\drzewo2.xnb
 Content\Models\Decorations\Drzewa\drzewo3.xnb
@@ -135,6 +134,7 @@ Content\Models\Buildings\Niebianie\BJ\bj-p2.xnb
 Content\Models\Buildings\Niebianie\BJ\bj-p3.xnb
 Content\Models\Buildings\Niebianie\BJ\bj-p4.xnb
 Content\Models\Buildings\Generator\generator.xnb
+Content\Models\Buildings\Prison\prison.xnb
 Content\ObjectTypes\UnitTypes.xnb
 Content\ObjectTypes\DecorationTypes.xnb
 Content\Models\Units\Niebianie\Eye\okoLow_Anims.xnb
@@ -154,8 +154,8 @@ Content\Models\Units\Aliens\Alien\alienHigh_Anims.xnb
 Content\Models\Units\Aliens\Alien\alienMid_Anims.xnb
 Content\Models\Units\Aliens\Alien_Rider\alien_RiderMid_Anims.xnb
 Content\Models\Units\Aliens\Alien_Rider\alien_RiderLow_Anims.xnb
-Content\Models\Units\Aliens\Alien_Rider\alien_RiderHigh_Anims.xnb
-Content\Models\Units\Aliens\Alien_Worker\alien_workerHigh_Anims.xnb
+Content\Models\Units\Aliens\Alien_Rider\alien_Rider_Anims.xnb
+Content\Models\Units\Aliens\Alien_Worker\alien_worker_Anims.xnb
 Content\Models\Units\Aliens\Alien_Worker\alien_workerLow_Anims.xnb
 Content\Models\Units\Aliens\Alien_Worker\alien_workerMid_Anims.xnb
 Content\Models\Units\Niebianie\Droid_worker\DroidHigh_Anims.xnb
@@ -165,6 +165,7 @@ Content\Georgia.xnb
 Content\GUI\units\Drone_Worker.xnb
 Content\GUI\units\czolg.xnb
 Content\GUI\units\Oko.xnb
+Content\Sounds\Shot.xnb
 Content\Models\Terrain\cloudMap_0.xnb
 Content\Particles\checker_0.xnb
 Content\Models\SkyDome\cloudMap_0.xnb
@@ -253,3 +254,10 @@ Content\FBX\FFBB317F\generator.fbm\mat3_0.xnb
 Content\FBX\FFBB317F\generator.fbm\metal_0.xnb
 Content\FBX\FFBB317F\generator.fbm\czarne_0.xnb
 Content\FBX\FFBB317F\generator.fbm\rdza_0.xnb
+Content\FBX\321A290F\prison.fbm\brazowy_0.xnb
+Content\FBX\321A290F\prison.fbm\czarne_0.xnb
+Content\FBX\321A290F\prison.fbm\texturaInne_0.xnb
+Content\FBX\321A290F\prison.fbm\antenna_01_01_01_01_0.xnb
+Content\FBX\321A290F\prison.fbm\rdza_0.xnb
+Content\FBX\321A290F\prison.fbm\czerwien_0.xnb
+Content\FBX\321A290F\prison.fbm\metal2_0.xnb

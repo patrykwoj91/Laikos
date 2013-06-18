@@ -129,11 +129,6 @@ namespace Laikos
                     Unit unit = (Unit)obj;
                     unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
-                if (obj is Decoration)
-                {
-                    Decoration decoration = (Decoration)obj;
-                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                }
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
@@ -152,7 +147,7 @@ namespace Laikos
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
-            
+
             List<Model> models = new List<Model>();
             foreach (GameObject obj in objects)
                 models.Add(obj.currentModel.Model);
@@ -167,12 +162,17 @@ namespace Laikos
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
             lights.CreateShadowMap(objects, terrain);
-            SmokePlumeParticles.Draw(gameTime, device);
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
             foreach (GameObject obj in objects)
             {
+                if (obj is Decoration)
+                {
+                    Decoration decoration = (Decoration)obj;
+                    //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                }
                 if (obj is Building)
                 {
                     Building building = (Building)obj;
@@ -189,7 +189,7 @@ namespace Laikos
         {
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
-            
+
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
 
             spriteBatch.End();
@@ -240,9 +240,9 @@ namespace Laikos
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 20, obj.Position.Z);
                     //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 512));
+                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, false, 64));
                 }
             }
         }
-    }     
+    }
 }
