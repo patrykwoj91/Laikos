@@ -246,7 +246,7 @@ namespace Laikos
 
             foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
             {
-                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), 0.05f));
+                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y)));
             }
         }
 

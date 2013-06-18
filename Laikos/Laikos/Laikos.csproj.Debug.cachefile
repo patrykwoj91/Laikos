@@ -114,10 +114,6 @@ Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p2.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p3.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p4.xnb
 Content\Models\Buildings\Aliens\Wieża\wieza.xnb
-Content\Models\Decorations\Drzewa\drzewo1.xnb
-Content\Models\Decorations\Drzewa\drzewo2.xnb
-Content\Models\Decorations\Drzewa\drzewo3.xnb
-Content\Models\Decorations\Drzewa\drzewo4.xnb
 Content\Models\Decorations\Ruiny\ruiny1.xnb
 Content\Models\Decorations\Ruiny\ruiny2.xnb
 Content\Models\Decorations\Ruiny\ruiny3.xnb
@@ -254,3 +250,7 @@ Content\FBX\321A290F\prison.fbm\antenna_01_01_01_01_0.xnb
 Content\FBX\321A290F\prison.fbm\rdza_0.xnb
 Content\FBX\321A290F\prison.fbm\czerwien_0.xnb
 Content\FBX\321A290F\prison.fbm\metal2_0.xnb
+Content\Models\Decorations\Drzewa\drzewo1.xnb
+Content\Models\Decorations\Drzewa\drzewo2.xnb
+Content\Models\Decorations\Drzewa\drzewo3.xnb
+Content\Models\Decorations\Drzewa\drzewo4.xnb

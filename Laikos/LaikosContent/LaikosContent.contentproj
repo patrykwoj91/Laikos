@@ -402,21 +402,25 @@
       <Name>drzewo1</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Drzewa\drzewo2.FBX">
       <Name>drzewo2</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Drzewa\drzewo3.FBX">
       <Name>drzewo3</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Drzewa\drzewo4.FBX">
       <Name>drzewo4</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
+      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Ruiny\ruiny1.FBX">
       <Name>ruiny1</Name>
