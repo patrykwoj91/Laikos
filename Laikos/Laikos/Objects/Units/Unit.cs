@@ -7,6 +7,7 @@ using System;
 using MyDataTypes;
 
 using Laikos.PathFiding;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Laikos
 {
@@ -35,10 +36,12 @@ namespace Laikos
         //////////////////////////////////
         public int damage = 5;
         public int range = 20;
-        public int ratio = 10;
+        public int ratio = 1000;
 
         Unit destinyUnit;
         Building destinyBuilding;
+
+        public bool dead = false;
 
         public Unit()
             : base()
@@ -85,6 +88,11 @@ namespace Laikos
             {
                 this.currentModel.player.PlayClip("Attack", true);
                 attack = false;
+            }
+
+            if (HP <= 0)
+            {
+                dead = true;
             }
 
 
@@ -154,10 +162,18 @@ namespace Laikos
                                     direction = vecTmp - Position;
                                 }
 
-                                direction.Normalize();
+                                if
+                                (
+                                    (!Double.IsNaN(direction.X)) &&
+                                    (!Double.IsNaN(direction.Y)) &&
+                                    (!Double.IsNaN(direction.Z))
+                                )
+                                {
+                                    direction.Normalize();
 
-                                Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                                Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                }
 
                                 if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                 {
@@ -165,13 +181,8 @@ namespace Laikos
                                     // Next step walk.
                                     if (!destinyPointer.MoveNext())
                                     {
-                                        destinyPoints = null;
-                                        destinyPointer = null;
+                                        EndMove(messages[i]);
 
-                                        direction.X = 0.0f;
-                                        direction.Z = 0.0f;
-
-                                        messages[i].Done = true;
                                         idle = true;
                                         Console.WriteLine("done");
                                     }
@@ -246,10 +257,18 @@ namespace Laikos
                                         direction = vecTmp - Position;
                                     }
 
-                                    direction.Normalize();
+                                    if
+                                    (
+                                        (!Double.IsNaN(direction.X)) &&
+                                        (!Double.IsNaN(direction.Y)) &&
+                                        (!Double.IsNaN(direction.Z))
+                                    )
+                                    {
+                                        direction.Normalize();
 
-                                    Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                                    Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                        Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                        Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    }
 
                                     if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                     {
@@ -531,7 +550,10 @@ namespace Laikos
                                 )
                                 {
                                     EndMove(messages[i]);
+
+                                    attack = true;
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Attack, this, messages[i].Sender, null));
+                                    break;
                                 }
 
                                 if ((destinyPointer == null) && (destinyPoints != null) && (destinyPoints.Count > 0))
@@ -542,10 +564,18 @@ namespace Laikos
                                     direction = vecTmp - Position;
                                 }
 
-                                direction.Normalize();
+                                if
+                                (
+                                    (!Double.IsNaN(direction.X)) &&
+                                    (!Double.IsNaN(direction.Y)) &&
+                                    (!Double.IsNaN(direction.Z))
+                                )
+                                {
+                                    direction.Normalize();
 
-                                Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                                Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                }
 
                                 if
                                 (
@@ -579,26 +609,41 @@ namespace Laikos
                         #region Attack
                         case (int)EventManager.Events.Attack:
 
-                            if (messages[i].Destination is Unit)
+                            if (EventManager.MessageToOld(gameTime, messages[i], ratio))
                             {
-                                ((Unit)messages[i].Destination).HP -= damage;
-
-                                if (((Unit)messages[i].Destination).HP <= 0)
+                                if (messages[i].Destination is Unit)
                                 {
-                                    messages[i].Done = true;
+                                    ((Unit)messages[i].Destination).HP -= damage;
+
+                                    if (((Unit)messages[i].Destination).HP <= 0)
+                                    {
+                                        messages[i].Done = true;
+                                        idle = true;
+                                        break;
+                                    }
                                 }
+                                else if (messages[i].Destination is Building)
+                                {
+                                    ((Building)messages[i].Destination).HP -= damage;
+
+                                    if (((Building)messages[i].Destination).HP <= 0)
+                                    {
+                                        messages[i].Done = true;
+                                        idle = true;
+                                        break;
+                                    }
+                                }
+
+                                messages[i].timer = gameTime.TotalGameTime;
+                                Game1.sounds[0].Play(1.0f, 0.0f, 0.0f);
+                                Console.WriteLine("Attack!");
                             }
-                            else if (messages[i].Destination is Building)
+
+                            if (messages[i].timer == TimeSpan.Zero)
                             {
-                                ((Building)messages[i].Destination).HP -= damage;
-
-                                if (((Building)messages[i].Destination).HP <= 0)
-                                {
-                                    messages[i].Done = true;
-                                }
+                                messages[i].timer = gameTime.TotalGameTime;
                             }
 
-                            Console.WriteLine("Attack!");
                             break;
                         #endregion Attack
                     }

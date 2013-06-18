@@ -89,10 +89,7 @@ namespace Laikos
 
         public static bool MessageToOld(GameTime gameTime, Message message, int milliseconds)
         {
-            if (message.timer == TimeSpan.Zero)
-            {
-            }
-            else
+            if (message.timer != TimeSpan.Zero)
             {
                 float difference = (float)gameTime.TotalGameTime.TotalMilliseconds - (float)message.timer.TotalMilliseconds;
                 if (difference > milliseconds)

@@ -40,6 +40,7 @@ namespace Laikos
 
         System.Drawing.Bitmap bitmapTmp;
 
+        public static SoundEffect[] sounds;
 
         public Game1()
         {
@@ -87,6 +88,9 @@ namespace Laikos
             UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
             BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
 
+            sounds = new SoundEffect[1];
+            sounds[0] = Content.Load<SoundEffect>("Sounds/Shot");
+
             player = new Player(this, UnitTypes, BuildingTypes);
             enemy = new Player(this, UnitTypes, BuildingTypes);
 
@@ -125,21 +129,25 @@ namespace Laikos
 
             time = gameTime.TotalGameTime;
 
+            Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
+
             player.Update(gameTime);
             enemy.Update(gameTime);
 
-            Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
-
             EventManager.Update();
 
-            UpdateExplosions(gameTime, objects);
-            UpdateExplosionSmoke(gameTime, objects);
+            List<GameObject> temp = new List<GameObject>();
+            temp.AddRange(player.UnitList);
+            temp.AddRange(player.BuildingList);
+            temp.AddRange(enemy.UnitList);
+            temp.AddRange(enemy.BuildingList);
 
-            base.Update(gameTime);
+            UpdateExplosions(gameTime, temp);
+            UpdateExplosionSmoke(gameTime, temp);
 
             // TODO: Add your update logic here
-
             bool collision = false;
+
             for (int i = 0; i < player.UnitList.Count; i++)
             {
                 for (int j = i + 1; j < player.UnitList.Count; j++)
@@ -163,6 +171,7 @@ namespace Laikos
                 }
             }
 
+            base.Update(gameTime);
         }
 
 
@@ -177,10 +186,6 @@ namespace Laikos
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
 
-            defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-
             objects.AddRange(player.UnitList);
             objects.AddRange(player.BuildingList);
 
@@ -188,7 +193,11 @@ namespace Laikos
             objects.AddRange(enemy.BuildingList);
 
             objects.AddRange(decorations.DecorationList);
-            
+
+            defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+
             defferedRenderer.Draw(objects, terrain, gameTime);
             SelectingGUI.Draw();
 
@@ -213,7 +222,7 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
             {
-                player.BuildingList.Add(new Building(player.game,player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                player.BuildingList.Add(new Building(player.game, player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
             }
             #endregion Player_1
 
@@ -225,7 +234,7 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
             {
-                enemy.BuildingList.Add(new Building(enemy.game,enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                enemy.BuildingList.Add(new Building(enemy.game, enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
             }
             #endregion Player_2
 
@@ -258,7 +267,23 @@ namespace Laikos
                     {
                         defferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
                         defferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                        ((Unit)objects[i]).HP = 10;
+
+                        ((Unit)objects[i]).dead = true;
+
+                        for (int j = player.UnitList.Count - 1; j >= 0; j--)
+                        {
+                            if (player.UnitList[j].dead == true)
+                            {
+                                player.UnitList.RemoveAt(j);
+                            }
+                        }
+                        for (int j = enemy.UnitList.Count - 1; j >= 0; j--)
+                        {
+                            if (enemy.UnitList[j].dead == true)
+                            {
+                                enemy.UnitList.RemoveAt(j);
+                            }
+                        }
                     }
                 }
                 else if (objects[i] is Building)
@@ -267,7 +292,23 @@ namespace Laikos
                     {
                         defferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
                         defferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                        ((Building)objects[i]).HP  = 10;
+
+                        ((Building)objects[i]).dead = true;
+
+                        for (int j = player.BuildingList.Count - 1; j >= 0; j--)
+                        {
+                            if (player.BuildingList[j].dead == true)
+                            {
+                                player.BuildingList.RemoveAt(j);
+                            }
+                        }
+                        for (int j = enemy.BuildingList.Count - 1; j >= 0; j--)
+                        {
+                            if (enemy.BuildingList[j].dead == true)
+                            {
+                                enemy.BuildingList.RemoveAt(j);
+                            }
+                        }
                     }
                 }
 

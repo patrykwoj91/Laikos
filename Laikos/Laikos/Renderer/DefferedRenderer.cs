@@ -170,11 +170,11 @@ namespace Laikos
             RenderSceneTo3Targets(objects, terrain, waterTime);
             ResolveGBuffer();
             lights.CreateShadowMap(objects, terrain);
-            SmokePlumeParticles.Draw(gameTime, device);
+            //SmokePlumeParticles.Draw(gameTime, device);
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            Debug();
+            //Debug();
             GUI.Draw();
             GUI.Update(gameTime);
         }
