@@ -38,6 +38,8 @@ namespace Laikos
         public int range;
         public int ratio;
 
+        private double lastHP;
+
         Unit destinyUnit;
         Building destinyBuilding;
 
@@ -66,6 +68,7 @@ namespace Laikos
 
             this.maxHP = this.type.maxhp;
             this.HP = this.maxHP;
+            this.lastHP = this.HP;
 
             this.damage = this.type.damage;
             this.range = this.type.range;
@@ -78,8 +81,6 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-
-
             if (walk)
             {
                 this.currentModel.player.PlayClip("Walk", true);
@@ -101,6 +102,39 @@ namespace Laikos
             if (HP <= 0)
             {
                 dead = true;
+                messages.Clear();
+            }
+            //Counterattack
+            else if (this.HP < this.lastHP)
+            {
+                this.lastHP = this.HP;
+
+                bool none = true;
+                foreach (Message _msg in messages)
+                {
+                    if 
+                    (
+                        (
+                            (_msg.Type == (int)EventManager.Events.Attack)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.MoveToAttack)
+                        )
+                        && 
+                        (!_msg.Done))
+                    {
+                        none = false;
+                        break;
+                    }
+                }
+
+                if (none)
+                {
+                    Unit _uni = FindEnemy();
+                    if (_uni != null)
+                    {
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, this, _uni));
+                    }
+                }
             }
 
             HandleEvent(gameTime);
@@ -120,7 +154,7 @@ namespace Laikos
             if (messages.Count > 0)
             {
                 int i = 0;
-                if (messages[i].Done == false)
+                if (!messages[i].Done)
                     switch (messages[i].Type)
                     {
                         #region HandleEvent.Selected/Unselected
@@ -530,39 +564,49 @@ namespace Laikos
                         #region Move To Attack
                         case (int)EventManager.Events.MoveToAttack:
 
+                            GameObject targetMoveAttack = (GameObject)messages[i].Payload;
+
                             if (destinyPoints == null)
                             {
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
-                                Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
+                                Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)(targetMoveAttack.Position.X), (int)(targetMoveAttack.Position.Z));
 
                                 this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                 this.destinyPointer = null;
                             }
 
-                            if (messages[i].Sender is Unit)
+                            if (messages[i].Payload is Unit)
                             {
-                                destinyUnit = (Unit)messages[i].Sender;
+                                destinyUnit = (Unit)messages[i].Payload;
                                 destinyBuilding = null;
                             }
-                            else if (messages[i].Sender is Building)
+                            else if (messages[i].Payload is Building)
                             {
                                 destinyUnit = null;
-                                destinyBuilding = (Building)messages[i].Sender;
+                                destinyBuilding = (Building)messages[i].Payload;
                             }
 
                             if ((destinyPoints != null) && (destinyPoints.Count > 0))
                             {
                                 if
                                 (
-                                    ((destinyUnit != null) || (destinyBuilding != null)) &&
-                                    (Math.Abs(Position.X - destinyUnit.Position.X) < range) &&
-                                    (Math.Abs(Position.Z - destinyUnit.Position.Z) < range)
+                                    (
+                                        (destinyUnit != null) 
+                                        &&
+                                        (Math.Abs(Position.X - destinyUnit.Position.X) < range)
+                                    )
+                                    || 
+                                    (
+                                        (destinyBuilding != null)
+                                        &&
+                                        (Math.Abs(Position.Z - destinyBuilding.Position.Z) < range)
+                                    )
                                 )
                                 {
                                     EndMove(messages[i]);
 
                                     attack = true;
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Attack, this, messages[i].Sender, null));
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Attack, null, this, messages[i].Payload));
                                     break;
                                 }
 
@@ -621,39 +665,81 @@ namespace Laikos
                         #region Attack
                         case (int)EventManager.Events.Attack:
 
-                            if (EventManager.MessageToOld(gameTime, messages[i], ratio))
+                            if (messages[i].Payload is Unit)
                             {
-                                if (messages[i].Destination is Unit)
-                                {
-                                    ((Unit)messages[i].Destination).HP -= damage;
-
-                                    if (((Unit)messages[i].Destination).HP <= 0)
-                                    {
-                                        messages[i].Done = true;
-                                        idle = true;
-                                        break;
-                                    }
-                                }
-                                else if (messages[i].Destination is Building)
-                                {
-                                    ((Building)messages[i].Destination).HP -= damage;
-
-                                    if (((Building)messages[i].Destination).HP <= 0)
-                                    {
-                                        messages[i].Done = true;
-                                        idle = true;
-                                        break;
-                                    }
-                                }
-
-                                messages[i].timer = gameTime.TotalGameTime;
-                                Game1.sounds[0].Play(1.0f, 0.0f, 0.0f);
-                                Console.WriteLine("Attack!");
+                                destinyUnit = (Unit)messages[i].Payload;
+                                destinyBuilding = null;
+                            }
+                            else if (messages[i].Payload is Building)
+                            {
+                                destinyUnit = null;
+                                destinyBuilding = (Building)messages[i].Payload;
                             }
 
-                            if (messages[i].timer == TimeSpan.Zero)
+                            if
+                            (
+                                    (
+                                        (destinyUnit != null)
+                                        &&
+                                        (Math.Abs(Position.X - destinyUnit.Position.X) < range)
+                                    )
+                                    ||
+                                    (
+                                        (destinyBuilding != null)
+                                        &&
+                                        (Math.Abs(Position.Z - destinyBuilding.Position.Z) < range)
+                                    )
+                                )
                             {
-                                messages[i].timer = gameTime.TotalGameTime;
+
+                                if (EventManager.MessageToOld(gameTime, messages[i], ratio))
+                                {
+                                    if ((GameObject)messages[i].Payload is Unit)
+                                    {
+                                        ((Unit)messages[i].Payload).HP -= damage;
+
+                                        if (((Unit)messages[i].Payload).dead)
+                                        {
+                                            messages[i].Done = true;
+                                            idle = true;
+                                            break;
+                                        }
+                                    }
+                                    else if ((GameObject)messages[i].Payload is Building)
+                                    {
+                                        ((Building)messages[i].Payload).HP -= damage;
+
+                                        if (((Building)messages[i].Payload).dead)
+                                        {
+                                            messages[i].Done = true;
+                                            idle = true;
+                                            break;
+                                        }
+                                    }
+
+                                    messages[i].timer = gameTime.TotalGameTime;
+                                    Game1.sounds[0].Play(1.0f, 0.0f, 0.0f);
+                                    Console.WriteLine("Attack!");
+                                }
+
+                                if (messages[i].timer == TimeSpan.Zero)
+                                {
+                                    messages[i].timer = gameTime.TotalGameTime;
+                                }
+                            }
+                            else
+                            {
+                                messages[i].Done = true;
+                                idle = true;
+
+                                if (messages[i].Payload is Unit)
+                                {
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, this, destinyUnit));
+                                }
+                                else if (messages[i].Payload is Building)
+                                {
+                                    EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, this, destinyBuilding));
+                                }
                             }
 
                             break;
@@ -682,6 +768,27 @@ namespace Laikos
             float dotProd = Vector2.Dot(vecTmp, new Vector2(0, 1));
 
             return (float)(Math.Acos(dotProd) * (180.0f / Math.PI));
+        }
+
+        private Unit FindEnemy()
+        {
+            foreach (Unit _uni in ((Game1)player.game).player.UnitList)
+            {
+                if (_uni.destinyUnit == this)
+                {
+                    return _uni;
+                }
+            }
+
+            foreach (Unit _uni in ((Game1)player.game).enemy.UnitList)
+            {
+                if (_uni.destinyUnit == this)
+                {
+                    return _uni;
+                }
+            }
+
+            return null;
         }
     }
 }

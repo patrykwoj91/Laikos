@@ -205,7 +205,7 @@ namespace Laikos
                                 ((clicked is Building) && (IsEnemy((Building)clicked, (Game1)game)))
                             )
                             {
-                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, clicked, _unit, pointerPosition));
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, _unit, clicked));
                             }
 
                             Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
@@ -224,6 +224,24 @@ namespace Laikos
                     {
                         if (obj.selected)
                         {
+                            Unit _uni = (Unit)obj;
+
+                            foreach (Message _msg in _uni.messages)
+                            {
+                                if
+                                (
+                                    (
+                                        (_msg.Type == (int)EventManager.Events.Attack)
+                                        ||
+                                        (_msg.Type == (int)EventManager.Events.MoveToAttack)
+                                    )
+                                    &&
+                                    (!_msg.Done))
+                                {
+                                    _msg.Done = true;
+                                }
+                            }
+
                             obj.destinyPoints = null;
                             EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
                             ((Unit)obj).walk = true;
