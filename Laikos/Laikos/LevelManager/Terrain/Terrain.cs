@@ -166,7 +166,7 @@ namespace Laikos
             float zRelative = (zCoord - zLower) / ((float)zHigher - (float)zLower);
 
             
-            float heightLxLz = heightData[xLower, zLower];
+            float heightLxLz = heightData[xLower, zLower];        //czasem tu wpadaja nany z pathfindingu nie wiem dlaczego (Patryk)
             float heightLxHz = heightData[xLower, zHigher];
             float heightHxLz = heightData[xHigher, zLower];
             float heightHxHz = heightData[xHigher, zHigher];

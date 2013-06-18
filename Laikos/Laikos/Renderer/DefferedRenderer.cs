@@ -44,6 +44,7 @@ namespace Laikos
         private SpriteFont font;
         private bool minimap = true;
         public static bool debug = false;
+        public static float lightIntensity;
 
         public ParticleSystem explosionParticles;
         public ParticleSystem explosionSmokeParticles;
@@ -68,6 +69,7 @@ namespace Laikos
 
             int backbufferWidth = device.PresentationParameters.BackBufferWidth;
             int backbufferHeight = device.PresentationParameters.BackBufferHeight;
+            lightIntensity = 0.5f;
 
             colorRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.Depth24);
             normalRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
@@ -132,11 +134,6 @@ namespace Laikos
                     Decoration decoration = (Decoration)obj;
                     decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
-                if (obj is Building)
-                {
-                    Building building = (Building)obj;
-                    building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                }
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
@@ -174,9 +171,18 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            _UI.Sprite.Render(0);
+            foreach (GameObject obj in objects)
+            {
+                if (obj is Building)
+                {
+                    Building building = (Building)obj;
+                    //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                }
+            }
+            GUI.Draw();
+            GUI.Update(gameTime);
             Debug();
-
         }
 
         private void Debug()
@@ -184,39 +190,8 @@ namespace Laikos
             //Begin SpriteBatch
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
             
-            //Width + Height
-            int width = Terrain.width / 5;
-            int height = Terrain.height / 5;
-
-            //Set up Drawing Rectangle
-            Rectangle rect = new Rectangle(15, 15, width, height);
-
-            /*//Draw GBuffer 0
-            spriteBatch.Draw((Texture2D)colorRT, rect, Color.White);
-
-            //Draw GBuffer 1
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)normalRT, rect, Color.White);
-
-            //Draw GBuffer 2
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)depthRT, rect, Color.White);
-
-            //Draw LightMap
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)lightRT, rect, Color.White);
-
-            rect.X += width;
-            spriteBatch.Draw((Texture2D)shadowMap, rect, Color.White);*/
-
-            //rect.X += width;
-            if (SelectingGUI.MiniMapClicked(Input.currentMouseState.X,Input.currentMouseState.Y))
-                spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White);
-            else
-                spriteBatch.Draw((Texture2D)Minimap.miniMap, rect, Color.White*0.7f);
-            if (debug)
             spriteBatch.DrawString(font, "FPS: " + (1000 / (gameTime.ElapsedGameTime.Milliseconds > 0 ? gameTime.ElapsedGameTime.Milliseconds : 1000)), new Vector2(10.0f, 20.0f), Color.White);
-            //End SpriteBatch
+
             spriteBatch.End();
         }
 
@@ -257,7 +232,7 @@ namespace Laikos
             PointLight.Initialize(pointLightEffect, colorRT, normalRT, depthRT, halfPixel, fsq, device, sphereModel);
             SpotLight.Initialize(device, spotLight, spotCookie, spotLightGeometry, colorRT, normalRT, depthRT);
 
-            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.5f));
+            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, lightIntensity));
 
             foreach (GameObject obj in objects)
             {

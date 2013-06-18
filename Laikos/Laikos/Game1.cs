@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +9,9 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+
 using MyDataTypes;
+using MyDataTypes.Serialization;
 
 namespace Laikos
 {
@@ -19,7 +21,6 @@ namespace Laikos
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         public static TimeSpan time;
-        private GameInput gameInput;
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
@@ -27,15 +28,15 @@ namespace Laikos
         Vector3 pointerPosition = new Vector3(0, 0, 0);
         Camera camera;
         Terrain terrain;
-        DecorationManager decorations;
+        public DecorationManager decorations;
         DefferedRenderer defferedRenderer;
-        List<GameObject> objects;
+        public static List<GameObject> objects;
 
         Dictionary<String, UnitType> UnitTypes;
         Dictionary<String, BuildingType> BuildingTypes;
 
-        Player player;
-        Player enemy;
+        public Player player;
+        public Player enemy;
 
         System.Drawing.Bitmap bitmapTmp;
 
@@ -47,7 +48,7 @@ namespace Laikos
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
         }
 
         /// <summary>
@@ -60,10 +61,11 @@ namespace Laikos
         {
             device = graphics.GraphicsDevice;
             this.IsMouseVisible = true;
-            
+
             terrain = new Terrain(this);
             camera = new Camera(this, graphics);
             decorations = new DecorationManager(this, device, graphics);
+
             Minimap.Initialize(device);
             Components.Add(camera);
             Components.Add(terrain);
@@ -79,23 +81,28 @@ namespace Laikos
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Georgia");
-            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font,this);
+            defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font, this);
             objects = new List<GameObject>();
 
             UnitTypes = Content.Load<UnitType[]>("ObjectTypes/UnitTypes").ToDictionary(t => t.name);
             BuildingTypes = Content.Load<BuildingType[]>("ObjectTypes/BuildingTypes").ToDictionary(t => t.Name);
-             
-            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"));
-            Minimap.LoadMiniMap(Content);
 
             player = new Player(this, UnitTypes, BuildingTypes);
-            SelectingGUI.Init(device, graphics, this,player.UnitList,player.BuildingList);
+            enemy = new Player(this, UnitTypes, BuildingTypes);
 
-            gameInput = new GameInput((int)E_UiButton.Count, (int)E_UiAxis.Count);
-            _UI.SetupControls(gameInput);
-            _UI.Startup(this, gameInput);
-            _UI.Screen.AddScreen(new UI.ScreenTest(device, player));
-            
+            LoadMap(@"Mapa\Objects.xml");
+
+            Laikos.PathFiding.Map.loadMap(Content.Load<Texture2D>("Models/Terrain/Heightmaps/heightmap4"), decorations);
+
+            InitializeMapAfterLoad();
+
+            Minimap.LoadMiniMap(Content);
+
+            player.Initialize();
+            enemy.Initialize();
+
+            SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList);
+            GUI.Initialize(device, spriteBatch, Content, player);
         }
 
         /// <summary>
@@ -105,7 +112,6 @@ namespace Laikos
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
-            _UI.Shutdown();
         }
 
         /// <summary>
@@ -117,21 +123,18 @@ namespace Laikos
         {
             float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // update the GameInput
-            gameInput.Update(frameTime);
-
-            // update the UI
-            _UI.Sprite.BeginUpdate();
-            _UI.Screen.Update(frameTime);
-
             time = gameTime.TotalGameTime;
-            player.Update(gameTime);
 
-            Input.Update(this, gameTime, device, camera, player,decorations.DecorationList);
+            player.Update(gameTime);
+            enemy.Update(gameTime);
+
+            Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
 
             EventManager.Update();
+
             UpdateExplosions(gameTime, objects);
             UpdateExplosionSmoke(gameTime, objects);
+
             base.Update(gameTime);
 
             // TODO: Add your update logic here
@@ -159,9 +162,10 @@ namespace Laikos
                         unit.Position = unit.lastPosition;
                 }
             }
+
         }
 
-       
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -172,40 +176,101 @@ namespace Laikos
             //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
-            
+
             defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            
 
             objects.AddRange(player.UnitList);
-            objects.AddRange(decorations.DecorationList);
             objects.AddRange(player.BuildingList);
 
+            objects.AddRange(enemy.UnitList);
+            objects.AddRange(enemy.BuildingList);
+
+            objects.AddRange(decorations.DecorationList);
+            
             defferedRenderer.Draw(objects, terrain, gameTime);
             SelectingGUI.Draw();
 
-            objects[0].currentModel.Model.Draw(Matrix.Identity, Camera.viewMatrix, Camera.projectionMatrix);
             objects.Clear();
             base.Draw(gameTime);
 
-            
+
         }
 
-         void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+        private void LoadMap(String _name)
         {
+            ObjectsSchema tmp = new ObjectsSchema();
+            System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
+            System.IO.StreamReader file = new System.IO.StreamReader(_name);
+            tmp = (ObjectsSchema)reader.Deserialize(file);
 
-            for (int i = player.UnitList.Count - 1; i >= 0; i--)
+            #region Player_1
+            foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
             {
+                player.UnitList.Add(new Unit(player.game, player, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+            }
 
+            foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
+            {
+                player.BuildingList.Add(new Building(player.game,player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+            }
+            #endregion Player_1
 
-                if (player.UnitList[i].HP == 0)
+            #region Player_2
+            foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
+            {
+                enemy.UnitList.Add(new Unit(player.game, enemy, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+            }
+
+            foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
+            {
+                enemy.BuildingList.Add(new Building(enemy.game,enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+            }
+            #endregion Player_2
+
+            foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
+            {
+                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), 0.05f));
+            }
+        }
+
+        private void InitializeMapAfterLoad()
+        {
+            foreach (Unit _unit in player.UnitList)
+            {
+                _unit.pathFiding.mapaUstaw();
+            }
+
+            foreach (Unit _unit in enemy.UnitList)
+            {
+                _unit.pathFiding.mapaUstaw();
+            }
+        }
+
+        void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+        {
+            for (int i = /*player.UnitList.Count*/ objects.Count - 1; i >= 0; i--)
+            {
+                if (objects[i] is Unit)
+                {
+                    if (((Unit)objects[i]).HP <= 0)
                     {
-                        defferedRenderer.explosionParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                        defferedRenderer.explosionSmokeParticles.AddParticle(player.UnitList[i].Position, Vector3.Zero);
-                        player.UnitList[i].HP = 10;
+                        defferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        defferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        ((Unit)objects[i]).HP = 10;
                     }
-                
+                }
+                else if (objects[i] is Building)
+                {
+                    if (((Building)objects[i]).HP <= 0)
+                    {
+                        defferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        defferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        ((Building)objects[i]).HP  = 10;
+                    }
+                }
+
                 defferedRenderer.explosionParticles.Update(gameTime);
             }
         }
@@ -217,13 +282,13 @@ namespace Laikos
                 if (objects[i] is Unit)
                 {
                     Unit unit = (Unit)objects[i];
-                    if (100*unit.HP/unit.maxHP <= 5)
+                    if (100 * unit.HP / unit.maxHP <= 5)
                     {
                         defferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
                     }
                 }
                 defferedRenderer.explosionSmokeParticles.Update(gameTime);
-            }    
+            }
         }
     }
 }

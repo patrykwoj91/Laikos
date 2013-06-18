@@ -39,7 +39,7 @@
       <name>Alien Melee</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
-      <model>Models/Units/Aliens/Alien</model>
+      <model>Models/Units/Aliens/Alien/alien</model>
     </Item>
 
     <Item>

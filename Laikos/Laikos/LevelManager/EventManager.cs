@@ -9,10 +9,20 @@ namespace Laikos
         public enum Events
         {
             FixCollisions,
-            Selected,
             Unselected,
+            Selected,
             Interaction,
-            MoveUnit
+            MoveUnit,
+            MoveToBuild,
+            Build,
+            MoveToAttack,
+            Attack,
+            Gathering,
+            Gather,
+            Store,
+            GuiCLICK,
+            GuiUP,
+            GuiDOWN
         };
 
         static List<Message> lastFrame_messages = new List<Message>();
@@ -27,14 +37,18 @@ namespace Laikos
 
         public static void FindMessagesByDestination(GameObject destination, List<Message> result)
         {
+
             for (var i = 0; i < lastFrame_messages.Count; i++)
             {
                 var m = lastFrame_messages[i];
                 if (m.Destination != null && m.Destination.Equals(destination))
                 {
-                    result.Add(m);    
+                    result.Add(m);
+
                 }
             }
+
+            result.Sort((x, y) => x.Type.CompareTo(y.Type));
         }
 
         public static void FindMessagesBySender(GameObject sender, List<Message> result)
@@ -45,6 +59,21 @@ namespace Laikos
                 if (m.Sender.Equals(sender))
                 {
                     result.Add(m);
+
+                }
+            }
+            result.Sort((x,y) => x.Type.CompareTo(y.Type));
+        }
+
+        public static void FindMessage(Predicate<Message> criteria, List<Message> result)
+        {
+            for (int i = 0; i < lastFrame_messages.Count; i++)
+            {
+                Message m = lastFrame_messages[i];
+                if (criteria.Invoke(m))
+                {
+                    result.Add(m);
+
                 }
             }
         }
@@ -55,6 +84,23 @@ namespace Laikos
             lastFrame_messages = currentFrame_messages;
             currentFrame_messages = t;
             currentFrame_messages.Clear();
+
+        }
+
+        public static bool MessageToOld(GameTime gameTime, Message message, int milliseconds)
+        {
+            if (message.timer == TimeSpan.Zero)
+            {
+            }
+            else
+            {
+                float difference = (float)gameTime.TotalGameTime.TotalMilliseconds - (float)message.timer.TotalMilliseconds;
+                if (difference > milliseconds)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

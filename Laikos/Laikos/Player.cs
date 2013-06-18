@@ -31,7 +31,6 @@ namespace Laikos
             UnitList = new List<Unit>();
             this.BuildingTypes = BuildingTypes;
             BuildingList = new List<Building>();
-            Initialize();
         }
 
         public void Update(GameTime gameTime)
@@ -50,25 +49,22 @@ namespace Laikos
        public void Initialize()
        {
             Souls = 1000;
-            //UnitList.Add(new Unit(game, UnitTypes["Alien Worker"], new Vector3(620, 20, 700), 0.1f));
-            UnitList.Add(new Unit(game, UnitTypes["Droid Worker"], new Vector3(620, 20, 750), 0.05f));
-            UnitList.Add(new Unit(game, UnitTypes["Droid Worker"], new Vector3(620, 20, 700), 0.05f));
-            //UnitList.Add(new Unit(game, UnitTypes["Alien Rider"], new Vector3(600, 25, 750), 0.03f));
-            
-           // BuildingList.Add(new Building(game, BuildingTypes["Nekropolis"], new Vector3(650, 20, 750), BuildingTypes["Nekropolis"].Scale));
 
+            //UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 20, 680), 0.05f));
+            //UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 650), 0.05f));
+            //BuildingList.Add(new Building(game,this, BuildingTypes["Pałac rady2"], new Vector3(720, 0, 650), BuildingTypes["Pałac rady2"].Scale,true));
+            //BuildingList.Add(new Building(game,this, BuildingTypes["Cementary"], new Vector3(640, 0, 730), BuildingTypes["Cementary"].Scale, true));
        }
 
        public bool Build(BuildingType building, Vector3 position)
        {
            if (Souls >= building.Souls)
            {
-               BuildingList.Add(new Building(game, building, position, building.Scale));
+               BuildingList.Add(new Building(game,this, building, position, building.Scale));
                Souls -= building.Souls;
                Console.WriteLine(Souls);
                return true;
            }
-           //Console.WriteLine("false");
            return false;
        }
     }

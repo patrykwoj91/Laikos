@@ -11,7 +11,7 @@ using MyDataTypes;
 
 namespace Laikos
 {
-    class DecorationManager : DrawableGameComponent
+   public class DecorationManager : DrawableGameComponent
     {
         public Dictionary<String,DecorationType> DecorationTypes;
         public List<Decoration> DecorationList;
@@ -41,7 +41,7 @@ namespace Laikos
         {
             DecorationTypes = Game.Content.Load<DecorationType[]>("ObjectTypes/DecorationTypes").ToDictionary(t => t.name);
              
-            DecorationList.Add(new Decoration(game, DecorationTypes["Drzewo4"], new Vector3(650, 25, 750), 0.05f));
+            //DecorationList.Add(new Decoration(game, DecorationTypes["Drzewo4"], new Vector3(650, 25, 750), 0.05f));
             //DecorationList.Add(new Decoration(game, DecorationTypes["ruiny2"], new Vector3(30, 25, 150), 1.5f));
 
 

@@ -23,6 +23,7 @@ namespace Laikos
         public AnimatedModel Low = null;
         bool exists = false;
         public float temp_position = 0.0f;
+        public Player player;
 
         public bool selected = false;
         public List<Message> messages;
@@ -42,9 +43,10 @@ namespace Laikos
             this.messages = new List<Message>();
         }
 
-        public GameObject(Game game, String path)
+        public GameObject(Game game,Player player, String path)
             
         {
+            this.player = player;
             this.messages = new List<Message>();
             if ((File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "High" + ".xnb"))) &&
                 (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "Mid" + ".xnb"))) &&
@@ -59,6 +61,7 @@ namespace Laikos
                 currentModel = Mid;
                 temp_position = currentModel.player.current_Position;
                 exists = true;
+              
             }
             else
             {
