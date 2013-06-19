@@ -17,7 +17,7 @@ namespace Laikos
             Build,
             MoveToAttack,
             Attack,
-            Gathering,
+            BuildUnit,
             Gather,
             Store,
             GuiCLICK,

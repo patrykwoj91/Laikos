@@ -46,9 +46,9 @@ namespace Laikos
         public static bool debug = false;
         public static float lightIntensity;
 
-        public ParticleSystem explosionParticles;
-        public ParticleSystem explosionSmokeParticles;
-        public ParticleSystem SmokePlumeParticles;
+        public static ParticleSystem explosionParticles;
+        public static ParticleSystem explosionSmokeParticles;
+        public static ParticleSystem SmokePlumeParticles;
         #endregion
 
         public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font, Game game)
@@ -240,7 +240,7 @@ namespace Laikos
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 20, obj.Position.Z);
                     //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, false, 64));
+                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 64));
                 }
             }
         }

@@ -117,6 +117,15 @@ namespace Laikos
                 {
                     CreateMessage(new Message((int)GUI.Events.GuiCLICK, 3, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
+               else if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 2 && !LowerOptionPanel.isUnit)
+               {
+                   CreateMessage(new Message((int)GUI.Events.GuiCLICK, 1, 2, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+               }
+               else if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 2 && !LowerOptionPanel.isUnit)
+               {
+                   CreateMessage(new Message((int)GUI.Events.GuiCLICK, 2, 2, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+               }
+         
             }
         }
 
@@ -257,6 +266,25 @@ namespace Laikos
                                     messages[i].Done = true;
                                 }
                             }
+                                else if ((int)messages[i].Destination == 2)//budynek
+                                {
+                                    if ((int)messages[i].Sender == 1) //to 1 przycisk na workerze
+                                    {
+                                        Console.WriteLine("GUI CLICKED");
+                                        if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.UnitTypes["Antigravity Tank"].Souls)
+                                        {
+                                            messages[i].Done = true;
+                                            break;
+                                        }
+                                        //dodac renderowanie za myszka
+                                        foreach (Building build in ((Game1)messages[i].Payload).player.BuildingList)
+                                            if (build.type.Name.Contains("BJ Niebian2"))
+                                            {
+                                                EventManager.CreateMessage(new Message((int)EventManager.Events.BuildUnit, 1, build, null));
+                                                messages[i].Done = true;
+                                            }
+                                    }
+                                }
                             break;
                     }
             }

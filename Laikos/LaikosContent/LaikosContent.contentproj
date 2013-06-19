@@ -229,13 +229,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Eye\okoLow_Anims.xml">
-      <Name>okoLow_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\Units\Niebianie\Eye\tekstura.bmp">
       <Name>tekstura</Name>
       <Importer>TextureImporter</Importer>
@@ -248,22 +241,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Eye\okoMid_Anims.xml">
-      <Name>okoMid_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Eye\okoHigh_Anims.xml">
-      <Name>okoHigh_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Tank\czolgLow_Anims.xml">
-      <Name>czolgLow_Anims</Name>
+    <Compile Include="Models\Units\Niebianie\Eye\oko_Anims.xml">
+      <Name>oko_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
@@ -281,15 +260,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Tank\czolgHigh_Anims.xml">
-      <Name>czolgHigh_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Tank\czolgMid_Anims.xml">
-      <Name>czolgMid_Anims</Name>
+    <Compile Include="Models\Units\Niebianie\Tank\czolg_Anims.xml">
+      <Name>czolg_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
@@ -302,32 +274,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Tank\czolgHigh.FBX">
-      <Name>czolgHigh</Name>
+    <Compile Include="Models\Units\Niebianie\Tank\czolg.FBX">
+      <Name>czolg</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Tank\czolgLow.FBX">
-      <Name>czolgLow</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Units\Niebianie\Tank\czolgMid.FBX">
-      <Name>czolgMid</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Eye\okoLow.FBX">
-      <Name>okoLow</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Units\Niebianie\Eye\okoMid.FBX">
-      <Name>okoMid</Name>
+    <Compile Include="Models\Units\Niebianie\Eye\oko.FBX">
+      <Name>oko</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
@@ -437,28 +392,13 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Niebianie\Eye\okoHigh.FBX">
-      <Name>okoHigh</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
     <Compile Include="Particles\grid.x">
       <Name>grid</Name>
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidHigh.FBX">
-      <Name>DroidHigh</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidLow.FBX">
-      <Name>DroidLow</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidMid.FBX">
-      <Name>DroidMid</Name>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\Droid.FBX">
+      <Name>Droid</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
@@ -490,13 +430,6 @@
       <Name>obcy</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien\alienLow_Anims.xml">
-      <Name>alienLow_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -692,29 +625,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien\alienHigh_Anims.xml">
-      <Name>alienHigh_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien\alienMid_Anims.xml">
-      <Name>alienMid_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderMid_Anims.xml">
-      <Name>alien_RiderMid_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Rider\alien_RiderLow_Anims.xml">
-      <Name>alien_RiderLow_Anims</Name>
+    <Compile Include="Models\Units\Aliens\Alien\alien_Anims.xml">
+      <Name>alien_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
@@ -729,20 +641,6 @@
   <ItemGroup>
     <Compile Include="Models\Units\Aliens\Alien_Worker\alien_worker_Anims.xml">
       <Name>alien_worker_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerLow_Anims.xml">
-      <Name>alien_workerLow_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_workerMid_Anims.xml">
-      <Name>alien_workerMid_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>
@@ -841,22 +739,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidHigh_Anims.xml">
-      <Name>DroidHigh_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidLow_Anims.xml">
-      <Name>DroidLow_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\DroidMid_Anims.xml">
-      <Name>DroidMid_Anims</Name>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\Droid_Anims.xml">
+      <Name>Droid_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
     </Compile>

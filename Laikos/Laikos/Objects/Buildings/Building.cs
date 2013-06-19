@@ -21,7 +21,7 @@ namespace Laikos
         public int Souls;
         float timer;         //Initialize a 10 second timer
         const float TIMER = 10;
-
+        Game game;
         public bool dead = false;
 
 
@@ -45,6 +45,7 @@ namespace Laikos
             HP = maxHP;
             this.selectable = selectable;
             buildtime = this.type.buildtime;
+            this.game = game;
 
             Matrix[] modelTransforms = new Matrix[currentModel.Model.Bones.Count];
             currentModel.Model.CopyAbsoluteBoneTransformsTo(modelTransforms);
@@ -74,7 +75,7 @@ namespace Laikos
                 {
                     if (Souls <= 598)
                     {
-                        Souls += 2;
+                        Souls += 40;
                     }
                     timer = TIMER;   //Reset Timer
                 }
@@ -138,9 +139,16 @@ namespace Laikos
                                     {
                                         EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, this, unit, null));
                                         unit.timeSpan = TimeSpan.FromMilliseconds(3000);
-                                        unit.walk = true;
+                               
                                     }
-
+                            messages[i].Done = true;
+                            break;
+                        case (int)EventManager.Events.BuildUnit:
+                            if (this.type.Name.Equals("BJ Niebian2"))
+                            {
+                                player.UnitList.Add(new Unit(game,player, player.UnitTypes["Antigravity Tank"], new Vector3(this.Position.X - 40, 5,this.Position.Z ),player.UnitTypes["Antigravity Tank"].Scale));
+                                player.Souls -= player.UnitTypes["Antigravity Tank"].Souls;                        
+                                }
                             messages[i].Done = true;
                             break;
                     }

@@ -20,6 +20,7 @@ namespace MyDataTypes
         public Int32 damage;
         public Int32 range;
         public Int32 ratio;
+        public int Souls;
         public float Scale;
         public String model;
         
