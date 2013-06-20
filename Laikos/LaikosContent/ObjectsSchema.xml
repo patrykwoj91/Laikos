@@ -10,26 +10,36 @@
             <name>Alien Worker</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Alien Melee</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Alien Rider</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_4</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_5</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </units>
       </Item>
@@ -40,26 +50,36 @@
             <name>Reconnaissance Eye</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Antigravity Tank</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Droid Worker</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_4</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_5</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </units>
       </Item>
@@ -70,26 +90,36 @@
             <name>Unit_1</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_2</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_3</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_4</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Unit_5</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </units>
       </Item>
@@ -104,26 +134,36 @@
             <name>Diabelny Dwór1</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>BJ Alienow1</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Nekropolis</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Wieża</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Building_5</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </buildings>
       </Item>
@@ -134,26 +174,36 @@
             <name>Pałac rady2</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>BJ Niebian1</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Strażnica</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Cementary</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Building_5</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </buildings>
       </Item>
@@ -164,26 +214,36 @@
             <name>Building_1</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Building_2</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Building_3</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Building_4</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Building_5</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </buildings>
       </Item>
@@ -198,16 +258,22 @@
             <name>Ruiny1</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Ruiny2</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Ruiny3</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </decorations>
       </Item>
@@ -218,21 +284,29 @@
             <name>Drzewo1</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Drzewo2</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Drzewo3</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Drzewo4</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </decorations>
       </Item>
@@ -243,16 +317,22 @@
             <name>Prison</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Else_2</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
           <Item>
             <name>Else_3</name>
             <x>0</x>
             <y>0</y>
+            <scale>1</scale>
+            <rotation>0</rotation>
           </Item>
         </decorations>
       </Item>

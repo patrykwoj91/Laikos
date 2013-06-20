@@ -72,12 +72,17 @@ namespace Laikos
         public override void HandleEvent(GameTime gameTime)
         {
             EventManager.FindMessagesByDestination(this, messages);
+            
             for (int i = 0; i < messages.Count; i++)
             {
                 switch (messages[i].Type)
                 {
-                    case (int)EventManager.Events.Interaction:
-                        Console.WriteLine("Dekoracja - obsluga interakcji");
+                    case (int)EventManager.Events.Selected:
+                        selected = true;
+                        break;
+
+                    case (int)EventManager.Events.Unselected:
+                        selected = false;
                         break;
                 }
             }

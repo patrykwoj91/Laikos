@@ -49,7 +49,7 @@ namespace Laikos
         Camera camera;
         Terrain terrain;
 
-        DecorationManager decorations;
+        public DecorationManager decorations;
         DefferedRenderer defferedRenderer;
 
         List<GameObject> objects;
@@ -57,8 +57,8 @@ namespace Laikos
         Dictionary<String, UnitType> UnitTypes;
         Dictionary<String, BuildingType> BuildingTypes;
 
-        Player player;
-        Player enemy;
+        public Player player;
+        public Player enemy;
 
         int activePlayer = 0;
 
@@ -205,20 +205,220 @@ namespace Laikos
             KeyboardState keyboardState = Keyboard.GetState();
 
             //Multiclick.
-            if (creationMode == CREATION_MODE.TERRAIN_UP || creationMode == CREATION_MODE.TERRAIN_DOWN)
+
+            float skala = 0.001f;
+
+            if (keyboardState.IsKeyDown(Keys.OemPlus) || keyboardState.IsKeyDown(Keys.Add))
             {
-                if (keyboardState.IsKeyDown(Keys.OemPlus) || keyboardState.IsKeyDown(Keys.Add))
+                if (creationMode == CREATION_MODE.TERRAIN_UP || creationMode == CREATION_MODE.TERRAIN_DOWN)
                 {
                     if (pencilSize < 50)
                     {
                         pencilSize += 1;
                     }
                 }
-                else if (keyboardState.IsKeyDown(Keys.OemMinus) || keyboardState.IsKeyDown(Keys.Subtract))
+                else if (creationMode == CREATION_MODE.BUILDINGS_MOVE)
+                {
+                    Building buildingSelected = null;
+                    foreach (Building building in player.BuildingList)
+                    {
+                        if (building.selected)
+                        {
+                            buildingSelected = building;
+                            break;
+                        }
+                    }
+
+                    buildingSelected.Scale += skala;
+                }
+                else if (creationMode == CREATION_MODE.UNITS_MOVE)
+                {
+                    Unit unitSelected = null;
+                    foreach (Unit unit in player.UnitList)
+                    {
+                        if (unit.selected)
+                        {
+                            unitSelected = unit;
+                            break;
+                        }
+                    }
+
+                    unitSelected.Scale += skala;
+                }
+                else if (creationMode == CREATION_MODE.DECORATIONS_MOVE)
+                {
+                    Decoration decorationSelected = null;
+                    foreach (Decoration decoration in decorations.DecorationList)
+                    {
+                        if (decoration.selected)
+                        {
+                            decorationSelected = decoration;
+                            break;
+                        }
+                    }
+
+                    decorationSelected.Scale += skala;
+                }
+            }
+            else if (keyboardState.IsKeyDown(Keys.OemMinus) || keyboardState.IsKeyDown(Keys.Subtract))
+            {
+                if (creationMode == CREATION_MODE.TERRAIN_UP || creationMode == CREATION_MODE.TERRAIN_DOWN)
                 {
                     if (pencilSize > 1)
                     {
                         pencilSize -= 1;
+                    }
+                }
+                else if (creationMode == CREATION_MODE.BUILDINGS_MOVE)
+                {
+                    Building buildingSelected = null;
+                    foreach (Building building in player.BuildingList)
+                    {
+                        if (building.selected)
+                        {
+                            buildingSelected = building;
+
+                            if (buildingSelected.Scale > 0.01f)
+                            {
+                                buildingSelected.Scale -= skala;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.UNITS_MOVE)
+                {
+                    Unit unitSelected = null;
+                    foreach (Unit unit in player.UnitList)
+                    {
+                        if (unit.selected)
+                        {
+                            unitSelected = unit;
+
+                            if (unitSelected.Scale > 0.01f)
+                            {
+                                unitSelected.Scale -= skala;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.DECORATIONS_MOVE)
+                {
+                    Decoration decorationSelected = null;
+                    foreach (Decoration decoration in decorations.DecorationList)
+                    {
+                        if (decoration.selected)
+                        {
+                            decorationSelected = decoration;
+
+                            if (decorationSelected.Scale > 0.01)
+                            {
+                                decorationSelected.Scale -= skala;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Left))
+            {
+                if (creationMode == CREATION_MODE.BUILDINGS_MOVE)
+                {
+                    Building buildingSelected = null;
+                    foreach (Building building in player.BuildingList)
+                    {
+                        if (building.selected)
+                        {
+                            buildingSelected = building;
+                            buildingSelected.Rotation.Y += skala * 50;
+
+                            break;
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.UNITS_MOVE)
+                {
+                    Unit unitSelected = null;
+                    foreach (Unit unit in player.UnitList)
+                    {
+                        if (unit.selected)
+                        {
+                            unitSelected = unit;
+                            unitSelected.Rotation.Y += skala * 50;
+
+                            break;
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.DECORATIONS_MOVE)
+                {
+                    Decoration decorationSelected = null;
+                    foreach (Decoration decoration in decorations.DecorationList)
+                    {
+                        if (decoration.selected)
+                        {
+                            decorationSelected = decoration;
+                            decorationSelected.Rotation.Y += skala * 50;
+
+                            break;
+                        }
+                    }
+                }
+            }
+            else if (keyboardState.IsKeyDown(Keys.Right))
+            {
+                if (creationMode == CREATION_MODE.TERRAIN_UP || creationMode == CREATION_MODE.TERRAIN_DOWN)
+                {
+                    if (pencilSize > 1)
+                    {
+                        pencilSize -= 1;
+                    }
+                }
+                else if (creationMode == CREATION_MODE.BUILDINGS_MOVE)
+                {
+                    Building buildingSelected = null;
+                    foreach (Building building in player.BuildingList)
+                    {
+                        if (building.selected)
+                        {
+                            buildingSelected = building;
+                            buildingSelected.Rotation.Y -= skala * 50;
+
+                            break;
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.UNITS_MOVE)
+                {
+                    Unit unitSelected = null;
+                    foreach (Unit unit in player.UnitList)
+                    {
+                        if (unit.selected)
+                        {
+                            unitSelected = unit;
+                            unitSelected.Rotation.Y -= skala * 50;
+
+                            break;
+                        }
+                    }
+                }
+                else if (creationMode == CREATION_MODE.DECORATIONS_MOVE)
+                {
+                    Decoration decorationSelected = null;
+                    foreach (Decoration decoration in decorations.DecorationList)
+                    {
+                        if (decoration.selected)
+                        {
+                            decorationSelected = decoration;
+                            decorationSelected.Rotation.Y -= skala * 50;
+
+                            break;
+                        }
                     }
                 }
             }
@@ -302,6 +502,7 @@ namespace Laikos
                 {
                     showHelp = !showHelp;
                 }
+                #region Zapis Mapy
                 else if (keyboardState.IsKeyDown(Keys.F2))
                 {
                     String directoryName = @"Mapa\";
@@ -322,13 +523,13 @@ namespace Laikos
                     schemat.unitGroups_1.Add(new UnitGroup("Units"));
                     foreach (Unit unit in player.UnitList)
                     {
-                        schemat.unitGroups_1[0].units.Add(new UnitSchema(unit.type.name, unit.Position.X, unit.Position.Z));
+                        schemat.unitGroups_1[0].units.Add(new UnitSchema(unit.type.name, unit.Position.X, unit.Position.Z, unit.Scale, unit.Rotation.Y));
                     }
 
                     schemat.buildingsGroups_1.Add(new BuildingGroup("Buildings"));
                     foreach (Building building in player.BuildingList)
                     {
-                        schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema(building.type.Name, building.Position.X, building.Position.Z));
+                        schemat.buildingsGroups_1[0].buildings.Add(new BuildingSchema(building.type.Name, building.Position.X, building.Position.Z, building.Scale, building.Rotation.Y));
                     }
                     #endregion Player_1
 
@@ -336,20 +537,20 @@ namespace Laikos
                     schemat.unitGroups_2.Add(new UnitGroup("Units"));
                     foreach (Unit unit in enemy.UnitList)
                     {
-                        schemat.unitGroups_2[0].units.Add(new UnitSchema(unit.type.name, unit.Position.X, unit.Position.Z));
+                        schemat.unitGroups_2[0].units.Add(new UnitSchema(unit.type.name, unit.Position.X, unit.Position.Z, unit.Scale, unit.Rotation.Y));
                     }
 
                     schemat.buildingsGroups_2.Add(new BuildingGroup("Buildings"));
                     foreach (Building building in enemy.BuildingList)
                     {
-                        schemat.buildingsGroups_2[0].buildings.Add(new BuildingSchema(building.type.Name, building.Position.X, building.Position.Z));
+                        schemat.buildingsGroups_2[0].buildings.Add(new BuildingSchema(building.type.Name, building.Position.X, building.Position.Z, building.Scale, building.Rotation.Y));
                     }
                     #endregion Player_2
 
                     schemat.decorationsGroups.Add(new DecoarationGroup("Decorations"));
                     foreach (Decoration decoration in decorations.DecorationList)
                     {
-                        schemat.decorationsGroups[0].decorations.Add(new DecorationSchema(decoration.type.name, decoration.Position.X, decoration.Position.Z));
+                        schemat.decorationsGroups[0].decorations.Add(new DecorationSchema(decoration.type.name, decoration.Position.X, decoration.Position.Z, decoration.Scale, decoration.Rotation.Y));
                     }
 
                     System.IO.StreamWriter file = new System.IO.StreamWriter(directoryName + "Objects.xml");
@@ -358,9 +559,11 @@ namespace Laikos
 
                     Console.Out.WriteLine("Zapisano mapê w lokalizacji: " + directoryName);
                 }
+                #endregion Zapis Mapy
+
+                #region Odczyt Mapy
                 else if (keyboardState.IsKeyDown(Keys.F3))
                 {
-
                     Console.Out.WriteLine("Odczytywanie mapy...");
 
                     System.Drawing.Bitmap b = new System.Drawing.Bitmap(@"Mapa\HighMap.jpg");
@@ -372,6 +575,14 @@ namespace Laikos
                         terrain.ReloadTerrainMap();
                     }
 
+                    player.UnitList.Clear();
+                    player.BuildingList.Clear();
+
+                    enemy.UnitList.Clear();
+                    enemy.BuildingList.Clear();
+
+                    decorations.DecorationList.Clear();
+
                     ObjectsSchema tmp = new ObjectsSchema();
                     System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ObjectsSchema));
                     System.IO.StreamReader file = new System.IO.StreamReader(@"Mapa\Objects.xml");
@@ -380,34 +591,35 @@ namespace Laikos
                     #region Player_1
                     foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
                     {
-                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y),0.2f));
+                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), unit.scale, new Vector3 (0, unit.rotation, 0)));
                     }
 
                     foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
                     {
-                        player.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                        player.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale, new Vector3(0, building.rotation, 0)));
                     }
                     #endregion Player_1
 
                     #region Player_2
                     foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
                     {
-                        enemy.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y),0.2f));
+                        enemy.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), unit.scale, new Vector3 (0, unit.rotation, 0)));
                     }
 
                     foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
                     {
-                        enemy.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                        enemy.BuildingList.Add(new Building(player.game, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale, new Vector3(0, building.rotation, 0)));
                     }
                     #endregion Player_2
 
                     foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
                     {
-                        decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y),0.5f));
+                        decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), decoration.scale, new Vector3(0, decoration.rotation, 0)));
                     }
 
                     Console.Out.WriteLine("Odczytano mapê.");
                 }
+                #endregion Odczyt Mapy
                 else if (keyboardState.IsKeyDown(Keys.D8) &&
                         (
                             (creationMode == CREATION_MODE.BUILDINGS_BUILD) ||
@@ -540,10 +752,10 @@ namespace Laikos
                             switch (activePlayer)
                             {
                                 case 0:
-                                    player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.1f));
+                                    player.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.1f));
                                     break;
                                 case 1:
-                                    enemy.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.1f));
+                                    enemy.UnitList.Add(new Unit(player.game, UnitTypes[objectsSchema.unitGroups_1[creationType].units[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.1f));
                                     break;
                             }
                         }
@@ -557,32 +769,19 @@ namespace Laikos
                         if (unit.selected)
                         {
                             unitSelected = unit;
-                            break;
-                        }
-                    }
 
-                    for (int i = 0; i < player.UnitList.Count; i++)
-                    {
-                        bool selected = Collisions.RayModelCollision(clippedRay, player.UnitList[i].currentModel.Model, player.UnitList[i].GetWorldMatrix());
-                        if (selected)
-                        {
-                            if ((player.UnitList[i] is Unit) && !player.UnitList[i].selected)
+                            if (unitSelected != null)
                             {
-                                foreach (Unit unit in player.UnitList)
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, unit, null));
-
-                                EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.UnitList[i], null));
-                                break;
+                                unitSelected.Position.Z = pointerPosition.Z;
+                                unitSelected.Position.X = pointerPosition.X;
                             }
-                        }
-                        if ((!selected) && (unitSelected != null))
-                        {
-                            unitSelected.Position.Z = pointerPosition.Z;
-                            unitSelected.Position.X = pointerPosition.X;
+
+                            break;
                         }
                     }
                 }
                 #endregion Units
+
                 #region Buildings
                 else if (creationMode == CREATION_MODE.BUILDINGS_BUILD)
                 {
@@ -592,7 +791,7 @@ namespace Laikos
 
                         if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Building_")))
                         {
-                            Building building = new Building(player.game, BuildingTypes[objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.6f);
+                            Building building = new Building(player.game, BuildingTypes[objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.6f);
 
                             if (building.checkIfPossible(pointerPosition))
                             {
@@ -617,31 +816,17 @@ namespace Laikos
                         if (building.selected)
                         {
                             buildingSelected = building;
-                            break;
-                        }
-                    }
 
-                    if (buildingSelected.checkIfPossible(pointerPosition))
-                    {
-                        for (int i = 0; i < player.BuildingList.Count; i++)
-                        {
-                            bool selected = Collisions.RayModelCollision(clippedRay, player.BuildingList[i].currentModel.Model, player.BuildingList[i].GetWorldMatrix());
-                            if (selected)
+                            if (buildingSelected.checkIfPossible(pointerPosition))
                             {
-                                if ((player.BuildingList[i] is Building) && !player.BuildingList[i].selected)
+                                if (buildingSelected != null)
                                 {
-                                    foreach (Building building in player.BuildingList)
-                                        EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, building, null));
-
-                                    EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, player.BuildingList[i], null));
-                                    break;
+                                    buildingSelected.Position.Z = pointerPosition.Z;
+                                    buildingSelected.Position.X = pointerPosition.X;
                                 }
                             }
-                            if ((!selected) && (buildingSelected != null))
-                            {
-                                buildingSelected.Position.Z = pointerPosition.Z;
-                                buildingSelected.Position.X = pointerPosition.X;
-                            }
+
+                            break;
                         }
                     }
                 }
@@ -655,7 +840,7 @@ namespace Laikos
 
                         if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Decorations_")))
                         {
-                            Decoration decoration = new Decoration(player.game, decorations.DecorationTypes[objectsSchema.decorationsGroups[creationType].decorations[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight),0.1f);
+                            Decoration decoration = new Decoration(player.game, decorations.DecorationTypes[objectsSchema.decorationsGroups[creationType].decorations[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.1f);
 
                             if (decoration.checkIfPossible(pointerPosition))
                             {
@@ -674,31 +859,18 @@ namespace Laikos
                             if (decoration.selected)
                             {
                                 decorationSelected = decoration;
-                                break;
-                            }
-                        }
 
-                        if (decorationSelected.checkIfPossible(pointerPosition))
-                        {
-                            for (int i = 0; i < decorations.DecorationList.Count; i++)
-                            {
-                                bool selected = Collisions.RayModelCollision(clippedRay, decorations.DecorationList[i].currentModel.Model, decorations.DecorationList[i].GetWorldMatrix());
-                                if (selected)
+                                if (decorationSelected.checkIfPossible(pointerPosition))
                                 {
-                                    if ((decorations.DecorationList[i] is Decoration) && !decorations.DecorationList[i].selected)
+                                    if (decorationSelected != null)
                                     {
-                                        foreach (Decoration decoration in decorations.DecorationList)
-                                            EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, decoration, null));
-
-                                        EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, decorations.DecorationList[i], null));
-                                        break;
+                                        decorationSelected.Position.Z = pointerPosition.Z;
+                                        decorationSelected.Position.X = pointerPosition.X;
                                     }
+
                                 }
-                                if ((!selected) && (decorationSelected != null))
-                                {
-                                    decorationSelected.Position.Z = pointerPosition.Z;
-                                    decorationSelected.Position.X = pointerPosition.X;
-                                }
+
+                                break;
                             }
                         }
                     }
@@ -710,7 +882,7 @@ namespace Laikos
                 oneMouseClickDetected = false;
             }
 
-            Input.Update(gameTime, device, camera, player.UnitList, decorations.DecorationList);
+            Input.Update(gameTime, device, camera, player.UnitList, player.BuildingList, decorations.DecorationList);
 
             base.Update(gameTime);
         }
