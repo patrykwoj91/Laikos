@@ -96,7 +96,7 @@ namespace Laikos
             GBuffer.Parameters["xClip"].SetValue(true);
             GBuffer.Parameters["xClipPlane"].SetValue(refractionPlane);
             terrain.DrawTerrain(GBuffer);
-            foreach (GameObject obj in objects)
+            /*foreach (GameObject obj in objects)
             {
                 if (obj is Unit)
                 {
@@ -108,7 +108,7 @@ namespace Laikos
                     Decoration decoration = (Decoration)obj;
                     decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
-            }
+            }*/
             device.SetRenderTarget(null);
             GBuffer.Parameters["xClip"].SetValue(false);
             refractionMap = refractionRenderTarget;
@@ -122,7 +122,7 @@ namespace Laikos
             GBuffer.Parameters["xClip"].SetValue(true);
             GBuffer.Parameters["xClipPlane"].SetValue(reflectionPlane);
             terrain.DrawTerrain(GBuffer);
-            foreach (GameObject obj in objects)
+            /*foreach (GameObject obj in objects)
             {
                 if (obj is Unit)
                 {
@@ -134,7 +134,7 @@ namespace Laikos
                     Decoration decoration = (Decoration)obj;
                     decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
-            }
+            }*/
             DrawSkyDome(Camera.reflectionViewMatrix);
             device.SetRenderTarget(null);
             GBuffer.Parameters["xClip"].SetValue(false);

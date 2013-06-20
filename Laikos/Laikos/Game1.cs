@@ -48,8 +48,8 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
             graphics.IsFullScreen = false;
         }
 
@@ -107,7 +107,7 @@ namespace Laikos
             Minimap.LoadMiniMap(Content);
 
             //Console.WriteLine(player.UnitList.Count);
-            //Console.WriteLine(enemy.UnitList.Count);
+            Console.WriteLine(enemy.UnitList.Count);
 
             SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList, enemy.UnitList, enemy.BuildingList);
             GUI.Initialize(device, spriteBatch, Content, player);
@@ -139,13 +139,8 @@ namespace Laikos
 
 
             EventManager.Update();
-            List<GameObject> temp = new List<GameObject>();
-            temp.AddRange(player.UnitList);
-            temp.AddRange(player.BuildingList);
-            temp.AddRange(enemy.UnitList);
-            temp.AddRange(enemy.BuildingList);
-            UpdateExplosions(gameTime, temp);
-            UpdateExplosionSmoke(gameTime, temp);
+
+
 
 
             //temp.Clear();
@@ -162,12 +157,12 @@ namespace Laikos
 
                      if (collision)
                      {
-                         player.UnitList[i].Position = player.UnitList[i].lastPosition;
-                         player.UnitList[j].Position = player.UnitList[j].lastPosition;
+                        // player.UnitList[i].Position = player.UnitList[i].lastPosition;
+                        // player.UnitList[j].Position = player.UnitList[j].lastPosition;
                      }
                  }
              }
-           /* foreach (Unit unit in player.UnitList)
+            /*foreach (Unit unit in player.UnitList)
             {
                 foreach (Building building in player.BuildingList)
                 {
@@ -198,9 +193,9 @@ namespace Laikos
 
             objects.AddRange(decorations.DecorationList);
 
-            defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            DefferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            DefferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            DefferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
 
 
 
@@ -223,7 +218,7 @@ namespace Laikos
             #region Player_1
             foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
             {
-                player.UnitList.Add(new Unit(player.game, player, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+                player.UnitList.Add(new Unit(player.game, player, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), UnitTypes[unit.name].Scale));
             }
 
             foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
@@ -235,7 +230,7 @@ namespace Laikos
             #region Player_2
             foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
             {
-                enemy.UnitList.Add(new Unit(player.game, enemy, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), 0.05f));
+                enemy.UnitList.Add(new Unit(player.game, enemy, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), UnitTypes[unit.name].Scale));
             }
 
             foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
@@ -246,7 +241,7 @@ namespace Laikos
 
             foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
             {
-                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), 0.05f));
+                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y)));
             }
         }
 
@@ -263,17 +258,17 @@ namespace Laikos
             }
         }
 
-        void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+      /* void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
         {
 
-            for (int i = /*player.UnitList.Count*/ objects.Count - 1; i >= 0; i--)
+            for (int i = player.UnitList.Count objects.Count - 1; i >= 0; i--)
             {
                 if (objects[i] is Unit)
                 {
                     if (((Unit)objects[i]).HP <= 0)
                     {
-                        defferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                        defferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
                         ((Unit)objects[i]).dead = true;
                         for (int j = player.UnitList.Count - 1; j >= 0; j--)
                             if (player.UnitList[j].dead == true)
@@ -287,8 +282,8 @@ namespace Laikos
                 {
                     if (((Building)objects[i]).HP <= 0)
                     {
-                        defferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                        defferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
                         ((Unit)objects[i]).dead = true;
                         for (int j = player.UnitList.Count - 1; j >= 0; j--)
                             if (player.UnitList[j].dead == true)
@@ -299,7 +294,7 @@ namespace Laikos
                     }
                 }
 
-                defferedRenderer.explosionParticles.Update(gameTime);
+                DefferedRenderer.explosionParticles.Update(gameTime);
             }
         }
 
@@ -312,11 +307,11 @@ namespace Laikos
                     Unit unit = (Unit)objects[i];
                     if (100 * unit.HP / unit.maxHP <= 5)
                     {
-                        defferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                        DefferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
                     }
                 }
-                defferedRenderer.explosionSmokeParticles.Update(gameTime);
+                DefferedRenderer.explosionSmokeParticles.Update(gameTime);
             }
-        }
+        }*/
     }
 }

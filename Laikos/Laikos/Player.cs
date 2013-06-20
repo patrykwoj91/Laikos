@@ -44,20 +44,17 @@ namespace Laikos
                 building.Update(gameTime);
             }
 
-           // for (int i = UnitList.Count - 1; i >= 0; i--)
-               // if (UnitList[i].dead == true)
-                    //UnitList.RemoveAt(i);
 
-           // for (int i = BuildingList.Count - 1; i >= 0; i--)
-               // if (BuildingList[i].dead == true)
-                    //BuildingList.RemoveAt(i);
+            UpdateExplosions(gameTime);
+            UpdateExplosionSmoke(gameTime);
+
 
         }
 
 
         public void Initialize()
        {
-            Souls = 1000;
+            Souls = 300;
 
           //  UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 15, 680), 0.05f));
           //  UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 650), 0.05f));
@@ -76,5 +73,41 @@ namespace Laikos
            }
            return false;
        }
+
+        void UpdateExplosions(GameTime gameTime)
+        {
+                for (int i = UnitList.Count - 1; i >= 0; i--)
+                {
+                    if (UnitList[i].HP <= 0)
+                    {
+                        DefferedRenderer.explosionParticles.AddParticle(UnitList[i].Position, Vector3.Zero);
+                        DefferedRenderer.explosionSmokeParticles.AddParticle(UnitList[i].Position, Vector3.Zero);
+                        UnitList.RemoveAt(i);
+                    }
+                }
+                for (int i = BuildingList.Count - 1; i >= 0; i--)
+                {
+                    if (BuildingList[i].HP <= 0)
+                    {
+                        DefferedRenderer.explosionParticles.AddParticle(BuildingList[i].Position, Vector3.Zero);
+                        DefferedRenderer.explosionSmokeParticles.AddParticle(BuildingList[i].Position, Vector3.Zero);
+                        UnitList.RemoveAt(i);
+
+                    }
+                }
+                DefferedRenderer.explosionParticles.Update(gameTime);
+        }
+
+        void UpdateExplosionSmoke(GameTime gameTime)
+        {
+            for (int i = UnitList.Count - 1; i >= 0; i--)
+            {
+                if (100 * UnitList[i].HP / UnitList[i].maxHP <= 30)
+                    {
+                        DefferedRenderer.SmokePlumeParticles.AddParticle(UnitList[i].Position, Vector3.Zero);
+                    }
+                DefferedRenderer.explosionSmokeParticles.Update(gameTime);
+            }
+        }
     }
 }

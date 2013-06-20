@@ -46,9 +46,9 @@
       <Name>BJ Niebian2</Name>
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/BJ/bj-p2</Model>
-      <Souls>550</Souls>
-      <Scale>0.2</Scale>
-      <buildtime>5000.0</buildtime>
+      <Souls>300</Souls>
+      <Scale>0.5</Scale>
+      <buildtime>3000.0</buildtime>
     </Item>
     <Item>
       <Name>BJ Niebian3</Name>

@@ -10,6 +10,8 @@
       <damage>1</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Souls>100</Souls>
+      <Scale>0.05</Scale>
       <model>Models/Units/Niebianie/Droid_worker/Droid</model>
     </Item>
     
@@ -17,10 +19,12 @@
       <race>Niebianie</race>
       <name>Reconnaissance Eye</name>
       <maxhp>50.0</maxhp>
-      <mp>50.0</mp>
+      <mp>10.0</mp>
       <damage>2</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Souls>100</Souls>
+      <Scale>0.05</Scale>
       <model>Models/Units/Niebianie/Eye/oko</model>
     </Item>
 
@@ -30,8 +34,10 @@
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
       <damage>5</damage>
-      <range>15</range>
+      <range>50</range>
       <ratio>1500</ratio>
+      <Souls>100</Souls>
+      <Scale>0.2</Scale>
       <model>Models/Units/Niebianie/Tank/czolg</model>
     </Item>
 
@@ -43,6 +49,8 @@
       <damage>1</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Souls>100</Souls>
+      <Scale>0.5</Scale>
       <model>Models/Units/Aliens/Alien_Worker/alien_worker</model>
     </Item>
     
@@ -54,6 +62,8 @@
       <damage>2</damage>
       <range>5</range>
       <ratio>1000</ratio>
+      <Souls>100</Souls>
+      <Scale>0.5</Scale>
       <model>Models/Units/Aliens/Alien/alien</model>
     </Item>
 
@@ -65,6 +75,8 @@
       <damage>1</damage>
       <range>15</range>
       <ratio>1500</ratio>
+      <Souls>100</Souls>
+      <Scale>0.5</Scale>
       <model>Models/Units/Aliens/Alien_Rider/alien_rider</model>
     </Item>
     

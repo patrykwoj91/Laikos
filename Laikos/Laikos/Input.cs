@@ -30,45 +30,27 @@ namespace Laikos
                 {
                     if (currentKeyboardState.IsKeyDown(Keys.W))
                     {
-                        if (!unit.walk) { unit.walk = !unit.walk; }
+                       
                         unit.Position.Z += 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(0);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.S))
                     {
-                        if (!unit.walk) { unit.walk = !unit.walk; }
+    
                         unit.Position.Z -= 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(180);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.A))
                     {
-                        if (!unit.walk) { unit.walk = !unit.walk; }
+                 
                         unit.Position.X -= 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(-90);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.D))
                     {
-                        if (!unit.walk) { unit.walk = !unit.walk; }
                         unit.Position.X += 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(90);
                     }
-
-                    if (currentKeyboardState.IsKeyDown(Keys.D1))
-                    {
-                        unit.currentModel.player.PlayClip("Idle", true);
-                        //unit.currentModel.player.Looping = true;
-                    }
-                    if (currentKeyboardState.IsKeyDown(Keys.D2))
-                    {
-                        unit.currentModel.player.PlayClip("Walk", true);
-                        //  unit.currentModel.player.Looping = true;
-                    }
-                    if (currentKeyboardState.IsKeyDown(Keys.D3))
-                    {
-                        unit.currentModel.player.PlayClip("Attack", true);
-                        // unit.player.Looping = false;
-                    }
-
                     if (currentKeyboardState.IsKeyDown(Keys.D5))
                     {
                         unit.HP = 0;
@@ -137,10 +119,9 @@ namespace Laikos
                         if (unit.selected == true && unit.budowniczy == true)
                         {
                             EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, next_build)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
-                            unit.walk = true;
-                            building_mode = false;
+                           // unit.setWalk();
                         }
-
+                    building_mode = false;
                 }
                 #endregion
                 #region Selections
@@ -191,28 +172,29 @@ namespace Laikos
                 Object clicked = WhatClicked((Game1)game, clippedRay);
 
                 if (clicked is Unit || clicked is Building)
-                {
-                    //interaction Event unit - unit , unit-buiding itp.
-
-                    foreach (Unit _unit in player.UnitList)
-                    {
-                        if (_unit.selected)
-                        {
-                            if
+                { 
+                    if
                             (
                                 ((clicked is Unit) && (IsEnemy((Unit)clicked, (Game1)game)))
                                 ||
                                 ((clicked is Building) && (IsEnemy((Building)clicked, (Game1)game)))
                             )
+                    {
+                        foreach (Unit _unit in player.UnitList)
+                        {
+                            if (_unit.selected)
                             {
                                 EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, _unit, clicked));
+                               // _unit.setWalk();
                             }
-
-                            Console.WriteLine("InteractCommand(...) : {0}", stopwatch.Elapsed);
+                            Console.WriteLine("AttackCommand(...) : {0}", stopwatch.Elapsed);
                         }
                     }
-
-                    EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
+                    else
+                    {
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
+                        Console.WriteLine("InteractionCommand(...) : {0}", stopwatch.Elapsed);
+                    } 
                 }
                 else if (clicked is Decoration)
                 {
@@ -220,13 +202,11 @@ namespace Laikos
                 }
                 else
                 {
-                    foreach (Unit obj in ((Game1)game).player.UnitList)
+                    foreach (Unit unit in player.UnitList)
                     {
-                        if (obj.selected)
+                        if (unit.selected)
                         {
-                            Unit _uni = (Unit)obj;
-
-                            foreach (Message _msg in _uni.messages)
+                            foreach (Message _msg in unit.messages)
                             {
                                 if
                                 (
@@ -242,10 +222,8 @@ namespace Laikos
                                 }
                             }
 
-                            obj.destinyPoints = null;
-                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, obj, pointerPosition));
-                            ((Unit)obj).walk = true;
-                            //}
+                            unit.destinyPoints = null;
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.MoveUnit, null, unit, pointerPosition));
                             stopwatch.Stop();
                             Console.WriteLine("MoveCommand(...) : {0}", stopwatch.Elapsed);
                         }
