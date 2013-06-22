@@ -45,6 +45,7 @@ namespace Laikos
         public void Update(GameTime gameTime)
         {
             HandleEvent(gameTime);
+
             base.Update(gameTime);
         }
 

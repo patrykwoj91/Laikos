@@ -39,7 +39,7 @@ namespace Laikos
         bool showHelp = false;
 
         CREATION_MODE creationMode = CREATION_MODE.TERRAIN_UP;
-        byte creationOption = 0;
+        byte creationOption = 99;
         byte creationType = 0;
 
         ObjectsSchema objectsSchema;
@@ -591,7 +591,7 @@ namespace Laikos
                     #region Player_1
                     foreach (UnitSchema unit in tmp.unitGroups_1[0].units)
                     {
-                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), unit.scale, new Vector3 (0, unit.rotation, 0)));
+                        player.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), unit.scale, new Vector3(0, unit.rotation, 0)));
                     }
 
                     foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
@@ -603,7 +603,7 @@ namespace Laikos
                     #region Player_2
                     foreach (UnitSchema unit in tmp.unitGroups_2[0].units)
                     {
-                        enemy.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), unit.scale, new Vector3 (0, unit.rotation, 0)));
+                        enemy.UnitList.Add(new Unit(player.game, UnitTypes[unit.name], new Vector3(unit.x, 30, unit.y), unit.scale, new Vector3(0, unit.rotation, 0)));
                     }
 
                     foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
@@ -814,10 +814,6 @@ namespace Laikos
                 }
                 #endregion Decorations
             }
-            else if (mouseState.LeftButton == ButtonState.Released)
-            {
-                oneMouseClickDetected = false;
-            }
             
             if (mouseState.RightButton == ButtonState.Pressed)
             {
@@ -911,7 +907,8 @@ namespace Laikos
                 }
                 #endregion Decorations
             }
-            else if (mouseState.RightButton == ButtonState.Released)
+            
+            if ((mouseState.RightButton == ButtonState.Released) && (mouseState.LeftButton == ButtonState.Released))
             {
                 oneMouseClickDetected = false;
             }

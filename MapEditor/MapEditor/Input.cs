@@ -58,13 +58,15 @@ namespace Laikos
 
                             foreach (Decoration decoration in decorationlist)
                             {
-                                EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, decorationlist, null));
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, decoration, null));
                             }
 
                             EventManager.CreateMessage(new Message((int)EventManager.Events.Selected, null, allObjects[i], null));
-                            break;
+                            
+                        break;
                     }
                 }
+                
                 if (!selected)
                 {
                     foreach (Unit unit in unitlist)
@@ -79,7 +81,7 @@ namespace Laikos
 
                     foreach (Decoration decoration in decorationlist)
                     {
-                        EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, decorationlist, null));
+                        EventManager.CreateMessage(new Message((int)EventManager.Events.Unselected, null, decoration, null));
                     }
                 }
             }
