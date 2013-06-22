@@ -135,6 +135,7 @@
       <Name>ObjectsSchema</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
     <Compile Include="SpotLightGeometry.fbx">
       <Name>SpotLightGeometry</Name>

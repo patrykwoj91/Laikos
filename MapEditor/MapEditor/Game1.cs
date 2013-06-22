@@ -646,18 +646,21 @@ namespace Laikos
                             break;
                         case CREATION_MODE.BUILDINGS_BUILD:
                             creationMode = CREATION_MODE.BUILDINGS_MOVE;
+                            OdznaczWszystko();
                             break;
                         case CREATION_MODE.BUILDINGS_MOVE:
                             creationMode = CREATION_MODE.BUILDINGS_BUILD;
                             break;
                         case CREATION_MODE.UNITS_BUILD:
                             creationMode = CREATION_MODE.UNITS_MOVE;
+                            OdznaczWszystko();
                             break;
                         case CREATION_MODE.UNITS_MOVE:
                             creationMode = CREATION_MODE.UNITS_BUILD;
                             break;
                         case CREATION_MODE.DECORATIONS_BUILD:
                             creationMode = CREATION_MODE.DECORATIONS_MOVE;
+                            OdznaczWszystko();
                             break;
                         case CREATION_MODE.DECORATIONS_MOVE:
                             creationMode = CREATION_MODE.DECORATIONS_BUILD;
@@ -761,25 +764,6 @@ namespace Laikos
                         }
                     }
                 }
-                else if (creationMode == CREATION_MODE.UNITS_MOVE)
-                {
-                    Unit unitSelected = null;
-                    foreach (Unit unit in player.UnitList)
-                    {
-                        if (unit.selected)
-                        {
-                            unitSelected = unit;
-
-                            if (unitSelected != null)
-                            {
-                                unitSelected.Position.Z = pointerPosition.Z;
-                                unitSelected.Position.X = pointerPosition.X;
-                            }
-
-                            break;
-                        }
-                    }
-                }
                 #endregion Units
 
                 #region Buildings
@@ -808,7 +792,73 @@ namespace Laikos
                         }
                     }
                 }
-                else if (creationMode == CREATION_MODE.BUILDINGS_MOVE)
+                #endregion Building
+
+                #region Decorations
+                else if (creationMode == CREATION_MODE.DECORATIONS_BUILD)
+                {
+                    if (!oneMouseClickDetected)
+                    {
+                        oneMouseClickDetected = true;
+
+                        if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Decorations_")))
+                        {
+                            Decoration decoration = new Decoration(player.game, decorations.DecorationTypes[objectsSchema.decorationsGroups[creationType].decorations[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.1f);
+
+                            if (decoration.checkIfPossible(pointerPosition))
+                            {
+                                decorations.DecorationList.Add(decoration);
+                            }
+                        }
+                    }
+                }
+                #endregion Decorations
+            }
+            else if (mouseState.LeftButton == ButtonState.Released)
+            {
+                oneMouseClickDetected = false;
+            }
+            
+            if (mouseState.RightButton == ButtonState.Pressed)
+            {
+                MouseState mouse = Mouse.GetState();
+                Vector2 pointerPos = new Vector2(mouse.X, mouse.Y);
+
+                Ray pointerRay = Collisions.GetPointerRay(pointerPos, device);
+                Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
+                Ray shorterRay = Collisions.LinearSearch(clippedRay);
+                pointerPosition = Collisions.BinarySearch(shorterRay);
+
+                Color[] data = new Color[terrain.TerrainMap.Height * terrain.TerrainMap.Width];
+                terrain.TerrainMap.GetData<Color>(data);
+
+                Int32 positionHeight = (int)pointerPosition.Z;
+                Int32 positionWidth = (int)pointerPosition.X;
+
+                #region Units
+                if (creationMode == CREATION_MODE.UNITS_MOVE)
+                {
+                    Unit unitSelected = null;
+                    foreach (Unit unit in player.UnitList)
+                    {
+                        if (unit.selected)
+                        {
+                            unitSelected = unit;
+
+                            if (unitSelected != null)
+                            {
+                                unitSelected.Position.Z = pointerPosition.Z;
+                                unitSelected.Position.X = pointerPosition.X;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+                #endregion Units
+
+                #region Buildings
+                if (creationMode == CREATION_MODE.BUILDINGS_MOVE)
                 {
                     Building buildingSelected = null;
                     foreach (Building building in player.BuildingList)
@@ -831,25 +881,9 @@ namespace Laikos
                     }
                 }
                 #endregion Building
+
                 #region Decorations
-                else if (creationMode == CREATION_MODE.DECORATIONS_BUILD)
-                {
-                    if (!oneMouseClickDetected)
-                    {
-                        oneMouseClickDetected = true;
-
-                        if ((creationOption < 6) && (!objectsSchema.buildingsGroups_1[creationType].buildings[creationOption - 1].name.StartsWith("Decorations_")))
-                        {
-                            Decoration decoration = new Decoration(player.game, decorations.DecorationTypes[objectsSchema.decorationsGroups[creationType].decorations[creationOption - 1].name], new Vector3(positionWidth, 30, positionHeight), 0.1f);
-
-                            if (decoration.checkIfPossible(pointerPosition))
-                            {
-                                decorations.DecorationList.Add(decoration);
-                            }
-                        }
-                    }
-                }
-                else if (creationMode == CREATION_MODE.DECORATIONS_MOVE)
+                if (creationMode == CREATION_MODE.DECORATIONS_MOVE)
                 {
                     if (CheckGroundForBuilding(new Vector2(pointerPosition.Z, pointerPosition.X)))
                     {
@@ -877,7 +911,7 @@ namespace Laikos
                 }
                 #endregion Decorations
             }
-            else if (mouseState.LeftButton == ButtonState.Released)
+            else if (mouseState.RightButton == ButtonState.Released)
             {
                 oneMouseClickDetected = false;
             }
@@ -885,6 +919,34 @@ namespace Laikos
             Input.Update(gameTime, device, camera, player.UnitList, player.BuildingList, decorations.DecorationList);
 
             base.Update(gameTime);
+        }
+
+        private void OdznaczWszystko()
+        {
+            foreach (Unit unit in player.UnitList)
+            {
+                unit.selected = false;
+            }
+
+            foreach (Building building in player.BuildingList)
+            {
+                building.selected = false;
+            }
+
+            foreach (Unit unit in enemy.UnitList)
+            {
+                unit.selected = false;
+            }
+
+            foreach (Building building in enemy.BuildingList)
+            {
+                building.selected = false;
+            }
+
+            foreach (Decoration decoration in decorations.DecorationList)
+            {
+                decoration.selected = false;
+            }
         }
 
         private bool CheckGroundForBuilding(Vector2 _position)
