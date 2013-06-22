@@ -57,7 +57,7 @@ namespace Laikos
 
         public void Initialize()
        {
-            Souls = 1000;
+            Souls = 300;
 
           //  UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 15, 680), 0.05f));
           //  UnitList.Add(new Unit(game,this, UnitTypes["Droid Worker"], new Vector3(680, 0, 650), 0.05f));

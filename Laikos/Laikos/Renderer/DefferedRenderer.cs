@@ -182,7 +182,7 @@ namespace Laikos
             }
             GUI.Draw();
             GUI.Update(gameTime);
-            Debug();
+           // Debug();
         }
 
         private void Debug()
@@ -240,7 +240,7 @@ namespace Laikos
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 20, obj.Position.Z);
                     //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, false, 64));
+                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 64));
                 }
             }
         }

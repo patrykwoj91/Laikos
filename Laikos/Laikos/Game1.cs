@@ -162,8 +162,8 @@ namespace Laikos
 
                      if (collision)
                      {
-                         player.UnitList[i].Position = player.UnitList[i].lastPosition;
-                         player.UnitList[j].Position = player.UnitList[j].lastPosition;
+                        // player.UnitList[i].Position = player.UnitList[i].lastPosition;
+                        // player.UnitList[j].Position = player.UnitList[j].lastPosition;
                      }
                  }
              }

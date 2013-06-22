@@ -132,6 +132,7 @@ namespace Laikos
                     Unit _uni = FindEnemy();
                     if (_uni != null)
                     {
+                        
                         EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, this, _uni));
                     }
                 }
