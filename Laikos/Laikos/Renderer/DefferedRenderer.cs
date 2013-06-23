@@ -131,6 +131,18 @@ namespace Laikos
                     Unit unit = (Unit)obj;
                     unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, false);
                 }
+                else if (obj is Building)
+                {
+                    Building building = (Building)obj;
+                    building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                }
+                else if (obj is Decoration)
+                {
+                    Decoration decoration = (Decoration)obj;
+                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                }
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
@@ -168,21 +180,21 @@ namespace Laikos
                 DrawLights(objects);
                 explosionParticles.Draw(gameTime, device);
                 explosionSmokeParticles.Draw(gameTime, device);
-                foreach (GameObject obj in objects)
+              /*  foreach (GameObject obj in objects)
                 {
                     if (obj is Decoration)
                     {
                         Decoration decoration = (Decoration)obj;
                         //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                        decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                        //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                     }
                     if (obj is Building)
                     {
                         Building building = (Building)obj;
                         //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                        building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                        //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                     }
-                }
+                }*/
                 GUI.Draw();
                 GUI.Update(gameTime);
                 
@@ -242,7 +254,7 @@ namespace Laikos
 
             lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, lightIntensity));
 
-            foreach (GameObject obj in objects)
+           /* foreach (GameObject obj in objects)
             {
                 if (obj is Unit)
                 {
@@ -250,7 +262,7 @@ namespace Laikos
                     //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
                     //lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 64));
                 }
-            }
+            }*/
         }
     }
 }

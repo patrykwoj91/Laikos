@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using MyDataTypes;
+using Animation;
+
 
 using Laikos.PathFiding;
 using Microsoft.Xna.Framework.Audio;
@@ -28,6 +30,7 @@ namespace Laikos
         public List<Wspolrzedne> destinyPoints;
         public IEnumerator<Wspolrzedne> destinyPointer;
         public BoundingSphere boundingSphere;
+        BoundingSphere originalSphere1;
         Vector3 direction;
 
         //////////////////////////////////
@@ -76,10 +79,15 @@ namespace Laikos
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
 
+            ModelExtra modelExtra = currentModel.Model.Tag as ModelExtra;
+            originalSphere1 = modelExtra.boundingSphere;
+           
         }
 
         public void Update(GameTime gameTime)
         {
+            boundingSphere = XNAUtils.TransformBoundingSphere(originalSphere1, GetWorldMatrix());
+
             if (HP <= 0)
             {
                 dead = true;
@@ -241,32 +249,35 @@ namespace Laikos
                                 if (destinyPoints == null)
                                 {
                                     Vector3 stay_here = new Vector3(((WhereToBuild)messages[i].Payload).position.X, ((WhereToBuild)messages[i].Payload).position.Y, ((WhereToBuild)messages[i].Payload).position.Z);
+                                    Building temp = new Building(game,player,((WhereToBuild)messages[i].Payload).building.type,Vector3.Zero,((WhereToBuild)messages[i].Payload).building.type.Scale,false);
 
-                                    if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
+                             /*       if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
                                     {
-                                        //if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
-                                        //      stay_here.X += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
+                                        if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
+                                              stay_here.X +=(BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius-60);
+                                            
 
-                                        //else
-                                        //     stay_here.X -= BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
+                                        else
+                                             stay_here.X -= (BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius+60);
 
-                                        //stay_here.Z += MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius - unit.boundingSphere.Radius - 0.1f),
-                                        //    (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f));
+                                       // stay_here.Z += MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius - boundingSphere.Radius - 0.1f),
+                                          //  (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + boundingSphere.Radius + 0.1f));
                                     }
                                     else
                                     {
-                                        // if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
-                                        //    stay_here.Z += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
-                                        //else
-                                        //    stay_here.Z -= BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f;
+                                         if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
+                                           stay_here.Z += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius-60;
+                                        else
+                                            stay_here.Z -= (BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius+60);
 
                                         //stay_here.X += MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius - unit.boundingSphere.Radius - 0.1f),
                                         // (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f));
-                                    }
+                                    }*/
 
                                     setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
-                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((WhereToBuild)messages[i].Payload).position.X, (int)(((WhereToBuild)messages[i].Payload).position.Z));
+                                   // Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((WhereToBuild)messages[i].Payload).position.X, (int)(((WhereToBuild)messages[i].Payload).position.Z));
+                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)stay_here.X, (int)stay_here.Z);
 
                                     this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                     this.destinyPointer = null;

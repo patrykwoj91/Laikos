@@ -56,6 +56,11 @@ namespace Laikos
                 VertexHelper.ExtractModelMeshData(mesh, ref transformations, meshVertices);
                 meshBoundingBoxes.Add(BoundingBox.CreateFromPoints(meshVertices));
             }
+
+            ModelExtra modelExtra1 = currentModel.Model.Tag as ModelExtra;
+            BoundingSphere originalSphere2 = modelExtra1.boundingSphere;
+            boundingBox = BoundingBox.CreateFromSphere(XNAUtils.TransformBoundingSphere(originalSphere2, GetWorldMatrix()));
+
         }
 
         public void Update(GameTime gameTime)

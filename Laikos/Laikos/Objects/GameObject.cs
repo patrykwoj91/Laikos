@@ -21,6 +21,7 @@ namespace Laikos
         bool exists = false;
         public float temp_position = 0.0f;
         public Player player;
+        public Game game;
 
         public bool selected = false;
         public List<Message> messages;
@@ -44,7 +45,7 @@ namespace Laikos
         {
             this.player = player;
             this.messages = new List<Message>();
-
+            this.game = game;
                 currentModel = new AnimatedModel(path);
                 currentModel.LoadContent(game.Content);
         }
