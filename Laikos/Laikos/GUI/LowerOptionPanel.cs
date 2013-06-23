@@ -76,17 +76,31 @@ namespace Laikos
                 spriteBatch.Draw(observatory, secondTabPosition, Color.White);
                 spriteBatch.Draw(palace1, thirdTabPosition, Color.White);
                 spriteBatch.Draw(guardTower, fourthTabPosition, Color.White);
+                SourcesButton.DrawButton(spriteBatch, new Rectangle(firstTabPosition.X + firstTabPosition.Width / 3, firstTabPosition.Y - 23, 50, 20), 150,
+                    new Rectangle(firstTabPosition.X + firstTabPosition.Width / 3, firstTabPosition.Y - 20, 15, 15), new Vector2(firstTabPosition.X + firstTabPosition.Width / 3 + 18, firstTabPosition.Y -25));
+                SourcesButton.DrawButton(spriteBatch, new Rectangle(secondTabPosition.X + secondTabPosition.Width / 3, secondTabPosition.Y - 23, 50, 20), 300,
+                    new Rectangle(secondTabPosition.X + secondTabPosition.Width / 3, secondTabPosition.Y - 20, 15, 15), new Vector2(secondTabPosition.X + secondTabPosition.Width / 3 + 18, secondTabPosition.Y - 25));
+                SourcesButton.DrawButton(spriteBatch, new Rectangle(thirdTabPosition.X + thirdTabPosition.Width / 3, thirdTabPosition.Y - 23, 50, 20), 600,
+                    new Rectangle(thirdTabPosition.X + thirdTabPosition.Width / 3, thirdTabPosition.Y - 20, 15, 15), new Vector2(thirdTabPosition.X + thirdTabPosition.Width / 3 + 18, thirdTabPosition.Y - 25));
+                SourcesButton.DrawButton(spriteBatch, new Rectangle(fourthTabPosition.X + fourthTabPosition.Width / 3, fourthTabPosition.Y - 23, 50, 20), 900,
+                    new Rectangle(fourthTabPosition.X + fourthTabPosition.Width / 3, fourthTabPosition.Y - 20, 15, 15), new Vector2(fourthTabPosition.X + fourthTabPosition.Width / 3 + 18, fourthTabPosition.Y - 25));
             }
             if (UnitBackground.whichUnit == 1 && !isUnit)
             {
                 spriteBatch.Draw(optionPanel, position, Color.White);
                 spriteBatch.Draw(dronWorker, firstTabPosition, Color.White);
+                SourcesButton.DrawButton(spriteBatch, new Rectangle(firstTabPosition.X + firstTabPosition.Width / 3, firstTabPosition.Y - 23, 50, 20), 100,
+    new Rectangle(firstTabPosition.X + firstTabPosition.Width / 3, firstTabPosition.Y - 20, 15, 15), new Vector2(firstTabPosition.X + firstTabPosition.Width / 3 + 18, firstTabPosition.Y - 25));
             }
             if (UnitBackground.whichUnit == 2 && !isUnit)
             {
                 spriteBatch.Draw(optionPanel, position, Color.White);
                 spriteBatch.Draw(tank, firstTabPosition, Color.White);
                 spriteBatch.Draw(eye, secondTabPosition, Color.White);
+                SourcesButton.DrawButton(spriteBatch, new Rectangle(firstTabPosition.X + firstTabPosition.Width / 3, firstTabPosition.Y - 23, 50, 20), 200,
+                    new Rectangle(firstTabPosition.X + firstTabPosition.Width / 3, firstTabPosition.Y - 20, 15, 15), new Vector2(firstTabPosition.X + firstTabPosition.Width / 3 + 18, firstTabPosition.Y - 25));
+                SourcesButton.DrawButton(spriteBatch, new Rectangle(secondTabPosition.X + secondTabPosition.Width / 3, secondTabPosition.Y - 23, 50, 20), 150,
+                    new Rectangle(secondTabPosition.X + secondTabPosition.Width / 3, secondTabPosition.Y - 20, 15, 15), new Vector2(secondTabPosition.X + secondTabPosition.Width / 3 + 18, secondTabPosition.Y - 25));
             }
             if (UnitBackground.whichUnit == 0 && !isUnit)
             {
@@ -105,8 +119,8 @@ namespace Laikos
                 return;
             }
 
-            int x = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - (LowerBackground.height + height) / 2, upTime);
-            int y = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - 85, upTime);
+            int x = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - (LowerBackground.height + height) / 2 + 10, upTime);
+            int y = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - 75, upTime);
             int z = (int)MathHelper.SmoothStep(GUI.screenHeight, GUI.screenHeight - 75, upTime);
             position.Y = x;
             firstTabPosition.Y = y;
@@ -126,8 +140,8 @@ namespace Laikos
                 return;
             }
 
-            int x = (int)MathHelper.SmoothStep(GUI.screenHeight - (LowerBackground.height + height) / 2, GUI.screenHeight, downTime);
-            int y = (int)MathHelper.SmoothStep(GUI.screenHeight - 85, GUI.screenHeight, downTime);
+            int x = (int)MathHelper.SmoothStep(GUI.screenHeight - (LowerBackground.height + height) / 2 + 10, GUI.screenHeight, downTime);
+            int y = (int)MathHelper.SmoothStep(GUI.screenHeight - 75, GUI.screenHeight, downTime);
             int z = (int)MathHelper.SmoothStep(GUI.screenHeight - 75, GUI.screenHeight, upTime);
             position.Y = x;
             firstTabPosition.Y = y;

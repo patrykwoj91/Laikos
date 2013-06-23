@@ -179,7 +179,6 @@ namespace Laikos
                                         UnitBackground.whichUnit = 1;
                                         break;
                                     case "BJ Niebian2":
-                                        
                                         UnitBackground.whichUnit = 2;
                                         break;
                                 }

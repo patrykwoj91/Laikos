@@ -43,7 +43,7 @@ namespace Laikos
             exitPosition = new Rectangle(pp.BackBufferWidth / 3 + pp.BackBufferWidth / 9, pp.BackBufferHeight / 4 + pp.BackBufferHeight / 4 , 200, 100);
             kwadratPosition1 = new Rectangle(0, 0, 0, 0);
             this.pp = pp;
-            inMenu = false;
+            inMenu = true;
         }
 
         public void Draw()

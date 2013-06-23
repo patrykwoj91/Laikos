@@ -163,6 +163,7 @@ namespace Laikos
             bezMidPosition = (bezStartPosition + bezEndPosition) / 2.0f;
             bezTime = 0.0f;
         }
+
         public void UpdateBezier(ref Vector3 cameraPosition)
         {
             bezTime += 0.05f;

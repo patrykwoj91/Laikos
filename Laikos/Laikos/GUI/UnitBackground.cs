@@ -45,7 +45,8 @@ namespace Laikos
             isUp = true;
             upTime = 1.0f;
             downTime = 1.0f;
-            animated = true;
+            animated = false;
+            whichUnit = int.MaxValue;
         }
 
         public static void UpdateAnimation(GameTime gameTime)
