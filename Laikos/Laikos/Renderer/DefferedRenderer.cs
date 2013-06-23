@@ -22,7 +22,6 @@ namespace Laikos
         private RenderTarget2D normalRT;
         private RenderTarget2D depthRT;
         private RenderTarget2D lightRT;
-        private RenderTarget2D shadowMap;
 
         private Effect clearBuffer;
         private Effect directionalLight;
@@ -123,13 +122,25 @@ namespace Laikos
             device.BlendState = BlendState.Opaque;
             device.DepthStencilState = DepthStencilState.Default;
             device.RasterizerState = RasterizerState.CullCounterClockwise;
-
+            
             foreach (GameObject obj in objects)
             {
                 if (obj is Unit)
                 {
                     Unit unit = (Unit)obj;
-                    unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    unit.currentModel.Draw(device, unit.GetWorldMatrix());
+                }
+                if (obj is Decoration)
+                {
+                    Decoration decoration = (Decoration)obj;
+                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix());
+                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                }
+                if (obj is Building)
+                {
+                    Building building = (Building)obj;
+                    building.currentModel.Draw(device, building.GetWorldMatrix());
+                    //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                 }
                 else if (obj is Building)
                 {
@@ -148,15 +159,14 @@ namespace Laikos
             terrain.DrawTerrain(GBuffer);
             water.DrawWater(time);
             device.SetRenderTarget(null);
-            /*if (minimap)
-            {
-                Minimap.SetRenderTarget(device);
-                terrain.DrawTerrain(GBuffer);
-                water.DrawWater(time);
-                Minimap.ResolveRenderTarger(device);
-                Minimap.SaveMiniMap();
-                minimap = false;
-            }*/
+
+            //Minimap.SetRenderTarget(device);
+            //terrain.DrawTerrain(GBuffer);
+            //water.DrawWater(time);
+            //Minimap.ResolveRenderTarger(device);
+            //Minimap.SaveMiniMap();
+            //minimap = false;
+            
         }
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)

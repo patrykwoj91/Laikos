@@ -79,8 +79,6 @@ namespace Laikos
                 return false;
         }
 
-
-
         public override void HandleEvent(GameTime gameTime)
         {
             EventManager.FindMessagesByDestination(this, messages);

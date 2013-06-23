@@ -81,6 +81,8 @@ namespace Laikos
                     if (Souls <= 598)
                     {
                         Souls += 40;
+                        LowerOptionPanel.soulNumbers = Souls;
+                        Console.WriteLine(LowerOptionPanel.soulNumbers);
                     }
                     timer = TIMER;   //Reset Timer
                 }
@@ -118,7 +120,6 @@ namespace Laikos
         {
             EventManager.FindMessagesByDestination(this, messages);
             FindDoubledMessages();
-            LowerOptionPanel.soulNumbers = Souls;
             if (messages.Count > 0)
             {
                 int i = 0;

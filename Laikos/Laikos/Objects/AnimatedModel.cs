@@ -43,6 +43,9 @@ namespace Laikos
         /// </summary>
         public AnimationPlayer player;
 
+        private Effect GBuffer;
+        private Texture2D normals;
+        private Texture2D speculars;
         #endregion
 
         #region Properties
@@ -88,7 +91,10 @@ namespace Laikos
     
             this.model = content.Load<Model>(assetName);
             modelExtra = model.Tag as ModelExtra;
-            
+
+            GBuffer = content.Load<Effect>("Effects/GBUffer");
+            normals = content.Load<Texture2D>("null_normal");
+            speculars = content.Load<Texture2D>("null_specular");
 
             ObtainBones();
             player = new AnimationPlayer(Clips, this);
@@ -158,7 +164,7 @@ namespace Laikos
         /// <param name="graphics">The graphics device to draw on</param>
         /// <param name="camera">A camera to determine the view</param>
         /// <param name="world">A world matrix to place the model</param>
-        public void Draw(GraphicsDevice device, Matrix world, Effect GBuffer, Texture2D normals, Texture2D speculars, bool isSkinned)
+        public void Draw(GraphicsDevice device, Matrix world)
         {
             if (model == null)
                 return;
@@ -194,11 +200,8 @@ namespace Laikos
             //Ask for 3D projection for this model
             Matrix projection = Camera.projectionMatrix;
 
-            if (isSkinned)
-                GBuffer.CurrentTechnique = GBuffer.Techniques["Skinning"];
-            else
-                GBuffer.CurrentTechnique = GBuffer.Techniques["NoSkinning"];
 
+            GBuffer.CurrentTechnique = GBuffer.Techniques["NoSkinning"];
             GBuffer.Parameters["View"].SetValue(Camera.viewMatrix);
             GBuffer.Parameters["Projection"].SetValue(Camera.projectionMatrix);
 
@@ -209,7 +212,6 @@ namespace Laikos
                     device.SetVertexBuffer(part.VertexBuffer, part.VertexOffset);
                     device.Indices = part.IndexBuffer;
                     
-                    GBuffer.Parameters["isSkinned"].SetValue(isSkinned);
                     GBuffer.Parameters["World"].SetValue(boneTransforms[mesh.ParentBone.Index] * world);
                     GBuffer.Parameters["Texture"].SetValue(part.Effect.Parameters["Texture"].GetValueTexture2D());
                     GBuffer.Parameters["NormalMap"].SetValue(normals);

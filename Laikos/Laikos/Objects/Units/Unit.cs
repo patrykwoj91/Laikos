@@ -1,4 +1,4 @@
-﻿﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System;
 using MyDataTypes;
 using Animation;
-
 
 using Laikos.PathFiding;
 using Microsoft.Xna.Framework.Audio;
@@ -29,8 +28,12 @@ namespace Laikos
         public ZnajdzSciezke pathFiding;
         public List<Wspolrzedne> destinyPoints;
         public IEnumerator<Wspolrzedne> destinyPointer;
+
         public BoundingSphere boundingSphere;
         BoundingSphere originalSphere1;
+        public BoundingSphere attackRadius;
+        public int radius;
+        
         Vector3 direction;
 
         //////////////////////////////////
@@ -78,7 +81,6 @@ namespace Laikos
 
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
-
             ModelExtra modelExtra = currentModel.Model.Tag as ModelExtra;
             originalSphere1 = modelExtra.boundingSphere;
            
@@ -130,6 +132,7 @@ namespace Laikos
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
+            attackRadius = new BoundingSphere(Position, radius);
             base.Update(gameTime);
         }
 

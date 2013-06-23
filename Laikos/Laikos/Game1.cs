@@ -167,10 +167,10 @@ namespace Laikos
                 foreach (Building building in player.BuildingList)
                 {
                     collision = Collisions.DetailedDecorationCollisionCheck(unit, building);
-                    if (collision)
-                        unit.Position = unit.lastPosition;
+                    //if (collision)
+                        //unit.Position = unit.lastPosition;
                 }
-            }*/
+            }
             base.Update(gameTime);
         }
 
