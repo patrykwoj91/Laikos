@@ -37,7 +37,6 @@ Content\Models\SkyDome\cloudMap.xnb
 Content\waterbump.xnb
 Content\Models\Terrain\Heightmaps\heightmap3.xnb
 Content\selection.xnb
-Content\Models\Terrain\Heightmaps\heightmap4.xnb
 Content\Models\Buildings\Aliens\Nekropolis\drewno.xnb
 Content\Models\Buildings\Aliens\Nekropolis\mat3.xnb
 Content\Models\Buildings\Aliens\Nekropolis\nekropolis.xnb
@@ -95,9 +94,6 @@ Content\Effects\GBuffer.xnb
 Content\Effects\SpotLight.xnb
 Content\Effects\ParticleEffect.xnb
 Content\Effects\Water.xnb
-Content\Effects\BloomCombine.xnb
-Content\Effects\BloomExtract.xnb
-Content\Effects\GaussianBlur.xnb
 Content\SpotLightGeometry.xnb
 Content\PointLightGeometry.xnb
 Content\Models\Units\Niebianie\Tank\czolg.xnb
@@ -114,10 +110,6 @@ Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p2.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p3.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p4.xnb
 Content\Models\Buildings\Aliens\Wieża\wieza.xnb
-Content\Models\Decorations\Drzewa\drzewo1.xnb
-Content\Models\Decorations\Drzewa\drzewo2.xnb
-Content\Models\Decorations\Drzewa\drzewo3.xnb
-Content\Models\Decorations\Drzewa\drzewo4.xnb
 Content\Models\Decorations\Ruiny\ruiny1.xnb
 Content\Models\Decorations\Ruiny\ruiny2.xnb
 Content\Models\Decorations\Ruiny\ruiny3.xnb
@@ -224,3 +216,8 @@ Content\FBX\85C729E9\prison.fbm\antenna_01_01_01_01_0.xnb
 Content\FBX\85C729E9\prison.fbm\rdza_0.xnb
 Content\FBX\85C729E9\prison.fbm\czerwien_0.xnb
 Content\FBX\85C729E9\prison.fbm\metal2_0.xnb
+Content\Models\Terrain\Heightmaps\heightmap4.xnb
+Content\Models\Decorations\Drzewa\drzewo1.xnb
+Content\Models\Decorations\Drzewa\drzewo2.xnb
+Content\Models\Decorations\Drzewa\drzewo3.xnb
+Content\Models\Decorations\Drzewa\drzewo4.xnb

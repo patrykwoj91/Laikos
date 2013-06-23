@@ -357,25 +357,21 @@
       <Name>drzewo1</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Drzewa\drzewo2.FBX">
       <Name>drzewo2</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Drzewa\drzewo3.FBX">
       <Name>drzewo3</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Drzewa\drzewo4.FBX">
       <Name>drzewo4</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
-      <ProcessorParameters_Scale>0.1</ProcessorParameters_Scale>
     </Compile>
     <Compile Include="Models\Decorations\Ruiny\ruiny1.FBX">
       <Name>ruiny1</Name>
@@ -570,13 +566,6 @@
   <ItemGroup>
     <Compile Include="selection.png">
       <Name>selection</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Terrain\Heightmaps\heightmap4.bmp">
-      <Name>heightmap4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -941,6 +930,13 @@
       <Name>prison</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Terrain\Heightmaps\heightmap4.jpg">
+      <Name>heightmap4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

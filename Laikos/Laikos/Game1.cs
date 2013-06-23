@@ -48,8 +48,8 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 700;
             graphics.IsFullScreen = false;
         }
 
@@ -223,7 +223,7 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
             {
-                player.BuildingList.Add(new Building(player.game, player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                player.BuildingList.Add(new Building(player.game, player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale,true,new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(building.rotation), MathHelper.ToRadians(0))));
             }
             #endregion Player_1
 
@@ -235,13 +235,13 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
             {
-                enemy.BuildingList.Add(new Building(enemy.game, enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), BuildingTypes[building.name].Scale));
+                enemy.BuildingList.Add(new Building(enemy.game, enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale, true, new Vector3(MathHelper.ToRadians(0),building.rotation, MathHelper.ToRadians(0))));
             }
             #endregion Player_2
 
             foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
             {
-                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y)));
+                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), decoration.scale, new Vector3(MathHelper.ToRadians(0),decoration.rotation, MathHelper.ToRadians(0))));
             }
         }
 
