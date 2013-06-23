@@ -11,11 +11,29 @@ using System.IO;
 
 namespace Laikos
 {
-   public class GameObject
+    public class GameObject
     {
         public Vector3 Position = new Vector3(0, 0, 0); //Model current position on the screen
         public Vector3 lastPosition = new Vector3(0, 0, 0);
         public Vector3 Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0)); //Current rotation
+
+        public float Rotation_Y_Add
+        {
+            set
+            {
+                Rotation.Y += value;
+
+                if (MathHelper.ToDegrees(Rotation.Y) > 180.0f)
+                {
+                    Rotation.Y -= MathHelper.ToRadians(360.0f);
+                }
+                else if (MathHelper.ToDegrees(Rotation.Y) < -180.0f)
+                {
+                    Rotation.Y += MathHelper.ToRadians(360.0f);
+                }
+            }
+        }
+
         public float Scale = 1.0f; //Current scale
         public AnimatedModel currentModel = null; //model
         bool exists = false;
@@ -24,7 +42,7 @@ namespace Laikos
 
         public bool selected = false;
         public List<Message> messages;
-        
+
         public Matrix GetWorldMatrix()
         {
             return
@@ -40,13 +58,13 @@ namespace Laikos
             this.messages = new List<Message>();
         }
 
-        public GameObject(Game game,Player player, String path)   
+        public GameObject(Game game, Player player, String path)
         {
             this.player = player;
             this.messages = new List<Message>();
 
-                currentModel = new AnimatedModel(path);
-                currentModel.LoadContent(game.Content);
+            currentModel = new AnimatedModel(path);
+            currentModel.LoadContent(game.Content);
         }
 
         public void Update(GameTime gameTime)

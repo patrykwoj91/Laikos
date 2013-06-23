@@ -38,21 +38,16 @@ namespace Laikos
         public Player player;
         public Player enemy;
 
-        System.Drawing.Bitmap bitmapTmp;
-
-        public static SoundEffect [] sounds;
-        VertexPositionColor[] vertices;
-        BasicEffect basicEffect;
-
+        public static SoundEffect[] sounds;
 
         public Game1()
         {
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -143,37 +138,22 @@ namespace Laikos
 
             EventManager.Update();
 
-
-
-
-            //temp.Clear();
-
-
             // TODO: Add your update logic here
+            bool collision = false;
+            for (int i = 0; i < player.UnitList.Count; i++)
+            {
+                for (int j = i + 1; j < player.UnitList.Count; j++)
+                {
+                    collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
 
-             bool collision = false;
-             for (int i = 0; i < player.UnitList.Count; i++)
-             {
-                 for (int j = i + 1; j < player.UnitList.Count; j++)
-                 {
-                     collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
-
-                     if (collision)
-                     {
+                    if (collision)
+                    {
                         // player.UnitList[i].Position = player.UnitList[i].lastPosition;
                         // player.UnitList[j].Position = player.UnitList[j].lastPosition;
-                     }
-                 }
-             }
-            /*foreach (Unit unit in player.UnitList)
-            {
-                foreach (Building building in player.BuildingList)
-                {
-                    collision = Collisions.DetailedDecorationCollisionCheck(unit, building);
-                    if (collision)
-                        unit.Position = unit.lastPosition;
+                    }
                 }
-            }*/
+            }
+           
             base.Update(gameTime);
         }
 
@@ -226,7 +206,7 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_1[0].buildings)
             {
-                player.BuildingList.Add(new Building(player.game, player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale,true,new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(building.rotation), MathHelper.ToRadians(0))));
+                player.BuildingList.Add(new Building(player.game, player, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale, true, new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(building.rotation), MathHelper.ToRadians(0))));
             }
             #endregion Player_1
 
@@ -238,13 +218,13 @@ namespace Laikos
 
             foreach (BuildingSchema building in tmp.buildingsGroups_2[0].buildings)
             {
-                enemy.BuildingList.Add(new Building(enemy.game, enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale, true, new Vector3(MathHelper.ToRadians(0),building.rotation, MathHelper.ToRadians(0))));
+                enemy.BuildingList.Add(new Building(enemy.game, enemy, BuildingTypes[building.name], new Vector3(building.x, 30, building.y), building.scale, true, new Vector3(MathHelper.ToRadians(0), building.rotation, MathHelper.ToRadians(0))));
             }
             #endregion Player_2
 
             foreach (DecorationSchema decoration in tmp.decorationsGroups[0].decorations)
             {
-                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), decoration.scale, new Vector3(MathHelper.ToRadians(0),decoration.rotation, MathHelper.ToRadians(0))));
+                decorations.DecorationList.Add(new Decoration(player.game, decorations.DecorationTypes[decoration.name], new Vector3(decoration.x, 30, decoration.y), decoration.scale, new Vector3(MathHelper.ToRadians(0), decoration.rotation, MathHelper.ToRadians(0))));
             }
         }
 
@@ -261,60 +241,60 @@ namespace Laikos
             }
         }
 
-      /* void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
-        {
+        /* void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+          {
 
-            for (int i = player.UnitList.Count objects.Count - 1; i >= 0; i--)
-            {
-                if (objects[i] is Unit)
-                {
-                    if (((Unit)objects[i]).HP <= 0)
-                    {
-                        DefferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                        ((Unit)objects[i]).dead = true;
-                        for (int j = player.UnitList.Count - 1; j >= 0; j--)
-                            if (player.UnitList[j].dead == true)
-                                player.UnitList.RemoveAt(j);
-                        for (int j = enemy.UnitList.Count - 1; j >= 0; j--)
-                            if (enemy.UnitList[j].dead == true)
-                                enemy.UnitList.RemoveAt(j);
-                    }
-                }
-                else if (objects[i] is Building)
-                {
-                    if (((Building)objects[i]).HP <= 0)
-                    {
-                        DefferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                        ((Unit)objects[i]).dead = true;
-                        for (int j = player.UnitList.Count - 1; j >= 0; j--)
-                            if (player.UnitList[j].dead == true)
-                                player.UnitList.RemoveAt(j);
-                        for (int j = enemy.BuildingList.Count - 1; j >= 0; j--)
-                            if (enemy.BuildingList[j].dead == true)
-                                enemy.BuildingList.RemoveAt(j);
-                    }
-                }
+              for (int i = player.UnitList.Count objects.Count - 1; i >= 0; i--)
+              {
+                  if (objects[i] is Unit)
+                  {
+                      if (((Unit)objects[i]).HP <= 0)
+                      {
+                          DefferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                          DefferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                          ((Unit)objects[i]).dead = true;
+                          for (int j = player.UnitList.Count - 1; j >= 0; j--)
+                              if (player.UnitList[j].dead == true)
+                                  player.UnitList.RemoveAt(j);
+                          for (int j = enemy.UnitList.Count - 1; j >= 0; j--)
+                              if (enemy.UnitList[j].dead == true)
+                                  enemy.UnitList.RemoveAt(j);
+                      }
+                  }
+                  else if (objects[i] is Building)
+                  {
+                      if (((Building)objects[i]).HP <= 0)
+                      {
+                          DefferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                          DefferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                          ((Unit)objects[i]).dead = true;
+                          for (int j = player.UnitList.Count - 1; j >= 0; j--)
+                              if (player.UnitList[j].dead == true)
+                                  player.UnitList.RemoveAt(j);
+                          for (int j = enemy.BuildingList.Count - 1; j >= 0; j--)
+                              if (enemy.BuildingList[j].dead == true)
+                                  enemy.BuildingList.RemoveAt(j);
+                      }
+                  }
 
-                DefferedRenderer.explosionParticles.Update(gameTime);
-            }
-        }
+                  DefferedRenderer.explosionParticles.Update(gameTime);
+              }
+          }
 
-        void UpdateExplosionSmoke(GameTime gameTime, List<GameObject> objects)
-        {
-            for (int i = objects.Count - 1; i >= 0; i--)
-            {
-                if (objects[i] is Unit)
-                {
-                    Unit unit = (Unit)objects[i];
-                    if (100 * unit.HP / unit.maxHP <= 5)
-                    {
-                        DefferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
-                    }
-                }
-                DefferedRenderer.explosionSmokeParticles.Update(gameTime);
-            }
-        }*/
+          void UpdateExplosionSmoke(GameTime gameTime, List<GameObject> objects)
+          {
+              for (int i = objects.Count - 1; i >= 0; i--)
+              {
+                  if (objects[i] is Unit)
+                  {
+                      Unit unit = (Unit)objects[i];
+                      if (100 * unit.HP / unit.maxHP <= 5)
+                      {
+                          DefferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                      }
+                  }
+                  DefferedRenderer.explosionSmokeParticles.Update(gameTime);
+              }
+          }*/
     }
 }

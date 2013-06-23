@@ -13,7 +13,6 @@ namespace Laikos
         public static MouseState currentMouseState, oldMouseState;
         public static bool selectionbox;
         public static Vector2 startDrag = new Vector2(-99, -99);
-        public static Vector2 stopDrag;
         public static bool building_mode = false;
         public static WhereToBuild next_build;
 
@@ -218,7 +217,7 @@ namespace Laikos
                                     &&
                                     (!_msg.Done))
                                 {
-                                    _msg.Done = true;l
+                                    _msg.Done = true;
                                 }
                             }
 

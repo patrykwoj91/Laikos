@@ -52,7 +52,7 @@ namespace Laikos
         public Unit(Game game, Player player, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
             : base(game, player, type.model)
         {
-            
+
             Souls_owned = 0;
             this.player = player;
             this.Position = position;
@@ -93,14 +93,14 @@ namespace Laikos
                 bool none = true;
                 foreach (Message _msg in messages)
                 {
-                    if 
+                    if
                     (
                         (
                             (_msg.Type == (int)EventManager.Events.Attack)
                             ||
                             (_msg.Type == (int)EventManager.Events.MoveToAttack)
                         )
-                        && 
+                        &&
                         (!_msg.Done))
                     {
                         none = false;
@@ -113,7 +113,7 @@ namespace Laikos
                     Unit _uni = FindEnemy();
                     if (_uni != null)
                     {
-                        
+
                         EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, this, _uni));
                     }
                 }
@@ -195,15 +195,17 @@ namespace Laikos
                                 {
                                     direction.Normalize();
 
-                                    Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
+                                    ChangeDirection();
 
-                                    Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                                    Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    if (Math.Abs(ComputeRotationChange()) < MathHelper.ToRadians(10.0f))
+                                    {
+                                        Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                        Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    }
                                 }
 
                                 if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                 {
-
                                     // Next step walk.
                                     if (!destinyPointer.MoveNext())
                                     {
@@ -292,7 +294,7 @@ namespace Laikos
                                     {
                                         direction.Normalize();
 
-                                        Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
+                                        ChangeDirection();
 
                                         Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                         Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
@@ -522,7 +524,7 @@ namespace Laikos
                                             player.Souls += this.Souls_owned;
                                             this.Souls_owned = 0;
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
-                                     
+
                                             timeSpan = TimeSpan.FromMilliseconds(3000);
                                             messages[i].Done = true;
                                             break;
@@ -575,11 +577,11 @@ namespace Laikos
                                 if
                                 (
                                     (
-                                        (destinyUnit != null) 
+                                        (destinyUnit != null)
                                         &&
                                         (Math.Abs(Position.X - destinyUnit.Position.X) < range)
                                     )
-                                    || 
+                                    ||
                                     (
                                         (destinyBuilding != null)
                                         &&
@@ -611,7 +613,7 @@ namespace Laikos
                                 {
                                     direction.Normalize();
 
-                                    Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
+                                    ChangeDirection();
 
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
@@ -743,15 +745,41 @@ namespace Laikos
             _msg.Done = true;
         }
 
+        private void ChangeDirection()
+        {
+            float change = ComputeRotationChange();
+
+            Console.WriteLine(MathHelper.ToDegrees(change) + " " + MathHelper.ToDegrees(Rotation.Y) + " " + MathHelper.ToDegrees(ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z))));
+
+            if (Math.Abs(change) > MathHelper.ToRadians(8.0f))
+            {
+                if (change > 0)
+                {
+                    Rotation_Y_Add = MathHelper.ToRadians(1);
+                }
+                else
+                {
+                    Rotation_Y_Add = MathHelper.ToRadians(-1);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Dobry kierunek");
+            }
+        }
+
+        private float ComputeRotationChange()
+        {
+            return Rotation.Y - ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
+        }
+
         private float ComputeRadian(Vector2 _beg, Vector2 _end)
         {
             Vector2 vecTmp = Vector2.Multiply(_beg, _end);
 
             vecTmp.Normalize();
 
-            float dotProd = Vector2.Dot(vecTmp, new Vector2(0, 1));
-
-            return (float)(Math.Acos(dotProd) * (180.0f / Math.PI));
+            return (float)Math.Atan2(vecTmp.Y - 1, vecTmp.X - 0);
         }
 
         private Unit FindEnemy()
