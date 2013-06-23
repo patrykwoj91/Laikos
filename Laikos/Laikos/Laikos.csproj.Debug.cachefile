@@ -37,7 +37,6 @@ Content\Models\SkyDome\cloudMap.xnb
 Content\waterbump.xnb
 Content\Models\Terrain\Heightmaps\heightmap3.xnb
 Content\selection.xnb
-Content\Models\Terrain\Heightmaps\heightmap4.xnb
 Content\Models\Buildings\Aliens\Nekropolis\drewno.xnb
 Content\Models\Buildings\Aliens\Nekropolis\mat3.xnb
 Content\Models\Buildings\Aliens\Nekropolis\nekropolis.xnb
@@ -45,16 +44,16 @@ Content\Models\Terrain\minimap.xnb
 Content\mmap_buildings.xnb
 Content\mmap_units.xnb
 Content\healthbar.xnb
-Content\Models\Buildings\Prison\antenna_01_01_01_01.xnb
-Content\Models\Buildings\Prison\mat3.xnb
-Content\Models\Buildings\Prison\metal.xnb
-Content\Models\Buildings\Prison\metal2.xnb
-Content\Models\Buildings\Prison\rdza.xnb
-Content\Models\Buildings\Prison\sciana.xnb
-Content\Models\Buildings\Prison\Stonepack_1 texture_1_diffuse1.xnb
-Content\Models\Buildings\Prison\Stonepack_1 texture_2_diffuse1.xnb
-Content\Models\Buildings\Prison\texturaInne.xnb
-Content\Models\Buildings\Prison\wiezienie.xnb
+Content\Models\Decorations\Prison\antenna_01_01_01_01.xnb
+Content\Models\Decorations\Prison\mat3.xnb
+Content\Models\Decorations\Prison\metal.xnb
+Content\Models\Decorations\Prison\metal2.xnb
+Content\Models\Decorations\Prison\rdza.xnb
+Content\Models\Decorations\Prison\sciana.xnb
+Content\Models\Decorations\Prison\Stonepack_1 texture_1_diffuse1.xnb
+Content\Models\Decorations\Prison\Stonepack_1 texture_2_diffuse1.xnb
+Content\Models\Decorations\Prison\texturaInne.xnb
+Content\Models\Decorations\Prison\wiezienie.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\drewno.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\mat3.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\sciana.xnb
@@ -111,10 +110,6 @@ Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p2.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p3.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p4.xnb
 Content\Models\Buildings\Aliens\Wieża\wieza.xnb
-Content\Models\Decorations\Drzewa\drzewo1.xnb
-Content\Models\Decorations\Drzewa\drzewo2.xnb
-Content\Models\Decorations\Drzewa\drzewo3.xnb
-Content\Models\Decorations\Drzewa\drzewo4.xnb
 Content\Models\Decorations\Ruiny\ruiny1.xnb
 Content\Models\Decorations\Ruiny\ruiny2.xnb
 Content\Models\Decorations\Ruiny\ruiny3.xnb
@@ -128,7 +123,7 @@ Content\Models\Buildings\Niebianie\BJ\bj-p2.xnb
 Content\Models\Buildings\Niebianie\BJ\bj-p3.xnb
 Content\Models\Buildings\Niebianie\BJ\bj-p4.xnb
 Content\Models\Buildings\Generator\generator.xnb
-Content\Models\Buildings\Prison\prison.xnb
+Content\Models\Decorations\Prison\prison.xnb
 Content\ObjectTypes\UnitTypes.xnb
 Content\ObjectTypes\DecorationTypes.xnb
 Content\Models\Units\Niebianie\Eye\oko_Anims.xnb

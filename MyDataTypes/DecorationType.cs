@@ -9,6 +9,8 @@ namespace MyDataTypes
     {
         public String name;
         public String model;
+        public float Scale;
+        public float rotation;
 
         public object Clone()
         {

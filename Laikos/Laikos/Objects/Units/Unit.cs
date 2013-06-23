@@ -428,9 +428,7 @@ namespace Laikos
                                                         {
                                                             if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
                                                             {
-
                                                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Store, messages[i].Sender, this, building.Position));
-                                                                setWalk();
                                                                 messages[i].Done = true;
                                                                 break;
                                                             }
@@ -524,7 +522,7 @@ namespace Laikos
                                             player.Souls += this.Souls_owned;
                                             this.Souls_owned = 0;
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
-                                            setWalk();
+                                     
                                             timeSpan = TimeSpan.FromMilliseconds(3000);
                                             messages[i].Done = true;
                                             break;

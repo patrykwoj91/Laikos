@@ -63,6 +63,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hilva.Graphics">
+      <HintPath>..\..\Hilva\Hilva.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="Hilva.Graphics.Extensions">
+      <HintPath>..\..\Hilva\Hilva.Graphics.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
