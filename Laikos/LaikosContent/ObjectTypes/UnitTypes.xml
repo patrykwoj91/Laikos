@@ -23,7 +23,7 @@
       <damage>2</damage>
       <range>5</range>
       <ratio>1000</ratio>
-      <Souls>100</Souls>
+      <Souls>150</Souls>
       <Scale>0.045</Scale>
       <model>Models/Units/Niebianie/Eye/oko</model>
     </Item>

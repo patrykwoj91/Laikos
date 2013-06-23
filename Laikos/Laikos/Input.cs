@@ -256,7 +256,7 @@ namespace Laikos
             {
                 //Moving camera if mouse is near edge of screen
                 if (Mouse.GetState().X > cam.backBufferWidth - 5.0f) //right
-                    if (Camera.cameraPosition.X + (Camera.cameraPosition.Y * 6) / 8 < Terrain.width - 200)
+                    if (Camera.cameraPosition.X + (Camera.cameraPosition.Y * 6) / 8 < Terrain.width - 100)
                         moveVector += new Vector3(3, 0, 0);
                 if (Mouse.GetState().X < 5.0f)    //left
                     if (Camera.cameraPosition.X - (Camera.cameraPosition.Y * 6) / 8 > 0 + 100)

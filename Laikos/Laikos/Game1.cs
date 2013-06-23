@@ -45,8 +45,10 @@ namespace Laikos
             time = new TimeSpan();
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 600;
+
             graphics.IsFullScreen = false;
         }
 
@@ -103,10 +105,6 @@ namespace Laikos
             InitializeMapAfterLoad();
 
             Minimap.LoadMiniMap(Content);
-
-            //Console.WriteLine(player.UnitList.Count);
-            Console.WriteLine(enemy.UnitList.Count);
-
             SelectingGUI.Init(device, graphics, this, player.UnitList, player.BuildingList, enemy.UnitList, enemy.BuildingList);
             GUI.Initialize(device, spriteBatch, Content, player);
         }
@@ -127,6 +125,7 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //Console.WriteLine(Camera.cameraPosition);
             float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             time = gameTime.TotalGameTime;
@@ -153,7 +152,7 @@ namespace Laikos
                     }
                 }
             }
-           
+
             base.Update(gameTime);
         }
 
@@ -241,6 +240,7 @@ namespace Laikos
             }
         }
 
+
         /* void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
           {
 
@@ -296,5 +296,6 @@ namespace Laikos
                   DefferedRenderer.explosionSmokeParticles.Update(gameTime);
               }
           }*/
+
     }
 }

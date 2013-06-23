@@ -40,7 +40,6 @@ Content\selection.xnb
 Content\Models\Buildings\Aliens\Nekropolis\drewno.xnb
 Content\Models\Buildings\Aliens\Nekropolis\mat3.xnb
 Content\Models\Buildings\Aliens\Nekropolis\nekropolis.xnb
-Content\Models\Terrain\minimap.xnb
 Content\mmap_buildings.xnb
 Content\mmap_units.xnb
 Content\healthbar.xnb
@@ -209,3 +208,4 @@ Content\FBX\28F92677\oko.fbm\tekstura_0.xnb
 Content\FBX\9FA527B8\czolg.fbm\texturaInne_0.xnb
 Content\FBX\9FA527B8\czolg.fbm\texturaInne2_0.xnb
 Content\FBX\9FA527B8\czolg.fbm\deksturaDol_0.xnb
+Content\Models\Terrain\minimap.xnb

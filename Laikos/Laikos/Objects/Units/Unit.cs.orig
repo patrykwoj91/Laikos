@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -6,7 +6,11 @@ using System.Collections.Generic;
 using System;
 using MyDataTypes;
 using Animation;
+<<<<<<< HEAD
 
+
+=======
+>>>>>>> c269afa3f96a5bd023454d148ad9e40ad3df57ba
 using Laikos.PathFiding;
 using Microsoft.Xna.Framework.Audio;
 
@@ -30,10 +34,13 @@ namespace Laikos
         public IEnumerator<Wspolrzedne> destinyPointer;
 
         public BoundingSphere boundingSphere;
+<<<<<<< HEAD
         BoundingSphere originalSphere1;
+=======
         public BoundingSphere attackRadius;
         public int radius;
         
+>>>>>>> c269afa3f96a5bd023454d148ad9e40ad3df57ba
         Vector3 direction;
 
         //////////////////////////////////
@@ -58,7 +65,7 @@ namespace Laikos
         public Unit(Game game, Player player, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
             : base(game, player, type.model)
         {
-
+            
             Souls_owned = 0;
             this.player = player;
             this.Position = position;
@@ -81,9 +88,13 @@ namespace Laikos
 
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
+<<<<<<< HEAD
+
             ModelExtra modelExtra = currentModel.Model.Tag as ModelExtra;
             originalSphere1 = modelExtra.boundingSphere;
            
+=======
+>>>>>>> c269afa3f96a5bd023454d148ad9e40ad3df57ba
         }
 
         public void Update(GameTime gameTime)
@@ -103,14 +114,14 @@ namespace Laikos
                 bool none = true;
                 foreach (Message _msg in messages)
                 {
-                    if
+                    if 
                     (
                         (
                             (_msg.Type == (int)EventManager.Events.Attack)
                             ||
                             (_msg.Type == (int)EventManager.Events.MoveToAttack)
                         )
-                        &&
+                        && 
                         (!_msg.Done))
                     {
                         none = false;
@@ -123,7 +134,7 @@ namespace Laikos
                     Unit _uni = FindEnemy();
                     if (_uni != null)
                     {
-
+                        
                         EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, this, _uni));
                     }
                 }
@@ -206,17 +217,15 @@ namespace Laikos
                                 {
                                     direction.Normalize();
 
-                                    ChangeDirection();
+                                    Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
 
-                                    //if (Math.Abs(ComputeRotationChange()) < MathHelper.ToRadians(10.0f))
-                                    {
-                                        Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                                        Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-                                    }
+                                    Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+                                    Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                 }
 
                                 if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                 {
+
                                     // Next step walk.
                                     if (!destinyPointer.MoveNext())
                                     {
@@ -256,29 +265,28 @@ namespace Laikos
                                     Vector3 stay_here = new Vector3(((WhereToBuild)messages[i].Payload).position.X, ((WhereToBuild)messages[i].Payload).position.Y, ((WhereToBuild)messages[i].Payload).position.Z);
                                     Building temp = new Building(game,player,((WhereToBuild)messages[i].Payload).building.type,Vector3.Zero,((WhereToBuild)messages[i].Payload).building.type.Scale,false);
 
-                                    if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
+                             /*       if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
                                     {
                                         if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
-                                            stay_here.X += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3;
+                                              stay_here.X +=(BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius-60);
                                             
 
                                         else
-                                             stay_here.X -= BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3;
+                                             stay_here.X -= (BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius+60);
 
-                                        stay_here.Z = MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3),
-                                            (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3));
-                                 
+                                       // stay_here.Z += MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius - boundingSphere.Radius - 0.1f),
+                                          //  (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + boundingSphere.Radius + 0.1f));
                                     }
                                     else
                                     {
-                                        if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
-                                            stay_here.Z += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3;
+                                         if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
+                                           stay_here.Z += BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius-60;
                                         else
-                                            stay_here.Z -= BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3;
+                                            stay_here.Z -= (BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius+60);
 
-                                        stay_here.X = MathUtils.RandomNumber((int)(stay_here.X - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3),
-                                            (int)(stay_here.X + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius/4*3));
-                                    }
+                                        //stay_here.X += MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius - unit.boundingSphere.Radius - 0.1f),
+                                        // (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f));
+                                    }*/
 
                                     setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
@@ -309,7 +317,7 @@ namespace Laikos
                                     {
                                         direction.Normalize();
 
-                                        ChangeDirection();
+                                        Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
 
                                         Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                         Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
@@ -386,38 +394,9 @@ namespace Laikos
                                 //////////MOVE
                                 if (destinyPoints == null)
                                 {
-
-                                /*    Vector3 stay_here = new Vector3(((Building)messages[i].Sender).Position.X, ((Building)messages[i].Sender).Position.Y,((Building)messages[i].Sender).Position.Z);
-
-                                    if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
-                                    {
-                                        if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
-                                            stay_here.X += BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3;
-
-
-                                        else
-                                            stay_here.X -= BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3;
-
-                                        stay_here.Z = MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3),
-                                            (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3));
-
-                                    }
-                                    else
-                                    {
-                                        if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
-                                            stay_here.Z += BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3;
-                                        else
-                                            stay_here.Z -= BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3;
-
-                                        stay_here.X = MathUtils.RandomNumber((int)(stay_here.X - BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3),
-                                            (int)(stay_here.X + BoundingSphere.CreateFromBoundingBox(((Building)messages[i].Sender).boundingBox).Radius / 4 * 3));
-                                    }*/
-
-
                                     setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Building)messages[i].Sender).Position.X, (int)((Building)messages[i].Sender).Position.Z);
-                                    //Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)stay_here.X, (int)stay_here.Z);
                                     poczatek_ruchu.X = this.Position.X;
                                     poczatek_ruchu.Z = this.Position.Z;
                                     this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
@@ -474,7 +453,7 @@ namespace Laikos
                                                         {
                                                             if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
                                                             {
-                                                                EventManager.CreateMessage(new Message((int)EventManager.Events.Store, messages[i].Sender, this, building));
+                                                                EventManager.CreateMessage(new Message((int)EventManager.Events.Store, messages[i].Sender, this, building.Position));
                                                                 messages[i].Done = true;
                                                                 break;
                                                             }
@@ -487,7 +466,7 @@ namespace Laikos
                                                     {
                                                         if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
                                                         {
-                                                            EventManager.CreateMessage(new Message((int)EventManager.Events.Store, this, this, building));
+                                                            EventManager.CreateMessage(new Message((int)EventManager.Events.Store, this, this, building.Position));
                                                             messages[i].Done = true;
                                                             break;
                                                         }
@@ -532,11 +511,10 @@ namespace Laikos
                                 //////////MOVE
                                 if (destinyPoints == null)
                                 {
-
                                     setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
-                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Building)messages[i].Payload).Position.X, (int)((Building)messages[i].Payload).Position.Z);
-                                    //Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)stay_here.X, (int)stay_here.Z);
+                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)((Vector3)messages[i].Payload).Z);
+
                                     this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                     this.destinyPointer = null;
                                 }
@@ -569,7 +547,7 @@ namespace Laikos
                                             player.Souls += this.Souls_owned;
                                             this.Souls_owned = 0;
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
-
+                                     
                                             timeSpan = TimeSpan.FromMilliseconds(3000);
                                             messages[i].Done = true;
                                             break;
@@ -622,11 +600,11 @@ namespace Laikos
                                 if
                                 (
                                     (
-                                        (destinyUnit != null)
+                                        (destinyUnit != null) 
                                         &&
                                         (Math.Abs(Position.X - destinyUnit.Position.X) < range)
                                     )
-                                    ||
+                                    || 
                                     (
                                         (destinyBuilding != null)
                                         &&
@@ -658,7 +636,7 @@ namespace Laikos
                                 {
                                     direction.Normalize();
 
-                                    ChangeDirection();
+                                    Rotation.Y = ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
 
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
@@ -790,41 +768,15 @@ namespace Laikos
             _msg.Done = true;
         }
 
-        private void ChangeDirection()
-        {
-            float change = ComputeRotationChange();
-
-            Console.WriteLine(MathHelper.ToDegrees(change) + " " + MathHelper.ToDegrees(Rotation.Y) + " " + MathHelper.ToDegrees(ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z))));
-
-            if (Math.Abs(change) > MathHelper.ToRadians(8.0f))
-            {
-                if (change > 0)
-                {
-                    Rotation_Y_Add = MathHelper.ToRadians(1);
-                }
-                else
-                {
-                    Rotation_Y_Add = MathHelper.ToRadians(-1);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Dobry kierunek");
-            }
-        }
-
-        private float ComputeRotationChange()
-        {
-            return Rotation.Y - ComputeRadian(new Vector2(Position.X, Position.Z), new Vector2(direction.X, direction.Z));
-        }
-
         private float ComputeRadian(Vector2 _beg, Vector2 _end)
         {
             Vector2 vecTmp = Vector2.Multiply(_beg, _end);
 
             vecTmp.Normalize();
 
-            return (float)Math.Atan2(vecTmp.Y - 1, vecTmp.X - 0);
+            float dotProd = Vector2.Dot(vecTmp, new Vector2(0, 1));
+
+            return (float)(Math.Acos(dotProd) * (180.0f / Math.PI));
         }
 
         private Unit FindEnemy()

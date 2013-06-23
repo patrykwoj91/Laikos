@@ -125,7 +125,7 @@
     <Compile Include="GUI\SourcesButton.cs" />
     <Compile Include="GUI\UnitBackground.cs" />
     <Compile Include="GUI\UpperBackground.cs" />
-    <Compile Include="LevelManager\SelectingGUI.cs" />
+    <Compile Include="GUI\SelectingGUI.cs" />
     <Compile Include="LevelManager\Terrain\Water.cs" />
     <Compile Include="Lights\SpotLight.cs" />
     <Compile Include="MathUtils.cs" />

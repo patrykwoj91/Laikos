@@ -345,15 +345,15 @@ namespace Laikos.PathFiding
                 case KOLEJNOSC.GORA:
                     return !((_obecny.Y - 1 >= 0) && (mapa[_obecny.X, _obecny.Y - 1] == 0));
                 case KOLEJNOSC.GORA_PRAWO:
-                    return !((_obecny.Y - 1 >= 0) && (_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y - 1] == 0));
+                    return !((_obecny.Y - 1 >= 0) && (_obecny.X + 1 < wymiarX / SKALA) && (mapa[_obecny.X + 1, _obecny.Y - 1] == 0));
                 case KOLEJNOSC.PRAWO:
-                    return !((_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y] == 0));
+                    return !((_obecny.X + 1 < wymiarX / SKALA) && (mapa[_obecny.X + 1, _obecny.Y] == 0));
                 case KOLEJNOSC.DOL_PRAWO:
-                    return !((_obecny.Y + 1 < wymiarY) && (_obecny.X + 1 < wymiarX) && (mapa[_obecny.X + 1, _obecny.Y + 1] == 0));
+                    return !((_obecny.Y + 1 < wymiarY / SKALA) && (_obecny.X + 1 < wymiarX / SKALA) && (mapa[_obecny.X + 1, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.DOL:
-                    return !((_obecny.Y + 1 < wymiarY) && (mapa[_obecny.X, _obecny.Y + 1] == 0));
+                    return !((_obecny.Y + 1 < wymiarY / SKALA) && (mapa[_obecny.X, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.DOL_LEWO:
-                    return !((_obecny.Y + 1 < wymiarY) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
+                    return !((_obecny.Y + 1 < wymiarY / SKALA) && (_obecny.X - 1 >= 0) && (mapa[_obecny.X - 1, _obecny.Y + 1] == 0));
                 case KOLEJNOSC.LEWO:
                     return !((_obecny.X - 1 >= 0) && (mapa[_obecny.X + 1, _obecny.Y] == 0));
                 case KOLEJNOSC.GORA_LEWO:

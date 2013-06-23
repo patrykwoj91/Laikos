@@ -75,14 +75,13 @@ namespace Laikos
             nearPlane = 1.0f;
             farPlane = 2000.0f;
             zoom = 10.0f;
-<<<<<<< HEAD
-            Camera.upDownRot = MathHelper.ToRadians(-90);
-            Camera.cameraPosition = new Vector3(500, 1000, 500);
-=======
             Camera.upDownRot = MathHelper.ToRadians(-45);
-            Camera.cameraPosition = new Vector3(30, 80, 100);
+<<<<<<< HEAD
+            Camera.cameraPosition = new Vector3(527, 110, 638);
+=======
+            Camera.cameraPosition = new Vector3(500, 150, 650);
+>>>>>>> c269afa3f96a5bd023454d148ad9e40ad3df57ba
             cameraFront = new Vector3(0.5848334f, -0.7775874f, -0.230928f);
->>>>>>> 73e5b0438c2d6c79042bab67af12feccd4da1b77
             leftRightRot = MathHelper.ToRadians(0.0f);
             //Initializing projection matrix
             projectionMatrix = Matrix.CreatePerspectiveFieldOfView(viewAngle, aspectRatio, nearPlane, farPlane);
@@ -168,6 +167,7 @@ namespace Laikos
             bezMidPosition = (bezStartPosition + bezEndPosition) / 2.0f;
             bezTime = 0.0f;
         }
+
         public void UpdateBezier(ref Vector3 cameraPosition)
         {
             bezTime += 0.05f;
