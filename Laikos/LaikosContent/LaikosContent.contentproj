@@ -646,52 +646,52 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Buildings\Prison\antenna_01_01_01_01.jpg">
+    <Compile Include="Models\Decorations\Prison\antenna_01_01_01_01.jpg">
       <Name>antenna_01_01_01_01</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\mat3.jpg">
+    <Compile Include="Models\Decorations\Prison\mat3.jpg">
       <Name>mat3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\metal.jpg">
+    <Compile Include="Models\Decorations\Prison\metal.jpg">
       <Name>metal</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\metal2.bmp">
+    <Compile Include="Models\Decorations\Prison\metal2.bmp">
       <Name>metal2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\rdza.jpg">
+    <Compile Include="Models\Decorations\Prison\rdza.jpg">
       <Name>rdza</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\sciana.jpg">
+    <Compile Include="Models\Decorations\Prison\sciana.jpg">
       <Name>sciana</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\Stonepack_1 texture_1_diffuse1.jpg">
+    <Compile Include="Models\Decorations\Prison\Stonepack_1 texture_1_diffuse1.jpg">
       <Name>Stonepack_1 texture_1_diffuse1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\Stonepack_1 texture_2_diffuse1.jpg">
+    <Compile Include="Models\Decorations\Prison\Stonepack_1 texture_2_diffuse1.jpg">
       <Name>Stonepack_1 texture_2_diffuse1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\texturaInne.bmp">
+    <Compile Include="Models\Decorations\Prison\texturaInne.bmp">
       <Name>texturaInne</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Buildings\Prison\wiezienie.jpg">
+    <Compile Include="Models\Decorations\Prison\wiezienie.jpg">
       <Name>wiezienie</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -937,7 +937,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Buildings\Prison\prison.FBX">
+    <Compile Include="Models\Decorations\Prison\prison.FBX">
       <Name>prison</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
