@@ -18,9 +18,6 @@ namespace Laikos
         public Vector3 Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0)); //Current rotation
         public float Scale = 1.0f; //Current scale
         public AnimatedModel currentModel = null; //model
-        public AnimatedModel High = null;
-        public AnimatedModel Mid = null;
-        public AnimatedModel Low = null;
         bool exists = false;
         public float temp_position = 0.0f;
         public Player player;
@@ -43,67 +40,17 @@ namespace Laikos
             this.messages = new List<Message>();
         }
 
-        public GameObject(Game game,Player player, String path)
-            
+        public GameObject(Game game,Player player, String path)   
         {
             this.player = player;
             this.messages = new List<Message>();
-            if ((File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "High" + ".xnb"))) &&
-                (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "Mid" + ".xnb"))) &&
-                (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Content/" + path + "Low" + ".xnb"))))
-            {
-                High = new AnimatedModel(path + "High");
-                High.LoadContent(game.Content);
-                Mid = new AnimatedModel(path + "Mid");
-                Mid.LoadContent(game.Content);
-                Low = new AnimatedModel(path + "Low");
-                Low.LoadContent(game.Content);
-                currentModel = Mid;
-                temp_position = currentModel.player.current_Position;
-                exists = true;
-              
-            }
-            else
-            {
+
                 currentModel = new AnimatedModel(path);
                 currentModel.LoadContent(game.Content);
-            }
         }
 
         public void Update(GameTime gameTime)
         {
-            if (exists)
-            {
-                if (Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) + 
-                    Math.Pow(this.Position.Y - Camera.cameraPosition.Y, 2) + 
-                    Math.Pow(this.Position.Z - Camera.cameraPosition.Z, 2)) < 30)
-                {
-                    temp_position = currentModel.player.current_Position;
-                    currentModel = High;
-                    currentModel.player.current_Position = temp_position;
-
-                }
-                else if (Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) +
-                    Math.Pow(this.Position.Y - Camera.cameraPosition.Y, 2) +
-                    Math.Pow(this.Position.Z - Camera.cameraPosition.Z, 2)) > 30
-                    && Math.Sqrt(Math.Pow(this.Position.X - Camera.cameraPosition.X, 2) +
-                    Math.Pow(this.Position.Y - Camera.cameraPosition.Y, 2) +
-                    Math.Pow(this.Position.Z - Camera.cameraPosition.Z, 2)) < 50)
-                {
-                    temp_position = currentModel.player.current_Position;
-                    currentModel = Mid;
-                    currentModel.player.current_Position = temp_position;
-
-                }
-                else
-                {
-                    temp_position = currentModel.player.current_Position;
-                    currentModel = Low;
-                    currentModel.player.current_Position = temp_position;
-
-                }
-            }
-
             currentModel.Update(gameTime);
             Collisions.AddGravity(ref Position);
             Collisions.CheckWithTerrain(ref Position, 0.5f);

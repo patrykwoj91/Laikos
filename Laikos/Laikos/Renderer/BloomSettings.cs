@@ -7,7 +7,7 @@
 //-----------------------------------------------------------------------------
 #endregion
 
-namespace BloomPostprocess
+namespace Laikos
 {
     /// <summary>
     /// Class holds all the settings used to tweak the bloom effect.

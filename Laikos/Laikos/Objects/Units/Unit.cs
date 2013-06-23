@@ -13,7 +13,6 @@ namespace Laikos
 {
     public class Unit : GameObject
     {
-        public bool walk, idle, attack;
         public UnitType type;
         public double HP;
         public double maxHP;
@@ -48,12 +47,12 @@ namespace Laikos
         public Unit()
             : base()
         {
-            walk = false;
         }
 
         public Unit(Game game, Player player, UnitType type, Vector3 position, float scale = 1.0f, Vector3 rotation = default(Vector3))
             : base(game, player, type.model)
         {
+            
             Souls_owned = 0;
             this.player = player;
             this.Position = position;
@@ -69,7 +68,7 @@ namespace Laikos
             this.maxHP = this.type.maxhp;
             this.HP = this.maxHP;
             this.lastHP = this.HP;
-
+            setIdle();
             this.damage = this.type.damage;
             this.range = this.type.range;
             this.ratio = this.type.ratio;
@@ -81,24 +80,6 @@ namespace Laikos
 
         public void Update(GameTime gameTime)
         {
-            if (walk)
-            {
-                this.currentModel.player.PlayClip("Walk", true);
-                walk = false;
-            }
-
-            if (idle)
-            {
-                this.currentModel.player.PlayClip("Idle", true);
-                idle = false;
-            }
-
-            if (attack)
-            {
-                this.currentModel.player.PlayClip("Attack", true);
-                attack = false;
-            }
-
             if (HP <= 0)
             {
                 dead = true;
@@ -186,6 +167,7 @@ namespace Laikos
                             //////nowa wersja////////
                             if (destinyPoints == null)
                             {
+                                setWalk();
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
 
@@ -227,7 +209,7 @@ namespace Laikos
                                     {
                                         EndMove(messages[i]);
 
-                                        idle = true;
+                                        setIdle();
                                         Console.WriteLine("done");
                                     }
                                     else
@@ -282,7 +264,7 @@ namespace Laikos
                                         // (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius + unit.boundingSphere.Radius + 0.1f));
                                     }
 
-
+                                    setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((WhereToBuild)messages[i].Payload).position.X, (int)(((WhereToBuild)messages[i].Payload).position.Z));
 
@@ -332,7 +314,7 @@ namespace Laikos
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Build, this, this, messages[i].Payload));
 
                                             timeSpan = TimeSpan.FromMilliseconds(((WhereToBuild)messages[i].Payload).building.buildtime);
-                                            attack = true;
+                                            setAttack();
                                         }
                                         else
                                         {
@@ -364,7 +346,7 @@ namespace Laikos
                                 {
                                     player.Build(((WhereToBuild)messages[i].Payload).building.type, ((WhereToBuild)messages[i].Payload).position);
                                     messages[i].Done = true;
-                                    idle = true;
+                                    setIdle();
                                 }
                             }
                             messages[i].timer = gameTime.TotalGameTime;
@@ -387,6 +369,7 @@ namespace Laikos
                                 //////////MOVE
                                 if (destinyPoints == null)
                                 {
+                                    setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Building)messages[i].Sender).Position.X, (int)((Building)messages[i].Sender).Position.Z);
                                     poczatek_ruchu.X = this.Position.X;
@@ -445,9 +428,7 @@ namespace Laikos
                                                         {
                                                             if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
                                                             {
-
                                                                 EventManager.CreateMessage(new Message((int)EventManager.Events.Store, messages[i].Sender, this, building.Position));
-                                                                walk = true;
                                                                 messages[i].Done = true;
                                                                 break;
                                                             }
@@ -479,7 +460,7 @@ namespace Laikos
                                             direction = vecTmp - Position;
                                         }
                                     }
-                                    this.walk = true;
+                                    setWalk();
                                 }
                                 else
                                 {
@@ -505,6 +486,7 @@ namespace Laikos
                                 //////////MOVE
                                 if (destinyPoints == null)
                                 {
+                                    setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)((Vector3)messages[i].Payload).Z);
 
@@ -540,7 +522,7 @@ namespace Laikos
                                             player.Souls += this.Souls_owned;
                                             this.Souls_owned = 0;
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
-                                            walk = true;
+                                     
                                             timeSpan = TimeSpan.FromMilliseconds(3000);
                                             messages[i].Done = true;
                                             break;
@@ -551,7 +533,7 @@ namespace Laikos
                                             direction = vecTmp - Position;
                                         }
                                     }
-                                    this.walk = true;
+                                    setWalk();
                                 }
                                 else
                                 {
@@ -569,6 +551,7 @@ namespace Laikos
 
                             if (destinyPoints == null)
                             {
+                                setWalk();
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)(targetMoveAttack.Position.X), (int)(targetMoveAttack.Position.Z));
 
@@ -606,7 +589,7 @@ namespace Laikos
                                 {
                                     EndMove(messages[i]);
 
-                                    attack = true;
+                                    setAttack();
                                     EventManager.CreateMessage(new Message((int)EventManager.Events.Attack, null, this, messages[i].Payload));
                                     break;
                                 }
@@ -646,7 +629,7 @@ namespace Laikos
                                     {
                                         EndMove(messages[i]);
 
-                                        idle = true;
+                                        setIdle();
                                         Console.WriteLine("done");
                                     }
                                     else
@@ -702,7 +685,7 @@ namespace Laikos
                                         if (((Unit)messages[i].Payload).dead)
                                         {
                                             messages[i].Done = true;
-                                            idle = true;
+                                            setIdle();
                                             break;
                                         }
                                     }
@@ -713,7 +696,7 @@ namespace Laikos
                                         if (((Building)messages[i].Payload).dead)
                                         {
                                             messages[i].Done = true;
-                                            idle = true;
+                                            setIdle();
                                             break;
                                         }
                                     }
@@ -731,7 +714,7 @@ namespace Laikos
                             else
                             {
                                 messages[i].Done = true;
-                                idle = true;
+                                setIdle();
 
                                 if (messages[i].Payload is Unit)
                                 {
@@ -790,6 +773,19 @@ namespace Laikos
             }
 
             return null;
+        }
+
+        public void setWalk()
+        {
+            this.currentModel.player.PlayClip("Walk", true);
+        }
+        public void setIdle()
+        {
+            this.currentModel.player.PlayClip("Idle", true);
+        }
+        public void setAttack()
+        {
+            this.currentModel.player.PlayClip("Attack", true);
         }
     }
 }

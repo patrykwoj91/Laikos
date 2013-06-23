@@ -53,7 +53,10 @@
       <Model>Models/Buildings/Niebianie/BJ/bj-p2</Model>
       <Souls>300</Souls>
       <Scale>0.5</Scale>
+<<<<<<< HEAD
+=======
       <rotation>0.0</rotation>
+>>>>>>> 383968914a0f6a45720f7cec2142907911f42542
       <buildtime>3000.0</buildtime>
     </Item>
     <Item>

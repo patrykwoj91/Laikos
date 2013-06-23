@@ -41,6 +41,8 @@ namespace Laikos
         System.Drawing.Bitmap bitmapTmp;
 
         public static SoundEffect [] sounds;
+        VertexPositionColor[] vertices;
+        BasicEffect basicEffect;
 
 
         public Game1()
@@ -72,6 +74,7 @@ namespace Laikos
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
+
             base.Initialize();
         }
 
@@ -139,13 +142,8 @@ namespace Laikos
 
 
             EventManager.Update();
-            List<GameObject> temp = new List<GameObject>();
-            temp.AddRange(player.UnitList);
-            temp.AddRange(player.BuildingList);
-            temp.AddRange(enemy.UnitList);
-            temp.AddRange(enemy.BuildingList);
-            UpdateExplosions(gameTime, temp);
-            UpdateExplosionSmoke(gameTime, temp);
+
+
 
 
             //temp.Clear();
@@ -167,7 +165,7 @@ namespace Laikos
                      }
                  }
              }
-           /* foreach (Unit unit in player.UnitList)
+            /*foreach (Unit unit in player.UnitList)
             {
                 foreach (Building building in player.BuildingList)
                 {
@@ -198,9 +196,9 @@ namespace Laikos
 
             objects.AddRange(decorations.DecorationList);
 
-            defferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            defferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
-            defferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            DefferedRenderer.explosionParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            DefferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
+            DefferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
 
 
 
@@ -263,17 +261,17 @@ namespace Laikos
             }
         }
 
-        void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
+      /* void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
         {
 
-            for (int i = /*player.UnitList.Count*/ objects.Count - 1; i >= 0; i--)
+            for (int i = player.UnitList.Count objects.Count - 1; i >= 0; i--)
             {
                 if (objects[i] is Unit)
                 {
                     if (((Unit)objects[i]).HP <= 0)
                     {
-                        defferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                        defferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
                         ((Unit)objects[i]).dead = true;
                         for (int j = player.UnitList.Count - 1; j >= 0; j--)
                             if (player.UnitList[j].dead == true)
@@ -287,8 +285,8 @@ namespace Laikos
                 {
                     if (((Building)objects[i]).HP <= 0)
                     {
-                        defferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                        defferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
+                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
                         ((Unit)objects[i]).dead = true;
                         for (int j = player.UnitList.Count - 1; j >= 0; j--)
                             if (player.UnitList[j].dead == true)
@@ -299,7 +297,7 @@ namespace Laikos
                     }
                 }
 
-                defferedRenderer.explosionParticles.Update(gameTime);
+                DefferedRenderer.explosionParticles.Update(gameTime);
             }
         }
 
@@ -312,11 +310,11 @@ namespace Laikos
                     Unit unit = (Unit)objects[i];
                     if (100 * unit.HP / unit.maxHP <= 5)
                     {
-                        defferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
+                        DefferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
                     }
                 }
-                defferedRenderer.explosionSmokeParticles.Update(gameTime);
+                DefferedRenderer.explosionSmokeParticles.Update(gameTime);
             }
-        }
+        }*/
     }
 }

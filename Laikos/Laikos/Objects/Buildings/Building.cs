@@ -139,7 +139,7 @@ namespace Laikos
                                     {
                                         EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, this, unit, null));
                                         unit.timeSpan = TimeSpan.FromMilliseconds(3000);
-                                        unit.walk = true;
+                               
                                     }
                             messages[i].Done = true;
                             break;

@@ -49,7 +49,7 @@ namespace Laikos
         /// <summary>
         /// The looping option
         /// </summary>
-        private bool looping = false;
+        private bool looping = true;
 
         /// <summary>
         /// How much to blend by
