@@ -60,7 +60,18 @@ namespace Laikos.PathFiding
             //Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
             //Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
 
-            if (mapa[_koniec.X, _koniec.Y] == 1)
+            if
+            (
+                (mapa[_poczatek.X, _poczatek.Y] == 1)
+                ||
+                (mapa[_koniec.X, _koniec.Y] == 1)
+                ||
+                (
+                    (_poczatek.X == _koniec.X)
+                    &&
+                    (_poczatek.Y == _koniec.Y)
+                )
+            )
             {
                 return new List<Wspolrzedne>();
             }
