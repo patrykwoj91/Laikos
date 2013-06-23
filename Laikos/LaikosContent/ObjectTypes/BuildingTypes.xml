@@ -7,7 +7,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</Model>
       <Souls>10000</Souls>
-      <Scale>0.5</Scale>
+      <Scale>0.6</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>
@@ -16,7 +16,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p2</Model>
       <Souls>300</Souls>
-      <Scale>0.5</Scale>
+      <Scale>0.6</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>
@@ -25,7 +25,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p3</Model>
       <Souls>400</Souls>
-      <Scale>0.5</Scale>
+      <Scale>0.6</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>
@@ -34,7 +34,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p4</Model>
       <Souls>500</Souls>
-      <Scale>0.5</Scale>
+      <Scale>0.6</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>
@@ -43,7 +43,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/BJ/bj-p1</Model>
       <Souls>500</Souls>
-      <Scale>0.2</Scale>
+      <Scale>0.55</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>
@@ -52,7 +52,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/BJ/bj-p2</Model>
       <Souls>300</Souls>
-      <Scale>0.5</Scale>
+      <Scale>0.55</Scale>
       <rotation>0.0</rotation>
       <buildtime>3000.0</buildtime>
     </Item>
@@ -61,7 +61,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/BJ/bj-p3</Model>
       <Souls>700</Souls>
-      <Scale>0.2</Scale>
+      <Scale>0.55</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>
@@ -70,7 +70,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/BJ/bj-p4</Model>
       <Souls>800</Souls>
-      <Scale>0.2</Scale>
+      <Scale>0.55</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>
@@ -88,7 +88,7 @@
       <maxhp>1000.0</maxhp>
       <Model>Models/Buildings/Niebianie/Cmentarz/cmentarz</Model>
       <Souls>150</Souls>
-      <Scale>0.4</Scale>
+      <Scale>0.25</Scale>
       <rotation>0.0</rotation>
       <buildtime>5000.0</buildtime>
     </Item>

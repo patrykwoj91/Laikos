@@ -37,7 +37,6 @@ Content\Models\SkyDome\cloudMap.xnb
 Content\waterbump.xnb
 Content\Models\Terrain\Heightmaps\heightmap3.xnb
 Content\selection.xnb
-Content\Models\Terrain\Heightmaps\heightmap4.xnb
 Content\Models\Buildings\Aliens\Nekropolis\drewno.xnb
 Content\Models\Buildings\Aliens\Nekropolis\mat3.xnb
 Content\Models\Buildings\Aliens\Nekropolis\nekropolis.xnb
@@ -45,16 +44,6 @@ Content\Models\Terrain\minimap.xnb
 Content\mmap_buildings.xnb
 Content\mmap_units.xnb
 Content\healthbar.xnb
-Content\Models\Decorations\Prison\antenna_01_01_01_01.xnb
-Content\Models\Decorations\Prison\mat3.xnb
-Content\Models\Decorations\Prison\metal.xnb
-Content\Models\Decorations\Prison\metal2.xnb
-Content\Models\Decorations\Prison\rdza.xnb
-Content\Models\Decorations\Prison\sciana.xnb
-Content\Models\Decorations\Prison\Stonepack_1 texture_1_diffuse1.xnb
-Content\Models\Decorations\Prison\Stonepack_1 texture_2_diffuse1.xnb
-Content\Models\Decorations\Prison\texturaInne.xnb
-Content\Models\Decorations\Prison\wiezienie.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\drewno.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\mat3.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\sciana.xnb
@@ -82,6 +71,7 @@ Content\GUI\option_panel\units\oko.xnb
 Content\Models\Buildings\Aliens\BJ\kamien.xnb
 Content\Models\Buildings\Aliens\BJ\metal2.xnb
 Content\Models\Buildings\Aliens\BJ\mrok.xnb
+Content\Models\Terrain\Heightmaps\heightmap4.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb
@@ -111,10 +101,6 @@ Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p2.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p3.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p4.xnb
 Content\Models\Buildings\Aliens\Wieża\wieza.xnb
-Content\Models\Decorations\Drzewa\drzewo1.xnb
-Content\Models\Decorations\Drzewa\drzewo2.xnb
-Content\Models\Decorations\Drzewa\drzewo3.xnb
-Content\Models\Decorations\Drzewa\drzewo4.xnb
 Content\Models\Decorations\Ruiny\ruiny1.xnb
 Content\Models\Decorations\Ruiny\ruiny2.xnb
 Content\Models\Decorations\Ruiny\ruiny3.xnb
@@ -184,16 +170,11 @@ Content\FBX\6ED3998\diabelny_dwor_p3.fbm\rftq1_0.xnb
 Content\FBX\6F23999\diabelny_dwor_p4.fbm\mrok_0.xnb
 Content\FBX\6F23999\diabelny_dwor_p4.fbm\rftq1_0.xnb
 Content\FBX\72A3210\wieza.fbm\braz_0.xnb
-Content\FBX\6C6D3024\drzewo1.fbm\drewno_0.xnb
-Content\FBX\6C723025\drzewo2.fbm\drewno_0.xnb
-Content\FBX\6C773026\drzewo3.fbm\drewno_0.xnb
-Content\FBX\6C7C3027\drzewo4.fbm\drewno_0.xnb
 Content\FBX\D1A2F6A\ruiny1.fbm\sciana_0.xnb
 Content\FBX\D1F2F6B\ruiny2.fbm\sciana_0.xnb
 Content\FBX\D242F6C\ruiny3.fbm\sciana_0.xnb
 Content\FBX\FEE23380\Droid.fbm\texturaInne_0.xnb
 Content\FBX\FEE23380\Droid.fbm\tekstura1_0.xnb
-Content\FBX\FEE23380\Droid.fbm\tekstura2_0.xnb
 Content\Models\Buildings\Aliens\BJ\kamien_0.xnb
 Content\Models\Buildings\Aliens\BJ\mrok_0.xnb
 Content\Models\Buildings\Aliens\BJ\metal2_0.xnb
@@ -214,14 +195,14 @@ Content\FBX\FFBB317F\generator.fbm\mat3_0.xnb
 Content\FBX\FFBB317F\generator.fbm\metal_0.xnb
 Content\FBX\FFBB317F\generator.fbm\czarne_0.xnb
 Content\FBX\FFBB317F\generator.fbm\rdza_0.xnb
-Content\FBX\3DD53001\prison.fbm\brazowy_0.xnb
-Content\FBX\3DD53001\prison.fbm\czarne_0.xnb
-Content\FBX\3DD53001\prison.fbm\texturaInne_0.xnb
-Content\FBX\3DD53001\prison.fbm\antenna_01_01_01_01_0.xnb
-Content\FBX\3DD53001\prison.fbm\rdza_0.xnb
-Content\FBX\3DD53001\prison.fbm\czerwien_0.xnb
-Content\FBX\3DD53001\prison.fbm\metal2_0.xnb
-Content\Menu\laikos.xnb
+Content\Models\Decorations\Drzewa\drzewo1.xnb
+Content\Models\Decorations\Drzewa\drzewo3.xnb
+Content\Models\Decorations\Drzewa\drzewo4.xnb
+Content\FBX\AE512A0E\drzewo3.fbm\drewno_0.xnb
+Content\FBX\AE472A0C\drzewo1.fbm\drewno_0.xnb
+Content\FBX\AE562A0F\drzewo4.fbm\drewno_0.xnb
+Content\FBX\85C729E9\prison.fbm\mrok_0.xnb
+Content\FBX\85C729E9\prison.fbm\rftq1_0.xnb
 Content\Menu\new game.xnb
 Content\Menu\po najechaniu.xnb
 Content\Menu\tlo.xnb

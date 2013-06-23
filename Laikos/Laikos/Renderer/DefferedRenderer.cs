@@ -215,7 +215,7 @@ namespace Laikos
             device.DepthStencilState = DepthStencilState.None;
 
 
-            shadowMap = lights.getSpotLights()[0].shadowMap;
+            //shadowMap = lights.getSpotLights()[0].shadowMap;
             lights.CreateLightMap();
             lights.RemoveAllLights();
             device.BlendState = BlendState.Opaque;
@@ -248,7 +248,7 @@ namespace Laikos
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 20, obj.Position.Z);
                     //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 64));
+                    //lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 64));
                 }
             }
         }
