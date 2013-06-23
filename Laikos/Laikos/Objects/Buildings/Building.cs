@@ -152,7 +152,34 @@ namespace Laikos
                         case (int)EventManager.Events.BuildUnit:
                             if (this.type.Name.Equals("BJ Niebian2"))
                             {
-                                player.UnitList.Add(new Unit(game,player, player.UnitTypes["Antigravity Tank"], new Vector3(this.Position.X - 40, 5,this.Position.Z ),player.UnitTypes["Antigravity Tank"].Scale));
+                                    Vector3 stay_here = new Vector3(this.Position.X, this.Position.Y, this.Position.Z);
+
+                                    if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
+                                    {
+                                        if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
+                                            stay_here.X += BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3;
+
+
+                                        else
+                                            stay_here.X -= BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3;
+
+                                        stay_here.Z = MathUtils.RandomNumber((int)(stay_here.Z - BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3),
+                                            (int)(stay_here.Z + BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3));
+
+                                    }
+                                    else
+                                    {
+                                        if (MathUtils.RandomNumber(1, 2) == 1) // czy + czy -
+                                            stay_here.Z += BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3;
+                                        else
+                                            stay_here.Z -= BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3;
+
+                                        stay_here.X = MathUtils.RandomNumber((int)(stay_here.X - BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3),
+                                            (int)(stay_here.X + BoundingSphere.CreateFromBoundingBox(this.boundingBox).Radius / 4 * 3));
+                                    }
+                                    
+
+                                player.UnitList.Add(new Unit(game,player, player.UnitTypes["Antigravity Tank"], new Vector3(stay_here.X, 5,stay_here.Z ),player.UnitTypes["Antigravity Tank"].Scale));
                                 player.Souls -= player.UnitTypes["Antigravity Tank"].Souls;                        
                                 }
                             messages[i].Done = true;

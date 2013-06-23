@@ -170,8 +170,9 @@ namespace Laikos
                     //if (collision)
                         //unit.Position = unit.lastPosition;
                 }
-            }
+            }*/
             base.Update(gameTime);
+            
         }
 
 
@@ -257,61 +258,5 @@ namespace Laikos
                 _unit.pathFiding.mapaUstaw();
             }
         }
-
-      /* void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
-        {
-
-            for (int i = player.UnitList.Count objects.Count - 1; i >= 0; i--)
-            {
-                if (objects[i] is Unit)
-                {
-                    if (((Unit)objects[i]).HP <= 0)
-                    {
-                        DefferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                        ((Unit)objects[i]).dead = true;
-                        for (int j = player.UnitList.Count - 1; j >= 0; j--)
-                            if (player.UnitList[j].dead == true)
-                                player.UnitList.RemoveAt(j);
-                        for (int j = enemy.UnitList.Count - 1; j >= 0; j--)
-                            if (enemy.UnitList[j].dead == true)
-                                enemy.UnitList.RemoveAt(j);
-                    }
-                }
-                else if (objects[i] is Building)
-                {
-                    if (((Building)objects[i]).HP <= 0)
-                    {
-                        DefferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                        DefferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                        ((Unit)objects[i]).dead = true;
-                        for (int j = player.UnitList.Count - 1; j >= 0; j--)
-                            if (player.UnitList[j].dead == true)
-                                player.UnitList.RemoveAt(j);
-                        for (int j = enemy.BuildingList.Count - 1; j >= 0; j--)
-                            if (enemy.BuildingList[j].dead == true)
-                                enemy.BuildingList.RemoveAt(j);
-                    }
-                }
-
-                DefferedRenderer.explosionParticles.Update(gameTime);
-            }
-        }
-
-        void UpdateExplosionSmoke(GameTime gameTime, List<GameObject> objects)
-        {
-            for (int i = objects.Count - 1; i >= 0; i--)
-            {
-                if (objects[i] is Unit)
-                {
-                    Unit unit = (Unit)objects[i];
-                    if (100 * unit.HP / unit.maxHP <= 5)
-                    {
-                        DefferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
-                    }
-                }
-                DefferedRenderer.explosionSmokeParticles.Update(gameTime);
-            }
-        }*/
     }
 }

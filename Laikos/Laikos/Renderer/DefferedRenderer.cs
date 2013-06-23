@@ -130,28 +130,16 @@ namespace Laikos
                     Unit unit = (Unit)obj;
                     unit.currentModel.Draw(device, unit.GetWorldMatrix());
                 }
-                if (obj is Decoration)
-                {
-                    Decoration decoration = (Decoration)obj;
-                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix());
-                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }
-                if (obj is Building)
+                else if (obj is Building)
                 {
                     Building building = (Building)obj;
                     building.currentModel.Draw(device, building.GetWorldMatrix());
                     //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                 }
-                else if (obj is Building)
-                {
-                    Building building = (Building)obj;
-                    building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                    //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }
                 else if (obj is Decoration)
                 {
                     Decoration decoration = (Decoration)obj;
-                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix());
                     //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                 }
             }
