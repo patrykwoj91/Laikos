@@ -53,6 +53,7 @@ namespace Laikos
             UnitBackground.Create(spriteBatch);
             SourcesButton.Create(spriteBatch);
             LowerOptionPanel.Create(spriteBatch);
+            SelectingGUI.DrawUnitInfo(spriteBatch);
             spriteBatch.End();
         }
 
@@ -339,7 +340,7 @@ namespace Laikos
                 }
         }
 
-        private static bool insideRectangle(Rectangle button)
+        public static bool insideRectangle(Rectangle button)
         {
             bool isIn = false;
             Rectangle mouseRectangle = new Rectangle(Input.currentMouseState.X, Input.currentMouseState.Y, 5, 5);

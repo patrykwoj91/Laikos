@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MyDataTypes.BuildingType[]">
+
+    <Item>
+      <Name>Pałac rady1</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p1</Model>
+      <Souls>10000</Souls>
+      <Scale>0.5</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Pałac rady2</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p2</Model>
+      <Souls>300</Souls>
+      <Scale>0.5</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Pałac rady3</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p3</Model>
+      <Souls>400</Souls>
+      <Scale>0.5</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Pałac rady4</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/Pałac_rady/pałac_rady_p4</Model>
+      <Souls>500</Souls>
+      <Scale>0.5</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Niebian1</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/BJ/bj-p1</Model>
+      <Souls>500</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Niebian2</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/BJ/bj-p2</Model>
+      <Souls>300</Souls>
+      <Scale>0.5</Scale>
+<<<<<<< HEAD
+=======
+      <rotation>0.0</rotation>
+>>>>>>> 383968914a0f6a45720f7cec2142907911f42542
+      <buildtime>3000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Niebian3</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/BJ/bj-p3</Model>
+      <Souls>700</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Niebian4</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/BJ/bj-p4</Model>
+      <Souls>800</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Strażnica</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/Strażnica/strażnica</Model>
+      <Souls>200</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Cementary</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Niebianie/Cmentarz/cmentarz</Model>
+      <Souls>150</Souls>
+      <Scale>0.4</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+
+    
+    <Item>
+      <Name>Diabelny Dwór1</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/Diabelny_dwór/diabelny_dwor_p1</Model>
+      <Souls>10000</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Diabelny Dwór2</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/Diabelny_dwór/diabelny_dwor_p2</Model>
+      <Souls>300</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Diabelny Dwór3</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/Diabelny_dwór/diabelny_dwor_p3</Model>
+      <Souls>400</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Diabelny Dwór4</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/Diabelny_dwór/diabelny_dwor_p4</Model>
+      <Souls>500</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Alienow1</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Alienow/BJ/bj_p1</Model>
+      <Souls>500</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Alienow2</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/BJ/bj_p2</Model>
+      <Souls>550</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Alienow3</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/BJ/bj_p3</Model>
+      <Souls>700</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>BJ Alienow4</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/BJ/bj_p4</Model>
+      <Souls>800</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Nekropolis</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/Nekropolis/nekropoli</Model>
+      <Souls>150</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+    <Item>
+      <Name>Wieża</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Aliens/Wieża/wieza</Model>
+      <Souls>150</Souls>
+      <Scale>0.2</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+
+    <Item>
+      <Name>Generator</Name>
+      <maxhp>1000.0</maxhp>
+      <Model>Models/Buildings/Generator/generator</Model>
+      <Souls>1000</Souls>
+      <Scale>0.3</Scale>
+      <rotation>0.0</rotation>
+      <buildtime>5000.0</buildtime>
+    </Item>
+
+    
+    
+  </Asset>
+</XnaContent>

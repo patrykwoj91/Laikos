@@ -93,7 +93,7 @@ namespace Laikos
         public static void MoveUp()
         {
 
-            upTime += 0.03f;
+            upTime += 0.1f;
             if (upTime >= 1.0f)
             {
                 isUp = true;
@@ -106,7 +106,7 @@ namespace Laikos
 
         public static void MoveDown()
         {
-            downTime += 0.03f;
+            downTime += 0.1f;
             if (downTime >= 1.0f)
             {
                 isUp = false; 

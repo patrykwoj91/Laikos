@@ -274,20 +274,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Tank\czolg.FBX">
-      <Name>czolg</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Eye\oko.FBX">
-      <Name>oko</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Effects\ParticleEffect.fx">
       <Name>ParticleEffect</Name>
       <Importer>EffectImporter</Importer>
@@ -353,26 +339,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>
-    <Compile Include="Models\Decorations\Drzewa\drzewo1.FBX">
-      <Name>drzewo1</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Drzewa\drzewo2.FBX">
-      <Name>drzewo2</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Drzewa\drzewo3.FBX">
-      <Name>drzewo3</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Drzewa\drzewo4.FBX">
-      <Name>drzewo4</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
     <Compile Include="Models\Decorations\Ruiny\ruiny1.FBX">
       <Name>ruiny1</Name>
       <Importer>FbxImporter</Importer>
@@ -392,11 +358,6 @@
       <Name>grid</Name>
       <Importer>XImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Units\Niebianie\Droid_worker\Droid.FBX">
-      <Name>Droid</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -632,58 +593,6 @@
       <Name>alien_worker_Anims</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Models\Decorations\Prison\antenna_01_01_01_01.jpg">
-      <Name>antenna_01_01_01_01</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\mat3.jpg">
-      <Name>mat3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\metal.jpg">
-      <Name>metal</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\metal2.bmp">
-      <Name>metal2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\rdza.jpg">
-      <Name>rdza</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\sciana.jpg">
-      <Name>sciana</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\Stonepack_1 texture_1_diffuse1.jpg">
-      <Name>Stonepack_1 texture_1_diffuse1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\Stonepack_1 texture_2_diffuse1.jpg">
-      <Name>Stonepack_1 texture_2_diffuse1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\texturaInne.bmp">
-      <Name>texturaInne</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Models\Decorations\Prison\wiezienie.jpg">
-      <Name>wiezienie</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -926,6 +835,32 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Terrain\Heightmaps\heightmap4.jpg">
+      <Name>heightmap4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Drzewa\drzewo3.FBX">
+      <Name>drzewo3</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Decorations\Drzewa\drzewo1.FBX">
+      <Name>drzewo1</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+    <Compile Include="Models\Decorations\Drzewa\drzewo4.FBX">
+      <Name>drzewo4</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Models\Decorations\Prison\prison.FBX">
       <Name>prison</Name>
       <Importer>FbxImporter</Importer>
@@ -933,8 +868,57 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Terrain\Heightmaps\heightmap4.jpg">
-      <Name>heightmap4</Name>
+    <Compile Include="Models\Units\Niebianie\Droid_worker\Droid.FBX">
+      <Name>Droid</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Niebianie\Eye\oko.FBX">
+      <Name>oko</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Niebianie\Tank\czolg.FBX">
+      <Name>czolg</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Menu\exit.png">
+      <Name>exit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>0, 0, 0, 0</ProcessorParameters_ColorKeyColor>
+    </Compile>
+    <Compile Include="Menu\laikos.png">
+      <Name>laikos</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\new game.png">
+      <Name>new game</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\po najechaniu.png">
+      <Name>po najechaniu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Menu\tlo.jpg">
+      <Name>tlo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SelectionBox.png">
+      <Name>SelectionBox</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
