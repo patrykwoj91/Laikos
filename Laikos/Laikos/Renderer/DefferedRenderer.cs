@@ -127,7 +127,19 @@ namespace Laikos
                 if (obj is Unit)
                 {
                     Unit unit = (Unit)obj;
-                    unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    unit.currentModel.Draw(device, unit.GetWorldMatrix());
+                }
+                /*if (obj is Decoration)
+                {
+                    Decoration decoration = (Decoration)obj;
+                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix());
+                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                }*/
+                if (obj is Building)
+                {
+                    Building building = (Building)obj;
+                    building.currentModel.Draw(device, building.GetWorldMatrix());
+                    //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                 }
             }
             water.DrawSkyDome(Camera.viewMatrix);
@@ -173,12 +185,12 @@ namespace Laikos
                     //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
                     decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                 }
-                if (obj is Building)
+                /*if (obj is Building)
                 {
                     Building building = (Building)obj;
                     //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
                     building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }
+                }*/
             }
             GUI.Draw();
             GUI.Update(gameTime);
