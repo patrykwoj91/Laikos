@@ -207,7 +207,7 @@ namespace Laikos
             device.DepthStencilState = DepthStencilState.None;
 
 
-            shadowMap = lights.getSpotLights()[0].shadowMap;
+            //shadowMap = lights.getSpotLights()[0].shadowMap;
             lights.CreateLightMap();
             lights.RemoveAllLights();
             device.BlendState = BlendState.Opaque;

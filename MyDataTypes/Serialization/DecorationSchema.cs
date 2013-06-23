@@ -11,18 +11,25 @@ namespace MyDataTypes.Serialization
         public float x;
         public float y;
 
+        public float scale;
+        public float rotation;
+
         public DecorationSchema()
         {
             name = "";
             x = 0;
             y = 0;
+            scale = 0;
+            rotation = 0;
         }
 
-        public DecorationSchema(String _name, float _x, float _y)
+        public DecorationSchema(String _name, float _x, float _y, float _scale, float _rotation)
         {
             name = _name;
             x = _x;
             y = _y;
+            scale = _scale;
+            rotation = _rotation;
         }
 
         public DecorationSchema(String _name)
@@ -30,6 +37,8 @@ namespace MyDataTypes.Serialization
             name = _name;
             x = 0;
             y = 0;
+            scale = 0;
+            rotation = 0;
         }
     }
 }
