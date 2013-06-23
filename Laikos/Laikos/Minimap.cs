@@ -21,7 +21,7 @@ namespace Laikos
         public static void Initialize(GraphicsDevice device)
         {
             PresentationParameters pp = device.PresentationParameters;
-            minimap = new RenderTarget2D(device, 1000, 1000, false, SurfaceFormat.Color, DepthFormat.Depth24);
+            minimap = new RenderTarget2D(device, 600, 600, false, SurfaceFormat.Color, DepthFormat.Depth24);
         }
 
         public static void SetRenderTarget(GraphicsDevice device)

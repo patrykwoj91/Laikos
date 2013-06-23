@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Laikos.Game1" Collapsed="true">
+    <Position X="16.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYBEEICAgAEAwAIAAAAQAUAAQAEBAgRAAAAAABAAAY=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.GUI" Collapsed="true">
+    <Position X="18" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAABEAwQAgAAQAACAAAAgAACBAAAAQAIABAA=</HashCode>
+      <FileName>GUI\GUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.LowerBackground" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAQAAAAAAAAQYAQAAAIAACAAAAAEAAQIAAAAAAAAA=</HashCode>
+      <FileName>GUI\LowerBackground.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.LowerOptionPanel" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABFAIAAAAAAAAQQAQAAQIBBCAAhAEMAgQIEgAABIwBE=</HashCode>
+      <FileName>GUI\LowerOptionPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.MinimapBackground" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAQQAQAAAIAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>GUI\MinimapBackground.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.SourcesButton" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABIAAAAAAEAAgQQAQAAAoAAAAAAAAEABAAAAAAAAAAE=</HashCode>
+      <FileName>GUI\SourcesButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.UnitBackground" Collapsed="true">
+    <Position X="9.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEEAABAAAAAAUQAQAAQIKYCAAIAAUAAQIAAAABAAAA=</HashCode>
+      <FileName>GUI\UnitBackground.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.UpperBackground" Collapsed="true">
+    <Position X="11" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQYAQAAAIAAAAAAAAEAAAAAAAAAAAEA=</HashCode>
+      <FileName>GUI\UpperBackground.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Input" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARCACAAAIKAAAgAEQQCAEIAAAAAAAAABAAAAEAQgQA=</HashCode>
+      <FileName>Input.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.WhereToBuild" Collapsed="true">
+    <Position X="18" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Input.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Camera" Collapsed="true">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAIAAKECEAQQEABIAAChBAABAACACAgiyBCASAAgE=</HashCode>
+      <FileName>LevelManager\Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.EventManager" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAACgAIAAAAAAAAAAAAAACAAAAAAAgAAAQ=</HashCode>
+      <FileName>LevelManager\EventManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.SelectingGUI" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAEAAAAKkAgEAECAAgCIACAAAAgAAgBACAQBAAIA=</HashCode>
+      <FileName>LevelManager\SelectingGUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.QTNode" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAACAgCEAABKgQAQgAAAAIAAAAAAAACAAIKMAAQAAA=</HashCode>
+      <FileName>LevelManager\Terrain\QTNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Terrain" Collapsed="true">
+    <Position X="16.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQSAwDEAABAwQAwAAAAQIAABAQACQCEAACAAEAABQ=</HashCode>
+      <FileName>LevelManager\Terrain\Terrain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.TerrainUtils" Collapsed="true">
+    <Position X="18" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEBAACAAAAAAAAAAAAAAAAgAAJACAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>LevelManager\Terrain\TerrainUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Triangle" Collapsed="true">
+    <Position X="7.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAKAAAEAAQIgIBAAAABAAAAABAAAAAAAEAAEAAAAEA=</HashCode>
+      <FileName>LevelManager\Terrain\Triangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Water" Collapsed="true">
+    <Position X="14.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgIEAGAAUgAgQAAFAAKACAAQAAAQAAMAAAAACAAAA=</HashCode>
+      <FileName>LevelManager\Terrain\Water.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.DirectionalLight" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAKQAAAAAAAAAAAAAACgCAAIAAAQAAAgE=</HashCode>
+      <FileName>Lights\DirectionalLight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.LightManager" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQACAAADAAAAABAAAAAAgAAAGAACAAAAAQAICAA=</HashCode>
+      <FileName>Lights\LightManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.PointLight" Collapsed="true">
+    <Position X="16.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAADCAAACYIAAAAAIAAAAgAQCgSAAIAABQAAAgA=</HashCode>
+      <FileName>Lights\PointLight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.SpotLight" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAEAACIAAAaYAggAAgICACAAAQCgSAIQAAAQQAAgA=</HashCode>
+      <FileName>Lights\SpotLight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.MathUtils" Collapsed="true">
+    <Position X="16.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAgAAAAAAAAEIACAAAAAAAAAAAAAAAAABAAAAQ=</HashCode>
+      <FileName>MathUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Message" Collapsed="true">
+    <Position X="18" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARBAAAAAAAAAAQAAAAQAAAAAAAAAAAEAQAAAAAIAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Minimap" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CABAAAAAAAAABQQBQAAAAAAQAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Minimap.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.AnimatedModel" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAEAAAAACgAAAAEAAAIAAAQCAAABAAgAAAAIAAQ=</HashCode>
+      <FileName>Objects\AnimatedModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.AnimationPlayer" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQIAAAAAAACAAIgAAEAAAAAAIAAAAAgsAggICAICAA=</HashCode>
+      <FileName>Objects\AnimationPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Bone" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAIAAIRCAAKEQAQCAAABAADEAAAABIAAAAA=</HashCode>
+      <FileName>Objects\Bone.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Building" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAQAAAAAAQAAIQAAAAQBADAAAoAIAAAAAAAIA=</HashCode>
+      <FileName>Objects\Buildings\Building.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Decoration" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAgAAAAAAQAAAAAAABAAABAIAAAAAAAIA=</HashCode>
+      <FileName>Objects\Decorations\Decoration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.DecorationManager" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACAAAAAUAAAAQAAAAAAAAAAAgIAAAAAAAAAAQ=</HashCode>
+      <FileName>Objects\Decorations\DecorationManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.GameObject" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAEAAEAIggEgIQAACAAAgAACABAQAAAgAAAAA=</HashCode>
+      <FileName>Objects\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Unit" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAYAAIQIQACA4AACAAgQAAAAQBCBtACIACAgAAAAAAA=</HashCode>
+      <FileName>Objects\Units\Unit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Collisions" Collapsed="true">
+    <Position X="18" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAgBAgAICAwAAAAGAAMABQABA=</HashCode>
+      <FileName>Physics\Collisions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.ParticleEmitter" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAAAAAAAAAAAAAAAAACAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Physics\ParticleSystem\ParticleEmitter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.ParticleSystem" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQXQAEAAAAAEwAAACgCAAAAADCEQACAAARABgACAAQ=</HashCode>
+      <FileName>Physics\ParticleSystem\ParticleSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Projectile" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAAgACBAAQAAgAACAIAAAAAABEAABAAQAAAAAAAA=</HashCode>
+      <FileName>Physics\ParticleSystem\Projectile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.XNAUtils" Collapsed="true">
+    <Position X="9.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAgAgAgIAAAAAAAACCABAAAAAA=</HashCode>
+      <FileName>Physics\XNAUtils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Player" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAQAAAAAQAAAAIAAAQAQAAAhAAJAAAAAAAAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.Program" Collapsed="true">
+    <Position X="18" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.DefferedRenderer" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CCIAAEArAAAAD5ogQACAAkACAgKAIgQAJIAAhgBAAgE=</HashCode>
+      <FileName>Renderer\DefferedRenderer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.FullscreenQuad" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAgAAAAAAAAAAAAAAAAAAAABAAAEAAAAA=</HashCode>
+      <FileName>Renderer\FullscreenQuad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.VertexHelper" Collapsed="true">
+    <Position X="12.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAABAAAAAAAAAAgAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>VertexHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.PathFiding.Map" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAEABAAgAAQAQAAAAEAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PathFiding\Map.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.PathFiding.Wezel" Collapsed="true">
+    <Position X="16.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAEAAAAAAAAAAAAAAAAIAACACAEAgQAhAgAIIAI=</HashCode>
+      <FileName>PathFiding\Wezel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.PathFiding.Wspolrzedne" Collapsed="true">
+    <Position X="7.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAYAA=</HashCode>
+      <FileName>PathFiding\Wspolrzedne.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Laikos.PathFiding.ZnajdzSciezke" Collapsed="true">
+    <Position X="11" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAABQAgAAAAADAAAAAAAEIAAIiAAQAEAgAAACA=</HashCode>
+      <FileName>PathFiding\ZnajdzSciezke.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BloomPostprocess.BloomComponent" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAIEUAAAAAAAgCAAAAAAgQAAACEAACAgAaAAAAAAAQ=</HashCode>
+      <FileName>Renderer\BloomComponent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BloomPostprocess.BloomSettings" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAIAAAACBAAAAAAQAAAAAAACAAAAAQAAAAQA=</HashCode>
+      <FileName>Renderer\BloomSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Laikos.VertexMultiTextured" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAgAAAAoAAAAABIAAABAAAAAAAAAAA=</HashCode>
+      <FileName>LevelManager\Terrain\Terrain.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="Laikos.ParticleVertex" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAgAAACAAABAABAAAAAAAEAQA=</HashCode>
+      <FileName>Physics\ParticleSystem\ParticleVertex.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="KOLEJNOSC" Collapsed="true">
+    <Position X="7.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQACAAABAAAAAAAAAAAAQBAACAEAAAAAAEAAAA=</HashCode>
+      <FileName>PathFiding\KOLEJNOSC.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

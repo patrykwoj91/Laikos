@@ -22,7 +22,6 @@ namespace Laikos
         private RenderTarget2D normalRT;
         private RenderTarget2D depthRT;
         private RenderTarget2D lightRT;
-        private RenderTarget2D shadowMap;
 
         private Effect clearBuffer;
         private Effect directionalLight;
@@ -46,6 +45,7 @@ namespace Laikos
         public static bool debug = false;
         public static float lightIntensity;
 
+        private Menu menu;
         public static ParticleSystem explosionParticles;
         public static ParticleSystem explosionSmokeParticles;
         public static ParticleSystem SmokePlumeParticles;
@@ -79,6 +79,7 @@ namespace Laikos
             explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
             explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
             SmokePlumeParticles = new ParticleSystem(game, content, "SmokePlumeSettings");
+            menu = new Menu(spriteBatch, content, device.PresentationParameters);
             #endregion
 
             #region Load Content
@@ -121,7 +122,7 @@ namespace Laikos
             device.BlendState = BlendState.Opaque;
             device.DepthStencilState = DepthStencilState.Default;
             device.RasterizerState = RasterizerState.CullCounterClockwise;
-
+            
             foreach (GameObject obj in objects)
             {
                 if (obj is Unit)
@@ -146,55 +147,60 @@ namespace Laikos
             terrain.DrawTerrain(GBuffer);
             water.DrawWater(time);
             device.SetRenderTarget(null);
-            /*if (minimap)
-            {
-                Minimap.SetRenderTarget(device);
-                terrain.DrawTerrain(GBuffer);
-                water.DrawWater(time);
-                Minimap.ResolveRenderTarger(device);
-                Minimap.SaveMiniMap();
-                minimap = false;
-            }*/
+
+            //Minimap.SetRenderTarget(device);
+            //terrain.DrawTerrain(GBuffer);
+            //water.DrawWater(time);
+            //Minimap.ResolveRenderTarger(device);
+            //Minimap.SaveMiniMap();
+            //minimap = false;
+            
         }
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
-
-            List<Model> models = new List<Model>();
-            foreach (GameObject obj in objects)
-                models.Add(obj.currentModel.Model);
-            float time = (float)GameTime.TotalGameTime.TotalMilliseconds / 100.0f;
-            float waterTime = (float)GameTime.TotalGameTime.TotalMilliseconds / 300.0f;
-            water.DrawRefractionMap(terrain, objects, normals, speculars);
-            water.DrawReflectionMap(terrain, objects, normals, speculars);
-            gameTime = GameTime;
-            CreateLights(objects);
-            SetGBuffer();
-            ClearGBuffer();
-            RenderSceneTo3Targets(objects, terrain, waterTime);
-            ResolveGBuffer();
-            lights.CreateShadowMap(objects, terrain);
-            DrawLights(objects);
-            explosionParticles.Draw(gameTime, device);
-            explosionSmokeParticles.Draw(gameTime, device);
-            //foreach (GameObject obj in objects)
-            //{
-                //if (obj is Decoration)
-                //{
-                    //Decoration decoration = (Decoration)obj;
-                    //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                //}
-                /*if (obj is Building)
+            if (!menu.inMenu)
+            {
+                List<Model> models = new List<Model>();
+                foreach (GameObject obj in objects)
+                    models.Add(obj.currentModel.Model);
+                float time = (float)GameTime.TotalGameTime.TotalMilliseconds / 100.0f;
+                float waterTime = (float)GameTime.TotalGameTime.TotalMilliseconds / 300.0f;
+                water.DrawRefractionMap(terrain, objects, normals, speculars);
+                water.DrawReflectionMap(terrain, objects, normals, speculars);
+                gameTime = GameTime;
+                CreateLights(objects);
+                SetGBuffer();
+                ClearGBuffer();
+                RenderSceneTo3Targets(objects, terrain, waterTime);
+                ResolveGBuffer();
+                lights.CreateShadowMap(objects, terrain);
+                DrawLights(objects);
+                explosionParticles.Draw(gameTime, device);
+                explosionSmokeParticles.Draw(gameTime, device);
+                foreach (GameObject obj in objects)
                 {
-                    Building building = (Building)obj;
-                    //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                    building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }*/
-            //}
-            GUI.Draw();
-            GUI.Update(gameTime);
-            Debug();
+                    if (obj is Decoration)
+                    {
+                        Decoration decoration = (Decoration)obj;
+                        //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                        //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                    }
+                    if (obj is Building)
+                    {
+                        Building building = (Building)obj;
+                        //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                        //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                    }
+                }
+                GUI.Draw();
+                GUI.Update(gameTime);
+                
+            }
+            else
+            menu.Draw();
+            menu.Update();
+            //Debug();
         }
 
         private void Debug()

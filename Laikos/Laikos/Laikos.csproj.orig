@@ -63,6 +63,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hilva.Graphics">
+      <HintPath>..\..\Hilva\Hilva.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="Hilva.Graphics.Extensions">
+      <HintPath>..\..\Hilva\Hilva.Graphics.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -96,6 +102,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -110,20 +117,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\GUI.cs" />
+    <Compile Include="GUI\LowerBackground.cs" />
+    <Compile Include="GUI\LowerOptionPanel.cs" />
+    <Compile Include="GUI\MinimapBackground.cs" />
+    <Compile Include="GUI\SourcesButton.cs" />
+    <Compile Include="GUI\UnitBackground.cs" />
+    <Compile Include="GUI\UpperBackground.cs" />
+    <Compile Include="LevelManager\SelectingGUI.cs" />
     <Compile Include="LevelManager\Terrain\Water.cs" />
     <Compile Include="Lights\SpotLight.cs" />
-<<<<<<< HEAD
+    <Compile Include="MathUtils.cs" />
     <Compile Include="Minimap.cs" />
-=======
     <Compile Include="Objects\Buildings\Building.cs" />
-    <Compile Include="Objects\Buildings\BuildingManager.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleEmitter.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleSystem.cs" />
     <Compile Include="Physics\ParticleSystem\ParticleVertex.cs" />
+    <Compile Include="PathFiding\KOLEJNOSC.cs" />
+    <Compile Include="PathFiding\Map.cs" />
+    <Compile Include="PathFiding\Program.cs" />
+    <Compile Include="PathFiding\Wezel.cs" />
+    <Compile Include="PathFiding\Wspolrzedne.cs" />
+    <Compile Include="PathFiding\ZnajdzSciezke.cs" />
     <Compile Include="Physics\ParticleSystem\Projectile.cs" />
     <Compile Include="Renderer\BloomComponent.cs" />
     <Compile Include="Renderer\BloomSettings.cs" />
->>>>>>> b2c26142efe66848d155a0d52065f3fade0ab16f
     <Compile Include="Renderer\DefferedRenderer.cs" />
     <Compile Include="Renderer\FullscreenQuad.cs" />
     <Compile Include="LevelManager\EventManager.cs" />
@@ -160,6 +178,14 @@
     <ProjectReference Include="..\..\Animation\Animation.csproj">
       <Project>{87091037-1D53-43A9-BCCA-D869B9B1162D}</Project>
       <Name>Animation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GifAnimation.Pipeline\GifAnimation.Pipeline.csproj">
+      <Project>{9C683759-D9CF-423E-87B1-153097BE2820}</Project>
+      <Name>GifAnimation.Pipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GifAnimation\GifAnimation.csproj">
+      <Project>{76B7215D-8172-4FF9-A1A9-4989B0D4C15B}</Project>
+      <Name>GifAnimation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MyDataTypes\MyDataTypes.csproj">
       <Project>{8231A90D-00A8-413C-A06E-EE99B0545D5A}</Project>
@@ -198,7 +224,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+<<<<<<< HEAD
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+=======
+>>>>>>> 383968914a0f6a45720f7cec2142907911f42542
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

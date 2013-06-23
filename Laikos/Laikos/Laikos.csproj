@@ -120,6 +120,7 @@
     <Compile Include="GUI\GUI.cs" />
     <Compile Include="GUI\LowerBackground.cs" />
     <Compile Include="GUI\LowerOptionPanel.cs" />
+    <Compile Include="GUI\Menu.cs" />
     <Compile Include="GUI\MinimapBackground.cs" />
     <Compile Include="GUI\SourcesButton.cs" />
     <Compile Include="GUI\UnitBackground.cs" />

@@ -40,7 +40,6 @@ Content\selection.xnb
 Content\Models\Buildings\Aliens\Nekropolis\drewno.xnb
 Content\Models\Buildings\Aliens\Nekropolis\mat3.xnb
 Content\Models\Buildings\Aliens\Nekropolis\nekropolis.xnb
-Content\Models\Terrain\minimap.xnb
 Content\mmap_buildings.xnb
 Content\mmap_units.xnb
 Content\healthbar.xnb
@@ -203,3 +202,10 @@ Content\FBX\DBC8314E\generator.fbm\czarne_0.xnb
 Content\FBX\DBC8314E\generator.fbm\rdza_0.xnb
 Content\FBX\1AA62FD0\prison.fbm\mrok_0.xnb
 Content\FBX\1AA62FD0\prison.fbm\rftq1_0.xnb
+Content\Menu\exit.xnb
+Content\Menu\laikos.xnb
+Content\Menu\new game.xnb
+Content\Menu\po najechaniu.xnb
+Content\Menu\tlo.xnb
+Content\SelectionBox.xnb
+Content\Models\Terrain\minimap.xnb

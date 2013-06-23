@@ -41,6 +41,8 @@ namespace Laikos
         System.Drawing.Bitmap bitmapTmp;
 
         public static SoundEffect [] sounds;
+        VertexPositionColor[] vertices;
+        BasicEffect basicEffect;
 
 
         public Game1()
@@ -72,6 +74,7 @@ namespace Laikos
             Components.Add(camera);
             Components.Add(terrain);
             Components.Add(decorations);
+
             base.Initialize();
         }
 

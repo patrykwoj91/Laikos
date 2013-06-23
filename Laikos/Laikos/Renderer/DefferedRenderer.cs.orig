@@ -46,9 +46,10 @@ namespace Laikos
         public static bool debug = false;
         public static float lightIntensity;
 
-        public ParticleSystem explosionParticles;
-        public ParticleSystem explosionSmokeParticles;
-        public ParticleSystem SmokePlumeParticles;
+        private Menu menu;
+        public static ParticleSystem explosionParticles;
+        public static ParticleSystem explosionSmokeParticles;
+        public static ParticleSystem SmokePlumeParticles;
         #endregion
 
         public DefferedRenderer(GraphicsDevice device, ContentManager content, SpriteBatch spriteBatch, SpriteFont font, Game game)
@@ -79,6 +80,7 @@ namespace Laikos
             explosionParticles = new ParticleSystem(game, content, "ExplosionSettings");
             explosionSmokeParticles = new ParticleSystem(game, content, "ExplosionSmokeSettings");
             SmokePlumeParticles = new ParticleSystem(game, content, "SmokePlumeSettings");
+            menu = new Menu(spriteBatch, content, device.PresentationParameters);
             #endregion
 
             #region Load Content
@@ -127,16 +129,20 @@ namespace Laikos
                 if (obj is Unit)
                 {
                     Unit unit = (Unit)obj;
-                    unit.currentModel.Draw(device, unit.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    unit.currentModel.Draw(device, unit.GetWorldMatrix());
                 }
-<<<<<<< HEAD
                 if (obj is Decoration)
                 {
                     Decoration decoration = (Decoration)obj;
-                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                    decoration.currentModel.Draw(device, decoration.GetWorldMatrix());
+                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                 }
-=======
->>>>>>> 564c043e944a78bb5cda2cb0a40d4fb9d20ca6ba
+                if (obj is Building)
+                {
+                    Building building = (Building)obj;
+                    building.currentModel.Draw(device, building.GetWorldMatrix());
+                    //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                }
             }
             water.DrawSkyDome(Camera.viewMatrix);
             terrain.DrawTerrain(GBuffer);
@@ -155,6 +161,7 @@ namespace Laikos
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
+<<<<<<< HEAD
 
             List<Model> models = new List<Model>();
             foreach (GameObject obj in objects)
@@ -173,27 +180,68 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            foreach (GameObject obj in objects)
-            {
-<<<<<<< HEAD
-=======
-                if (obj is Decoration)
-                {
-                    Decoration decoration = (Decoration)obj;
+            //foreach (GameObject obj in objects)
+            //{
+                //if (obj is Decoration)
+                //{
+                    //Decoration decoration = (Decoration)obj;
                     //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                    decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }
->>>>>>> 564c043e944a78bb5cda2cb0a40d4fb9d20ca6ba
-                if (obj is Building)
+                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                //}
+                /*if (obj is Building)
                 {
                     Building building = (Building)obj;
                     //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
                     building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }
-            }
+                }*/
+            //}
             GUI.Draw();
             GUI.Update(gameTime);
             Debug();
+=======
+            if (!menu.inMenu)
+            {
+                List<Model> models = new List<Model>();
+                foreach (GameObject obj in objects)
+                    models.Add(obj.currentModel.Model);
+                float time = (float)GameTime.TotalGameTime.TotalMilliseconds / 100.0f;
+                float waterTime = (float)GameTime.TotalGameTime.TotalMilliseconds / 300.0f;
+                water.DrawRefractionMap(terrain, objects, normals, speculars);
+                water.DrawReflectionMap(terrain, objects, normals, speculars);
+                gameTime = GameTime;
+                CreateLights(objects);
+                SetGBuffer();
+                ClearGBuffer();
+                RenderSceneTo3Targets(objects, terrain, waterTime);
+                ResolveGBuffer();
+                lights.CreateShadowMap(objects, terrain);
+                DrawLights(objects);
+                explosionParticles.Draw(gameTime, device);
+                explosionSmokeParticles.Draw(gameTime, device);
+                foreach (GameObject obj in objects)
+                {
+                    if (obj is Decoration)
+                    {
+                        Decoration decoration = (Decoration)obj;
+                        //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                        decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                    }
+                    if (obj is Building)
+                    {
+                        Building building = (Building)obj;
+                        //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
+                        building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                    }
+                }
+                GUI.Draw();
+                GUI.Update(gameTime);
+                
+            }
+            else
+            menu.Draw();
+            menu.Update();
+            //Debug();
+>>>>>>> bb65c1e9ad1519584f76bfbf214a1237430f32ac
         }
 
         private void Debug()
@@ -218,7 +266,7 @@ namespace Laikos
             device.DepthStencilState = DepthStencilState.None;
 
 
-            shadowMap = lights.getSpotLights()[0].shadowMap;
+            //shadowMap = lights.getSpotLights()[0].shadowMap;
             lights.CreateLightMap();
             lights.RemoveAllLights();
             device.BlendState = BlendState.Opaque;
@@ -251,7 +299,7 @@ namespace Laikos
                 {
                     Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 20, obj.Position.Z);
                     //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, false, 64));
+                    //lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 64));
                 }
             }
         }

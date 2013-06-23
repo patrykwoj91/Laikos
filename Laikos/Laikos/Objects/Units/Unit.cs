@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using MyDataTypes;
-
+using Animation;
 using Laikos.PathFiding;
 using Microsoft.Xna.Framework.Audio;
 
@@ -27,7 +27,11 @@ namespace Laikos
         public ZnajdzSciezke pathFiding;
         public List<Wspolrzedne> destinyPoints;
         public IEnumerator<Wspolrzedne> destinyPointer;
+
         public BoundingSphere boundingSphere;
+        public BoundingSphere attackRadius;
+        public int radius;
+        
         Vector3 direction;
 
         //////////////////////////////////
@@ -75,7 +79,6 @@ namespace Laikos
 
             this.pathFiding = new ZnajdzSciezke();
             this.pathFiding.mapaUstaw();
-
         }
 
         public void Update(GameTime gameTime)
@@ -122,6 +125,7 @@ namespace Laikos
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
+            attackRadius = new BoundingSphere(Position, radius);
             base.Update(gameTime);
         }
 

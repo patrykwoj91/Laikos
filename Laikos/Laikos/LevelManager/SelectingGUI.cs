@@ -18,6 +18,7 @@ namespace Laikos
         private static Texture2D mmap_units;
         private static Texture2D healthbar;
         private static Texture2D mmap_buildings;
+        private static Texture2D selectionBox;
         private static List<Unit> player_Units;
         private static List<Building> player_Buildings;
         private static List<Unit> enemy_Units;
@@ -37,6 +38,7 @@ namespace Laikos
             mmap_units = game.Content.Load<Texture2D>("mmap_units");
             mmap_buildings = game.Content.Load<Texture2D>("mmap_buildings");
             healthbar = game.Content.Load<Texture2D>("healthbar");
+            selectionBox = game.Content.Load<Texture2D>("SelectionBox");
             player_Units = units;
             player_Buildings = buildings;
             enemy_Units = units2;
@@ -96,7 +98,7 @@ namespace Laikos
             }
         }
 
-        private static void DrawUnitInfo(SpriteBatch spriteBatch)
+        public static void DrawUnitInfo(SpriteBatch spriteBatch)
         {
            
             foreach (Building building in player_Buildings)
@@ -130,6 +132,8 @@ namespace Laikos
                 {
                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height/2), healthbar.Width, healthbar.Height), null, Color.Red);
                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)unit.HP / unit.maxHP)), healthbar.Height), null, Color.ForestGreen);
+                    spriteBatch.Draw(selectionBox, new Rectangle((int)screenPos2D.X - 20, (int)screenPos2D.Y + 10, 35, 35), Color.White);
+
                 }
                /* else
                 {
@@ -189,7 +193,7 @@ namespace Laikos
             if (selectionbox)
                 DrawSelection(spriteBatch);
 
-            DrawUnitInfo(spriteBatch);
+            //DrawUnitInfo(spriteBatch);
 
             
 
