@@ -44,16 +44,6 @@ Content\Models\Terrain\minimap.xnb
 Content\mmap_buildings.xnb
 Content\mmap_units.xnb
 Content\healthbar.xnb
-Content\Models\Decorations\Prison\antenna_01_01_01_01.xnb
-Content\Models\Decorations\Prison\mat3.xnb
-Content\Models\Decorations\Prison\metal.xnb
-Content\Models\Decorations\Prison\metal2.xnb
-Content\Models\Decorations\Prison\rdza.xnb
-Content\Models\Decorations\Prison\sciana.xnb
-Content\Models\Decorations\Prison\Stonepack_1 texture_1_diffuse1.xnb
-Content\Models\Decorations\Prison\Stonepack_1 texture_2_diffuse1.xnb
-Content\Models\Decorations\Prison\texturaInne.xnb
-Content\Models\Decorations\Prison\wiezienie.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\drewno.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\mat3.xnb
 Content\Models\Buildings\Niebianie\Cmentarz\sciana.xnb
@@ -112,7 +102,6 @@ Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p3.xnb
 Content\Models\Buildings\Aliens\Diabelny_dwór\diabelny_dwor_p4.xnb
 Content\Models\Buildings\Aliens\Wieża\wieza.xnb
 Content\Models\Decorations\Drzewa\drzewo1.xnb
-Content\Models\Decorations\Drzewa\drzewo2.xnb
 Content\Models\Decorations\Drzewa\drzewo3.xnb
 Content\Models\Decorations\Drzewa\drzewo4.xnb
 Content\Models\Decorations\Ruiny\ruiny1.xnb
@@ -185,7 +174,6 @@ Content\FBX\DF4D3968\diabelny_dwor_p4.fbm\mrok_0.xnb
 Content\FBX\DF4D3968\diabelny_dwor_p4.fbm\rftq1_0.xnb
 Content\FBX\E32831DF\wieza.fbm\braz_0.xnb
 Content\FBX\490D2FF3\drzewo1.fbm\drewno_0.xnb
-Content\FBX\49122FF4\drzewo2.fbm\drewno_0.xnb
 Content\FBX\49172FF5\drzewo3.fbm\drewno_0.xnb
 Content\FBX\491C2FF6\drzewo4.fbm\drewno_0.xnb
 Content\FBX\EA0D2F39\ruiny1.fbm\sciana_0.xnb
@@ -193,7 +181,6 @@ Content\FBX\EA122F3A\ruiny2.fbm\sciana_0.xnb
 Content\FBX\EA172F3B\ruiny3.fbm\sciana_0.xnb
 Content\FBX\D9FA334F\Droid.fbm\texturaInne_0.xnb
 Content\FBX\D9FA334F\Droid.fbm\tekstura1_0.xnb
-Content\FBX\D9FA334F\Droid.fbm\tekstura2_0.xnb
 Content\Models\Buildings\Aliens\BJ\kamien_0.xnb
 Content\Models\Buildings\Aliens\BJ\mrok_0.xnb
 Content\Models\Buildings\Aliens\BJ\metal2_0.xnb
@@ -214,10 +201,5 @@ Content\FBX\DBC8314E\generator.fbm\mat3_0.xnb
 Content\FBX\DBC8314E\generator.fbm\metal_0.xnb
 Content\FBX\DBC8314E\generator.fbm\czarne_0.xnb
 Content\FBX\DBC8314E\generator.fbm\rdza_0.xnb
-Content\FBX\1AA62FD0\prison.fbm\brazowy_0.xnb
-Content\FBX\1AA62FD0\prison.fbm\czarne_0.xnb
-Content\FBX\1AA62FD0\prison.fbm\texturaInne_0.xnb
-Content\FBX\1AA62FD0\prison.fbm\antenna_01_01_01_01_0.xnb
-Content\FBX\1AA62FD0\prison.fbm\rdza_0.xnb
-Content\FBX\1AA62FD0\prison.fbm\czerwien_0.xnb
-Content\FBX\1AA62FD0\prison.fbm\metal2_0.xnb
+Content\FBX\1AA62FD0\prison.fbm\mrok_0.xnb
+Content\FBX\1AA62FD0\prison.fbm\rftq1_0.xnb

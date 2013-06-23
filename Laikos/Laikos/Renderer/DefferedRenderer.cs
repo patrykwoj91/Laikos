@@ -129,12 +129,12 @@ namespace Laikos
                     Unit unit = (Unit)obj;
                     unit.currentModel.Draw(device, unit.GetWorldMatrix());
                 }
-                /*if (obj is Decoration)
+                if (obj is Decoration)
                 {
                     Decoration decoration = (Decoration)obj;
                     decoration.currentModel.Draw(device, decoration.GetWorldMatrix());
                     //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }*/
+                }
                 if (obj is Building)
                 {
                     Building building = (Building)obj;
@@ -177,21 +177,21 @@ namespace Laikos
             DrawLights(objects);
             explosionParticles.Draw(gameTime, device);
             explosionSmokeParticles.Draw(gameTime, device);
-            foreach (GameObject obj in objects)
-            {
-                if (obj is Decoration)
-                {
-                    Decoration decoration = (Decoration)obj;
+            //foreach (GameObject obj in objects)
+            //{
+                //if (obj is Decoration)
+                //{
+                    //Decoration decoration = (Decoration)obj;
                     //decoration.currentModel.Draw(device, decoration.GetWorldMatrix(), GBuffer, normals, speculars, false);
-                    decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
-                }
+                    //decoration.currentModel.Model.Draw(decoration.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
+                //}
                 /*if (obj is Building)
                 {
                     Building building = (Building)obj;
                     //building.currentModel.Draw(device, building.GetWorldMatrix(), GBuffer, normals, speculars, false);
                     building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                 }*/
-            }
+            //}
             GUI.Draw();
             GUI.Update(gameTime);
             Debug();
