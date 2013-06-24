@@ -30,20 +30,20 @@ namespace Laikos
                     if (currentKeyboardState.IsKeyDown(Keys.W))
                     {
                        
-                        unit.Position.Z += 0.1f;
+                        unit.Position.Z -= 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(180);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.S))
                     {
     
-                        unit.Position.Z -= 0.1f;
-                        unit.Rotation.Y = MathHelper.ToRadians(0);
+                        unit.Position.Z += 0.1f;
+                        unit.Rotation.Y = MathHelper.ToRadians(360);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.A))
                     {
                  
                         unit.Position.X -= 0.1f;
-                        unit.Rotation.Y = MathHelper.ToRadians(-90);
+                        unit.Rotation.Y = MathHelper.ToRadians(270);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.D))
                     {

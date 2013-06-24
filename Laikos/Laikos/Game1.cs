@@ -54,7 +54,7 @@ namespace Laikos
             graphics.PreferredBackBufferWidth = 1366;
             graphics.PreferredBackBufferHeight = 768;
 
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             Intro = false;
             dText0 = false;
             dText1 = false;
