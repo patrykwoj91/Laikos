@@ -590,13 +590,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Aliens\Alien_Worker\alien_worker_Anims.xml">
-      <Name>alien_worker_Anims</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\Buildings\Niebianie\Cmentarz\drewno.jpg">
       <Name>drewno</Name>
       <Importer>TextureImporter</Importer>
@@ -869,13 +862,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Units\Niebianie\Eye\oko.FBX">
-      <Name>oko</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>AnimationProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Models\Units\Niebianie\Tank\czolg.FBX">
       <Name>czolg</Name>
       <Importer>FbxImporter</Importer>
@@ -948,6 +934,20 @@
   <ItemGroup>
     <Compile Include="Models\Decorations\Prison\prison.FBX">
       <Name>prison</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Aliens\Alien\alien.FBX">
+      <Name>alien</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>AnimationProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Units\Niebianie\Eye\oko.FBX">
+      <Name>oko</Name>
       <Importer>FbxImporter</Importer>
       <Processor>AnimationProcessor</Processor>
     </Compile>

@@ -7,7 +7,7 @@
     <OriginalClipName>Take 001</OriginalClipName>
 
     <!-- The total number of frames in the original clip -->
-    <OriginalFrameCount>120</OriginalFrameCount>
+    <OriginalFrameCount>180</OriginalFrameCount>
 
     <!-- The new parts we want -->
     <ClipParts>
@@ -25,6 +25,12 @@
         <EndFrame>80</EndFrame>
       </Item>
 
+      <Item>
+        <ClipName>Attack</ClipName>
+        <StartFrame>120</StartFrame>
+        <EndFrame>180</EndFrame>
+      </Item>
+      
     </ClipParts>
 
   </Asset>

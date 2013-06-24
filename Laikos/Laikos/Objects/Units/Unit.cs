@@ -185,8 +185,8 @@ namespace Laikos
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
 
-                                Console.WriteLine("A: " + wspBegin.X + ", " + wspBegin.Y + ", " + Map.WalkMeshMap[wspBegin.X / Map.SKALA, wspBegin.Y / Map.SKALA]
-                                    + " B: " + wspEnd.X + ", " + wspEnd.Y + ", " + Map.WalkMeshMap[wspEnd.X / Map.SKALA, wspEnd.Y / Map.SKALA]);
+                               // Console.WriteLine("A: " + wspBegin.X + ", " + wspBegin.Y + ", " + Map.WalkMeshMap[wspBegin.X / Map.SKALA, wspBegin.Y / Map.SKALA]
+                                  //  + " B: " + wspEnd.X + ", " + wspEnd.Y + ", " + Map.WalkMeshMap[wspEnd.X / Map.SKALA, wspEnd.Y / Map.SKALA]);
                                 this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                 this.destinyPointer = null;
                             }
@@ -909,25 +909,6 @@ namespace Laikos
             }
 
             bool right = true;
-
-            //if (PositionOld.X > Position.X)
-            //{
-            //    right = false;
-            //}
-
-            //if (PositionOld.Z < Position.Z)
-            //{
-            //    right = false;
-            //}
-
-            //if (right)
-            //{
-            //    Rotation.Y += MathHelper.ToRadians(0.5f);
-            //}
-            //else
-            //{
-            //    Rotation.Y -= MathHelper.ToRadians(0.5f);
-            //}
         }
 
         private Unit FindEnemy()

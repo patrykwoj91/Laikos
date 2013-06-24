@@ -40,43 +40,30 @@
       <Scale>0.15</Scale>
       <model>Models/Units/Niebianie/Tank/czolg</model>
     </Item>
-
-    <Item>
-      <race>Aliens</race>
-      <name>Alien Worker</name>
-      <maxhp>50.0</maxhp>
-      <mp>0.0</mp>
-      <damage>1</damage>
-      <range>0</range>
-      <ratio>1000</ratio>
-      <Souls>100</Souls>
-      <Scale>0.5</Scale>
-      <model>Models/Units/Aliens/Alien_Worker/alien_worker</model>
-    </Item>
     
     <Item>
       <race>Aliens</race>
-      <name>Alien Melee</name>
+      <name>Alien</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
       <damage>2</damage>
       <range>5</range>
       <ratio>1000</ratio>
       <Souls>100</Souls>
-      <Scale>0.5</Scale>
+      <Scale>0.045</Scale>
       <model>Models/Units/Aliens/Alien/alien</model>
     </Item>
 
     <Item>
       <race>Aliens</race>
-      <name>Alien Rider</name>
+      <name>Alien Tank</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
       <damage>1</damage>
       <range>15</range>
       <ratio>1500</ratio>
       <Souls>100</Souls>
-      <Scale>0.5</Scale>
+      <Scale>0.15</Scale>
       <model>Models/Units/Aliens/Alien_Rider/alien_rider</model>
     </Item>
     
