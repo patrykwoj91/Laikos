@@ -102,32 +102,32 @@ namespace Laikos
                 else if (Game1.dText1)
                 {
                     typing.WriteLine = "Twoja misja polega na umozliweniu Pradawnym ucieczki z wiezienia\nznajdujacego sie w glebi wyspy";
-                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                    typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText2)
                 {
-                    typing.WriteLine = "Aby otworzyc bramy wiezienia\nmusisz zniszczyc 4 generatory rozmieszczone na wyspie";
-                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                    typing.WriteLine = "Aby otworzyc bramy wiezienia\nmusisz zniszczyc cztery generatory rozmieszczone na wyspie";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText3)
                 {
                     typing.WriteLine = "Nie bedzie to jednak takie proste,\nponiewaz kazdego z generatorow broni oddzial jednostek przeciwnika";
-                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                    typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText4)
                 {
                     typing.WriteLine = "Pamietaj, ze twoje zasoby sa ograniczone";
-                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                    typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText5)
                 {
                     typing.WriteLine = "Zniszczenie wszystkich generatorow zapewni ci zwyciestwo w tej misji";
-                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                    typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText6)
                 {
                     typing.WriteLine = "...\n...\n...\nPowodzenia!\n...\n...";
-                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                    typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
             }
             spriteBatch.End();
