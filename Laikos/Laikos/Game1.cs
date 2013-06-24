@@ -46,10 +46,10 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
 
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             Intro = false;
             Step = 0;
         }
@@ -131,11 +131,12 @@ namespace Laikos
             if (Intro == false && !Menu.inMenu)
             {
                 GameIntro();
+                //Intro = true;
                 //Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
                 base.Update(gameTime);
                 return;
             }
-            //Console.WriteLine(Camera.cameraPosition);
+            Console.WriteLine(Camera.cameraPosition);
             float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Console.WriteLine(Camera.cameraPosition);
             time = gameTime.TotalGameTime;

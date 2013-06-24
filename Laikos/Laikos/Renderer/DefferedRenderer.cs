@@ -69,7 +69,7 @@ namespace Laikos
 
             int backbufferWidth = device.PresentationParameters.BackBufferWidth;
             int backbufferHeight = device.PresentationParameters.BackBufferHeight;
-            lightIntensity = 0.5f;
+            lightIntensity = 0.9f;
 
             colorRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.Depth24);
             normalRT = new RenderTarget2D(device, backbufferWidth, backbufferHeight, false, SurfaceFormat.Color, DepthFormat.None);
@@ -256,7 +256,7 @@ namespace Laikos
 
             if (Game1.Intro != true)
             {
-                lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.2f));
+                lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.6f));
                 foreach (GameObject obj in objects)
                 {
                     if (obj is Building)
