@@ -40,8 +40,8 @@ namespace Laikos
         public Player enemy;
         float IntroTimer = 2.5f; 
         const float IntroTIMER = 2.5f;
-        float textTimer = 3;
-        const float textTIMER = 3;
+        float textTimer = 4;
+        const float textTIMER = 4;
 
         public static SoundEffect[] sounds;
 
