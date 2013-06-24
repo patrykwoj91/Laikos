@@ -143,7 +143,7 @@ namespace Laikos
             if (Intro == false && !Menu.inMenu)
             {
                dText0 = true;
-               GameIntro(gameTime);
+               //GameIntro(gameTime);
                 Intro = true;
                 base.Update(gameTime);
                 return;
