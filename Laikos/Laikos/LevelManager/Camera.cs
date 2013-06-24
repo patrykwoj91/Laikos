@@ -39,7 +39,7 @@ namespace Laikos
         //***************************//
 
         //Variables to control camera//
-        public float bezTime = 1.0f;
+        public static float bezTime = 1.0f;
         static Vector3 bezStartPosition;
         static Vector3 bezMidPosition;
         static Vector3 bezEndPosition;
@@ -160,6 +160,17 @@ namespace Laikos
                 bezEndPosition = cameraPosition - new Vector3(0, -zoom, -zoom);
                 Vector3 cameraDirection = bezEndPosition - cameraPosition;
             }
+            bezMidPosition = (bezStartPosition + bezEndPosition) / 2.0f;
+            bezTime = 0.0f;
+        }
+
+        public static void InitBezier2(Vector3 new_position)
+        {
+            bezStartPosition = cameraPosition;
+
+            bezEndPosition = new_position;
+                Vector3 cameraDirection = bezEndPosition - cameraPosition;
+        
             bezMidPosition = (bezStartPosition + bezEndPosition) / 2.0f;
             bezTime = 0.0f;
         }

@@ -13,7 +13,7 @@ namespace Laikos
         public static Vector2 startDrag;
         public static Vector2 stopDrag;
         private static SpriteBatch spriteBatch;
-        private static SpriteFont spriteFont;
+       
         private static Texture2D pixel;
         private static Texture2D mmap_units;
         private static Texture2D healthbar;
@@ -33,7 +33,7 @@ namespace Laikos
             Device = device;
             spriteBatch = new SpriteBatch(Graphics.GraphicsDevice);
 
-            spriteFont = game.Content.Load<SpriteFont>("Georgia");
+            
             pixel = game.Content.Load<Texture2D>("selection");
             mmap_units = game.Content.Load<Texture2D>("mmap_units");
             mmap_buildings = game.Content.Load<Texture2D>("mmap_buildings");
@@ -59,7 +59,7 @@ namespace Laikos
                 return true;
         }
 
-        private static void DrawSelection(SpriteBatch spriteBatch)
+        public static void DrawSelection(SpriteBatch spriteBatch)
         {
             MathUtils.SafeSquare(ref startDrag, ref stopDrag);
             spriteBatch.Draw(pixel, startDrag, null, Color.White, 0.0f, Vector2.Zero,
@@ -75,7 +75,7 @@ namespace Laikos
             
         }
 
-        private static void DrawOnMiniMap(SpriteBatch spriteBatch)
+        public static void DrawOnMiniMap(SpriteBatch spriteBatch)
         {
 
             foreach (Unit unit in player_Units)

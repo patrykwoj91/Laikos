@@ -47,13 +47,18 @@ namespace Laikos
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
             //Minimap
+            SelectingGUI.DrawOnMiniMap(spriteBatch);
+            SelectingGUI.DrawUnitInfo(spriteBatch);
+            if (SelectingGUI.selectionbox)
+                SelectingGUI.DrawSelection(spriteBatch);
+      
             MinimapBackground.Create(spriteBatch);
             UpperBackground.Create(spriteBatch);
             LowerBackground.Create(spriteBatch);
             UnitBackground.Create(spriteBatch);
             SourcesButton.Create(spriteBatch);
             LowerOptionPanel.Create(spriteBatch);
-            SelectingGUI.DrawUnitInfo(spriteBatch);
+        
             spriteBatch.End();
         }
 

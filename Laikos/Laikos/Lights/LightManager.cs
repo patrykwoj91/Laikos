@@ -10,9 +10,9 @@ namespace Laikos
 {
     class LightManager
     {
-        List<DirectionalLight> directionalLights;
-        List<PointLight> pointLights;
-        List<SpotLight> spotLights;
+        public List<DirectionalLight> directionalLights;
+        public List<PointLight> pointLights;
+        public List<SpotLight> spotLights;
 
         private GraphicsDevice device;
         private Effect depthWriter;

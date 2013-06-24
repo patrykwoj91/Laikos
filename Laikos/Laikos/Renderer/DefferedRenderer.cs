@@ -15,7 +15,7 @@ namespace Laikos
         #region Variables
         private FullscreenQuad fsq;
         private GraphicsDevice device;
-        private LightManager lights;
+        public LightManager lights;
         private Water water;
 
         private RenderTarget2D colorRT;
@@ -159,7 +159,7 @@ namespace Laikos
 
         public void Draw(List<GameObject> objects, Terrain terrain, GameTime GameTime)
         {
-            if (!menu.inMenu)
+            if (!Menu.inMenu)
             {
                 List<Model> models = new List<Model>();
                 foreach (GameObject obj in objects)
@@ -193,8 +193,12 @@ namespace Laikos
                         //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                     }
                 }*/
-                GUI.Draw();
-                GUI.Update(gameTime);
+             
+                if (Game1.Intro != false)
+                {
+                    GUI.Draw();
+                    GUI.Update(gameTime);
+                }
                 
             }
             else
@@ -250,17 +254,23 @@ namespace Laikos
             PointLight.Initialize(pointLightEffect, colorRT, normalRT, depthRT, halfPixel, fsq, device, sphereModel);
             SpotLight.Initialize(device, spotLight, spotCookie, spotLightGeometry, colorRT, normalRT, depthRT);
 
-            lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, lightIntensity));
-
-           /* foreach (GameObject obj in objects)
+            if (Game1.Intro != true)
             {
-                if (obj is Unit)
+                lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, 0.2f));
+                foreach (GameObject obj in objects)
                 {
-                    Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 20, obj.Position.Z);
-                    //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                    //lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 0.5f, true, 64));
+                    if (obj is Building)
+                    {
+                        Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + BoundingSphere.CreateFromBoundingBox(((Building)obj).boundingBox).Radius * 2, obj.Position.Z);
+                        //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
+                        lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 2.0f, false, 64));
+                    }
                 }
-            }*/
+            }
+            else
+            {
+                lights.AddLight(new DirectionalLight(Vector3.Down, Color.White, lightIntensity));
+            }
         }
     }
 }

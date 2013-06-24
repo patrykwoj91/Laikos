@@ -21,7 +21,7 @@ namespace Laikos
         private Texture2D newGame;
         private Texture2D kwadrat;
         PresentationParameters pp;
-        public bool inMenu;
+        public static bool inMenu;
         Rectangle tloPosition;
         Rectangle laikosPosition;
         Rectangle newGamePosition;

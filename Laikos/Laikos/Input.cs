@@ -245,14 +245,14 @@ namespace Laikos
 
             //Simple zoom in
             if (currentMouseState.ScrollWheelValue > oldMouseState.ScrollWheelValue)
-                if (cam.bezTime > 1.0f)
+                if (Camera.bezTime > 1.0f)
                     cam.InitBezier(true);
             //Simple zoom out
             if (currentMouseState.ScrollWheelValue < oldMouseState.ScrollWheelValue)
-                if (cam.bezTime > 1.0f)
+                if (Camera.bezTime > 1.0f)
                     cam.InitBezier(false);
 
-            if (cam.bezTime > 1.0f)
+            if (Camera.bezTime > 1.0f)
             {
                 //Moving camera if mouse is near edge of screen
                 if (Mouse.GetState().X > cam.backBufferWidth - 5.0f) //right

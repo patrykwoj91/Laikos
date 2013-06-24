@@ -110,7 +110,9 @@ namespace Laikos
             depthWriter.Parameters["LightPosition"].SetValue(position);
             depthWriter.Parameters["DepthPrecision"].SetValue(farPlane);
 
+           // if(Game1.Intro != false)
             terrain.DrawShadow(depthWriter);
+
             DrawModels(models, depthWriter);
             
         }

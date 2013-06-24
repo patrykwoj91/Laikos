@@ -31,10 +31,10 @@ namespace Laikos
         public DecorationManager decorations;
         DefferedRenderer defferedRenderer;
         public static List<GameObject> objects;
-
+        int Step;
         Dictionary<String, UnitType> UnitTypes;
         Dictionary<String, BuildingType> BuildingTypes;
-
+        public static bool Intro;
         public Player player;
         public Player enemy;
 
@@ -50,6 +50,8 @@ namespace Laikos
             graphics.PreferredBackBufferHeight = 600;
 
             graphics.IsFullScreen = false;
+            Intro = false;
+            Step = 0;
         }
 
         /// <summary>
@@ -81,6 +83,7 @@ namespace Laikos
         /// </summary>
         protected override void LoadContent()
         {
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Georgia");
             defferedRenderer = new DefferedRenderer(device, Content, spriteBatch, font, this);
@@ -125,9 +128,16 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (Intro == false && !Menu.inMenu)
+            {
+                GameIntro();
+                //Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
+                base.Update(gameTime);
+                return;
+            }
             //Console.WriteLine(Camera.cameraPosition);
             float frameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            Console.WriteLine(Camera.cameraPosition);
             time = gameTime.TotalGameTime;
             Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
 
@@ -179,10 +189,11 @@ namespace Laikos
             DefferedRenderer.explosionSmokeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
             DefferedRenderer.SmokePlumeParticles.SetCamera(Camera.viewMatrix, Camera.projectionMatrix);
 
-
-
             defferedRenderer.Draw(objects, terrain, gameTime);
-            SelectingGUI.Draw();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+            spriteBatch.End();
+            //SelectingGUI.Draw();
+           
 
             objects.Clear();
             base.Draw(gameTime);
@@ -297,5 +308,91 @@ namespace Laikos
               }
           }*/
 
+        public void GameIntro()
+        {
+
+            switch (Step)
+            {
+                case 0:
+                    Camera.InitBezier2(new Vector3(518, 139, 464)); //prison
+                    if (Math.Round(Camera.cameraPosition.X) == 518 && Math.Round(Camera.cameraPosition.Y) == 139 && Math.Round(Camera.cameraPosition.Z) == 464)
+                    {
+                        Step += 1;
+                        break;
+                    }
+                    break;
+                case 1:
+                     Camera.InitBezier2(new Vector3(452,99,390)); // gen1
+                     if (Math.Round(Camera.cameraPosition.X) == 452 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 391)
+                     {
+                         Step += 1;
+                         break;
+                     }
+                     break;
+                case 2:
+                    Camera.InitBezier2(new Vector3(338, 99, 367)); //gen2
+                    if (Math.Round(Camera.cameraPosition.X) == 338 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 367)
+                    {
+                         Step += 1;
+                         break;
+                    }
+                    break;
+                case 3:
+                    Camera.InitBezier2(new Vector3(302, 99, 452)); //gen3
+                    if (Math.Round(Camera.cameraPosition.X) == 302 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 452)
+                    {
+                        Step += 1;
+                        break;
+                    }
+                    break;
+                case 4:
+                     Camera.InitBezier2(new Vector3(386, 99, 500)); //gen4
+                     if (Math.Round(Camera.cameraPosition.X) == 386 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 500)
+                     {
+                         Step += 1;
+                         break;
+                     }
+                     break;
+                case 5:
+                     Camera.InitBezier2(new Vector3(527, 110, 638));
+                     if (Math.Round(Camera.cameraPosition.X) == 527 && Math.Round(Camera.cameraPosition.Y) == 110 && Math.Round(Camera.cameraPosition.Z) == 638)
+                     {
+                         Intro = true;
+                         break;
+                     }
+                     break;
+            }
+
+
+
+        /*    Camera.InitBezier2(new Vector3(518, 139, 464)); //prison
+            if (Math.Round(Camera.cameraPosition.X) == 518 && Math.Round(Camera.cameraPosition.Y) == 139 && Math.Round(Camera.cameraPosition.Z) == 464)
+            {
+                Camera.InitBezier2(new Vector3(452,99,390)); // gen1
+                if (Math.Round(Camera.cameraPosition.X) == 452 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 390)
+                {
+                    Camera.InitBezier2(new Vector3(338, 99, 367)); //gen2
+                    if (Math.Round(Camera.cameraPosition.X) == 338 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 367)
+                    {
+                        Camera.InitBezier2(new Vector3(302, 99, 452)); //gen3
+                        if (Math.Round(Camera.cameraPosition.X) == 302 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 452)
+                        {
+                            Camera.InitBezier2(new Vector3(386, 99, 390)); //gen4
+                            if (Math.Round(Camera.cameraPosition.X) == 386 && Math.Round(Camera.cameraPosition.Y) == 99 && Math.Round(Camera.cameraPosition.Z) == 500)
+                            {
+                                Camera.InitBezier2(new Vector3(527, 110, 638));
+                                if (Math.Round(Camera.cameraPosition.X) == 527 && Math.Round(Camera.cameraPosition.Y) == 110 && Math.Round(Camera.cameraPosition.Z) == 638)
+                                {
+                                    Intro = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                Intro = true;
+                
+            }*/
+
+        }
     }
 }
