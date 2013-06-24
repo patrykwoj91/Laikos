@@ -105,7 +105,7 @@ namespace Laikos
             if (UnitBackground.whichUnit == 0 && !isUnit)
             {
                 SourcesButton.DrawButton(spriteBatch, new Rectangle(LowerBackground.width / 7, buttonHeight, SourcesButton.width, SourcesButton.height),
-                    soulNumbers, new Rectangle(LowerBackground.width / 7 + 5, restHeight, 32, 32), new Vector2(LowerBackground.width / 7 + 10 + 32, restHeight));
+                    soulNumbers, new Rectangle(LowerBackground.width / 7 + 5, restHeight + 10, 32, 32), new Vector2(LowerBackground.width / 7 + 10 + 32, restHeight + 10));
             }
         }
 

@@ -83,6 +83,7 @@ namespace Laikos
             #endregion
 
             #region Load Content
+            font = content.Load<SpriteFont>("Georgia");
             clearBuffer = content.Load<Effect>("Effects/Clear");
             GBuffer = content.Load<Effect>("Effects/GBuffer");
             directionalLight = content.Load<Effect>("Effects/DirectionalLight");
