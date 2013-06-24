@@ -143,8 +143,8 @@ namespace Laikos
             if (Intro == false && !Menu.inMenu)
             {
                dText0 = true;
-               GameIntro(gameTime);
-               // Intro = true;
+               //GameIntro(gameTime);
+                Intro = true;
                 base.Update(gameTime);
                 return;
             }
@@ -155,7 +155,8 @@ namespace Laikos
 
             player.Update(gameTime);
             enemy.Update(gameTime);
-            GUI.Update(gameTime);
+            GUI.HandleEvent();
+            GUI.CleanMessages();
 
             GUIEventManager.Update();
             EventManager.Update();
