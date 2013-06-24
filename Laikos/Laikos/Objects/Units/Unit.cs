@@ -177,7 +177,7 @@ namespace Laikos
 
                         #region HandleEvent.MoveUnit
                         case (int)EventManager.Events.MoveUnit:
-                            
+
                             //////nowa wersja////////
                             if (destinyPoints == null)
                             {
@@ -185,7 +185,8 @@ namespace Laikos
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
 
-                                Console.WriteLine(wspBegin.X + " " + wspBegin.Y + " " + wspEnd.X + " " + wspEnd.Y);
+                                Console.WriteLine("A: " + wspBegin.X + ", " + wspBegin.Y + ", " + Map.WalkMeshMap[wspBegin.X / Map.SKALA, wspBegin.Y / Map.SKALA]
+                                    + " B: " + wspEnd.X + ", " + wspEnd.Y + ", " + Map.WalkMeshMap[wspEnd.X / Map.SKALA, wspEnd.Y / Map.SKALA]);
                                 this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                 this.destinyPointer = null;
                             }
@@ -802,9 +803,9 @@ namespace Laikos
                                             {
                                                 if
                                                 (
-                                                    (sen.Position.X == destinyPoints[destinyPoints.Count - 1].X)
+                                                    (sen.Position.X - destinyPoints[destinyPoints.Count - 1].X < 5.0f)
                                                     &&
-                                                    (sen.Position.Z == destinyPoints[destinyPoints.Count - 1].Y)
+                                                    (sen.Position.Z - destinyPoints[destinyPoints.Count - 1].Y < 5.0f)
                                                 )
                                                 {
                                                     messages[i].Done = true;

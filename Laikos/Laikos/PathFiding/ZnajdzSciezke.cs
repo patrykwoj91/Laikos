@@ -57,13 +57,8 @@ namespace Laikos.PathFiding
             _koniec.X = _koniec.X / SKALA;
             _koniec.Y = _koniec.Y / SKALA;
 
-            //Console.Out.WriteLine("Początek: " + _poczatek.X + ", " + _poczatek.Y + ", " + mapa[_poczatek.X, _poczatek.Y]);
-            //Console.Out.WriteLine("Koniec: " + _koniec.X + ", " + _koniec.Y + ", " + mapa[_koniec.X, _koniec.Y]);
-
             if
             (
-                (mapa[_poczatek.X, _poczatek.Y] == 1)
-                ||
                 (mapa[_koniec.X, _koniec.Y] == 1)
                 ||
                 (

@@ -169,7 +169,7 @@ namespace Laikos
 
                         if (collision)
                         {
-                            //EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, player.UnitList[j], player.UnitList[i], null));
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, player.UnitList[j], player.UnitList[i], null));
                         }
                     }
                 }
@@ -182,7 +182,7 @@ namespace Laikos
 
                         if (collision)
                         {
-                            //EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, enemy.UnitList[j], player.UnitList[i], null));
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, enemy.UnitList[j], player.UnitList[i], null));
                         }
                     }
                     else
@@ -240,7 +240,7 @@ namespace Laikos
 
                         if (collision)
                         {
-                            //EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, enemy.UnitList[j], enemy.UnitList[i], null));
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, enemy.UnitList[j], enemy.UnitList[i], null));
                         }
                     }
                 }
@@ -253,7 +253,7 @@ namespace Laikos
 
                         if (collision)
                         {
-                            //EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, player.UnitList[j], enemy.UnitList[i], null));
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, player.UnitList[j], enemy.UnitList[i], null));
                         }
                     }
                     else
