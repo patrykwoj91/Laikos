@@ -261,8 +261,17 @@ namespace Laikos
                 {
                     if (obj is Building)
                     {
-                        Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + BoundingSphere.CreateFromBoundingBox(((Building)obj).boundingBox).Radius * 2, obj.Position.Z);
+                         Vector3 lightPosition;
+                        if (((Building)obj).type.Name.Contains("Generator"))
+                            lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 35, obj.Position.Z);
+                        else 
+                            lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 35, obj.Position.Z);
                         //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
+                        lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 2.0f, false, 64));
+                    }
+                    if (obj is Decoration && ((Decoration)obj).type.name.Equals("Prison"))
+                    {
+                        Vector3 lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 35, obj.Position.Z);
                         lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 2.0f, false, 64));
                     }
                 }
