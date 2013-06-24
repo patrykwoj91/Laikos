@@ -96,37 +96,37 @@ namespace Laikos
             {
                 if (Game1.dText0)
                 {
-                 
-                    typing.DrawString(font2, "Witaj w Laikos", new Rectangle(0, 0, 1366, 768), StringTypingEffect.Alignment.Center, Color.DarkRed);
+
+                    typing.DrawString(font2, "Witaj na Laikos Dowodco!", new Rectangle(0, 0, 1366, 768), StringTypingEffect.Alignment.Center, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText1)
                 {
-                    typing.WriteLine = "Twoja misja polega na umozliweniu Pradawnym ucieczki z wiezienia\nznajdujacego sie w glebi wyspy";
+                    typing.WriteLine = "Twoja misja polega na uwolnieniu Khargash'ite \nzamknietego w wiezieniu znajdujacym sie w glebi wyspy";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText2)
                 {
-                    typing.WriteLine = "Aby otworzyc bramy wiezienia\nmusisz zniszczyc cztery generatory rozmieszczone na wyspie";
+                    typing.WriteLine = "Otwarcie bramy wiezienia mozliwe jest tylko \npo zniszczeniu czworki generatorow rozmieszczonych na tej wyspie";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText3)
                 {
-                    typing.WriteLine = "Nie bedzie to jednak takie proste,\nponiewaz kazdego z generatorow broni oddzial jednostek przeciwnika";
+                    typing.WriteLine = "Nie bedzie to jednak takie proste,\nponiewaz kazdego z generatorow broni oddzial gwardii Lai'Kos'Ata";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText4)
                 {
-                    typing.WriteLine = "Pamietaj, ze twoje zasoby sa ograniczone";
+                    typing.WriteLine = "Zniszczenie wszystkich generatorow zapewni Ci zwyciestwo";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText5)
                 {
-                    typing.WriteLine = "Zniszczenie wszystkich generatorow zapewni ci zwyciestwo w tej misji";
+                    typing.WriteLine = "Pamietaj, ze Twoje zasoby sa ograniczone,\n a Twoi sojusznicy nie beda mogli\n zbyt dlugo odwracac uwagi Wladcow Niebios";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText6)
                 {
-                    typing.WriteLine = "...\n...\n...\nPowodzenia!\n...\n...";
+                    typing.WriteLine = "...\n...\n...\nPowodzenia Dowodco!\n...\n...";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
             }
