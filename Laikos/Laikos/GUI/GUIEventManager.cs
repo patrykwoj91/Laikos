@@ -4,22 +4,14 @@ using Microsoft.Xna.Framework;
 
 namespace Laikos
 {
-    public static class EventManager
+    public static class GUIEventManager
     {
         public enum Events
         {
-            Unselected,
-            Selected,
-            FixCollisions,
-            Interaction,
-            MoveUnit,
-            MoveToBuild,
-            Build,
-            MoveToAttack,
-            Attack,
-            BuildUnit,
-            Gather,
-            Store
+            GuiCLICK,
+            GuiDOWN,
+            GuiUP
+            
         };
 
         static List<Message> lastFrame_messages = new List<Message>();
@@ -28,21 +20,17 @@ namespace Laikos
 
         public static void CreateMessage(Message message)
         {
-            if(!currentFrame_messages.Contains(message))
+            if (!currentFrame_messages.Contains(message))
                 currentFrame_messages.Add(message);
         }
 
-        public static void FindMessagesByDestination(GameObject destination, List<Message> result)
+        public static void FindMessagesByDestination(List<Message> result)
         {
-
+            
             for (var i = 0; i < lastFrame_messages.Count; i++)
             {
                 var m = lastFrame_messages[i];
-                if (m.Destination != null && m.Destination.Equals(destination))
-                {
                     result.Add(m);
-
-                }
             }
 
             result.Sort((x, y) => x.Type.CompareTo(y.Type));
@@ -59,7 +47,7 @@ namespace Laikos
 
                 }
             }
-            result.Sort((x,y) => x.Type.CompareTo(y.Type));
+            result.Sort((x, y) => x.Type.CompareTo(y.Type));
         }
 
         public static void FindMessage(Predicate<Message> criteria, List<Message> result)

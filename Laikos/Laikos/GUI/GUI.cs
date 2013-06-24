@@ -14,44 +14,17 @@ namespace Laikos
 {
     static class GUI
     {
-        public enum Events
-        {
-            GuiCLICK,
-            GuiUP,
-            GuiDOWN
-        };
-        public enum Alignment { Center = 0, Left = 1, Right = 2, Top = 4, Bottom = 8 }
-
         public static int screenWidth;
         public static int screenHeight;
         public static SpriteBatch spriteBatch;
+
         private static List<Message> messages;
+
         private static bool block;
         static SpriteFont font;
         static SpriteFont font2;
         public static StringTypingEffect typing;
         static Game game;
-
-        public static void DrawString(SpriteFont font, string text, Rectangle bounds, Alignment align, Color color)
-        {
-            Vector2 size = font.MeasureString(text);
-            Vector2 pos = new Vector2(bounds.Center.X, bounds.Center.Y);
-            Vector2 origin = size * 0.5f;
-
-            if (align.HasFlag(Alignment.Left))
-                origin.X += bounds.Width / 2 - size.X / 2;
-
-            if (align.HasFlag(Alignment.Right))
-                origin.X -= bounds.Width / 2 - size.X / 2;
-
-            if (align.HasFlag(Alignment.Top))
-                origin.Y += bounds.Height / 2 - size.Y / 2;
-
-            if (align.HasFlag(Alignment.Bottom))
-                origin.Y -= bounds.Height / 2 - size.Y / 2;
-
-            spriteBatch.DrawString(font, text, pos, color, 0, origin, 1, SpriteEffects.None, 0);
-        }
 
         public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content, Player player)
         {
@@ -139,7 +112,7 @@ namespace Laikos
               if (Game1.Intro != false)
             {
             UnitBackground.UpdateAnimation(gameTime);
-            HandleEvent();
+           // HandleEvent();
             if (UnitBackground.upTime <= 1.0f)
             {
                 UnitBackground.MoveUp();
@@ -152,8 +125,10 @@ namespace Laikos
                 LowerBackground.MoveDown();
                 LowerOptionPanel.MoveDown();
             }
-            CleanMessages();
+      
             }
+              HandleEvent();
+              CleanMessages();
         }
 
         public static void ProcessInput(Game1 game)
@@ -171,40 +146,40 @@ namespace Laikos
             {
                if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                 {
-                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 1, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
                 else if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                 {
-                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 2, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 2, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
                else if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                 {
-                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 3, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 3, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
                else if (insideRectangle(LowerOptionPanel.fourthTabPosition) && UnitBackground.whichUnit == 0 && LowerOptionPanel.isUnit)
                 {
-                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 4, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 4, 0, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
 
                else if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
                 {
-                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 1, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 1, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
                else if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
                 {
-                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 2, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 2, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
                else if (insideRectangle(LowerOptionPanel.thirdTabPosition) && UnitBackground.whichUnit == 1 && !LowerOptionPanel.isUnit)
                 {
-                    CreateMessage(new Message((int)GUI.Events.GuiCLICK, 3, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                    GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 3, 1, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                 }
                else if (insideRectangle(LowerOptionPanel.firstTabPosition) && UnitBackground.whichUnit == 2 && !LowerOptionPanel.isUnit)
                {
-                   CreateMessage(new Message((int)GUI.Events.GuiCLICK, 1, 2, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                   GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 1, 2, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                }
                else if (insideRectangle(LowerOptionPanel.secondTabPosition) && UnitBackground.whichUnit == 2 && !LowerOptionPanel.isUnit)
                {
-                   CreateMessage(new Message((int)GUI.Events.GuiCLICK, 2, 2, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
+                   GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiCLICK, 2, 2, game)); //1 to nadawca czyli 1 button , 0 to odbiorca czyli kto ma wykonac : 0 to dron
                }
          
             }
@@ -212,18 +187,23 @@ namespace Laikos
 
         public static void HandleEvent()
         {
-            EventManager.FindMessage(delegate(Message e) { return ((EventManager.Events)e.Type).ToString().Contains("Gui") ; }, messages);
+            GUIEventManager.FindMessagesByDestination(messages);
+         
+           // GUIEventManager.FindMessage(delegate(Message e) { return ((EventManager.Events)e.Type).ToString().Contains("Gui") ; }, messages);
             FindDoubledMessages();
 
             if (messages.Count > 0)
             {
+
                 int i = 0;
                 if (messages[i].Done == false)
                     switch (messages[i].Type)
                     {
-                        case (int)EventManager.Events.GuiUP:
+                        case (int)GUIEventManager.Events.GuiUP:
+
                             if (messages[i].Sender is Unit)
                             {
+                              
                                 UnitBackground.animated = true;
                                 LowerOptionPanel.isUnit = true;
                                 Unit unit = (Unit)messages[i].Sender;
@@ -240,7 +220,7 @@ namespace Laikos
                                 {
                                     UnitBackground.animated = false;
                                     UnitBackground.whichUnit = 2;
-                                    messages.RemoveAll(DeleteMessages);
+                                   // messages.RemoveAll(DeleteMessages);
                                 }
                             }
                             else if (messages[i].Sender is Building)
@@ -275,7 +255,8 @@ namespace Laikos
                                 LowerOptionPanel.upTime = 0;
                             }
                             break;
-                        case (int)EventManager.Events.GuiDOWN:
+
+                        case (int)GUIEventManager.Events.GuiDOWN:
                             UnitBackground.whichUnit = int.MaxValue;
                             if (UnitBackground.downTime > 1.0f && LowerBackground.downTime > 1.0f)
                             {
@@ -290,7 +271,7 @@ namespace Laikos
                             }
                             break;
 
-                        case (int)GUI.Events.GuiCLICK:
+                        case (int)GUIEventManager.Events.GuiCLICK:
                             if ((int)messages[i].Destination == 0)//to dron worker
                             {
                                 if ((int)messages[i].Sender == 1) //to 1 przycisk na workerze
@@ -382,20 +363,20 @@ namespace Laikos
             }
         }
 
-        private static bool DeleteMessages(Message message)
-        {
-            if (message.Type == (int)EventManager.Events.GuiUP)
-                return true;
-            else
-                return false;
-        }
+      //  private static bool DeleteMessages(Message message)
+       // {
+        //    if (message.Type == (int)EventManager.Events.GuiUP)
+       //         return true;
+       //     else
+        //        return false;
+      //  }
 
         public static bool CheckIfMultipleSelected()
         {
             int counter = 0;
             for (int i = 0; i < messages.Count; i++)
             {
-                if (messages[i].Type == (int)EventManager.Events.GuiUP)
+                if (messages[i].Type == (int)GUIEventManager.Events.GuiUP)
                     counter++;
             }
             if (counter > 1)
@@ -427,14 +408,6 @@ namespace Laikos
                 return true;
             else
                 return false;
-        }
-
-        public static void CreateMessage(Message message)
-        {
-            if (!messages.Contains(message))
-                messages.Add(message);
-        }
-
-       
+        }     
     }
 }

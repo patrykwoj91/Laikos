@@ -195,7 +195,7 @@ namespace Laikos
                 }*/
                
                     GUI.Draw();
-                    GUI.Update(gameTime);
+
                 
             }
             else

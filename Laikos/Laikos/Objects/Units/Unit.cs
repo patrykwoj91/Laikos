@@ -156,13 +156,13 @@ namespace Laikos
                         case (int)EventManager.Events.Selected:
                             selected = true;
                             messages[i].Done = true;
-                            GUI.CreateMessage(new Message((int)EventManager.Events.GuiUP, this, null, null));
+                            GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiUP, this, null, null));
                             break;
 
                         case (int)EventManager.Events.Unselected:
                             selected = false;
                             messages[i].Done = true;
-                            GUI.CreateMessage(new Message((int)EventManager.Events.GuiDOWN, this, null, null));
+                            GUIEventManager.CreateMessage(new Message((int)GUIEventManager.Events.GuiDOWN, this, null, null));
                             break;
                         #endregion
 

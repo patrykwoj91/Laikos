@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GUI\GUI.cs" />
+    <Compile Include="GUI\GUIEventManager.cs" />
     <Compile Include="GUI\LowerBackground.cs" />
     <Compile Include="GUI\LowerOptionPanel.cs" />
     <Compile Include="GUI\Menu.cs" />

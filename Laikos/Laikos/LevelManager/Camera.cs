@@ -90,7 +90,7 @@ namespace Laikos
             UpdateViewMatrix(ref viewMatrix, cameraPosition, upDownRot, leftRightRot);
             UpdateBezier(ref cameraPosition);
             //Checking for collision with terrain if camera is within range of our terrain
-            Console.WriteLine(cameraPosition);
+            //Console.WriteLine(cameraPosition);
             ms = Mouse.GetState();
 
             // check if mouse is not out of window

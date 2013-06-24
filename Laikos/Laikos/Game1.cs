@@ -143,9 +143,8 @@ namespace Laikos
             if (Intro == false && !Menu.inMenu)
             {
                dText0 = true;
-               GameIntro(gameTime);
-                //Intro = true;
-                //Input.Update(this, gameTime, device, camera, player, decorations.DecorationList);
+              // GameIntro(gameTime);
+                Intro = true;
                 base.Update(gameTime);
                 return;
             }
@@ -156,9 +155,11 @@ namespace Laikos
 
             player.Update(gameTime);
             enemy.Update(gameTime);
+            GUI.Update(gameTime);
 
-
+            GUIEventManager.Update();
             EventManager.Update();
+            
 
             // TODO: Add your update logic here
             bool collision = false;
