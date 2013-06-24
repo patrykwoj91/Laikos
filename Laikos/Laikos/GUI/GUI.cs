@@ -112,6 +112,7 @@ namespace Laikos
               if (Game1.Intro != false)
             {
             UnitBackground.UpdateAnimation(gameTime);
+           // HandleEvent();
             if (UnitBackground.upTime <= 1.0f)
             {
                 UnitBackground.MoveUp();
@@ -126,7 +127,8 @@ namespace Laikos
             }
       
             }
-
+              HandleEvent();
+              CleanMessages();
         }
 
         public static void ProcessInput(Game1 game)
@@ -212,6 +214,9 @@ namespace Laikos
                                             break;
                                         case "Reconnaissance Eye":
                                             UnitBackground.whichUnit = 1;
+                                            break;
+                                        case "Antigravity Tank":
+                                            UnitBackground.whichUnit = 2;
                                             break;
                                     }
                                 if (CheckIfMultipleSelected())

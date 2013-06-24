@@ -20,6 +20,7 @@ namespace Laikos
         private static Texture2D defaultBackground;
         private static Texture2D cementary;
         private static Texture2D palace;
+        private static Texture2D obserwatorium;
         private static Rectangle position;
         public static bool isUp;
         public static float upTime;
@@ -42,6 +43,8 @@ namespace Laikos
             eye = content.Load<GifAnimation.GifAnimation>("GUI/units/Oko");
             cementary = content.Load<Texture2D>("GUI/buildings/cementary");
             palace = content.Load<Texture2D>("GUI/buildings/palac");
+            obserwatorium = content.Load<Texture2D>("GUI/buildings/obserwatorium");
+            animation = tank;
             isUp = true;
             upTime = 1.0f;
             downTime = 1.0f;
@@ -67,6 +70,9 @@ namespace Laikos
                     case 1:
                         animation = eye;
                         break;
+                    case 2:
+                        animation = tank;
+                        break;
                 }
                 spriteBatch.Draw(animation.GetTexture(), position, Color.White);
             }
@@ -81,7 +87,7 @@ namespace Laikos
                         unitBackground = palace;
                         break;
                     case 2:
-                        unitBackground = defaultBackground;
+                        unitBackground = obserwatorium;
                         break;
                     default:
                         unitBackground = defaultBackground;
