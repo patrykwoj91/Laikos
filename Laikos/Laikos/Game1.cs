@@ -151,14 +151,142 @@ namespace Laikos
             bool collision = false;
             for (int i = 0; i < player.UnitList.Count; i++)
             {
-                for (int j = i + 1; j < player.UnitList.Count; j++)
+                bool InMove = false;
+                foreach (Message _msg in player.UnitList[i].messages)
                 {
-                    collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
-
-                    if (collision)
+                    if
+                    (
+                        (!_msg.Done)
+                        &&
+                        (
+                            (_msg.Type == (int)EventManager.Events.MoveUnit)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.MoveToAttack)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.MoveToBuild)
+                        )
+                    )
                     {
-                        // player.UnitList[i].Position = player.UnitList[i].lastPosition;
-                        // player.UnitList[j].Position = player.UnitList[j].lastPosition;
+                        InMove = true;
+                    }
+                }
+
+                if (InMove)
+                {
+                    for (int j = i + 1; j < player.UnitList.Count; j++)
+                    {
+                        collision = Collisions.DetailedCollisionCheck(player.UnitList[i], player.UnitList[j]);
+
+                        if (collision)
+                        {
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, player.UnitList[j], player.UnitList[i], null));
+                        }
+                    }
+                }
+
+                for (int j = 0; j < enemy.UnitList.Count; j++)
+                {
+                    if (InMove)
+                    {
+                        collision = Collisions.DetailedCollisionCheck(player.UnitList[i], enemy.UnitList[j]);
+
+                        if (collision)
+                        {
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, enemy.UnitList[j], player.UnitList[i], null));
+                        }
+                    }
+                    else
+                    {
+                        collision = player.UnitList[i].attackRadius.Intersects(enemy.UnitList[j].boundingSphere);
+
+                        if ((collision) && (player.UnitList[i].range > 0))
+                        {
+                            bool attacking = false;
+                            foreach (Message _msg in player.UnitList[i].messages)
+                            {
+                                if ((!_msg.Done) && (_msg.Type == (int)EventManager.Events.Attack))
+                                {
+                                    attacking = true;
+                                    break;
+                                }
+                            }
+
+                            if (!attacking)
+                            {
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, player.UnitList[i], enemy.UnitList[j]));
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < enemy.UnitList.Count; i++)
+            {
+                bool InMove = false;
+                foreach (Message _msg in enemy.UnitList[i].messages)
+                {
+                    if
+                    (
+                        (!_msg.Done)
+                        &&
+                        (
+                            (_msg.Type == (int)EventManager.Events.MoveUnit)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.MoveToAttack)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.MoveToBuild)
+                        )
+                    )
+                    {
+                        InMove = true;
+                    }
+                }
+
+                if (InMove)
+                {
+                    for (int j = i + 1; j < enemy.UnitList.Count; j++)
+                    {
+                        collision = Collisions.DetailedCollisionCheck(enemy.UnitList[i], enemy.UnitList[j]);
+
+                        if (collision)
+                        {
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, enemy.UnitList[j], enemy.UnitList[i], null));
+                        }
+                    }
+                }
+
+                for (int j = 0; j < player.UnitList.Count; j++)
+                {
+                    if (InMove)
+                    {
+                        collision = Collisions.DetailedCollisionCheck(enemy.UnitList[i], player.UnitList[j]);
+
+                        if (collision)
+                        {
+                            EventManager.CreateMessage(new Message((int)EventManager.Events.FixCollisions, player.UnitList[j], enemy.UnitList[i], null));
+                        }
+                    }
+                    else
+                    {
+                        collision = enemy.UnitList[i].attackRadius.Intersects(player.UnitList[j].boundingSphere);
+
+                        if ((collision) && (enemy.UnitList[i].range > 0))
+                        {
+                            bool attacking = false;
+                            foreach (Message _msg in enemy.UnitList[i].messages)
+                            {
+                                if ((!_msg.Done) && (_msg.Type == (int)EventManager.Events.Attack))
+                                {
+                                    attacking = true;
+                                    break;
+                                }
+                            }
+
+                            if (!attacking)
+                            {
+                                EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, enemy.UnitList[i], player.UnitList[j]));
+                            }
+                        }
                     }
                 }
             }

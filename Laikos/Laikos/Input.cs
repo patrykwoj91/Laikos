@@ -31,13 +31,13 @@ namespace Laikos
                     {
                        
                         unit.Position.Z += 0.1f;
-                        unit.Rotation.Y = MathHelper.ToRadians(0);
+                        unit.Rotation.Y = MathHelper.ToRadians(180);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.S))
                     {
     
                         unit.Position.Z -= 0.1f;
-                        unit.Rotation.Y = MathHelper.ToRadians(180);
+                        unit.Rotation.Y = MathHelper.ToRadians(0);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.A))
                     {

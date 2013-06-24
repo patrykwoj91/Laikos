@@ -8,9 +8,9 @@ namespace Laikos
     {
         public enum Events
         {
-            FixCollisions,
             Unselected,
             Selected,
+            FixCollisions,
             Interaction,
             MoveUnit,
             MoveToBuild,
