@@ -843,12 +843,6 @@ namespace Laikos
                                             messages[i].Done = true;
 
                                             break;
-
-                                        case (int)EventManager.Events.Gather:
-
-
-
-                                            break;
                                     }
                                 }
                             }
