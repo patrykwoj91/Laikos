@@ -17,23 +17,6 @@ namespace Laikos
         public Vector3 lastPosition = new Vector3(0, 0, 0);
         public Vector3 Rotation = new Vector3(MathHelper.ToRadians(0), MathHelper.ToRadians(0), MathHelper.ToRadians(0)); //Current rotation
 
-        public float Rotation_Y_Add
-        {
-            set
-            {
-                Rotation.Y += value;
-
-                if (MathHelper.ToDegrees(Rotation.Y) > 180.0f)
-                {
-                    Rotation.Y -= MathHelper.ToRadians(360.0f);
-                }
-                else if (MathHelper.ToDegrees(Rotation.Y) < -180.0f)
-                {
-                    Rotation.Y += MathHelper.ToRadians(360.0f);
-                }
-            }
-        }
-
         public float Scale = 1.0f; //Current scale
         public AnimatedModel currentModel = null; //model
         bool exists = false;

@@ -11,7 +11,7 @@ namespace Laikos.PathFiding
 {
     public static class Map
     {
-        private const int SKALA = 5;
+        public const int SKALA = 5;
 
         private static int[,] map;
         public static int[,] WalkMeshMap

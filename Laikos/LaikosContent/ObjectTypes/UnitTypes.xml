@@ -8,7 +8,7 @@
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
       <damage>1</damage>
-      <range>5</range>
+      <range>0</range>
       <ratio>1000</ratio>
       <Souls>100</Souls>
       <Scale>0.05</Scale>
@@ -21,7 +21,7 @@
       <maxhp>50.0</maxhp>
       <mp>10.0</mp>
       <damage>2</damage>
-      <range>5</range>
+      <range>0</range>
       <ratio>1000</ratio>
       <Souls>150</Souls>
       <Scale>0.045</Scale>
@@ -47,7 +47,7 @@
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
       <damage>1</damage>
-      <range>5</range>
+      <range>0</range>
       <ratio>1000</ratio>
       <Souls>100</Souls>
       <Scale>0.5</Scale>
