@@ -155,7 +155,8 @@ namespace Laikos
 
             player.Update(gameTime);
             enemy.Update(gameTime);
-            GUI.Update(gameTime);
+            GUI.HandleEvent();
+            GUI.CleanMessages();
 
             GUIEventManager.Update();
             EventManager.Update();
