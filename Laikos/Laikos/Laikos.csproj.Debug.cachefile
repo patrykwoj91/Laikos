@@ -139,6 +139,7 @@ Content\Models\Units\Aliens\Alien_Rider\alien_Rider_Anims.xnb
 Content\Models\Units\Aliens\Alien_Worker\alien_worker_Anims.xnb
 Content\Models\Units\Niebianie\Droid_worker\Droid_Anims.xnb
 Content\Georgia.xnb
+Content\DESC.xnb
 Content\GUI\units\Drone_Worker.xnb
 Content\GUI\units\czolg.xnb
 Content\GUI\units\Oko.xnb
@@ -209,3 +210,4 @@ Content\FBX\307928D7\oko.fbm\tekstura_0.xnb
 Content\FBX\AE452A18\czolg.fbm\texturaInne_0.xnb
 Content\FBX\AE452A18\czolg.fbm\texturaInne2_0.xnb
 Content\FBX\AE452A18\czolg.fbm\deksturaDol_0.xnb
+Content\INTRO.xnb

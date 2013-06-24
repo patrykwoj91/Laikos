@@ -193,12 +193,9 @@ namespace Laikos
                         //building.currentModel.Model.Draw(building.GetWorldMatrix(), Camera.viewMatrix, Camera.projectionMatrix);
                     }
                 }*/
-             
-                if (Game1.Intro != false)
-                {
+               
                     GUI.Draw();
                     GUI.Update(gameTime);
-                }
                 
             }
             else
@@ -262,12 +259,12 @@ namespace Laikos
                     if (obj is Building)
                     {
                          Vector3 lightPosition;
-                        if (((Building)obj).type.Name.Contains("Generator"))
-                            lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 35, obj.Position.Z);
-                        else 
-                            lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 35, obj.Position.Z);
-                        //lights.AddLight(new PointLight(lightPosition, Color.White, 50, 1, false, 1));
-                        lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 2.0f, false, 64));
+                         if (((Building)obj).type.Name.Contains("Generator"))
+                         {
+                             lightPosition = new Vector3(obj.Position.X, obj.Position.Y + 35, obj.Position.Z);
+                             lights.AddLight(new SpotLight(lightPosition, Vector3.Down, Color.White, 2.0f, false, 64));
+                         }
+                       
                     }
                     if (obj is Decoration && ((Decoration)obj).type.name.Equals("Prison"))
                     {

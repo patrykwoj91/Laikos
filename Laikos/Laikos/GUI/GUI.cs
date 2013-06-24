@@ -20,13 +20,38 @@ namespace Laikos
             GuiUP,
             GuiDOWN
         };
-
+        public enum Alignment { Center = 0, Left = 1, Right = 2, Top = 4, Bottom = 8 }
 
         public static int screenWidth;
         public static int screenHeight;
-        private static SpriteBatch spriteBatch;
+        public static SpriteBatch spriteBatch;
         private static List<Message> messages;
         private static bool block;
+        static SpriteFont font;
+        static SpriteFont font2;
+        public static StringTypingEffect typing;
+        static Game game;
+
+        public static void DrawString(SpriteFont font, string text, Rectangle bounds, Alignment align, Color color)
+        {
+            Vector2 size = font.MeasureString(text);
+            Vector2 pos = new Vector2(bounds.Center.X, bounds.Center.Y);
+            Vector2 origin = size * 0.5f;
+
+            if (align.HasFlag(Alignment.Left))
+                origin.X += bounds.Width / 2 - size.X / 2;
+
+            if (align.HasFlag(Alignment.Right))
+                origin.X -= bounds.Width / 2 - size.X / 2;
+
+            if (align.HasFlag(Alignment.Top))
+                origin.Y += bounds.Height / 2 - size.Y / 2;
+
+            if (align.HasFlag(Alignment.Bottom))
+                origin.Y -= bounds.Height / 2 - size.Y / 2;
+
+            spriteBatch.DrawString(font, text, pos, color, 0, origin, 1, SpriteEffects.None, 0);
+        }
 
         public static void Initialize(GraphicsDevice Device, SpriteBatch SpriteBatch, ContentManager content, Player player)
         {
@@ -34,6 +59,8 @@ namespace Laikos
             screenWidth = Device.PresentationParameters.BackBufferWidth;
             screenHeight = Device.PresentationParameters.BackBufferHeight;
             spriteBatch = SpriteBatch;
+            font2 = content.Load<SpriteFont>("INTRO");
+            font = content.Load<SpriteFont>("DESC");
             messages = new List<Message>();
             MinimapBackground.Initialize(content);
             UpperBackground.Initialize(content);
@@ -41,29 +68,76 @@ namespace Laikos
             LowerBackground.Initialize(content);
             SourcesButton.Initialize(content, player);
             LowerOptionPanel.Initialize(content);
+            game = player.game;
+            typing = new StringTypingEffect(game,spriteBatch);
         }
 
         public static void Draw()
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
             //Minimap
-            SelectingGUI.DrawOnMiniMap(spriteBatch);
-            SelectingGUI.DrawUnitInfo(spriteBatch);
-            if (SelectingGUI.selectionbox)
-                SelectingGUI.DrawSelection(spriteBatch);
-      
-            MinimapBackground.Create(spriteBatch);
-            UpperBackground.Create(spriteBatch);
-            LowerBackground.Create(spriteBatch);
-            UnitBackground.Create(spriteBatch);
-            SourcesButton.Create(spriteBatch);
-            LowerOptionPanel.Create(spriteBatch);
-        
+            if (Game1.Intro != false)
+            {
+              
+                SelectingGUI.DrawOnMiniMap(spriteBatch);
+                SelectingGUI.DrawUnitInfo(spriteBatch);
+                if (SelectingGUI.selectionbox)
+                    SelectingGUI.DrawSelection(spriteBatch);
+
+                MinimapBackground.Create(spriteBatch);
+                UpperBackground.Create(spriteBatch);
+                LowerBackground.Create(spriteBatch);
+                UnitBackground.Create(spriteBatch);
+                SourcesButton.Create(spriteBatch);
+                LowerOptionPanel.Create(spriteBatch);
+               
+            }
+            else
+            {
+                if (Game1.dText0)
+                {
+                 
+                    typing.DrawString(font2, "Witaj w Laikos", new Rectangle(0, 0, 1366, 768), StringTypingEffect.Alignment.Center, Color.DarkRed);
+                }
+                else if (Game1.dText1)
+                {
+                    typing.WriteLine = "Twoja misja polega na umozliweniu Pradawnym ucieczki z wiezienia\nznajdujacego sie w glebi wyspy";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                }
+                else if (Game1.dText2)
+                {
+                    typing.WriteLine = "Aby otworzyc bramy wiezienia\nmusisz zniszczyc 4 generatory rozmieszczone na wyspie";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                }
+                else if (Game1.dText3)
+                {
+                    typing.WriteLine = "Nie bedzie to jednak takie proste,\nponiewaz kazdego z generatorow broni oddzial jednostek przeciwnika";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                }
+                else if (Game1.dText4)
+                {
+                    typing.WriteLine = "Pamietaj, ze twoje zasoby sa ograniczone";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                }
+                else if (Game1.dText5)
+                {
+                    typing.WriteLine = "Zniszczenie wszystkich generatorow zapewni ci zwyciestwo w tej misji";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                }
+                else if (Game1.dText6)
+                {
+                    typing.WriteLine = "...\n...\n...\nPowodzenia!\n...\n...";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 512, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
+                }
+            }
             spriteBatch.End();
         }
 
         public static void Update(GameTime gameTime)
         {
+            typing.Update(gameTime);
+              if (Game1.Intro != false)
+            {
             UnitBackground.UpdateAnimation(gameTime);
             HandleEvent();
             if (UnitBackground.upTime <= 1.0f)
@@ -79,6 +153,7 @@ namespace Laikos
                 LowerOptionPanel.MoveDown();
             }
             CleanMessages();
+            }
         }
 
         public static void ProcessInput(Game1 game)
@@ -359,5 +434,7 @@ namespace Laikos
             if (!messages.Contains(message))
                 messages.Add(message);
         }
+
+       
     }
 }

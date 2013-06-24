@@ -169,6 +169,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="LevelManager\Terrain\Terrain.cs" />
     <Compile Include="Physics\XNAUtils.cs" />
+    <Compile Include="StringTypingEffect.cs" />
     <Compile Include="VertexHelper.cs" />
   </ItemGroup>
   <ItemGroup>
