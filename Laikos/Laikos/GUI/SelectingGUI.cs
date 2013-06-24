@@ -136,7 +136,10 @@ namespace Laikos
                 {
                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height/2), healthbar.Width, healthbar.Height), null, Color.Red);
                     spriteBatch.Draw(healthbar, new Rectangle((int)screenPos2D.X - healthbar.Width / 2, (int)(screenPos2D.Y - healthbar.Height / 2), (int)(healthbar.Width * ((double)unit.HP / unit.maxHP)), healthbar.Height), null, Color.ForestGreen);
-                    spriteBatch.Draw(selectionBox, new Rectangle((int)screenPos2D.X - 20, (int)screenPos2D.Y + 10, 35, 35), Color.White);
+                    if(unit.type.name == "Droid Worker")
+                        spriteBatch.Draw(selectionBox, new Rectangle((int)screenPos2D.X - 20, (int)screenPos2D.Y + 10, 35, 35), Color.White);
+                    else
+                        spriteBatch.Draw(selectionBox, new Rectangle((int)screenPos2D.X - 20, (int)screenPos2D.Y + 20, 70, 70), Color.White);
 
                 }
             }

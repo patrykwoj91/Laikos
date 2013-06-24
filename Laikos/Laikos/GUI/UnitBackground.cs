@@ -42,6 +42,7 @@ namespace Laikos
             eye = content.Load<GifAnimation.GifAnimation>("GUI/units/Oko");
             cementary = content.Load<Texture2D>("GUI/buildings/cementary");
             palace = content.Load<Texture2D>("GUI/buildings/palac");
+            animation = tank;
             isUp = true;
             upTime = 1.0f;
             downTime = 1.0f;
@@ -66,6 +67,9 @@ namespace Laikos
                         break;
                     case 1:
                         animation = eye;
+                        break;
+                    case 2:
+                        animation = tank;
                         break;
                 }
                 spriteBatch.Draw(animation.GetTexture(), position, Color.White);
