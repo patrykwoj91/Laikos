@@ -134,7 +134,7 @@ namespace Laikos
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
-            radius = range + 20;
+            radius = range + 40;
             attackRadius = new BoundingSphere(Position, radius);
             base.Update(gameTime);
         }
@@ -558,22 +558,17 @@ namespace Laikos
 
                                     if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                     {
-                                       
-                                        //JESTES U CELU
+                                        // Next step walk.
                                         if (!destinyPointer.MoveNext())
                                         {
-                                            destinyPoints = null;
-                                            destinyPointer = null;
-                                            direction.X = 0.0f;
-                                            direction.Z = 0.0f;
-                                            //OBSŁUGA ZBIERANIA
+                                            EndMove(messages[i]);
+
                                             player.Souls += this.Souls_owned;
                                             this.Souls_owned = 0;
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
 
                                             timeSpan = TimeSpan.FromMilliseconds(3000);
-                                            messages[i].Done = true;
-                                            break;
+                                            Console.WriteLine("done");
                                         }
                                         else
                                         {
@@ -581,6 +576,7 @@ namespace Laikos
                                             direction = vecTmp - Position;
                                         }
                                     }
+                                    
                                     setWalk();
                                 }
                                 else
@@ -886,8 +882,6 @@ namespace Laikos
             rot_angle = (float)(Math.Atan2(-dir.Y, dir.X) * 180 / Math.PI) + 90.0f;
             //Console.WriteLine(rot_angle);
             Rotation.Y = MathHelper.ToRadians(rot_angle);
-
-
         }
 
         private Unit FindEnemy()

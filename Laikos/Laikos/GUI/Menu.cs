@@ -40,7 +40,7 @@ namespace Laikos
             tloPosition = new Rectangle(0, 0, pp.BackBufferWidth, pp.BackBufferHeight);
             laikosPosition = new Rectangle(pp.BackBufferWidth / 3, pp.BackBufferHeight / 5, pp.BackBufferWidth / 3, pp.BackBufferHeight / 5);
             newGamePosition = new Rectangle(pp.BackBufferWidth / 3 + pp.BackBufferWidth / 15, pp.BackBufferHeight / 5 + pp.BackBufferHeight / 5, 300, 100);
-            exitPosition = new Rectangle(pp.BackBufferWidth / 3 + pp.BackBufferWidth / 9, pp.BackBufferHeight / 4 + pp.BackBufferHeight / 4 , 200, 100);
+            exitPosition = new Rectangle(pp.BackBufferWidth / 3 + pp.BackBufferWidth / 9, pp.BackBufferHeight / 4 + pp.BackBufferHeight / 4, 200, 100);
             kwadratPosition1 = new Rectangle(0, 0, 0, 0);
             this.pp = pp;
             inMenu = true;
@@ -53,7 +53,7 @@ namespace Laikos
             spriteBatch.Draw(laikos, laikosPosition, Color.White);
             spriteBatch.Draw(newGame, newGamePosition, Color.White);
             spriteBatch.Draw(exit, exitPosition, Color.White);
-            spriteBatch.Draw(kwadrat, kwadratPosition1,Color.White);
+            spriteBatch.Draw(kwadrat, kwadratPosition1, Color.White);
             spriteBatch.Draw(kwadrat, kwadratPosition2, Color.White);
             spriteBatch.End();
         }
@@ -68,7 +68,10 @@ namespace Laikos
                 {
                     inMenu = false;
 
-                    Game1.videoPlayer.Play(Game1.video);
+                    if (Game1.playIntro)
+                    {
+                        Game1.videoPlayer.Play(Game1.video);
+                    }
                 }
             }
             else if (GUI.insideRectangle(exitPosition))

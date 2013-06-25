@@ -47,8 +47,8 @@ namespace Laikos
         public static Video video;
         private Texture2D videoTexture;
 
-        private bool playIntro = true;
-        public static VideoPlayer videoPlayer = new VideoPlayer();
+        public static bool playIntro = true;
+        public static VideoPlayer videoPlayer;
 
         public Game1()
         {
@@ -56,12 +56,12 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 900;
+            graphics.PreferredBackBufferHeight = 600;
 
             graphics.IsFullScreen = false;
 
-            Intro = false;
+            Intro = true;
             dText0 = false;
             dText1 = false;
             dText2 = false;
@@ -70,6 +70,8 @@ namespace Laikos
             dText5 = false;
             dText6 = false;
             Step = 0;
+
+            videoPlayer = new VideoPlayer();
         }
 
         /// <summary>
@@ -168,14 +170,21 @@ namespace Laikos
             GUIEventManager.Update();
             EventManager.Update();
 
-            if (videoPlayer.State == MediaState.Playing)
+            if (playIntro)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                Console.WriteLine(videoPlayer.State);
+                if (Game1.videoPlayer.State == MediaState.Playing)
                 {
-                    videoPlayer.Stop();
-                    playIntro = false;
+                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        videoPlayer.Stop();
+
+                        playIntro = false;
+                        Intro = true;
+                    }
+
+                    return;
                 }
-                return;
             }
 
             // TODO: Add your update logic here
@@ -341,16 +350,19 @@ namespace Laikos
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
 
-            if (videoPlayer.State == MediaState.Playing)
+            if (playIntro)
             {
-                Rectangle screen = new Rectangle(device.Viewport.X, device.Viewport.Y, device.Viewport.Width, device.Viewport.Height);
+                if (videoPlayer.State == MediaState.Playing)
+                {
+                    Rectangle screen = new Rectangle(device.Viewport.X, device.Viewport.Y, device.Viewport.Width, device.Viewport.Height);
 
-                videoTexture = videoPlayer.GetTexture();
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
-                spriteBatch.Draw(videoTexture, screen, Color.White);
-                spriteBatch.End();
+                    videoTexture = videoPlayer.GetTexture();
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+                    spriteBatch.Draw(videoTexture, screen, Color.White);
+                    spriteBatch.End();
 
-                return;
+                    return;
+                }
             }
 
             objects.AddRange(player.UnitList);

@@ -78,6 +78,7 @@ Content\Menu\new game.xnb
 Content\Menu\po najechaniu.xnb
 Content\Menu\tlo.xnb
 Content\SelectionBox.xnb
+Content\GUI\buildings\obserwatorium.xnb
 Content\Models\Terrain\dome.xnb
 Content\Models\sphere.xnb
 Content\Particles\grid.xnb
@@ -120,10 +121,12 @@ Content\Models\Buildings\Generator\generator.xnb
 Content\Models\Decorations\Drzewa\drzewo3.xnb
 Content\Models\Decorations\Drzewa\drzewo1.xnb
 Content\Models\Decorations\Drzewa\drzewo4.xnb
-Content\Models\Decorations\Prison\prison.xnb
 Content\Models\Units\Niebianie\Droid_worker\Droid.xnb
-Content\Models\Units\Niebianie\Eye\oko.xnb
 Content\Models\Units\Niebianie\Tank\czolg.xnb
+Content\Models\Decorations\Prison\prison.xnb
+Content\Models\Units\Aliens\Alien\alien.xnb
+Content\Models\Units\Niebianie\Eye\oko.xnb
+Content\Models\Units\Aliens\Alien_Rider\alien_Rider.xnb
 Content\ObjectTypes\UnitTypes.xnb
 Content\ObjectTypes\DecorationTypes.xnb
 Content\Models\Units\Niebianie\Eye\oko_Anims.xnb
@@ -143,7 +146,9 @@ Content\INTRO.xnb
 Content\GUI\units\Drone_Worker.xnb
 Content\GUI\units\czolg.xnb
 Content\GUI\units\Oko.xnb
+Content\Sounds\Shot1.xnb
 Content\Sounds\Shot.xnb
+Content\Video\Intro.xnb
 Content\Models\Terrain\cloudMap_0.xnb
 Content\Particles\checker_0.xnb
 Content\Models\SkyDome\cloudMap_0.xnb
@@ -203,14 +208,9 @@ Content\FBX\9FA727AC\drzewo1.fbm\drewno_0.xnb
 Content\FBX\9FB627AF\drzewo4.fbm\drewno_0.xnb
 Content\FBX\EE5C2B08\Droid.fbm\texturaInne_0.xnb
 Content\FBX\EE5C2B08\Droid.fbm\tekstura1_0.xnb
-Content\FBX\28F92677\oko.fbm\texturaInne_0.xnb
-Content\FBX\28F92677\oko.fbm\tekstura_0.xnb
 Content\FBX\9FA527B8\czolg.fbm\texturaInne_0.xnb
 Content\FBX\9FA527B8\czolg.fbm\texturaInne2_0.xnb
 Content\FBX\9FA527B8\czolg.fbm\deksturaDol_0.xnb
-Content\GUI\buildings\obserwatorium.xnb
-Content\Sounds\Shot1.xnb
-Content\Models\Units\Aliens\Alien\alien.xnb
 Content\FBX\79872789\prison.fbm\brazowy_0.xnb
 Content\FBX\79872789\prison.fbm\czarne_0.xnb
 Content\FBX\79872789\prison.fbm\texturaInne_0.xnb
@@ -220,9 +220,9 @@ Content\FBX\79872789\prison.fbm\czerwien_0.xnb
 Content\FBX\79872789\prison.fbm\metal2_0.xnb
 Content\FBX\4FC926D5\alien.fbm\teksturaInne-demony_0.xnb
 Content\FBX\4FC926D5\alien.fbm\twksturaOko-demony_0.xnb
-Content\Models\Units\Aliens\Alien_Rider\alien_Rider.xnb
+Content\FBX\28F92677\oko.fbm\texturaInne_0.xnb
+Content\FBX\28F92677\oko.fbm\tekstura_0.xnb
 Content\FBX\44812BBF\alien_Rider.fbm\texturaInne-demon_0.xnb
 Content\FBX\44812BBF\alien_Rider.fbm\texturaInne2-dol_0.xnb
 Content\FBX\44812BBF\alien_Rider.fbm\deksturaDol-demon_0.xnb
-Content\Video\Intro.xnb
 Content\Video\Intro.wmv
