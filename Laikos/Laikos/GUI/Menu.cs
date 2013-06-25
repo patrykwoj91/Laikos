@@ -68,7 +68,7 @@ namespace Laikos
                 {
                     inMenu = false;
 
-                    if (Game1.playIntro)
+                    if (Game1.playIntro < 3)
                     {
                         Game1.videoPlayer.Play(Game1.video);
                     }
