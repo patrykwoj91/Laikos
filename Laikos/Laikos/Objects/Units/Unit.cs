@@ -37,6 +37,7 @@ namespace Laikos
         Vector3 direction;
 
         Vector3 PositionOld;
+        Vector3 RotationOld;
 
         //////////////////////////////////
         // Fight Variables
@@ -72,7 +73,7 @@ namespace Laikos
             {
                 this.budowniczy = true;
             }
-         
+
             this.maxHP = this.type.maxhp;
             this.HP = this.maxHP;
             this.lastHP = this.HP;
@@ -184,8 +185,8 @@ namespace Laikos
                                 setWalk();
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
-                               // Console.WriteLine("A: " + wspBegin.X + ", " + wspBegin.Y + ", " + Map.WalkMeshMap[wspBegin.X / Map.SKALA, wspBegin.Y / Map.SKALA]
-                                  //  + " B: " + wspEnd.X + ", " + wspEnd.Y + ", " + Map.WalkMeshMap[wspEnd.X / Map.SKALA, wspEnd.Y / Map.SKALA]);
+                                // Console.WriteLine("A: " + wspBegin.X + ", " + wspBegin.Y + ", " + Map.WalkMeshMap[wspBegin.X / Map.SKALA, wspBegin.Y / Map.SKALA]
+                                //  + " B: " + wspEnd.X + ", " + wspEnd.Y + ", " + Map.WalkMeshMap[wspEnd.X / Map.SKALA, wspEnd.Y / Map.SKALA]);
                                 this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                 this.destinyPointer = null;
                             }
@@ -211,9 +212,10 @@ namespace Laikos
                                     direction.Normalize();
 
                                     PositionOld = Position;
+                                  
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-
+                                  
                                     ChangeDirection();
 
 
@@ -271,7 +273,7 @@ namespace Laikos
                                 //////nowa wersja////////
                                 if (destinyPoints == null)
                                 {
-                                    Vector3 stay_here = new Vector3(((WhereToBuild)messages[i].Payload).position.X, ((WhereToBuild)messages[i].Payload).position.Y, ((WhereToBuild)messages[i].Payload).position.Z);
+                                   /* Vector3 stay_here = new Vector3(((WhereToBuild)messages[i].Payload).position.X, ((WhereToBuild)messages[i].Payload).position.Y, ((WhereToBuild)messages[i].Payload).position.Z);
                                     Building temp = new Building(game, player, ((WhereToBuild)messages[i].Payload).building.type, Vector3.Zero, ((WhereToBuild)messages[i].Payload).building.type.Scale, false);
 
                                     if (MathUtils.RandomNumber(1, 2) == 1) //czy x czy Z
@@ -296,12 +298,12 @@ namespace Laikos
 
                                         stay_here.X = MathUtils.RandomNumber((int)(stay_here.X - BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius / 4 * 3),
                                             (int)(stay_here.X + BoundingSphere.CreateFromBoundingBox(temp.boundingBox).Radius / 4 * 3));
-                                    }
+                                    }*/
 
                                     setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
-                                    // Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((WhereToBuild)messages[i].Payload).position.X, (int)(((WhereToBuild)messages[i].Payload).position.Z));
-                                    Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)stay_here.X, (int)stay_here.Z);
+                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((WhereToBuild)messages[i].Payload).position.X, (int)(((WhereToBuild)messages[i].Payload).position.Z));
+                                    //Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)stay_here.X, (int)stay_here.Z);
 
                                     this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                     this.destinyPointer = null;
@@ -327,13 +329,16 @@ namespace Laikos
                                     {
                                         direction.Normalize();
 
-                                        ChangeDirection();
+
+                                        PositionOld = Position;
 
                                         Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                         Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+
+                                        ChangeDirection();
                                     }
 
-                                    if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
+                                    if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 12.0f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 12.0f))
                                     {
                                         // Next step walk. 
 
@@ -425,8 +430,12 @@ namespace Laikos
 
                                     direction.Normalize();
 
+                                    PositionOld = Position;
+
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+
+                                    ChangeDirection();
 
                                     if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                     {
@@ -540,14 +549,16 @@ namespace Laikos
                                         direction = vecTmp - Position;
                                     }
 
-                                    direction.Normalize();
+                                    PositionOld = Position;
 
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
 
+                                    ChangeDirection();
+
                                     if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                     {
-
+                                       
                                         //JESTES U CELU
                                         if (!destinyPointer.MoveNext())
                                         {
@@ -654,10 +665,13 @@ namespace Laikos
                                 {
                                     direction.Normalize();
 
-                                    ChangeDirection();
+
+                                    PositionOld = Position;
 
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
+
+                                    ChangeDirection();
                                 }
 
                                 if
@@ -868,10 +882,11 @@ namespace Laikos
 
         private void ChangeDirection()
         {
-            dir = new Vector2(Position.X-PositionOld.X,Position.Z-PositionOld.Z);
-            rot_angle = (float)(Math.Atan2(-dir.Y, dir.X) * 180 / Math.PI)+90.0f;
+            dir = new Vector2(Position.X - PositionOld.X, Position.Z - PositionOld.Z);
+            rot_angle = (float)(Math.Atan2(-dir.Y, dir.X) * 180 / Math.PI) + 90.0f;
             //Console.WriteLine(rot_angle);
             Rotation.Y = MathHelper.ToRadians(rot_angle);
+
 
         }
 
@@ -908,5 +923,7 @@ namespace Laikos
         {
             this.currentModel.player.PlayClip("Attack", true);
         }
+
+     
     }
 }

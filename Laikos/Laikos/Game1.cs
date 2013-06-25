@@ -51,8 +51,8 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
 
             graphics.IsFullScreen = false;
             Intro = false;
@@ -146,7 +146,6 @@ namespace Laikos
                 dText0 = true;
                 GameIntro(gameTime);
 
-                Intro = true;
                 base.Update(gameTime);
                 return;
             }
