@@ -67,6 +67,8 @@ namespace Laikos
                 if (Input.oldMouseState.LeftButton == ButtonState.Pressed)
                 {
                     inMenu = false;
+
+                    Game1.videoPlayer.Play(Game1.video);
                 }
             }
             else if (GUI.insideRectangle(exitPosition))

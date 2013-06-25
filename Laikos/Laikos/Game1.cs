@@ -44,6 +44,11 @@ namespace Laikos
         const float textTIMER = 4;
 
         public static SoundEffect[] sounds;
+        public static Video video;
+        private Texture2D videoTexture;
+
+        private bool playIntro = true;
+        public static VideoPlayer videoPlayer = new VideoPlayer();
 
         public Game1()
         {
@@ -55,6 +60,7 @@ namespace Laikos
             graphics.PreferredBackBufferHeight = 600;
 
             graphics.IsFullScreen = false;
+
             Intro = false;
             dText0 = false;
             dText1 = false;
@@ -109,6 +115,7 @@ namespace Laikos
 
             sounds = new SoundEffect[1];
             sounds[0] = Content.Load<SoundEffect>("Sounds/Shot");
+            video = Content.Load<Video>("Video/Intro");
 
             LoadMap(@"Mapa\Objects.xml");
 
@@ -140,7 +147,7 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            Intro = true;
+            //Intro = true;
             if (Intro == false && !Menu.inMenu)
             {
                 dText0 = true;
@@ -162,6 +169,15 @@ namespace Laikos
             GUIEventManager.Update();
             EventManager.Update();
 
+            if (videoPlayer.State == MediaState.Playing)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    videoPlayer.Stop();
+                    playIntro = false;
+                }
+                return;
+            }
 
             // TODO: Add your update logic here
             bool collision = false;
@@ -325,6 +341,19 @@ namespace Laikos
             //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
+
+            if (videoPlayer.State == MediaState.Playing)
+            {
+                Rectangle screen = new Rectangle(device.Viewport.X, device.Viewport.Y, device.Viewport.Width, device.Viewport.Height);
+
+                videoTexture = videoPlayer.GetTexture();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+                spriteBatch.Draw(videoTexture, screen, Color.White);
+                spriteBatch.End();
+
+                return;
+            }
+
             objects.AddRange(player.UnitList);
             objects.AddRange(player.BuildingList);
 
