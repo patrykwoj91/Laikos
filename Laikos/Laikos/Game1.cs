@@ -44,6 +44,11 @@ namespace Laikos
         const float textTIMER = 4;
 
         public static SoundEffect[] sounds;
+        public static Video video;
+        private Texture2D videoTexture;
+
+        public static bool playIntro = true;
+        public static VideoPlayer videoPlayer;
 
         public Game1()
         {
@@ -51,11 +56,12 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 900;
+            graphics.PreferredBackBufferHeight = 600;
 
             graphics.IsFullScreen = false;
-            Intro = false;
+
+            Intro = true;
             dText0 = false;
             dText1 = false;
             dText2 = false;
@@ -65,6 +71,8 @@ namespace Laikos
             dText6 = false;
             dText7 = false;
             Step = 0;
+
+            videoPlayer = new VideoPlayer();
         }
 
         /// <summary>
@@ -110,6 +118,7 @@ namespace Laikos
 
             sounds = new SoundEffect[1];
             sounds[0] = Content.Load<SoundEffect>("Sounds/Shot");
+            video = Content.Load<Video>("Video/Intro");
 
             LoadMap(@"Mapa\Objects.xml");
 
@@ -167,6 +176,22 @@ namespace Laikos
             GUIEventManager.Update();
             EventManager.Update();
 
+            if (playIntro)
+            {
+                Console.WriteLine(videoPlayer.State);
+                if (Game1.videoPlayer.State == MediaState.Playing)
+                {
+                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        videoPlayer.Stop();
+
+                        playIntro = false;
+                        Intro = true;
+                    }
+
+                    return;
+                }
+            }
 
             // TODO: Add your update logic here
             bool collision = false;
@@ -330,6 +355,22 @@ namespace Laikos
             //RasterizerState rs = new RasterizerState();
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
+
+            if (playIntro)
+            {
+                if (videoPlayer.State == MediaState.Playing)
+                {
+                    Rectangle screen = new Rectangle(device.Viewport.X, device.Viewport.Y, device.Viewport.Width, device.Viewport.Height);
+
+                    videoTexture = videoPlayer.GetTexture();
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.PointClamp, null, null);
+                    spriteBatch.Draw(videoTexture, screen, Color.White);
+                    spriteBatch.End();
+
+                    return;
+                }
+            }
+
             objects.AddRange(player.UnitList);
             objects.AddRange(player.BuildingList);
 
