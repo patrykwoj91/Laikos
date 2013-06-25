@@ -35,6 +35,7 @@ namespace Laikos
         {
             timer = 10;
             Souls = 100;
+            this.player = player;
             this.Position = position;
             this.Rotation = rotation;
             this.Scale = scale;

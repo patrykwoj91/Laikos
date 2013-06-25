@@ -74,22 +74,22 @@ namespace Laikos
                 }
                 else if (Game1.dText1)
                 {
-                    typing.WriteLine = "Twoja misja polega na uwolnieniu Khargash'ite \nzamknietego w wiezieniu znajdujacym sie w glebi wyspy";
+                    typing.WriteLine = "Twoja misja polega na uwolnieniu Khargash'ite \nzamknietych w wiezieniu znajdujacym sie w glebi wyspy";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText2)
                 {
-                    typing.WriteLine = "Otwarcie bramy wiezienia mozliwe jest tylko \npo zniszczeniu czworki generatorow rozmieszczonych na tej wyspie";
+                    typing.WriteLine = "Otwarcie bramy mozliwe jest tylko \npo zniszczeniu czworki generatorow rozmieszczonych na tej wyspie";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText3)
                 {
-                    typing.WriteLine = "Nie bedzie to jednak takie proste,\nponiewaz kazdego z generatorow broni oddzial gwardii Lai'Kos'Ata";
+                    typing.WriteLine = "Nie bedzie to jednak takie proste,\nponiewaz kazdego z nich broni oddzial gwardii Lai'Kos'Ata";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText4)
                 {
-                    typing.WriteLine = "Zniszczenie wszystkich generatorow zapewni Ci zwyciestwo";
+                    typing.WriteLine = "Zniszczenie wszystkich zapewni Ci zwyciestwo";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
                 else if (Game1.dText5)

@@ -38,7 +38,7 @@ namespace Laikos
         public static bool Intro;
         public Player player;
         public Player enemy;
-        float IntroTimer = 2.5f; 
+        float IntroTimer = 2.5f;
         const float IntroTIMER = 2.5f;
         float textTimer = 4;
         const float textTIMER = 4;
@@ -51,8 +51,8 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferredBackBufferHeight = 768;
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 600;
 
             graphics.IsFullScreen = false;
             Intro = false;
@@ -140,10 +140,12 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            Intro = true;
             if (Intro == false && !Menu.inMenu)
             {
-               dText0 = true;
-               //GameIntro(gameTime);
+                dText0 = true;
+                GameIntro(gameTime);
+
                 Intro = true;
                 base.Update(gameTime);
                 return;
@@ -159,7 +161,7 @@ namespace Laikos
 
             GUIEventManager.Update();
             EventManager.Update();
-            
+
 
             // TODO: Add your update logic here
             bool collision = false;
@@ -178,6 +180,8 @@ namespace Laikos
                             (_msg.Type == (int)EventManager.Events.MoveToAttack)
                             ||
                             (_msg.Type == (int)EventManager.Events.MoveToBuild)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.Attack)
                         )
                     )
                     {
@@ -249,6 +253,8 @@ namespace Laikos
                             (_msg.Type == (int)EventManager.Events.MoveToAttack)
                             ||
                             (_msg.Type == (int)EventManager.Events.MoveToBuild)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.Attack)
                         )
                     )
                     {
@@ -392,67 +398,11 @@ namespace Laikos
         }
 
 
-        /* void UpdateExplosions(GameTime gameTime, List<GameObject> objects)
-          {
-
-              for (int i = player.UnitList.Count objects.Count - 1; i >= 0; i--)
-              {
-                  if (objects[i] is Unit)
-                  {
-                      if (((Unit)objects[i]).HP <= 0)
-                      {
-                          DefferedRenderer.explosionParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                          DefferedRenderer.explosionSmokeParticles.AddParticle(((Unit)objects[i]).Position, Vector3.Zero);
-                          ((Unit)objects[i]).dead = true;
-                          for (int j = player.UnitList.Count - 1; j >= 0; j--)
-                              if (player.UnitList[j].dead == true)
-                                  player.UnitList.RemoveAt(j);
-                          for (int j = enemy.UnitList.Count - 1; j >= 0; j--)
-                              if (enemy.UnitList[j].dead == true)
-                                  enemy.UnitList.RemoveAt(j);
-                      }
-                  }
-                  else if (objects[i] is Building)
-                  {
-                      if (((Building)objects[i]).HP <= 0)
-                      {
-                          DefferedRenderer.explosionParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                          DefferedRenderer.explosionSmokeParticles.AddParticle(((Building)objects[i]).Position, Vector3.Zero);
-                          ((Unit)objects[i]).dead = true;
-                          for (int j = player.UnitList.Count - 1; j >= 0; j--)
-                              if (player.UnitList[j].dead == true)
-                                  player.UnitList.RemoveAt(j);
-                          for (int j = enemy.BuildingList.Count - 1; j >= 0; j--)
-                              if (enemy.BuildingList[j].dead == true)
-                                  enemy.BuildingList.RemoveAt(j);
-                      }
-                  }
-
-                  DefferedRenderer.explosionParticles.Update(gameTime);
-              }
-          }
-
-          void UpdateExplosionSmoke(GameTime gameTime, List<GameObject> objects)
-          {
-              for (int i = objects.Count - 1; i >= 0; i--)
-              {
-                  if (objects[i] is Unit)
-                  {
-                      Unit unit = (Unit)objects[i];
-                      if (100 * unit.HP / unit.maxHP <= 5)
-                      {
-                          DefferedRenderer.SmokePlumeParticles.AddParticle(objects[i].Position, Vector3.Zero);
-                      }
-                  }
-                  DefferedRenderer.explosionSmokeParticles.Update(gameTime);
-              }
-          }*/
-
         public void GameIntro(GameTime gameTime)
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
             IntroTimer -= elapsed;
-            
+
             if (IntroTimer < 0)
             {
                 //Timer expired, execute action
@@ -465,7 +415,7 @@ namespace Laikos
                         if (Math.Round(Camera.cameraPosition.X) == 515 && Math.Round(Camera.cameraPosition.Y) == 91 && Math.Round(Camera.cameraPosition.Z) == 417)
                         {
                             textTimer -= elapsed;
-                            
+
                             if (textTimer < 0)
                             {
                                 Step += 1;
@@ -474,7 +424,7 @@ namespace Laikos
                                 GUI.typing = new StringTypingEffect(this, GUI.spriteBatch);
                                 break;
                             }
-                            
+
                         }
                         break;
                     case 1:
@@ -484,7 +434,7 @@ namespace Laikos
                         {
 
                             textTimer -= elapsed;
-                            
+
                             if (textTimer < 0)
                             {
                                 Step += 1;
@@ -502,7 +452,7 @@ namespace Laikos
                         {
 
                             textTimer -= elapsed;
-                       
+
                             if (textTimer < 0)
                             {
                                 Step += 1;
@@ -520,7 +470,7 @@ namespace Laikos
                         {
 
                             textTimer -= elapsed;
-                        
+
                             if (textTimer < 0)
                             {
                                 Step += 1;
@@ -538,7 +488,7 @@ namespace Laikos
                         {
 
                             textTimer -= elapsed;
-                        
+
                             if (textTimer < 0)
                             {
                                 Step += 1;
@@ -556,10 +506,10 @@ namespace Laikos
                         {
 
                             textTimer -= elapsed;
-                         
+
                             if (textTimer < 0)
                             {
-                                
+
                                 dText6 = false;
                                 textTimer = textTIMER;
                                 GUI.typing = new StringTypingEffect(this, GUI.spriteBatch);

@@ -783,7 +783,7 @@ namespace Laikos
                         #region FixCollisions
                         case (int)EventManager.Events.FixCollisions:
 
-                            if (EventManager.MessageToOld(gameTime, messages[i], 500))
+                            if (EventManager.MessageToOld(gameTime, messages[i], 5000))
                             {
                                 messages[i].Done = true;
                                 break;
@@ -843,12 +843,6 @@ namespace Laikos
                                             }
 
                                             messages[i].Done = true;
-
-                                            break;
-
-                                        case (int)EventManager.Events.Gather:
-
-
 
                                             break;
                                     }

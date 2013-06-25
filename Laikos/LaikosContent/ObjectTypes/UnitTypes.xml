@@ -66,8 +66,5 @@
       <Scale>0.15</Scale>
       <model>Models/Units/Aliens/Alien_Rider/alien_Rider</model>
     </Item>
-    
-    
-
-  </Asset>
+    </Asset>
 </XnaContent>

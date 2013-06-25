@@ -29,19 +29,19 @@ namespace Laikos
                 {
                     if (currentKeyboardState.IsKeyDown(Keys.W))
                     {
-                       
+
                         unit.Position.Z -= 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(180);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.S))
                     {
-    
+
                         unit.Position.Z += 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(360);
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.A))
                     {
-                 
+
                         unit.Position.X -= 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(270);
                     }
@@ -118,7 +118,7 @@ namespace Laikos
                         if (unit.selected == true && unit.budowniczy == true)
                         {
                             EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToBuild, null, unit, next_build)); //zamiast ostatniego nulla trzeba przeslac co i gdzie ma zbudowac
-                           // unit.setWalk();
+                            // unit.setWalk();
                         }
                     building_mode = false;
                 }
@@ -167,11 +167,11 @@ namespace Laikos
                 Ray clippedRay = Collisions.ClipRay(pointerRay, 60, 0);
                 Ray shorterRay = Collisions.LinearSearch(clippedRay);
                 Vector3 pointerPosition = Collisions.BinarySearch(shorterRay);
-                
+
                 Object clicked = WhatClicked((Game1)game, clippedRay);
 
                 if (clicked is Unit || clicked is Building)
-                { 
+                {
                     if
                             (
                                 ((clicked is Unit) && (IsEnemy((Unit)clicked, (Game1)game)))
@@ -184,16 +184,15 @@ namespace Laikos
                             if (_unit.selected)
                             {
                                 EventManager.CreateMessage(new Message((int)EventManager.Events.MoveToAttack, null, _unit, clicked));
-                               // _unit.setWalk();
+                                Console.WriteLine("AttackCommand(...) : {0}", stopwatch.Elapsed);
                             }
-                            Console.WriteLine("AttackCommand(...) : {0}", stopwatch.Elapsed);
                         }
                     }
                     else
                     {
                         EventManager.CreateMessage(new Message((int)EventManager.Events.Interaction, null, clicked, null));
                         Console.WriteLine("InteractionCommand(...) : {0}", stopwatch.Elapsed);
-                    } 
+                    }
                 }
                 else if (clicked is Decoration)
                 {
