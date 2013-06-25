@@ -19,9 +19,9 @@ namespace Laikos
         public bool selectable;
         public float buildtime;
         public int Souls;
+        public int produktywnosc;
         float timer;         //Initialize a 10 second timer
-        const float TIMER = 10;
-        Game game;
+        const float TIMER = 5;
         public bool dead = false;
 
 
@@ -33,8 +33,9 @@ namespace Laikos
         public Building(Game game, Player player, BuildingType type, Vector3 position, float scale = 1.0f, bool selectable = false, Vector3 rotation = default(Vector3))
             : base(game, player, type.Model)
         {
-            timer = 10;
-            Souls = 100;
+            timer = 5;
+            Souls = 50;
+            produktywnosc = 600;
             this.player = player;
             this.Position = position;
             this.Rotation = rotation;
@@ -79,9 +80,10 @@ namespace Laikos
                 timer -= elapsed;
                 if (timer < 0)
                 {
-                    if (Souls <= 598)
+                    if (Souls <= 550 && produktywnosc >= 50)
                     {
-                        Souls += 40;
+                        Souls += 50;
+                        produktywnosc -= 50;
                         LowerOptionPanel.soulNumbers = Souls;
                         Console.WriteLine(LowerOptionPanel.soulNumbers);
                     }
