@@ -15,7 +15,7 @@
       <model>Models/Units/Niebianie/Droid_worker/Droid</model>
     </Item>
     
-    <Item>
+    <Item>  
       <race>Niebianie</race>
       <name>Reconnaissance Eye</name>
       <maxhp>50.0</maxhp>

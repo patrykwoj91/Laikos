@@ -47,7 +47,10 @@ namespace Laikos
         public static Video video;
         private Texture2D videoTexture;
 
-        public static bool playIntro = true;
+        // 0 - Never Play
+        // 1 - Is Playing
+        // 2 - Played
+        public static int playIntro = 0;
         public static VideoPlayer videoPlayer;
 
         public Game1()
@@ -176,20 +179,28 @@ namespace Laikos
             GUIEventManager.Update();
             EventManager.Update();
 
-            if (playIntro)
+            if (playIntro < 3)
             {
                 Console.WriteLine(videoPlayer.State);
                 if (Game1.videoPlayer.State == MediaState.Playing)
                 {
+                    playIntro = 1;
+
                     if (Keyboard.GetState().IsKeyDown(Keys.Space))
                     {
                         videoPlayer.Stop();
 
-                        playIntro = false;
-                        Intro = true;
+                        playIntro = 2;
+                        Intro = false;
                     }
 
                     return;
+                }
+
+                if ((Game1.videoPlayer.State == MediaState.Stopped) && (playIntro == 1))
+                {
+                    playIntro = 2;
+                    Intro = false;
                 }
             }
 
@@ -356,7 +367,7 @@ namespace Laikos
             //rs.CullMode = CullMode.None;
             //device.RasterizerState = rs;
 
-            if (playIntro)
+            if (playIntro < 3)
             {
                 if (videoPlayer.State == MediaState.Playing)
                 {
