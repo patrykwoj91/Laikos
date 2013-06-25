@@ -180,6 +180,8 @@ namespace Laikos
                             (_msg.Type == (int)EventManager.Events.MoveToAttack)
                             ||
                             (_msg.Type == (int)EventManager.Events.MoveToBuild)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.Attack)
                         )
                     )
                     {
@@ -251,6 +253,8 @@ namespace Laikos
                             (_msg.Type == (int)EventManager.Events.MoveToAttack)
                             ||
                             (_msg.Type == (int)EventManager.Events.MoveToBuild)
+                            ||
+                            (_msg.Type == (int)EventManager.Events.Attack)
                         )
                     )
                     {

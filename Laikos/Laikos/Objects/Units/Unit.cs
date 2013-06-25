@@ -46,7 +46,7 @@ namespace Laikos
         public int ratio;
 
         private double lastHP;
-
+        float rot_angle;
         Unit destinyUnit;
         Building destinyBuilding;
 
@@ -72,7 +72,7 @@ namespace Laikos
             {
                 this.budowniczy = true;
             }
-
+         
             this.maxHP = this.type.maxhp;
             this.HP = this.maxHP;
             this.lastHP = this.HP;
@@ -184,7 +184,7 @@ namespace Laikos
                                 setWalk();
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
-
+                              //  dir = new Vector2(wspEnd.X - wspBegin.X, wspEnd.Z - wspBegin.Z);
                                // Console.WriteLine("A: " + wspBegin.X + ", " + wspBegin.Y + ", " + Map.WalkMeshMap[wspBegin.X / Map.SKALA, wspBegin.Y / Map.SKALA]
                                   //  + " B: " + wspEnd.X + ", " + wspEnd.Y + ", " + Map.WalkMeshMap[wspEnd.X / Map.SKALA, wspEnd.Y / Map.SKALA]);
                                 this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
@@ -212,12 +212,13 @@ namespace Laikos
                                     direction.Normalize();
 
                                     PositionOld = Position;
-
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
-
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
 
                                     ChangeDirection();
+
+
+
                                 }
 
                                 if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
@@ -868,41 +869,40 @@ namespace Laikos
 
         private void ChangeDirection()
         {
-            float val = (Rotation.Y % 360.0f);
-            //Left
-            if ((PositionOld.X < Position.X) && (PositionOld.Z == Position.Z))
-            {
-                if (val - MathHelper.ToRadians(270) < MathHelper.ToRadians(1))
-                    return;
+            Vector2 dir = new Vector2(Position.X-PositionOld.X,Position.Z-PositionOld.Z);
 
-                Rotation.Y = MathHelper.ToRadians(270.0f);
-            }
-            //Right
-            else if ((PositionOld.X > Position.X) && (PositionOld.Z == Position.Z))
-            {
-                if (val - MathHelper.ToRadians(90) < MathHelper.ToRadians(1))
-                    return;
+            rot_angle = (float)(Math.Atan2(0, 10) * 180 / Math.PI)+90.0f;
+            Console.WriteLine(rot_angle);
 
-                Rotation.Y = MathHelper.ToRadians(90.0f);
-            }
-            //Down
-            else if ((PositionOld.X == Position.X) && (PositionOld.Z > Position.Z))
-            {
-                if (val - MathHelper.ToRadians(180) < MathHelper.ToRadians(1))
-                    return;
 
-                Rotation.Y = MathHelper.ToRadians(180.0f);
-            }
-            //Up
-            else if ((PositionOld.X == Position.X) && (PositionOld.Z < Position.Z))
-            {
-                if (val - MathHelper.ToRadians(0) < MathHelper.ToRadians(1))
-                    return;
 
-                Rotation.Y = MathHelper.ToRadians(0.0f);
-            }
+            //Rotation.Y = MathHelper.ToRadians(rot_angle);
 
-            bool right = true;
+           /* if(  (Math.Round(Position.X) > Math.Round(PositionOld.X)) && //tylko w prawo
+                 (Math.Round(Position.Z) == Math.Round(PositionOld.Z)) )  
+                Rotation.Y = MathHelper.ToRadians(90);
+            else if(  (Math.Round(Position.X) < Math.Round(PositionOld.X)) && //tylko w lewo
+                 (Math.Round(Position.Z) == Math.Round(PositionOld.Z)) )
+                Rotation.Y = MathHelper.ToRadians(-90);
+            else if(  (Math.Round(Position.Z) > Math.Round(PositionOld.Z)) && //tylko w dol
+                 (Math.Round(Position.X) == Math.Round(PositionOld.X)) )
+                Rotation.Y = MathHelper.ToRadians(0);
+            else if ((Math.Round(Position.Z) < Math.Round(PositionOld.Z)) && //tylko w gore
+                (Math.Round(Position.X) == Math.Round(PositionOld.X)))
+                Rotation.Y = MathHelper.ToRadians(180);
+
+            else if ((Math.Round(Position.Z) > Math.Round(PositionOld.Z)) && //prawy dol
+                (Math.Round(Position.X) > Math.Round(PositionOld.X)))
+                Rotation.Y = MathHelper.ToRadians(45);
+            else if ((Math.Round(Position.Z) > Math.Round(PositionOld.Z)) && //lewy dol
+              (Math.Round(Position.X) < Math.Round(PositionOld.X)))
+                Rotation.Y = MathHelper.ToRadians(-45);
+            else if ((Math.Round(Position.Z) < Math.Round(PositionOld.Z)) && //lewy gora
+              (Math.Round(Position.X) < Math.Round(PositionOld.X)))
+                Rotation.Y = MathHelper.ToRadians(-135);
+            else if ((Math.Round(Position.Z) < Math.Round(PositionOld.Z)) && //prawy gora
+             (Math.Round(Position.X) > Math.Round(PositionOld.X)))
+                Rotation.Y = MathHelper.ToRadians(135);*/
         }
 
         private Unit FindEnemy()

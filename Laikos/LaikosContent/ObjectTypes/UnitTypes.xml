@@ -64,7 +64,7 @@
       <ratio>1500</ratio>
       <Souls>100</Souls>
       <Scale>0.15</Scale>
-      <model>Models/Units/Aliens/Alien_Rider/alien_rider</model>
+      <model>Models/Units/Aliens/Alien_Rider/alien_Rider</model>
     </Item>
     </Asset>
 </XnaContent>

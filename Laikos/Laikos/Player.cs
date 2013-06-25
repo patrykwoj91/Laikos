@@ -54,7 +54,7 @@ namespace Laikos
 
         public void Initialize()
        {
-            Souls = 300;
+            Souls = 3000;
        }
 
        public bool Build(BuildingType building, Vector3 position)
