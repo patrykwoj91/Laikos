@@ -50,7 +50,7 @@ namespace Laikos
                         unit.Position.X += 0.1f;
                         unit.Rotation.Y = MathHelper.ToRadians(90);
                     }
-                    if (currentKeyboardState.IsKeyDown(Keys.D5))
+                    if (currentKeyboardState.IsKeyDown(Keys.Z))
                     {
                         player.Souls += 100;
                     }

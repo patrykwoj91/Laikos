@@ -13,7 +13,7 @@ namespace Laikos.PathFiding
 {
     public class ZnajdzSciezke
     {
-        private const int SKALA = 5;
+        private const int SKALA = 2;
 
         private int[,] mapa;
 

@@ -10,16 +10,19 @@ namespace Laikos
         {
             Unselected,
             Selected,
-            FixCollisions,
             Interaction,
             MoveUnit,
-            MoveToBuild,
             Build,
-            MoveToAttack,
             Attack,
-            BuildUnit,
             Gather,
-            Store
+            Store,
+            MoveToAttack,
+            FixCollisions,
+            MoveToBuild,
+            BuildUnit,
+            GuiUP,
+            GuiDOWN,
+            GuiCLICK
         };
 
         static List<Message> lastFrame_messages = new List<Message>();

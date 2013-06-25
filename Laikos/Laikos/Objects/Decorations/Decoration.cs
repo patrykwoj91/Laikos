@@ -72,7 +72,7 @@ namespace Laikos
                 }
             }
 
-            Console.WriteLine(lowestPoint + " " + highestPoint);
+           // Console.WriteLine(lowestPoint + " " + highestPoint);
             if (highestPoint - lowestPoint < 1)
                 return true;
             else

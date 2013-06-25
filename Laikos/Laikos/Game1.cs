@@ -35,7 +35,7 @@ namespace Laikos
         int Step;
         Dictionary<String, UnitType> UnitTypes;
         Dictionary<String, BuildingType> BuildingTypes;
-        public static bool Intro;
+        public static bool Intro,Intro2;
         public Player player;
         public Player enemy;
         float IntroTimer = 2.5f;
@@ -59,12 +59,14 @@ namespace Laikos
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferWidth = 900;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferredBackBufferHeight = 768;
 
             graphics.IsFullScreen = false;
 
-            Intro = true;
+            Intro = false;
+            Intro2 = false;
+
             dText0 = false;
             dText1 = false;
             dText2 = false;
@@ -157,13 +159,37 @@ namespace Laikos
             //Intro = true;
 
             if (enemy.BuildingList.Count <= 0)
-                Intro = true;
-
-            if (Intro == false && !Menu.inMenu)
             {
+                Intro = false;
+            }
+          
+                if (Menu.inMenu == false && Intro2 == false)
+                {
+                    Console.WriteLine("trolls");
+                   
+                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                    {
+                        videoPlayer.Stop();
+                        Intro2 = true;
+                    }
+                    if ((Game1.videoPlayer.State == MediaState.Stopped))
+                    {
+                        Console.WriteLine("trorlolo");
+                        Intro2 = true;
+                    }
+                    base.Update(gameTime);
+                    return;
+                }
+            
+
+            if (Intro == false && !Menu.inMenu && Intro2 == true)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.J))
+                {
+                    Intro = true;
+                }
                 dText0 = true;
                 GameIntro(gameTime);
-
                 base.Update(gameTime);
                 return;
             }
@@ -179,30 +205,7 @@ namespace Laikos
             GUIEventManager.Update();
             EventManager.Update();
 
-            if (playIntro < 3)
-            {
-                Console.WriteLine(videoPlayer.State);
-                if (Game1.videoPlayer.State == MediaState.Playing)
-                {
-                    playIntro = 1;
-
-                    if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                    {
-                        videoPlayer.Stop();
-
-                        playIntro = 2;
-                        Intro = false;
-                    }
-
-                    return;
-                }
-
-                if ((Game1.videoPlayer.State == MediaState.Stopped) && (playIntro == 1))
-                {
-                    playIntro = 2;
-                    Intro = false;
-                }
-            }
+         
 
             // TODO: Add your update logic here
             bool collision = false;

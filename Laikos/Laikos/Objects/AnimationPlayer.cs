@@ -328,7 +328,7 @@ namespace Laikos
                     // Assign it to a model bone
                     played_boneInfos[b].SetModel(model);
                 }
-                Console.WriteLine("AFTER Blend Clip");
+               // Console.WriteLine("AFTER Blend Clip");
                 return;
 
             }

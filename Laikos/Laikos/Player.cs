@@ -60,7 +60,7 @@ namespace Laikos
             {
                 BuildingList.Add(new Building(game, this, building, position, building.Scale));
                 Souls -= building.Souls;
-                Console.WriteLine(Souls);
+               // Console.WriteLine(Souls);
                 return true;
             }
             return false;
@@ -83,7 +83,7 @@ namespace Laikos
                 {
                     DefferedRenderer.explosionParticles.AddParticle(BuildingList[i].Position, Vector3.Zero);
                     DefferedRenderer.explosionSmokeParticles.AddParticle(BuildingList[i].Position, Vector3.Zero);
-                    UnitList.RemoveAt(i);
+                    BuildingList.RemoveAt(i);
 
                 }
             }

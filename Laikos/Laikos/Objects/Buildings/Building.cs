@@ -85,7 +85,7 @@ namespace Laikos
                         Souls += 50;
                         produktywnosc -= 50;
                         LowerOptionPanel.soulNumbers = Souls;
-                        Console.WriteLine(LowerOptionPanel.soulNumbers);
+                      //  Console.WriteLine(LowerOptionPanel.soulNumbers);
                     }
                     timer = TIMER;   //Reset Timer
                 }
@@ -112,7 +112,7 @@ namespace Laikos
                 }
             }
 
-            Console.WriteLine(lowestPoint + " " + highestPoint);
+          //  Console.WriteLine(lowestPoint + " " + highestPoint);
             if (highestPoint - lowestPoint < 1)
                 return true;
             else

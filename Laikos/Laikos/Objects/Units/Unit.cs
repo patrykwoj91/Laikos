@@ -230,7 +230,7 @@ namespace Laikos
                                         EndMove(messages[i]);
 
                                         setIdle();
-                                        Console.WriteLine("done");
+                                       // Console.WriteLine("done");
                                     }
                                     else
                                     {
@@ -399,6 +399,7 @@ namespace Laikos
                             if (EventManager.MessageToOld(gameTime, messages[i], 3000))
                             {
                                 messages[i].Done = true;
+                              
                                 break;
                             }
                             /////////////////////
@@ -439,7 +440,7 @@ namespace Laikos
                                         //JESTES U CELU
                                         if (!destinyPointer.MoveNext())
                                         {
-
+                                      
                                             destinyPoints = null;
                                             destinyPointer = null;
                                             direction.X = 0.0f;
@@ -452,9 +453,9 @@ namespace Laikos
                                             {
                                                 if (this.Souls_owned < Souls_cap) //czy mamy miejsce
                                                 {
-
-                                                    if (timeSpan < TimeSpan.Zero) //jesli czas pakowania minal dodajemy dusze
-                                                    {
+                                                   
+                                                    //if (timeSpan < TimeSpan.Zero) //jesli czas pakowania minal dodajemy dusze
+                                                    //{
                                                         if (Souls_cap - this.Souls_owned >= ((Building)messages[i].Sender).Souls) //ilosc miejsca wieksza niz ilosc dusz w budynku
                                                         {
                                                             this.Souls_owned += ((Building)messages[i].Sender).Souls; //dodajemy wszystkie dusze z budynku
@@ -474,10 +475,11 @@ namespace Laikos
                                                                 break;
                                                             }
                                                         }
-                                                    }
+                                                    //}
                                                 }
                                                 else //jak nie mamy miejsca to odnosimy
                                                 {
+                                                    
                                                     foreach (Building building in player.BuildingList)
                                                     {
                                                         if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
@@ -566,7 +568,7 @@ namespace Laikos
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
 
                                             timeSpan = TimeSpan.FromMilliseconds(3000);
-                                            Console.WriteLine("done");
+                                            //Console.WriteLine("done");
                                         }
                                         else
                                         {
@@ -681,7 +683,7 @@ namespace Laikos
                                         EndMove(messages[i]);
 
                                         setIdle();
-                                        Console.WriteLine("done");
+                                        //Console.WriteLine("done");
                                     }
                                     else
                                     {
@@ -760,7 +762,7 @@ namespace Laikos
 
                                     messages[i].timer = gameTime.TotalGameTime;
                                     Game1.sounds[0].Play(1.0f, 0.0f, 0.0f);
-                                    Console.WriteLine("Attack!");
+                                    //Console.WriteLine("Attack!");
                                 }
 
                                 if (messages[i].timer == TimeSpan.Zero)

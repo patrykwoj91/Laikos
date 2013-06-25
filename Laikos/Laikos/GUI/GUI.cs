@@ -104,7 +104,7 @@ namespace Laikos
                 }
                 else if (Game1.dText7)
                 {
-                    typing.WriteLine = "...\n...\n...\nGratulacje! Uwolniles Khargash'ite\na tym samym ukonczyles misje demonstracynja! \n...\n...";
+                    typing.WriteLine = "Gratulacje! Uwolniles Khargash'ite\na tym samym ukonczyles misje demonstracynja!";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 768), StringTypingEffect.Alignment.Center, Color.MediumSpringGreen);
                 }
             }
@@ -236,7 +236,7 @@ namespace Laikos
                                 UnitBackground.animated = false;
                                 LowerOptionPanel.isUnit = false;
                                 Building building = (Building)messages[i].Sender;
-                                Console.WriteLine(building.type.Name);
+                             //   Console.WriteLine(building.type.Name);
                                 switch (building.type.Name)
                                 {
                                     case "Cementary":
@@ -284,7 +284,7 @@ namespace Laikos
                             {
                                 if ((int)messages[i].Sender == 1) //to 1 przycisk na workerze
                                 {
-                                    Console.WriteLine("GUI CLICKED");
+                                   // Console.WriteLine("GUI CLICKED");
                                     if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Cementary"].Souls)
                                     {
                                         messages[i].Done = true;
@@ -297,7 +297,7 @@ namespace Laikos
                                 }
                                 if ((int)messages[i].Sender == 2) //to 1 przycisk na workerze
                                 {
-                                    Console.WriteLine("GUI CLICKED");
+                                   // Console.WriteLine("GUI CLICKED");
                                     if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["BJ Niebian2"].Souls)
                                     {
                                         messages[i].Done = true;
@@ -310,7 +310,7 @@ namespace Laikos
                                 }
                                 if ((int)messages[i].Sender == 3) //to 1 przycisk na workerze
                                 {
-                                    Console.WriteLine("GUI CLICKED");
+                                    //Console.WriteLine("GUI CLICKED");
                                     if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Pałac rady1"].Souls)
                                     {
                                         messages[i].Done = true;
@@ -323,7 +323,7 @@ namespace Laikos
                                 }
                                 if ((int)messages[i].Sender == 4) //to 1 przycisk na workerze
                                 {
-                                    Console.WriteLine("GUI CLICKED");
+                                   // Console.WriteLine("GUI CLICKED");
                                     if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.BuildingTypes["Strażnica"].Souls)
                                     {
                                         messages[i].Done = true;
@@ -339,7 +339,7 @@ namespace Laikos
                                 {
                                     if ((int)messages[i].Sender == 1) //to 1 przycisk na workerze
                                     {
-                                        Console.WriteLine("GUI CLICKED");
+                                       // Console.WriteLine("GUI CLICKED");
                                         if (((Game1)messages[i].Payload).player.Souls < ((Game1)messages[i].Payload).player.UnitTypes["Antigravity Tank"].Souls)
                                         {
                                             messages[i].Done = true;

@@ -68,10 +68,18 @@ namespace Laikos
                 {
                     inMenu = false;
 
-                    if (Game1.playIntro < 3)
-                    {
-                        Game1.videoPlayer.Play(Game1.video);
-                    }
+                        if (Game1.playIntro == 1 && (Game1.videoPlayer.State == MediaState.Stopped))
+                        {
+                            Game1.Intro2 = true;
+                        }
+
+
+                        if (Game1.Intro2 == false)
+                        {
+                            Game1.videoPlayer.Play(Game1.video);
+                            Game1.playIntro = 1;
+                        }
+               
                 }
             }
             else if (GUI.insideRectangle(exitPosition))
