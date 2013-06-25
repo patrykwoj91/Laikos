@@ -102,6 +102,11 @@ namespace Laikos
                     typing.WriteLine = "...\n...\n...\nPowodzenia Dowodco!\n...\n...";
                     typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 256), StringTypingEffect.Alignment.Left, Color.MediumSpringGreen);
                 }
+                else if (Game1.dText7)
+                {
+                    typing.WriteLine = "...\n...\n...\nGratulacje! Uwolniles Khargash'ite\na tym samym ukonczyles misje demonstracynja! \n...\n...";
+                    typing.DrawString(font, typing.c, new Rectangle(0, 0, 1366, 768), StringTypingEffect.Alignment.Center, Color.MediumSpringGreen);
+                }
             }
             spriteBatch.End();
         }

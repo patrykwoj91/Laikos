@@ -33,7 +33,7 @@
       <name>Antigravity Tank</name>
       <maxhp>50.0</maxhp>
       <mp>0.0</mp>
-      <damage>5</damage>
+      <damage>10</damage>
       <range>50</range>
       <ratio>1500</ratio>
       <Souls>100</Souls>
@@ -44,9 +44,9 @@
     <Item>
       <race>Aliens</race>
       <name>Alien</name>
-      <maxhp>50.0</maxhp>
+      <maxhp>20.0</maxhp>
       <mp>0.0</mp>
-      <damage>2</damage>
+      <damage>1</damage>
       <range>5</range>
       <ratio>1000</ratio>
       <Souls>100</Souls>
@@ -57,10 +57,10 @@
     <Item>
       <race>Aliens</race>
       <name>Alien Tank</name>
-      <maxhp>50.0</maxhp>
+      <maxhp>30.0</maxhp>
       <mp>0.0</mp>
-      <damage>1</damage>
-      <range>15</range>
+      <damage>2</damage>
+      <range>45</range>
       <ratio>1500</ratio>
       <Souls>100</Souls>
       <Scale>0.15</Scale>

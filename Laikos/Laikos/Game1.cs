@@ -20,7 +20,7 @@ namespace Laikos
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        public static bool dText0, dText1, dText2, dText3, dText4, dText5, dText6;
+        public static bool dText0, dText1, dText2, dText3, dText4, dText5, dText6, dText7;
         public static TimeSpan time;
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
@@ -63,6 +63,7 @@ namespace Laikos
             dText4 = false;
             dText5 = false;
             dText6 = false;
+            dText7 = false;
             Step = 0;
         }
 
@@ -140,7 +141,12 @@ namespace Laikos
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            Intro = true;
+
+            //Intro = true;
+
+            if (enemy.BuildingList.Count <= 0)
+                Intro = true;
+
             if (Intro == false && !Menu.inMenu)
             {
                 dText0 = true;
@@ -509,12 +515,23 @@ namespace Laikos
                             if (textTimer < 0)
                             {
 
+                                Step += 1;
                                 dText6 = false;
                                 textTimer = textTIMER;
                                 GUI.typing = new StringTypingEffect(this, GUI.spriteBatch);
                                 Intro = true;
                                 break;
                             }
+                        }
+                        break;
+                    case 6:
+                        dText7 = true;
+                        Camera.InitBezier2(new Vector3(515, 100, 417));
+                        if (Math.Round(Camera.cameraPosition.X) == 515 && Math.Round(Camera.cameraPosition.Y) == 100 && Math.Round(Camera.cameraPosition.Z) == 417)
+                        {
+                            textTimer -= elapsed;
+
+
                         }
                         break;
                 }

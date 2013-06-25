@@ -134,7 +134,7 @@ namespace Laikos
             HandleEvent(gameTime);
             HP = (int)MathHelper.Clamp((float)HP, 0, (float)maxHP);
             this.CleanMessages();
-            radius = range + 20;
+            radius = range + 40;
             attackRadius = new BoundingSphere(Position, radius);
             base.Update(gameTime);
         }
@@ -405,16 +405,12 @@ namespace Laikos
 
                             if (budowniczy == true)
                             {
-                                Vector3 poczatek_ruchu = Vector3.Zero;
                                 //////////MOVE
                                 if (destinyPoints == null)
                                 {
                                     setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Building)messages[i].Sender).Position.X, (int)((Building)messages[i].Sender).Position.Z);
-
-                                    poczatek_ruchu.X = this.Position.X;
-                                    poczatek_ruchu.Z = this.Position.Z;
                                     this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                     this.destinyPointer = null;
                                 }
@@ -448,7 +444,7 @@ namespace Laikos
                                             destinyPointer = null;
                                             direction.X = 0.0f;
                                             direction.Z = 0.0f;
-                                            //idle = true;
+                                            setAttack();
 
                                             //OBSŁUGA ZBIERANIA
                                             timeSpan -= gameTime.ElapsedGameTime;
@@ -486,6 +482,7 @@ namespace Laikos
                                                     {
                                                         if (building.type.Name.Contains("Pałac rady")) //odsylamy do skladowania
                                                         {
+                                                            setWalk();
                                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Store, this, this, building));
                                                             messages[i].Done = true;
                                                             break;
@@ -535,7 +532,7 @@ namespace Laikos
                                     setWalk();
                                     Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                     Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Building)messages[i].Payload).Position.X, (int)((Building)messages[i].Payload).Position.Z);
-                                    //Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)stay_here.X, (int)stay_here.Z);
+
                                     this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
                                     this.destinyPointer = null;
                                 }
@@ -554,7 +551,7 @@ namespace Laikos
                                     Position.X += direction.X * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
                                     Position.Z += direction.Z * (float)gameTime.ElapsedGameTime.TotalMilliseconds / 50.0f;
 
-                                    ChangeDirection();
+                                  //  ChangeDirection();
 
                                     if ((destinyPointer != null) && (Math.Abs(Position.X - destinyPointer.Current.X) < 0.5f) && (Math.Abs(Position.Z - destinyPointer.Current.Y) < 0.5f))
                                     {
@@ -569,6 +566,7 @@ namespace Laikos
                                             //OBSŁUGA ZBIERANIA
                                             player.Souls += this.Souls_owned;
                                             this.Souls_owned = 0;
+                                            setWalk();
                                             EventManager.CreateMessage(new Message((int)EventManager.Events.Gather, messages[i].Sender, this, null));
 
                                             timeSpan = TimeSpan.FromMilliseconds(3000);
