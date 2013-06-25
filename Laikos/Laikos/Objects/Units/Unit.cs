@@ -49,7 +49,7 @@ namespace Laikos
         float rot_angle;
         Unit destinyUnit;
         Building destinyBuilding;
-
+        Vector2 dir;
         public bool dead = false;
 
         public Unit()
@@ -184,7 +184,8 @@ namespace Laikos
                                 setWalk();
                                 Laikos.PathFiding.Wspolrzedne wspBegin = new Laikos.PathFiding.Wspolrzedne((int)this.Position.X, (int)this.Position.Z);
                                 Laikos.PathFiding.Wspolrzedne wspEnd = new Laikos.PathFiding.Wspolrzedne((int)((Vector3)messages[i].Payload).X, (int)(((Vector3)messages[i].Payload).Z));
-                              //  dir = new Vector2(wspEnd.X - wspBegin.X, wspEnd.Z - wspBegin.Z);
+                                //dir = new Vector2(Position.X - PositionOld.X, Position.Z - PositionOld.Z);
+                              //  dir = new Vector2(wspEnd.X - wspBegin.X, wspEnd.Y - wspBegin.Y);
                                // Console.WriteLine("A: " + wspBegin.X + ", " + wspBegin.Y + ", " + Map.WalkMeshMap[wspBegin.X / Map.SKALA, wspBegin.Y / Map.SKALA]
                                   //  + " B: " + wspEnd.X + ", " + wspEnd.Y + ", " + Map.WalkMeshMap[wspEnd.X / Map.SKALA, wspEnd.Y / Map.SKALA]);
                                 this.destinyPoints = this.pathFiding.obliczSciezke(wspBegin, wspEnd);
@@ -875,14 +876,14 @@ namespace Laikos
 
         private void ChangeDirection()
         {
-            Vector2 dir = new Vector2(Position.X-PositionOld.X,Position.Z-PositionOld.Z);
+            dir = new Vector2(Position.X-PositionOld.X,Position.Z-PositionOld.Z);
 
-            rot_angle = (float)(Math.Atan2(0, 10) * 180 / Math.PI)+90.0f;
+            rot_angle = (float)(Math.Atan2(-dir.Y, dir.X) * 180 / Math.PI)+90.0f;
             Console.WriteLine(rot_angle);
 
 
 
-            //Rotation.Y = MathHelper.ToRadians(rot_angle);
+            Rotation.Y = MathHelper.ToRadians(rot_angle);
 
            /* if(  (Math.Round(Position.X) > Math.Round(PositionOld.X)) && //tylko w prawo
                  (Math.Round(Position.Z) == Math.Round(PositionOld.Z)) )  
